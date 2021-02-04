@@ -30,6 +30,8 @@ public class GameScreen implements Screen {
   Array<Rectangle> raindrops;
   long lastDropTime;
   int dropsGathered;
+  int screenWidth = 800;
+  int screenHeight = 480;
 
   public GameScreen(final Drop gam) {
     this.game = gam;
@@ -54,7 +56,7 @@ public class GameScreen implements Screen {
 
     // create the camera and the SpriteBatch
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, 800, 480);
+    camera.setToOrtho(false, screenWidth, screenHeight);
 
     // create a Rectangle to logically represent the bucket
     bucket = new Rectangle();
@@ -116,12 +118,20 @@ public class GameScreen implements Screen {
       bucket.x -= 200 * Gdx.graphics.getDeltaTime();
     if (Gdx.input.isKeyPressed(Keys.RIGHT))
       bucket.x += 200 * Gdx.graphics.getDeltaTime();
+    if (Gdx.input.isKeyPressed(Keys.UP))
+      bucket.y += 200 * Gdx.graphics.getDeltaTime();
+    if (Gdx.input.isKeyPressed(Keys.DOWN))
+      bucket.y -= 200 * Gdx.graphics.getDeltaTime();
 
     // make sure the bucket stays within the screen bounds
     if (bucket.x < 0)
       bucket.x = 0;
-    if (bucket.x > 800 - 64)
-      bucket.x = 800 - 64;
+    if (bucket.x > screenWidth - 64)
+      bucket.x = screenWidth - 64;
+    if (bucket.y < 0)
+      bucket.y = 0;
+    if (bucket.y > screenHeight - 64)
+      bucket.y = screenHeight - 64;
 
     // check if we need to create a new raindrop
     if (Gdx.input.isKeyPressed(Keys.SPACE)) {
