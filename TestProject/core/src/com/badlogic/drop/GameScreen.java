@@ -8,6 +8,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -34,7 +35,16 @@ public class GameScreen implements Screen {
     this.game = gam;
 
     // load the images for the droplet and the bucket, 64x64 pixels each
-    dropImage = new Texture(Gdx.files.internal("droplet.png"));
+    // dropImage = new Texture(Gdx.files.internal("droplet.png"));
+    Pixmap originalDropImage = new Pixmap(Gdx.files.internal("droplet.png"));
+    Pixmap smallDropImage = new Pixmap(12, 32, originalDropImage.getFormat());
+    smallDropImage.drawPixmap(originalDropImage,
+            0, 0, originalDropImage.getWidth(), originalDropImage.getHeight(),
+            0, 0, smallDropImage.getWidth(), smallDropImage.getHeight());
+    dropImage = new Texture(smallDropImage);
+    originalDropImage.dispose();
+    smallDropImage.dispose();
+
     bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
     // load the drop sound effect and the rain background "music"
@@ -60,8 +70,8 @@ public class GameScreen implements Screen {
 
   private void spawnRaindrop() {
     Rectangle raindrop = new Rectangle();
-    raindrop.x = bucket.x;
-    raindrop.y = bucket.y;
+    raindrop.x = bucket.x + 30;
+    raindrop.y = bucket.y + 45;
     raindrop.width = 64;
     raindrop.height = 64;
     if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
@@ -124,7 +134,7 @@ public class GameScreen implements Screen {
     Iterator<Rectangle> iter = raindrops.iterator();
     while (iter.hasNext()) {
       Rectangle raindrop = iter.next();
-      raindrop.y += 200 * Gdx.graphics.getDeltaTime();
+      raindrop.y += 400 * Gdx.graphics.getDeltaTime();
       if (raindrop.y + 64 < 0) {
         iter.remove();
       }
