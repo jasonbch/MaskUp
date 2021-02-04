@@ -56,18 +56,18 @@ public class GameScreen implements Screen {
 
     // create the raindrops array and spawn the first raindrop
     raindrops = new Array<Rectangle>();
-    spawnRaindrop();
-
   }
 
   private void spawnRaindrop() {
     Rectangle raindrop = new Rectangle();
-    raindrop.x = MathUtils.random(0, 800 - 64);
-    raindrop.y = 480;
+    raindrop.x = bucket.x;
+    raindrop.y = bucket.y;
     raindrop.width = 64;
     raindrop.height = 64;
-    raindrops.add(raindrop);
-    lastDropTime = TimeUtils.nanoTime();
+    if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
+      raindrops.add(raindrop);
+      lastDropTime = TimeUtils.nanoTime();
+    }
   }
 
   @Override
@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
     // arguments to clear are the red, green
     // blue and alpha component in the range [0,1]
     // of the color to be used to clear the screen.
-    ScreenUtils.clear(0, 0, 0.2f, 1);
+    ScreenUtils.clear(255, 255, 255, 0);
 
     // tell the camera to update its matrices.
     camera.update();
@@ -114,8 +114,9 @@ public class GameScreen implements Screen {
       bucket.x = 800 - 64;
 
     // check if we need to create a new raindrop
-    if (TimeUtils.nanoTime() - lastDropTime > 1000000000)
+    if (Gdx.input.isKeyPressed(Keys.SPACE)) {
       spawnRaindrop();
+    }
 
     // move the raindrops, remove any that are beneath the bottom edge of
     // the screen or that hit the bucket. In the later case we play back
@@ -123,12 +124,8 @@ public class GameScreen implements Screen {
     Iterator<Rectangle> iter = raindrops.iterator();
     while (iter.hasNext()) {
       Rectangle raindrop = iter.next();
-      raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-      if (raindrop.y + 64 < 0)
-        iter.remove();
-      if (raindrop.overlaps(bucket)) {
-        dropsGathered++;
-        dropSound.play();
+      raindrop.y += 200 * Gdx.graphics.getDeltaTime();
+      if (raindrop.y + 64 < 0) {
         iter.remove();
       }
     }
