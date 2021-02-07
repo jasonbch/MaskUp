@@ -130,8 +130,8 @@ public class GameScreen implements Screen {
       bucket.x = screenWidth - 64;
     if (bucket.y < 0)
       bucket.y = 0;
-    if (bucket.y > screenHeight - 64)
-      bucket.y = screenHeight - 64;
+    if (bucket.y > screenHeight - 420)
+      bucket.y = screenHeight - 420;
 
     // check if we need to create a new raindrop
     if (Gdx.input.isKeyPressed(Keys.SPACE)) {
@@ -180,6 +180,10 @@ public class GameScreen implements Screen {
     bucketImage.dispose();
     dropSound.dispose();
     rainMusic.dispose();
+  }
+
+  public void moveLeft(){
+
   }
 
 }
