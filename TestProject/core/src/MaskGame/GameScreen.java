@@ -2,7 +2,7 @@ package MaskGame;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
-import Enemy.Bat;
+
 import Enemy.EnemyFactory;
 import Enemy.MurderHornet;
 import Entity.Player;
@@ -39,11 +39,11 @@ public class GameScreen implements Screen {
     //Game Objects
     private Entity player;
     private Entity bee;
-    private Entity bat;
-    private Entity covid;
+
     private EnemyFactory enemyFactory = new EnemyFactory();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
+
 
 
 
@@ -54,10 +54,11 @@ public class GameScreen implements Screen {
         backgroundOffset = 0;
 
         //set up game objects
-        player = new Player(WORLD_WIDTH/2 - 5, WORLD_HEIGHT/4);
-        bee = enemyFactory.create("MuderHornet",(WORLD_WIDTH/2)-5, WORLD_HEIGHT*3/4);
-        bat = enemyFactory.create("Bat",(WORLD_WIDTH/2) - 10, WORLD_HEIGHT*3/5);
-        covid = enemyFactory.create("Covid", (WORLD_WIDTH/2) - 8, WORLD_HEIGHT*3/6);
+//        bat = enemyFactory.create("Bat",(WORLD_WIDTH/2) - 10, WORLD_HEIGHT*3/5);
+//        covid = enemyFactory.create("Covid", (WORLD_WIDTH/2) - 8, WORLD_HEIGHT*3/6);
+
+        player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
+        bee = enemyFactory.create("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
 
         playerAmmoList = new LinkedList<>();
         enemyAmmoList = new LinkedList<>();
@@ -71,7 +72,7 @@ public class GameScreen implements Screen {
         batch.begin();
         player.update(deltaTime);
         bee.update(deltaTime);
-        covid.update(deltaTime);
+
         //scrolling background
 
         backgroundOffset++;
@@ -84,90 +85,22 @@ public class GameScreen implements Screen {
 
         //enemy
         bee.draw(batch);
-        bat.draw(batch);
-        covid.draw(batch);
+//        bat.draw(batch);
+//        covid.draw(batch);
 
         //player
         player.draw(batch);
 
 
-        //player lasers
+        //bullets
+        //create new lasers
+        //bee
         if(bee.canFire())
         {
+            System.out.println("bee can fire");
             Ammo ammo = bee.fire("Stinger");
             enemyAmmoList.add(ammo);
-        }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
-        {
-            //bullets
-            //create new lasers
-            //player lasers
-            if(player.canFire())
-            {
-                Ammo ammo = player.fire("Syrenge");
-                playerAmmoList.add(ammo);
-            }
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP))
-        {
-            player.yPos += player.getSpeed() * deltaTime;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-        {
-            player.xPos += player.getSpeed() * deltaTime;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-        {
-            player.xPos += -(player.getSpeed()) * deltaTime;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-        {
-            player.yPos += -(player.getSpeed()) * deltaTime;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
-        {
-            //bullets
-            //create new lasers
-            //player lasers
-            if(player.canFire())
-            {
-                Ammo ammo = player.fire("Bullet");
-                playerAmmoList.add(ammo);
-            }
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP))
-        {
-            player.yPos += player.getSpeed() * deltaTime;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-        {
-            player.xPos += player.getSpeed() * deltaTime;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-        {
-            player.xPos += -(player.getSpeed()) * deltaTime;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-        {
-            player.yPos += -(player.getSpeed()) * deltaTime;
-        }
-
-        if(player.xPos < 0)
-        {
-            player.xPos = 0;
-        }
-        if(player.xPos > WORLD_WIDTH - 10)
-        {
-            player.xPos = WORLD_WIDTH - 10;
-        }
-        if(player.yPos > WORLD_HEIGHT - 10)
-        {
-            player.yPos = WORLD_HEIGHT - 10;
-        }
-        if(player.yPos < 0)
-        {
-            player.yPos = 0;
         }
 
         //draw lasers
@@ -176,6 +109,8 @@ public class GameScreen implements Screen {
         ListIterator<Ammo> iterator = playerAmmoList.listIterator();
         while(iterator.hasNext())
         {
+            System.out.println ("player shooting");
+
             Ammo ammo = iterator.next();
             ammo.draw(batch);
             ammo.yPos += ammo.getSpeed()*deltaTime;
@@ -185,19 +120,48 @@ public class GameScreen implements Screen {
             }
         }
 
-        iterator = enemyAmmoList.listIterator();
-        while(iterator.hasNext())
+        ListIterator<Ammo> iter = enemyAmmoList.listIterator();
+        while(iter.hasNext())
         {
-            Ammo ammo = iterator.next();
+            Ammo ammo = iter.next();
             ammo.draw(batch);
             ammo.yPos -= ammo.getSpeed()*deltaTime;
             if(ammo.yPos < 0)
             {
-                iterator.remove();
+                iter.remove();
             }
         }
 
 
+        // Check player movement
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+            player.xPos -= player.getSpeed() * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            player.xPos += player.getSpeed() * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.UP))
+            player.yPos += player.getSpeed() * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+            player.yPos -= player.getSpeed() * Gdx.graphics.getDeltaTime();
+
+        // make sure the bucket stays within the screen bounds
+        if (player.xPos < 0)
+            player.xPos = 0;
+        if (player.xPos > WORLD_WIDTH - 10)
+            player.xPos = WORLD_WIDTH - 10;
+        if (player.yPos < 0)
+            player.yPos = 0;
+        if (player.yPos > WORLD_HEIGHT - 10)
+            player.yPos = WORLD_HEIGHT - 10;
+
+        // check player shooting input
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if(player.canFire())
+            {
+                Ammo ammo = player.fire("Bullet");
+                playerAmmoList.add(ammo);
+            }
+        }
 
         batch.end();
 
