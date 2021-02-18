@@ -24,6 +24,5 @@ public class MaskGame extends Game {
     public void create() {
         gameScreen = new GameScreen();
         setScreen(gameScreen);
-
     }
 }

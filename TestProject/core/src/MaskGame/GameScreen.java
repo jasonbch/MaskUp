@@ -19,6 +19,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+/**
+ * GameScreen class that implements from Screen that let the user play
+ * the game.
+ */
 public class GameScreen implements Screen {
     //screen stuff
     private Camera camera;
@@ -42,9 +46,6 @@ public class GameScreen implements Screen {
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
 
-
-
-
     public GameScreen(){
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
@@ -67,10 +68,11 @@ public class GameScreen implements Screen {
         batch.begin();
         player.update(deltaTime);
         bee.update(deltaTime);
+
         //scrolling background
         backgroundOffset++;
-        if(backgroundOffset%WORLD_HEIGHT == 0)
-        {
+
+        if(backgroundOffset%WORLD_HEIGHT == 0) {
             backgroundOffset = 0;
         }
         batch.draw(background, 0, -backgroundOffset, WORLD_WIDTH, WORLD_HEIGHT);
@@ -85,9 +87,7 @@ public class GameScreen implements Screen {
         //bullets
         //create new lasers
         //bee
-        if(bee.canFire())
-        {
-            System.out.println("bee can fire");
+        if(bee.canFire()) {
             Ammo ammo = bee.fire("Stinger");
             enemyAmmoList.add(ammo);
         }
@@ -96,27 +96,23 @@ public class GameScreen implements Screen {
 
         //remove old lasers
         ListIterator<Ammo> iterator = playerAmmoList.listIterator();
-        while(iterator.hasNext())
-        {
-            System.out.println ("player shooting");
-
+        while(iterator.hasNext()) {
             Ammo ammo = iterator.next();
             ammo.draw(batch);
             ammo.yPos += ammo.getSpeed()*deltaTime;
-            if(ammo.yPos > WORLD_HEIGHT)
-            {
+
+            if(ammo.yPos > WORLD_HEIGHT) {
                 iterator.remove();
             }
         }
 
         ListIterator<Ammo> iter = enemyAmmoList.listIterator();
-        while(iter.hasNext())
-        {
+        while(iter.hasNext()) {
             Ammo ammo = iter.next();
             ammo.draw(batch);
             ammo.yPos -= ammo.getSpeed()*deltaTime;
-            if(ammo.yPos < 0)
-            {
+
+            if(ammo.yPos < 0) {
                 iter.remove();
             }
         }
@@ -145,15 +141,13 @@ public class GameScreen implements Screen {
         // check player shooting input
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if(player.canFire())
-            {
+            if(player.canFire()) {
                 Ammo ammo = player.fire("Bullet");
                 playerAmmoList.add(ammo);
             }
         }
 
         batch.end();
-
     }
 
     @Override

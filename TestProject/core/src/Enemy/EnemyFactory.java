@@ -1,9 +1,18 @@
 package Enemy;
 
+/**
+ * The factory class to create different kind of enemies.
+ *
+ */
 public class EnemyFactory {
 
-    public Enemy create(String enemy, float xPos, float yPos)
-    {
+    /**
+     * Return the enemy from the given enemy's name at the given position.
+     *
+     * @param  xPos initial x position.
+     * @param  yPos initial y position.
+     */
+    public Enemy create(String enemy, float xPos, float yPos) {
         switch (enemy) {
             case "MurderHornet":
                 return new MurderHornet(xPos, yPos);
@@ -14,6 +23,7 @@ public class EnemyFactory {
             case "Covid":
                 return new Covid(xPos, yPos);
         }
+
         return null;
     }
 }
