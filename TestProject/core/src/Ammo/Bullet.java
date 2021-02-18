@@ -3,6 +3,7 @@ package Ammo;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Bullet extends Ammo{
+
     public Bullet(float xPos, float yPos) {
         super(xPos, yPos);
     }

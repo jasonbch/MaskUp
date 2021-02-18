@@ -2,19 +2,20 @@ package Ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class GreenCloud extends Ammo{
-    public GreenCloud(float xPos, float yPos) {
+public class Mask extends Ammo{
+
+    public Mask(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
     @Override
     public String getName() {
-        return "GreenCloud";
+        return "Mask";
     }
 
     @Override
     public String[] getAcceptableTargets() {
-        return new String[]{"Player"};
+        return new String[]{"Karen"};
     }
 
     @Override
@@ -24,6 +25,6 @@ public class GreenCloud extends Ammo{
 
     @Override
     public Texture getImage() {
-        return new Texture("GreenCloud.png");
+        return new Texture("Mask.png");
     }
 }

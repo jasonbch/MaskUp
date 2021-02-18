@@ -2,14 +2,15 @@ package Ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class GreenCloud extends Ammo{
-    public GreenCloud(float xPos, float yPos) {
+public class BabyCovid extends Ammo{
+
+    public BabyCovid(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
     @Override
     public String getName() {
-        return "GreenCloud";
+        return "BabyCovid";
     }
 
     @Override
@@ -24,6 +25,6 @@ public class GreenCloud extends Ammo{
 
     @Override
     public Texture getImage() {
-        return new Texture("GreenCloud.png");
+        return new Texture("BabyCovid.png");
     }
 }

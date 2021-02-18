@@ -1,16 +1,12 @@
 package Enemy;
 
-import Ammo.Ammo;
-import Ammo.AmmoFactory;
 import com.badlogic.gdx.graphics.Texture;
 
-public class Player extends Enemy{
+public class MurderHornet extends Enemy{
 
-    public Player(float xPos, float yPos) {
+    public MurderHornet(float xPos, float yPos) {
         super(xPos, yPos);
     }
-
-
 
     @Override
     public float getSpeed() {
@@ -19,22 +15,21 @@ public class Player extends Enemy{
 
     @Override
     public String bullet() {
-        return "Bullet";
+        return "Stinger";
     }
 
     @Override
     public float getTimeBetweenShots() {
-        return 0.5f;
+        return  0.5f;
     }
 
     @Override
     public String getName() {
-        return "Player";
+        return "MurderHornet";
     }
-
 
     @Override
     public Texture getImage() {
-        return new Texture("Player.png");
+        return new Texture("MurderHornet.png");
     }
 }

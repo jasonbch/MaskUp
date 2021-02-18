@@ -26,6 +26,6 @@ public class Stinger extends Ammo {
 
     @Override
     public Texture getImage() {
-        return null;
+        return new Texture("Stinger.png");
     }
 }

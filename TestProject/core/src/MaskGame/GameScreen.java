@@ -2,8 +2,8 @@ package MaskGame;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
-import Enemy.Enemy;
-import Enemy.Player;
+import Entity.Player;
+import Entity.Entity;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -32,8 +32,8 @@ public class GameScreen implements Screen {
     private final int WORLD_HEIGHT = 128;
 
     //Game Objects
-    private Enemy player;
-    private Enemy bee;
+    private Entity player;
+    private Entity bee;
     private AmmoFactory ammoFactory = new AmmoFactory();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
@@ -82,13 +82,13 @@ public class GameScreen implements Screen {
         //player lasers
         if(player.canFire())
         {
-            Ammo ammo = player.fire();
+            Ammo ammo = player.fire("Bullet");
             playerAmmoList.add(ammo);
         }
         //player lasers
         if(bee.canFire())
         {
-            Ammo ammo = player.fire();
+            Ammo ammo = player.fire("Bullet");
             playerAmmoList.add(ammo);
         }
 

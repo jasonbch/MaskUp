@@ -10,9 +10,18 @@ public class AmmoFactory {
                 return new Stinger(xPos, yPos);
             case "GreenCloud":
                 return new GreenCloud(xPos, yPos);
-            default:
+            case "BabyCovid":
+                return new BabyCovid(xPos, yPos);
+            case "Bullet":
                 return new Bullet(xPos, yPos);
+            case "CovidGerm":
+                return new CovidGerm(xPos, yPos);
+            case "Mask":
+                return new Mask(xPos, yPos);
+            case "Syrenge":
+                return new Syrenge(xPos, yPos);
         }
+        return null;
     }
 
 
