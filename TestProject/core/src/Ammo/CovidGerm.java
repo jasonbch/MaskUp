@@ -2,29 +2,54 @@ package Ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * CovidGerm class that extends Ammo.
+ */
 public class CovidGerm extends Ammo{
+    private final String name = "CovidGerm";
+    private final String[] acceptableTargets = {"Player"};
+    private final float speed = 0;
+    private final Texture texture = new Texture("CovidGerm.png");
 
+    /**
+     * Create a new instance of a CovidGerm at the xPos and yPos.
+     *
+     * @param  xPos initial x position.
+     * @param  yPos initial y position.
+     */
     public CovidGerm(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
+    /**
+     * Return the name.
+     */
     @Override
     public String getName() {
-        return "CovidGerm";
+        return this.name;
     }
 
+    /**
+     * Return the array of acceptable targets.
+     */
     @Override
     public String[] getAcceptableTargets() {
-        return new String[]{"Player"};
+        return this.acceptableTargets;
     }
 
+    /**
+     * Return the speed.
+     */
     @Override
     public float getSpeed() {
-        return 0;
+        return this.speed;
     }
 
+    /**
+     * Return the Texture image.
+     */
     @Override
     public Texture getImage() {
-        return new Texture("CovidGerm.png");
+        return this.texture;
     }
 }

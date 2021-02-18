@@ -1,36 +1,64 @@
 package Enemy;
 
-import Ammo.Ammo;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * The Karen class that extends from Enemy that can move and fire.
+ */
 public class Karen extends Enemy{
+    private final String name = "Karen";
+    private final float speed = 0;
+    private final String bullet = "GreenCloud";
+    private final float timeBetweenShot = 0.5f;
+    private final Texture texture = new Texture("Covid.png");
 
+    /**
+     * Create a new instance of a Karen at the xPos and yPos.
+     *
+     * @param  xPos initial x position.
+     * @param  yPos initial y position.
+     */
     public Karen(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
-    @Override
-    public float getSpeed() {
-        return 0;
-    }
-
-    @Override
-    public String bullet() {
-        return "GreenCloud";
-    }
-
-    @Override
-    public float getTimeBetweenShots() {
-        return  0.5f;
-    }
-
+    /**
+     * Return the name.
+     */
     @Override
     public String getName() {
-        return "Karen";
+        return this.name;
     }
 
+    /**
+     * Return the speed.
+     */
+    @Override
+    public float getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Return the bullet string that the enemy fires.
+     */
+    @Override
+    public String bullet() {
+        return this.bullet;
+    }
+
+    /**
+     * Return the time between shot.
+     */
+    @Override
+    public float getTimeBetweenShots() {
+        return this.timeBetweenShot;
+    }
+
+    /**
+     * Return the Texture image.
+     */
     @Override
     public Texture getImage() {
-        return new Texture("Covid.png");
+        return this.texture;
     }
 }
