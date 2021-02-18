@@ -2,6 +2,8 @@ package MaskGame;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
+import Enemy.EnemyFactory;
+import Enemy.MurderHornet;
 import Entity.Player;
 import Entity.Entity;
 import com.badlogic.gdx.Screen;
@@ -34,7 +36,7 @@ public class GameScreen implements Screen {
     //Game Objects
     private Entity player;
     private Entity bee;
-    private AmmoFactory ammoFactory = new AmmoFactory();
+    private EnemyFactory enemyFactory = new EnemyFactory();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
 
@@ -48,7 +50,7 @@ public class GameScreen implements Screen {
 
         //set up game objects
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
-        bee = new Player((WORLD_WIDTH/2)-10, WORLD_HEIGHT*3/4);
+        bee = enemyFactory.create("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
 
         playerAmmoList = new LinkedList<>();
         enemyAmmoList = new LinkedList<>();
