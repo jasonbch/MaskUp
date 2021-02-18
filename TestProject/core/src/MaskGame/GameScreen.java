@@ -2,8 +2,11 @@ package MaskGame;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
+import Enemy.MurderHornet;
 import Entity.Player;
 import Entity.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -40,6 +43,7 @@ public class GameScreen implements Screen {
 
 
 
+
     public GameScreen(){
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
@@ -48,7 +52,7 @@ public class GameScreen implements Screen {
 
         //set up game objects
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
-        bee = new Player((WORLD_WIDTH/2)-10, WORLD_HEIGHT*3/4);
+        bee = new MurderHornet((WORLD_WIDTH/2), WORLD_HEIGHT*3/4);
 
         playerAmmoList = new LinkedList<>();
         enemyAmmoList = new LinkedList<>();
@@ -61,7 +65,7 @@ public class GameScreen implements Screen {
     public void render(float deltaTime) {
         batch.begin();
         player.update(deltaTime);
-        //bee.update(deltaTime);
+        bee.update(deltaTime);
         //scrolling background
         backgroundOffset++;
         if(backgroundOffset%WORLD_HEIGHT == 0)
@@ -79,17 +83,12 @@ public class GameScreen implements Screen {
 
         //bullets
         //create new lasers
-        //player lasers
-        if(player.canFire())
-        {
-            Ammo ammo = player.fire("Bullet");
-            playerAmmoList.add(ammo);
-        }
-        //player lasers
+        //bee
         if(bee.canFire())
         {
-            Ammo ammo = player.fire("Bullet");
-            playerAmmoList.add(ammo);
+            System.out.println("bee can fire");
+            Ammo ammo = bee.fire("Stinger");
+            enemyAmmoList.add(ammo);
         }
 
         //draw lasers
@@ -98,6 +97,8 @@ public class GameScreen implements Screen {
         ListIterator<Ammo> iterator = playerAmmoList.listIterator();
         while(iterator.hasNext())
         {
+            System.out.println ("player shooting");
+
             Ammo ammo = iterator.next();
             ammo.draw(batch);
             ammo.yPos += ammo.getSpeed()*deltaTime;
@@ -107,19 +108,48 @@ public class GameScreen implements Screen {
             }
         }
 
-        iterator = enemyAmmoList.listIterator();
-        while(iterator.hasNext())
+        ListIterator<Ammo> iter = enemyAmmoList.listIterator();
+        while(iter.hasNext())
         {
-            Ammo ammo = iterator.next();
+            Ammo ammo = iter.next();
             ammo.draw(batch);
             ammo.yPos -= ammo.getSpeed()*deltaTime;
             if(ammo.yPos < 0)
             {
-                iterator.remove();
+                iter.remove();
             }
         }
 
 
+        // Check player movement
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+            player.xPos -= player.getSpeed() * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            player.xPos += player.getSpeed() * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.UP))
+            player.yPos += player.getSpeed() * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+            player.yPos -= player.getSpeed() * Gdx.graphics.getDeltaTime();
+
+        // make sure the bucket stays within the screen bounds
+        if (player.xPos < 0)
+            player.xPos = 0;
+        if (player.xPos > WORLD_WIDTH - 10)
+            player.xPos = WORLD_WIDTH - 10;
+        if (player.yPos < 0)
+            player.yPos = 0;
+        if (player.yPos > WORLD_HEIGHT - 10)
+            player.yPos = WORLD_HEIGHT - 10;
+
+        // check player shooting input
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if(player.canFire())
+            {
+                Ammo ammo = player.fire("Bullet");
+                playerAmmoList.add(ammo);
+            }
+        }
 
         batch.end();
 

@@ -34,10 +34,31 @@ public abstract class Ammo {
         return false;
     }
 
+    public boolean isEnemyBullet()
+    {
+        boolean retval = true;
+        String currentBullet = this.getName();
+
+        if(currentBullet == "Mask" || currentBullet == "Syrenge" ||
+                currentBullet == "Bullet" )
+        {
+            retval = false;
+        }
+        return retval;
+    }
+
+
     public void draw(Batch batch)
     {
-        batch.draw(getImage(), xPos+3, yPos+10, 2, 2);
+        int yOffset = 10;
+        if(isEnemyBullet())
+        {
+            yOffset = 0;
+        }
+
+        batch.draw(getImage(), xPos + 4, yPos + yOffset, 2, 2);
     }
+
 
 
 }

@@ -20,7 +20,7 @@ public class MurderHornet extends Enemy{
 
     @Override
     public float getTimeBetweenShots() {
-        return  0.5f;
+        return  0.25f;
     }
 
     @Override

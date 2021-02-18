@@ -12,13 +12,13 @@ public class Player extends Entity {
 
     @Override
     public float getSpeed() {
-        return 2;
+        return 100;
     }
 
 
     @Override
     public float getTimeBetweenShots() {
-        return 0.5f;
+        return 0.25f;
     }
 
     @Override

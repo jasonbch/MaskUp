@@ -29,7 +29,7 @@ public class Covid extends Enemy{
 
     @Override
     public Texture getImage() {
-        return new Texture("BabyCovid.png");
+        return new Texture("BigCovid.png");
     }
 
 
