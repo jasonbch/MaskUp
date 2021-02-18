@@ -2,8 +2,7 @@ package Enemy;
 
 public class EnemyFactory {
 
-    public Enemy create(String enemy, float xPos, float yPos)
-    {
+    public Enemy create(String enemy, float xPos, float yPos) {
         switch (enemy) {
             case "MurderHornet":
                 return new MurderHornet(xPos, yPos);

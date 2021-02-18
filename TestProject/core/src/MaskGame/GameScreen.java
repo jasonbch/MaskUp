@@ -87,7 +87,6 @@ public class GameScreen implements Screen {
         //bee
         if(bee.canFire())
         {
-            System.out.println("bee can fire");
             Ammo ammo = bee.fire("Stinger");
             enemyAmmoList.add(ammo);
         }
@@ -98,8 +97,6 @@ public class GameScreen implements Screen {
         ListIterator<Ammo> iterator = playerAmmoList.listIterator();
         while(iterator.hasNext())
         {
-            System.out.println ("player shooting");
-
             Ammo ammo = iterator.next();
             ammo.draw(batch);
             ammo.yPos += ammo.getSpeed()*deltaTime;

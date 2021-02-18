@@ -15,7 +15,6 @@ public class Player extends Entity {
         return 100;
     }
 
-
     @Override
     public float getTimeBetweenShots() {
         return 0.25f;
@@ -32,8 +31,7 @@ public class Player extends Entity {
         return new Texture("Player.png");
     }
 
-    public Ammo fire(String bullet)
-    {
+    public Ammo fire(String bullet) {
         Ammo ammo = factory.create(bullet, xPos, yPos);
         timeSinceLastShot = 0;
         return  ammo;

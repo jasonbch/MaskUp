@@ -2,10 +2,8 @@ package Ammo;
 
 public class AmmoFactory {
 
-    public Ammo create(String Ammo, float xPos, float yPos)
-    {
-        switch(Ammo)
-        {
+    public Ammo create(String Ammo, float xPos, float yPos) {
+        switch(Ammo) {
             case "Stinger":
                 return new Stinger(xPos, yPos);
             case "GreenCloud":
@@ -23,6 +21,4 @@ public class AmmoFactory {
         }
         return null;
     }
-
-
 }
