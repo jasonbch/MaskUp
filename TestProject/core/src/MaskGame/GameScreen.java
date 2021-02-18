@@ -2,8 +2,13 @@ package MaskGame;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
+import Enemy.Bat;
+import Enemy.EnemyFactory;
+import Enemy.MurderHornet;
 import Entity.Player;
 import Entity.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,7 +39,9 @@ public class GameScreen implements Screen {
     //Game Objects
     private Entity player;
     private Entity bee;
-    private AmmoFactory ammoFactory = new AmmoFactory();
+    private Entity bat;
+    private Entity covid;
+    private EnemyFactory enemyFactory = new EnemyFactory();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
 
@@ -47,8 +54,10 @@ public class GameScreen implements Screen {
         backgroundOffset = 0;
 
         //set up game objects
-        player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
-        bee = new Player((WORLD_WIDTH/2)-10, WORLD_HEIGHT*3/4);
+        player = new Player(WORLD_WIDTH/2 - 5, WORLD_HEIGHT/4);
+        bee = enemyFactory.create("MuderHornet",(WORLD_WIDTH/2)-5, WORLD_HEIGHT*3/4);
+        bat = enemyFactory.create("Bat",(WORLD_WIDTH/2) - 10, WORLD_HEIGHT*3/5);
+        covid = enemyFactory.create("Covid", (WORLD_WIDTH/2) - 8, WORLD_HEIGHT*3/6);
 
         playerAmmoList = new LinkedList<>();
         enemyAmmoList = new LinkedList<>();
@@ -61,8 +70,10 @@ public class GameScreen implements Screen {
     public void render(float deltaTime) {
         batch.begin();
         player.update(deltaTime);
-        //bee.update(deltaTime);
+        bee.update(deltaTime);
+        covid.update(deltaTime);
         //scrolling background
+
         backgroundOffset++;
         if(backgroundOffset%WORLD_HEIGHT == 0)
         {
@@ -73,23 +84,90 @@ public class GameScreen implements Screen {
 
         //enemy
         bee.draw(batch);
+        bat.draw(batch);
+        covid.draw(batch);
 
         //player
         player.draw(batch);
 
-        //bullets
-        //create new lasers
-        //player lasers
-        if(player.canFire())
-        {
-            Ammo ammo = player.fire("Bullet");
-            playerAmmoList.add(ammo);
-        }
+
         //player lasers
         if(bee.canFire())
         {
-            Ammo ammo = player.fire("Bullet");
-            playerAmmoList.add(ammo);
+            Ammo ammo = bee.fire("Stinger");
+            enemyAmmoList.add(ammo);
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+        {
+            //bullets
+            //create new lasers
+            //player lasers
+            if(player.canFire())
+            {
+                Ammo ammo = player.fire("Syrenge");
+                playerAmmoList.add(ammo);
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP))
+        {
+            player.yPos += player.getSpeed() * deltaTime;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+        {
+            player.xPos += player.getSpeed() * deltaTime;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+        {
+            player.xPos += -(player.getSpeed()) * deltaTime;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+        {
+            player.yPos += -(player.getSpeed()) * deltaTime;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+        {
+            //bullets
+            //create new lasers
+            //player lasers
+            if(player.canFire())
+            {
+                Ammo ammo = player.fire("Bullet");
+                playerAmmoList.add(ammo);
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP))
+        {
+            player.yPos += player.getSpeed() * deltaTime;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+        {
+            player.xPos += player.getSpeed() * deltaTime;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+        {
+            player.xPos += -(player.getSpeed()) * deltaTime;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+        {
+            player.yPos += -(player.getSpeed()) * deltaTime;
+        }
+
+        if(player.xPos < 0)
+        {
+            player.xPos = 0;
+        }
+        if(player.xPos > WORLD_WIDTH - 10)
+        {
+            player.xPos = WORLD_WIDTH - 10;
+        }
+        if(player.yPos > WORLD_HEIGHT - 10)
+        {
+            player.yPos = WORLD_HEIGHT - 10;
+        }
+        if(player.yPos < 0)
+        {
+            player.yPos = 0;
         }
 
         //draw lasers

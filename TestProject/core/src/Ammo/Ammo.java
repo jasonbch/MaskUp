@@ -36,7 +36,7 @@ public abstract class Ammo {
 
     public void draw(Batch batch)
     {
-        batch.draw(getImage(), xPos+3, yPos+10, 2, 2);
+        batch.draw(getImage(), xPos+4, yPos+10, 2, 2);
     }
 
 

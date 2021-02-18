@@ -20,7 +20,7 @@ public class Syrenge extends Ammo{
 
     @Override
     public float getSpeed() {
-        return 0;
+        return 45;
     }
 
     @Override
