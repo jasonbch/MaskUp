@@ -3,21 +3,21 @@ package Ammo;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * BabyCovid class that extends Ammo.
+ * Syringe class that extends Ammo.
  */
-public class BabyCovid extends Ammo {
-    private final String name = "BabyCovid";
-    private final String[] acceptableTargets = {"Player"};
+public class Syringe extends Ammo{
+    private final String name = "Syringe";
+    private final String[] acceptableTargets = {"Covid"};
     private final float speed = 0;
-    private final Texture texture = new Texture("BabyCovid.png");
+    private final Texture texture = new Texture("Syringe.png");
 
     /**
-     * Create a new instance of a BabyCovid at the xPos and yPos.
+     * Create a new instance of a Syringe at the xPos and yPos.
      *
      * @param  xPos initial x position.
      * @param  yPos initial y position.
      */
-    public BabyCovid(float xPos, float yPos) {
+    public Syringe(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
