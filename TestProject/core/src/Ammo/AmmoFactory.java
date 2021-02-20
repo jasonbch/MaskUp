@@ -1,11 +1,20 @@
 package Ammo;
 
+/**
+ * The factory class to create different kind of ammo.
+ *
+ */
 public class AmmoFactory {
 
-    public Ammo create(String Ammo, float xPos, float yPos)
-    {
-        switch(Ammo)
-        {
+    /**
+     * The factory class to create different kind of ammo.
+     *
+     * @param  Ammo the name of the ammo.
+     * @param  xPos initial x position.
+     * @param  yPos initial y position.
+     */
+    public Ammo create(String Ammo, float xPos, float yPos) {
+        switch(Ammo) {
             case "Stinger":
                 return new Stinger(xPos, yPos);
             case "GreenCloud":
@@ -18,11 +27,9 @@ public class AmmoFactory {
                 return new CovidGerm(xPos, yPos);
             case "Mask":
                 return new Mask(xPos, yPos);
-            case "Syrenge":
-                return new Syrenge(xPos, yPos);
+            case "Syringe":
+                return new Syringe(xPos, yPos);
         }
         return null;
     }
-
-
 }

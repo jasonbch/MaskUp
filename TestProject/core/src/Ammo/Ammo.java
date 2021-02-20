@@ -4,68 +4,92 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * Abstract class for the Ammo that can be shoot from the player
+ * or the enemies.
+ */
 public abstract class Ammo {
-    public abstract String getName();
-    public abstract String[] getAcceptableTargets();
+    protected final String name = "Ammo";
+    protected final String[] acceptableTargets = {};
+    protected final float speed = 0;
+    protected final Texture texture = new Texture("Bullet.png");
 
-    //physical characterstics
-    public abstract float getSpeed();
 
-    //position and dimension
-    public float xPos;
-    public float yPos;
-    public float width = 2;
-    public float height = 2;
+    public float xPos;  // Initial x position
+    public float yPos;  // Initial y position
 
+
+    /**
+     * Create a new instance of a Ammo at the xPos and yPos.
+     *
+     * @param  xPos initial x position.
+     * @param  yPos initial y position.
+     */
     public Ammo(float xPos, float yPos ) {
         this.xPos = xPos;
         this.yPos = yPos;
     }
 
-    //graphics
+    /**
+     * Return the name.
+     */
+    public abstract String getName();
+
+    /**
+     * Return the array of acceptable targets.
+     */
+    public abstract String[] getAcceptableTargets();
+
+    /**
+     * Return the speed.
+     */
+    public abstract float getSpeed();
+
+    /**
+     * Return the Texture image.
+     */
     public abstract Texture getImage();
 
-    public Boolean isAcceptableTarget(String name)
-    {
-        for (String target: getAcceptableTargets())
-        {
-            if(target.equals(name))
-            {
+    /**
+     * Return True if the given name is an acceptable target, otherwise False.
+     */
+    public Boolean isAcceptableTarget(String name) {
+        for (String target: getAcceptableTargets()) {
+            if(target.equals(name)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isEnemyBullet()
-    {
-        boolean retval = true;
+    /**
+     * Return True if the bullet is enemy's bullet, otherwise False.
+     */
+    public boolean isEnemyBullet() {
+        boolean returnValue = true;
         String currentBullet = this.getName();
 
-        if(currentBullet == "Mask" || currentBullet == "Syrenge" ||
-                currentBullet == "Bullet" )
-        {
-            retval = false;
+        if(currentBullet == "Mask" ||
+                currentBullet == "Syrenge" ||
+                currentBullet == "Bullet" ) {
+            returnValue = false;
         }
-        return retval;
+
+        return returnValue;
     }
 
-    public Rectangle boundingBox()
-    {
-        return new Rectangle(xPos,yPos,width,height);
-    }
-
-    public void draw(Batch batch)
-    {
+    /**
+     * Draw the object.
+     *
+     * @param batch the current batch.
+     */
+    public void draw(Batch batch) {
         int yOffset = 10;
-        if(isEnemyBullet())
-        {
+
+        if(isEnemyBullet()) {
             yOffset = 0;
         }
 
-        batch.draw(getImage(), xPos + 4, yPos + yOffset, width, height);
+        batch.draw(getImage(), xPos + 4, yPos + yOffset, 4,4);
     }
-
-
-
 }

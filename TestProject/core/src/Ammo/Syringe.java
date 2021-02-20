@@ -3,21 +3,21 @@ package Ammo;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * CovidGerm class that extends Ammo.
+ * Syringe class that extends Ammo.
  */
-public class CovidGerm extends Ammo{
-    private final String name = "CovidGerm";
-    private final String[] acceptableTargets = {"Player"};
+public class Syringe extends Ammo{
+    private final String name = "Syringe";
+    private final String[] acceptableTargets = {"Covid"};
     private final float speed = 0;
-    private final Texture texture = new Texture("CovidGerm.png");
+    private final Texture texture = new Texture("Syringe.png");
 
     /**
-     * Create a new instance of a CovidGerm at the xPos and yPos.
+     * Create a new instance of a Syringe at the xPos and yPos.
      *
      * @param  xPos initial x position.
      * @param  yPos initial y position.
      */
-    public CovidGerm(float xPos, float yPos) {
+    public Syringe(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
@@ -44,7 +44,6 @@ public class CovidGerm extends Ammo{
     public float getSpeed() {
         return this.speed;
     }
-
 
     /**
      * Return the Texture image.

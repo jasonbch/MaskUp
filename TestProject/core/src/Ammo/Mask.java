@@ -2,29 +2,54 @@ package Ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Mask class that extends Ammo.
+ */
 public class Mask extends Ammo{
+    private final String name = "Mask";
+    private final String[] acceptableTargets = {"Karen"};
+    private final float speed = 0;
+    private final Texture texture = new Texture("Mask.png");
 
+    /**
+     * Create a new instance of a Mask at the xPos and yPos.
+     *
+     * @param  xPos initial x position.
+     * @param  yPos initial y position.
+     */
     public Mask(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
+    /**
+     * Return the name.
+     */
     @Override
     public String getName() {
-        return "Mask";
+        return this.name;
     }
 
+    /**
+     * Return the array of acceptable targets.
+     */
     @Override
     public String[] getAcceptableTargets() {
-        return new String[]{"Karen"};
+        return this.acceptableTargets;
     }
 
+    /**
+     * Return the speed.
+     */
     @Override
     public float getSpeed() {
-        return 45;
+        return this.speed;
     }
 
+    /**
+     * Return the Texture image.
+     */
     @Override
     public Texture getImage() {
-        return new Texture("Mask.png");
+        return this.texture;
     }
 }

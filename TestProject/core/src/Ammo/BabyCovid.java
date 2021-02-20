@@ -2,29 +2,55 @@ package Ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class BabyCovid extends Ammo{
+/**
+ * BabyCovid class that extends Ammo.
+ */
+public class BabyCovid extends Ammo {
+    private final String name = "BabyCovid";
+    private final String[] acceptableTargets = {"Player"};
+    private final float speed = 0;
+    private final Texture texture = new Texture("BabyCovid.png");
 
+    /**
+     * Create a new instance of a BabyCovid at the xPos and yPos.
+     *
+     * @param  xPos initial x position.
+     * @param  yPos initial y position.
+     */
     public BabyCovid(float xPos, float yPos) {
         super(xPos, yPos);
     }
 
+    /**
+     * Return the name.
+     */
     @Override
     public String getName() {
-        return "BabyCovid";
+        return this.name;
     }
 
+    /**
+     * Return the array of acceptable targets.
+     */
     @Override
     public String[] getAcceptableTargets() {
-        return new String[]{"Player"};
+        return this.acceptableTargets;
     }
 
+    /**
+     * Return the speed.
+     */
     @Override
     public float getSpeed() {
-        return 45;
+
+        return this.speed;
     }
 
+    /**
+     * Return the Texture image.
+     */
     @Override
     public Texture getImage() {
-        return new Texture("BabyCovid.png");
+        return this.texture;
     }
 }
