@@ -2,6 +2,7 @@ package Ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Ammo {
     public abstract String getName();
@@ -13,6 +14,8 @@ public abstract class Ammo {
     //position and dimension
     public float xPos;
     public float yPos;
+    public float width = 2;
+    public float height = 2;
 
     public Ammo(float xPos, float yPos ) {
         this.xPos = xPos;
@@ -47,6 +50,10 @@ public abstract class Ammo {
         return retval;
     }
 
+    public Rectangle boundingBox()
+    {
+        return new Rectangle(xPos,yPos,width,height);
+    }
 
     public void draw(Batch batch)
     {
@@ -56,7 +63,7 @@ public abstract class Ammo {
             yOffset = 0;
         }
 
-        batch.draw(getImage(), xPos + 4, yPos + yOffset, 2, 2);
+        batch.draw(getImage(), xPos + 4, yPos + yOffset, width, height);
     }
 
 

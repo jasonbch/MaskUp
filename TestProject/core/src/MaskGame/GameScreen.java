@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -33,16 +34,20 @@ public class GameScreen implements Screen {
     private int backgroundOffset;
 
     //world parameters
-    private final int WORLD_WIDTH = 72;
-    private final int WORLD_HEIGHT = 128;
+    private final int WORLD_WIDTH = 576;
+    private final int WORLD_HEIGHT = 1024;
 
     //Game Objects
     private Entity player;
     private Entity bee;
+    private Entity bat;
+    private Entity covid;
 
     private EnemyFactory enemyFactory = new EnemyFactory();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
+    private long elapsedTime;
+    private long starttime;
 
 
 
@@ -53,12 +58,11 @@ public class GameScreen implements Screen {
         background = new Texture("bluebackground.png");
         backgroundOffset = 0;
 
-        //set up game objects
-//        bat = enemyFactory.create("Bat",(WORLD_WIDTH/2) - 10, WORLD_HEIGHT*3/5);
-//        covid = enemyFactory.create("Covid", (WORLD_WIDTH/2) - 8, WORLD_HEIGHT*3/6);
 
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
         bee = enemyFactory.create("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
+        bat = enemyFactory.create("Bat", WORLD_WIDTH/2 - 10, WORLD_HEIGHT*3/5);
+        covid = enemyFactory.create("Covid", WORLD_WIDTH/2 - 30, WORLD_HEIGHT*3/6);
 
         playerAmmoList = new LinkedList<>();
         enemyAmmoList = new LinkedList<>();
@@ -72,6 +76,8 @@ public class GameScreen implements Screen {
         batch.begin();
         player.update(deltaTime);
         bee.update(deltaTime);
+        bat.update(deltaTime);
+        covid.update(deltaTime);
 
         //scrolling background
 
@@ -85,8 +91,8 @@ public class GameScreen implements Screen {
 
         //enemy
         bee.draw(batch);
-//        bat.draw(batch);
-//        covid.draw(batch);
+        bat.draw(batch);
+        covid.draw(batch);
 
         //player
         player.draw(batch);
@@ -97,10 +103,20 @@ public class GameScreen implements Screen {
         //bee
         if(bee.canFire())
         {
-            System.out.println("bee can fire");
+            //System.out.println("bee can fire");
             Ammo ammo = bee.fire("Stinger");
             enemyAmmoList.add(ammo);
 
+        }
+        if(bat.canFire())
+        {
+            Ammo ammo = bat.fire("CovidGerm");
+            enemyAmmoList.add(ammo);
+        }
+        if(covid.canFire())
+        {
+            Ammo ammo = covid.fire("BabyCovid");
+            enemyAmmoList.add(ammo);
         }
 
         //draw lasers
@@ -109,7 +125,7 @@ public class GameScreen implements Screen {
         ListIterator<Ammo> iterator = playerAmmoList.listIterator();
         while(iterator.hasNext())
         {
-            System.out.println ("player shooting");
+            //System.out.println ("player shooting");
 
             Ammo ammo = iterator.next();
             ammo.draw(batch);
@@ -132,6 +148,8 @@ public class GameScreen implements Screen {
             }
         }
 
+        // checking if the bullets intersect
+        detectCollision();
 
         // Check player movement
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
@@ -164,6 +182,47 @@ public class GameScreen implements Screen {
         }
 
         batch.end();
+
+    }
+    public void detectCollision()
+    {
+        ListIterator<Ammo> iterator1 = playerAmmoList.listIterator();
+        while(iterator1.hasNext()) {
+            Ammo ammo = iterator1.next();
+            //System.out.println("checking if bee is hit");
+            if (bee.intersects(ammo.boundingBox())) {
+                //System.out.println("hit");
+                iterator1.remove();
+            }
+        }
+        iterator1 = enemyAmmoList.listIterator();
+        while(iterator1.hasNext()) {
+            Ammo ammo = iterator1.next();
+            //System.out.println("checking if bee is hit");
+            if (player.intersects(ammo.boundingBox())) {
+                //System.out.println("hit");
+                iterator1.remove();
+            }
+        }
+        iterator1 = playerAmmoList.listIterator();
+        while(iterator1.hasNext()) {
+            Ammo ammo = iterator1.next();
+            //System.out.println("checking if bee is hit");
+            if (bat.intersects(ammo.boundingBox())) {
+                //System.out.println("hit");
+                iterator1.remove();
+            }
+        }
+        iterator1 = playerAmmoList.listIterator();
+        while(iterator1.hasNext()) {
+            Ammo ammo = iterator1.next();
+            //System.out.println("checking if bee is hit");
+            if (covid.intersects(ammo.boundingBox())) {
+                iterator1.remove();
+            }
+        }
+
+
 
     }
 

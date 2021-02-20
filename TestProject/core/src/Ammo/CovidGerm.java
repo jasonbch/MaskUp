@@ -19,9 +19,7 @@ public class CovidGerm extends Ammo{
     }
 
     @Override
-    public float getSpeed() {
-        return 0;
-    }
+    public float getSpeed() { return 45; }
 
     @Override
     public Texture getImage() {
