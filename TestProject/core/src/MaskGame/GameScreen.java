@@ -146,10 +146,12 @@ public class GameScreen implements Screen {
             lastSpawnTime = elapsedTime;
         }
 
-//        if(elapsedTime % 20 == 0)
-//        {
-//            spawnMidboss();
-//        }
+        if(elapsedTime % 20 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 3)
+        {
+            System.out.println("spawning mid boss");
+            spawnMidboss();
+            lastMidBossTime = elapsedTime;
+        }
 
         if(elapsedTime % 40 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 3)
         {
@@ -248,14 +250,13 @@ public class GameScreen implements Screen {
         enemyList.add(enemyFactory.create("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT*3/5));
     }
 
-    private void spawnMidboss()
-    {
-        enemyList.add(enemyFactory.create("Karen", WORLD_WIDTH/2, WORLD_HEIGHT));
+    private void spawnMidboss() {
+        enemyList.add(enemyFactory.create("Karen", WORLD_WIDTH/2, WORLD_HEIGHT*3/4));
     }
 
     private void spawnFinalBoss()
     {
-        enemyList.add(enemyFactory.create("Covid", WORLD_WIDTH/2, WORLD_HEIGHT));
+        enemyList.add(enemyFactory.create("Covid", WORLD_WIDTH/2, WORLD_HEIGHT*3/4));
     }
 
     // TODO

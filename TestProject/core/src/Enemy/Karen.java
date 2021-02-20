@@ -11,6 +11,8 @@ public class Karen extends Enemy{
     private final String bullet = "GreenCloud";
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("Karen.png");
+    private int moveCounter = 0;
+    private boolean isDone = false;
 
     /**
      * Create a new instance of a Karen at the xPos and yPos.
@@ -44,18 +46,28 @@ public class Karen extends Enemy{
     @Override
     public void updateMovement(float deltaTime)
     {
-        if(this.xPos >= 72 || this.xPos <= 0)
+        if(isDone)
         {
-            xMultiplier *= -1;
+            this.exitScreen(deltaTime);
         }
+        else {
+            if (this.xPos >= 65 || this.xPos <= 0) {
+                xMultiplier *= -1;
+                moveCounter++;
+            }
 
-        if(this.yPos >= 128 || this.yPos <= 35)
-        {
-            yMultiplier *= -1;
+            if (this.yPos >= 120 || this.yPos <= 35) {
+                yMultiplier *= -1;
+                moveCounter++;
+            }
+
+            if(moveCounter == 15)
+            {
+                isDone = true;
+            }
+            this.xPos += (this.speed * xMultiplier) * deltaTime;
+            this.yPos += (this.speed * yMultiplier) * deltaTime;
         }
-
-        this.xPos += (this.speed * xMultiplier) * deltaTime;
-        this.yPos += (this.speed * yMultiplier) * deltaTime;
     }
 
     /**
