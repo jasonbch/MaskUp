@@ -30,10 +30,11 @@ public class GameScreen implements Screen {
 
     //graphic stuff
     private SpriteBatch batch;
-    private Texture background;
+    private Texture[] backgrounds;
 
     //timing stuff
-    private int backgroundOffset;
+    private float[] backgroundOffsets = {0,0,0,0};
+    private float maxScrollingSpeed;
 
     //world parameters
     private final int WORLD_WIDTH = 72;
@@ -49,8 +50,15 @@ public class GameScreen implements Screen {
     public GameScreen(){
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        background = new Texture("bluebackground.png");
-        backgroundOffset = 0;
+
+//        background = new Texture("bluebackground.png");
+//        backgroundOffset = 0;
+        backgrounds = new Texture[4];
+        backgrounds[0] = new Texture("BlueBackground.png");
+        backgrounds[1] = new Texture("Clouds1.png");
+        backgrounds[2] = new Texture("Clouds2.png");
+        backgrounds[3] = new Texture("Cloud4.png");
+        maxScrollingSpeed = (float)(WORLD_HEIGHT)/4;
 
         //set up game objects
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
@@ -70,13 +78,7 @@ public class GameScreen implements Screen {
         bee.update(deltaTime);
 
         //scrolling background
-        backgroundOffset++;
-
-        if(backgroundOffset%WORLD_HEIGHT == 0) {
-            backgroundOffset = 0;
-        }
-        batch.draw(background, 0, -backgroundOffset, WORLD_WIDTH, WORLD_HEIGHT);
-        batch.draw(background, 0, -backgroundOffset+WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+        renderBackground(deltaTime);
 
         //enemy
         bee.draw(batch);
@@ -149,6 +151,24 @@ public class GameScreen implements Screen {
 
         batch.end();
     }
+
+    private void renderBackground(float deltaTime)
+    {
+        backgroundOffsets[0] += deltaTime * maxScrollingSpeed/ 8;
+        backgroundOffsets[1] += deltaTime * maxScrollingSpeed/ 4;
+        backgroundOffsets[2] += deltaTime * maxScrollingSpeed/ 2;
+        backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
+
+        for(int layer = 0; layer < backgroundOffsets.length; layer ++) {
+            if (backgroundOffsets[layer] > WORLD_HEIGHT) {
+                backgroundOffsets[layer] = 0;
+            }
+            batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], WORLD_WIDTH, WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+        }
+
+    }
+
 
     @Override
     public void resize(int width, int height) {

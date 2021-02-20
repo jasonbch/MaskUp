@@ -10,7 +10,7 @@ public class Karen extends Enemy{
     private final float speed = 0;
     private final String bullet = "GreenCloud";
     private final float timeBetweenShot = 0.5f;
-    private final Texture texture = new Texture("Covid.png");
+    private final Texture texture = new Texture("Karen.png");
 
     /**
      * Create a new instance of a Karen at the xPos and yPos.
