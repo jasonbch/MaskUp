@@ -24,11 +24,11 @@ import java.util.ListIterator;
  * the game.
  */
 public class GameScreen implements Screen {
-    //screen stuff
+    // Screen
     private Camera camera;
     private Viewport viewport;
 
-    //graphic stuff
+    // Graphic
     private SpriteBatch batch;
     private Texture[] backgrounds;
 
@@ -36,18 +36,28 @@ public class GameScreen implements Screen {
     private float[] backgroundOffsets = {0,0,0,0};
     private float maxScrollingSpeed;
 
-    //world parameters
+
+
+    // World dimension
     private final int WORLD_WIDTH = 72;
     private final int WORLD_HEIGHT = 128;
 
-    //Game Objects
+    // Game Objects
     private Entity player;
     private Entity bee;
     private EnemyFactory enemyFactory = new EnemyFactory();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
 
+    // Slow mode
+    private boolean isSlowMode;
+    private float gameSpeed;    // Current game speed
+
+    /**
+     * Create a GameScreen that let the user play a game of bullet hell.
+     */
     public GameScreen(){
+        // Set up camera
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
@@ -60,9 +70,14 @@ public class GameScreen implements Screen {
         backgrounds[3] = new Texture("Cloud4.png");
         maxScrollingSpeed = (float)(WORLD_HEIGHT)/4;
 
-        //set up game objects
+        // Set up game objects
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
         bee = enemyFactory.create("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
+
+        // Set up mode
+        this.isSlowMode = false;
+        // Set current game speed to normal speed
+        this.gameSpeed = 1;
 
         playerAmmoList = new LinkedList<>();
         enemyAmmoList = new LinkedList<>();
@@ -73,6 +88,22 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float deltaTime) {
+        // If the L key is just press and it is not slow down mode
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L) && !isSlowMode) {
+            // Change the slow mode to true
+            isSlowMode = true;
+
+            // Change the game speed to slow speed
+            gameSpeed = 0.1f;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.L) && isSlowMode) {
+            // If the L key is just press and it is slow down mode
+            // Change slow mode to false
+            isSlowMode = false;
+            // Change the game speed to normal speed
+            gameSpeed = 1;
+        }
+        deltaTime *= gameSpeed;
+
         batch.begin();
         player.update(deltaTime);
         bee.update(deltaTime);
@@ -122,13 +153,13 @@ public class GameScreen implements Screen {
 
         // Check player movement
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            player.xPos -= player.getSpeed() * Gdx.graphics.getDeltaTime();
+            player.xPos -= player.getSpeed() * deltaTime;
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            player.xPos += player.getSpeed() * Gdx.graphics.getDeltaTime();
+            player.xPos += player.getSpeed() * deltaTime;
         if (Gdx.input.isKeyPressed(Input.Keys.UP))
-            player.yPos += player.getSpeed() * Gdx.graphics.getDeltaTime();
+            player.yPos += player.getSpeed() * deltaTime;
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-            player.yPos -= player.getSpeed() * Gdx.graphics.getDeltaTime();
+            player.yPos -= player.getSpeed() * deltaTime;
 
         // make sure the bucket stays within the screen bounds
         if (player.xPos < 0)
