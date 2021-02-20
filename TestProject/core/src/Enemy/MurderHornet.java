@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class MurderHornet extends Enemy{
     private final String name = "MurderHornet";
-    private final float speed = 2;
+    private final float speed = 70;
     private final String bullet = "Stinger";
-    private final float timeBetweenShot = 0.25f;
+    private final float timeBetweenShot = 0.45f;
     private final Texture texture = new Texture("MurderHornet.png");
+    private int moveCounter = 0;
+    private boolean isDone = false;
 
     /**
      * Create a new instance of a MurderHornet at the xPos and yPos.
@@ -39,12 +41,39 @@ public class MurderHornet extends Enemy{
     }
 
     /**
+     * Update the enemies position.
+     */
+    @Override
+    public void updateMovement(float deltaTime)
+    {
+
+        if(isDone) {
+            this.exitScreen(deltaTime);
+        }
+        else {
+            //move left and right across screen
+            if (this.xPos >= 65 || this.xPos <= 0) {
+                xMultiplier *= -1;
+                moveCounter++;
+            }
+
+            if (moveCounter == 5) {
+                isDone = true;
+            }
+            this.xPos += (this.speed * xMultiplier) * deltaTime;
+        }
+    }
+
+    /**
      * Return the bullet string that the enemy fires.
      */
     @Override
     public String bullet() {
         return this.bullet;
     }
+
+
+
 
     /**
      * Return the time between shot.

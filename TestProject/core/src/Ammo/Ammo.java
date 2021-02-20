@@ -90,6 +90,6 @@ public abstract class Ammo {
             yOffset = 0;
         }
 
-        batch.draw(getImage(), xPos + 4, yPos + yOffset, 4,4);
+        batch.draw(getImage(), xPos + 4, yPos + yOffset, 4, 4);
     }
 }

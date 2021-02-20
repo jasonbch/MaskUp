@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Covid extends Enemy {
     private final String name = "Covid";
-    private final float speed = 2;
+    private final float speed = 75;
     private final String bullet = "BabyCovid";
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("BigCovid.png");
+    private int moveCounter = 0;
+    private boolean isDone = false;
 
     /**
      * Create a new instance of a Covid at the xPos and yPos.
@@ -37,6 +39,30 @@ public class Covid extends Enemy {
     @Override
     public float getSpeed() {
         return this.speed;
+    }
+
+    /**
+     * Update the enemies position.
+     */
+    @Override
+    public void updateMovement(float deltaTime)
+    {
+        if(isDone)
+        {
+            this.exitScreen(deltaTime);
+        }
+        else {
+            // move up and down the screen
+            if (this.yPos >= 120 || this.yPos <= 5) {
+                yMultiplier *= -1;
+                moveCounter++;
+            }
+
+            if(moveCounter == 7) {
+                isDone = true;
+            }
+            this.yPos += (this.speed * yMultiplier) * deltaTime;
+        }
     }
 
     /**
