@@ -34,6 +34,8 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private Texture[] backgrounds;
 
+    long recentSpawnTime = 0;
+
     //timing stuff
 
     private float[] backgroundOffsets = {0,0,0,0};
@@ -77,6 +79,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
+
 //        background = new Texture("bluebackground.png");
 //        backgroundOffset = 0;
         backgrounds = new Texture[4];
@@ -113,7 +116,7 @@ public class GameScreen implements Screen {
 
         batch = new SpriteBatch();
     }
-
+    
     @Override
     public void render(float deltaTime) {
         // If the L key is just press and it is not slow down mode
