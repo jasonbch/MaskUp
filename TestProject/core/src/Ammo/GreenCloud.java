@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class GreenCloud extends Ammo{
     private final String name = "GreenCloud";
     private final String[] acceptableTargets = {"Player"};
-    private final float speed = 0;
+    private final float speed = 45;
     private final Texture texture = new Texture("GreenCloud.png");
 
     /**

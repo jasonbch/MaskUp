@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Bullet extends Ammo{
     private final String name = "Bullet";
     private final String[] acceptableTargets = {"Bat", "Hornet"};
-    private final float speed = 45;
+    private final float speed = 70;
     private final Texture texture = new Texture("Bullet.png");
 
     /**

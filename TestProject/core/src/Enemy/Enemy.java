@@ -11,6 +11,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public abstract class Enemy extends Entity {
 
+
+    protected float xMultiplier = 1;
+    protected float yMultiplier = 1;
+
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
      *
@@ -20,6 +24,18 @@ public abstract class Enemy extends Entity {
     public Enemy(float xPos, float yPos) {
         super(xPos, yPos);
     }
+
+    /**
+     * Update the enemies position.
+     */
+    public abstract void updateMovement(float deltaTime);
+
+    // function to exit the screen.
+    public void exitScreen(float deltaTime)
+    {
+        this.yPos += this.getSpeed() * deltaTime;
+    }
+
 
     /**
      * Return the bullet string that the enemy fires.

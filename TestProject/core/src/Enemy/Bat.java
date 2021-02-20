@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Bat extends Enemy {
     private final String name = "Bat";
-    private final float speed = 2;
+    private final float speed = 70;
     private final String bullet = "CovidGerm";
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("Bat.png");
+    private int moveCounter = 0;
+    private boolean isDone = false;
 
     /**
      * Create a new instance of a Bat at the xPos and yPos.
@@ -36,6 +38,36 @@ public class Bat extends Enemy {
     @Override
     public float getSpeed() {
         return this.speed;
+    }
+
+    /**
+     * Update the enemies position.
+     */
+    @Override
+    public void updateMovement(float deltaTime)
+    {
+        if(isDone) {
+            this.exitScreen(deltaTime);
+        }
+        else {
+            if (this.xPos >= 65 || this.xPos <= 0) {
+                xMultiplier *= -1;
+                moveCounter++;
+            }
+
+            if (this.yPos >= 120 || this.yPos <= 35) {
+                yMultiplier *= -1;
+                moveCounter++;
+            }
+
+            if(moveCounter == 10)
+            {
+                isDone = true;
+            }
+
+            this.xPos += (this.speed * xMultiplier) * deltaTime;
+            this.yPos += (this.speed * yMultiplier) * deltaTime;
+        }
     }
 
     /**

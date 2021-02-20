@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Karen extends Enemy{
     private final String name = "Karen";
-    private final float speed = 0;
+    private final float speed = 50;
     private final String bullet = "GreenCloud";
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("Karen.png");
@@ -36,6 +36,26 @@ public class Karen extends Enemy{
     @Override
     public float getSpeed() {
         return this.speed;
+    }
+
+    /**
+     * Update the enemies position.
+     */
+    @Override
+    public void updateMovement(float deltaTime)
+    {
+        if(this.xPos >= 72 || this.xPos <= 0)
+        {
+            xMultiplier *= -1;
+        }
+
+        if(this.yPos >= 128 || this.yPos <= 35)
+        {
+            yMultiplier *= -1;
+        }
+
+        this.xPos += (this.speed * xMultiplier) * deltaTime;
+        this.yPos += (this.speed * yMultiplier) * deltaTime;
     }
 
     /**

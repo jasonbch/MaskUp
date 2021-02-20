@@ -21,7 +21,7 @@ public abstract class Entity {
      * @param  xPos initial x position.
      * @param  yPos initial y position.
      */
-    public Entity(float xPos, float yPos ) {
+    public Entity(float xPos, float yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
     }
