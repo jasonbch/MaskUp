@@ -116,7 +116,7 @@ public class GameScreen implements Screen {
 
         batch = new SpriteBatch();
     }
-    
+
     @Override
     public void render(float deltaTime) {
         // If the L key is just press and it is not slow down mode
