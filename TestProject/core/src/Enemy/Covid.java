@@ -51,7 +51,7 @@ public class Covid extends Enemy {
         }
         else {
             // move up and down the screen
-            if (this.xPos >= getWordWidth() - getImageWidth() || this.xPos <= 0) {
+            if (this.yPos >= getWorldHeight() - getImageHeight() || this.yPos <= 0) {
                 yMultiplier *= -1;
                 moveCounter++;
             }

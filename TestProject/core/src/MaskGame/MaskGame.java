@@ -1,5 +1,6 @@
 package MaskGame;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 
 public class MaskGame extends Game {
@@ -24,5 +25,6 @@ public class MaskGame extends Game {
     public void create() {
         gameScreen = new GameScreen();
         setScreen(gameScreen);
+
     }
 }

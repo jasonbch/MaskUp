@@ -3,11 +3,17 @@ package MaskGame;
 import Ammo.Ammo;
 import Enemy.Enemy;
 import Enemy.EnemyFactory;
+import Enemy.MurderHornet;
 import Entity.Entity;
 import Entity.Player;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Gdx;
+
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,7 +32,7 @@ import java.util.ListIterator;
  * GameScreen class that implements from Screen that let the user play
  * the game.
  */
-public class GameScreen implements Screen {
+public class GameScreen extends ApplicationAdapter implements Screen  {
     // Screen
     private Camera camera;
     private Viewport viewport;
@@ -68,6 +74,9 @@ public class GameScreen implements Screen {
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
 
+    // Music
+    private Music backgroundMusic;
+
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
@@ -101,6 +110,12 @@ public class GameScreen implements Screen {
         startTime = TimeUtils.millis();
 
         batch = new SpriteBatch();
+
+        // Music
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
+        // start the playback of the background music immediately
+        backgroundMusic.setLooping(true);
+        backgroundMusic.play();
     }
 
     /**

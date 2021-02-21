@@ -86,14 +86,13 @@ public abstract class Entity {
      */
     public void draw(Batch batch) {
         Texture image = getImage();
-
         batch.draw(image, xPos, yPos, image.getWidth(), image.getHeight());
     }
 
     /**
      * Return the world width.
      */
-    public int getWordWidth() {
+    public int getWorldWidth() {
         return Gdx.graphics.getWidth();
     }
 

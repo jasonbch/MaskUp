@@ -51,7 +51,7 @@ public class Bat extends Enemy {
             this.exitScreen(deltaTime);
         }
         else {
-            if (this.xPos >= getWordWidth() - getImageWidth() || this.xPos <= 0) {
+            if (this.xPos >= getWorldWidth() - getImageWidth() || this.xPos <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;
             }

@@ -51,7 +51,7 @@ public class MurderHornet extends Enemy{
         }
         else {
             //move left and right across screen
-            if (this.xPos >= getWordWidth() - getImageWidth() || this.xPos <= 0) {
+            if (this.xPos >= getWorldWidth() - getImageWidth() || this.xPos <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;
             }
