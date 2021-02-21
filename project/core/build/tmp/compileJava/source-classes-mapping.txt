@@ -1,8 +1,0 @@
-com/maskup/game/GameScreen.java
- com.maskup.game.GameScreen
-com/maskup/game/MainMenuScreen.java
- com.maskup.game.MainMenuScreen
-com/maskup/game/ExitScreen.java
- com.maskup.game.ExitScreen
-com/maskup/game/MaskUp.java
- com.maskup.game.MaskUp

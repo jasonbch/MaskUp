@@ -1,2 +1,0 @@
-com/maskup/game/desktop/DesktopLauncher.java
- com.maskup.game.desktop.DesktopLauncher
