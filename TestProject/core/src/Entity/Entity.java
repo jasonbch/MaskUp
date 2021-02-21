@@ -2,6 +2,7 @@ package Entity;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -10,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public abstract class Entity {
     public AmmoFactory factory = new AmmoFactory();
-
     public float xPos;  // Initial x position
     public float yPos;  // Initial y position
     public float timeSinceLastShot = 0;
@@ -74,7 +74,7 @@ public abstract class Entity {
      * @return The ammo that the entity fires.
      */
     public Ammo fire(String bullet) {
-        Ammo ammo = factory.create(bullet, xPos, yPos);
+        Ammo ammo = factory.create(bullet, xPos + (getImageWidth() / 2) - 5, yPos + getImageHeight());
         timeSinceLastShot = 0;
         return  ammo;
     }
@@ -85,6 +85,36 @@ public abstract class Entity {
      * @param  batch  The current batch.
      */
     public void draw(Batch batch) {
-        batch.draw(getImage(), xPos, yPos, 10, 10);
+        Texture image = getImage();
+
+        batch.draw(image, xPos, yPos, image.getWidth(), image.getHeight());
+    }
+
+    /**
+     * Return the world width.
+     */
+    public int getWordWidth() {
+        return Gdx.graphics.getWidth();
+    }
+
+    /**
+     * Return the world height.
+     */
+    public int getWorldHeight() {
+        return Gdx.graphics.getHeight();
+    }
+
+    /**
+     * Return the image width.
+     */
+    public int getImageWidth() {
+        return getImage().getWidth();
+    }
+
+    /**
+     * Return the image height.
+     */
+    public int getImageHeight() {
+        return getImage().getHeight();
     }
 }

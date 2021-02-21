@@ -50,8 +50,8 @@ public class GameScreen implements Screen {
 
 
     // World dimension
-    private final int WORLD_WIDTH = 72;
-    private final int WORLD_HEIGHT = 128;
+    private final int WORLD_WIDTH = Gdx.graphics.getWidth();
+    private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final int QUARTER_WORLD_HEIGHT = WORLD_HEIGHT/4;
     private final int HALF_WORLD_HEIGHT = WORLD_HEIGHT/2;
     private final int THREE_QUARTER__WORLD_HEIGHT = WORLD_HEIGHT*3/4;
@@ -83,7 +83,7 @@ public class GameScreen implements Screen {
         backgrounds[1] = new Texture("Clouds1.png");
         backgrounds[2] = new Texture("Clouds2.png");
         backgrounds[3] = new Texture("Cloud4.png");
-        maxScrollingSpeed = (float) (WORLD_HEIGHT)/4;
+        maxScrollingSpeed = (float) (WORLD_HEIGHT) / 4;
 
         // Initialize player object
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
@@ -137,11 +137,8 @@ public class GameScreen implements Screen {
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();
 
-
         // End the batch
         batch.end();
-
-
     }
 
     /**
@@ -150,7 +147,11 @@ public class GameScreen implements Screen {
      */
     public void drawWhiteDotInSlowMode() {
         if (isSlowMode) {
-            batch.draw(new Texture("CircleHitBox.png"), player.xPos+2,player.yPos+2, 5, 5);
+            batch.draw(new Texture("CircleHitBox.png"),
+                    player.xPos + (player.getImageWidth() / 2) - (player.getImageWidth() / 4),
+                    player.yPos + (player.getImageHeight() / 2) - (player.getImageWidth() / 4),
+                    player.getImageWidth() / 2,
+                    player.getImageWidth() / 2);
         }
     }
 
@@ -182,7 +183,7 @@ public class GameScreen implements Screen {
     public void playerFire() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if(player.canFire()) {
-                Ammo ammo = player.fire("Bullet");
+                Ammo ammo = player.fire("Syringe");
                 playerAmmoList.add(ammo);
             }
         }
@@ -247,7 +248,6 @@ public class GameScreen implements Screen {
         }
     }
 
-
     /**
      * Delete the enemies if they got out of the screen.
      */
@@ -305,7 +305,7 @@ public class GameScreen implements Screen {
             currEnemy.update(deltaTime);
 
             if (currEnemy.canFire()) {
-                Ammo ammo = currEnemy.fire(currEnemy.bullet());
+                Ammo ammo = currEnemy.fire();
                 enemyAmmoList.add(ammo);
             }
         }
@@ -398,24 +398,21 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
+
     @Override
     public void show() {
-
     }
+
     @Override
     public void dispose() {
-
     }
 }

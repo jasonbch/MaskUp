@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Player extends Entity {
     private final String name = "Player";
-    private final float speed = 100;
+    private final float speed = 250;
     private final float timeBetweenShot = 0.25f;
     private final Texture texture = new Texture("Player.png");
 
@@ -55,17 +55,17 @@ public class Player extends Entity {
         return this.texture;
     }
 
-    /**
-     * Return the given bullet ammo that the entity fires.
-     *
-     * @param  bullet  The name of the type of bullet.
-     * @return The ammo that the entity fires.
-     */
-    public Ammo fire(String bullet) {
-        Ammo ammo = factory.create(bullet, xPos, yPos);
-        timeSinceLastShot = 0;
-        return  ammo;
-    }
+//    /**
+//     * Return the given bullet ammo that the entity fires.
+//     *
+//     * @param  bullet  The name of the type of bullet.
+//     * @return The ammo that the entity fires.
+//     */
+//    public Ammo fire(String bullet) {
+//        Ammo ammo = factory.create(bullet, xPos + (getImageWidth() / 2), yPos + getImageHeight());
+//        timeSinceLastShot = 0;
+//        return  ammo;
+//    }
 
     /**
      * Return the ammo that the entity fires.
