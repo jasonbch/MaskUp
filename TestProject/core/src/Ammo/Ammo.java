@@ -1,5 +1,6 @@
 package Ammo;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -10,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public abstract class Ammo {
     protected final String name = "Ammo";
     protected final String[] acceptableTargets = {};
-    protected final float speed = 0;
+    protected final float speed = 150;
     protected final Texture texture = new Texture("Bullet.png");
 
     public float xPos;  // Initial x position
@@ -66,9 +67,9 @@ public abstract class Ammo {
         boolean returnValue = true;
         String currentBullet = this.getName();
 
-        if(currentBullet == "Mask" ||
-                currentBullet == "Syrenge" ||
-                currentBullet == "Bullet" ) {
+        if(currentBullet == "Mask"
+                || currentBullet == "Syrenge"
+                || currentBullet == "Bullet" ) {
             returnValue = false;
         }
 
@@ -87,6 +88,35 @@ public abstract class Ammo {
             yOffset = 0;
         }
 
-        batch.draw(getImage(), xPos + 4, yPos + yOffset, 4, 4);
+        Texture image = getImage();
+        batch.draw(getImage(), xPos + 4, yPos + yOffset, image.getWidth(), image.getHeight());
+    }
+
+    /**
+     * Return the world width.
+     */
+    public int getWordWidth() {
+        return Gdx.graphics.getWidth();
+    }
+
+    /**
+     * Return the world height.
+     */
+    public int getWorldHeight() {
+        return Gdx.graphics.getWidth();
+    }
+
+    /**
+     * Return the image width.
+     */
+    public int getImageWidth() {
+        return getImage().getWidth();
+    }
+
+    /**
+     * Return the image height.
+     */
+    public int getImageHeight() {
+        return getImage().getHeight();
     }
 }

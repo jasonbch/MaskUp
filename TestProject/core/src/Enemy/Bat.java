@@ -1,5 +1,6 @@
 package Enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -7,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Bat extends Enemy {
     private final String name = "Bat";
-    private final float speed = 70;
+    private final float speed = 250;
     private final String bullet = "CovidGerm";
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("Bat.png");
@@ -50,18 +51,17 @@ public class Bat extends Enemy {
             this.exitScreen(deltaTime);
         }
         else {
-            if (this.xPos >= 65 || this.xPos <= 0) {
+            if (this.xPos >= getWordWidth() - getImageWidth() || this.xPos <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;
             }
 
-            if (this.yPos >= 120 || this.yPos <= 35) {
+            if (this.yPos >= getWorldHeight() - getImageHeight() || this.yPos <= 0) {
                 yMultiplier *= -1;
                 moveCounter++;
             }
 
-            if(moveCounter == 10)
-            {
+            if (moveCounter == 10) {
                 isDone = true;
             }
 

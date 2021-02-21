@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Stinger extends Ammo {
     private final String name = "Stinger";
     private final String[] acceptableTargets = {"Player"};
-    private final float speed = 45;
+    private final float speed = 150;
     private final Texture texture = new Texture("Stinger.png");
 
     /**
