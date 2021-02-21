@@ -9,9 +9,11 @@ import Entity.Player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -56,16 +58,13 @@ public class GameScreen implements Screen {
 
     // Game Objects
     private Entity player;
-    private Enemy bee;
-    private Enemy bat;
-    private Enemy covid;
 
     private EnemyFactory enemyFactory = new EnemyFactory();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
     private LinkedList<Enemy> enemyList;
 
-    // Slow mode
+    // Slow mode variables
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
 
@@ -73,13 +72,12 @@ public class GameScreen implements Screen {
      * Create a GameScreen that let the user play a game of bullet hell.
      */
     public GameScreen() {
-        // Set up camera
+        // Initialize camera and view
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
-
-//        background = new Texture("bluebackground.png");
-//        backgroundOffset = 0;
+        // Initialize background objects
+        // backgroundOffset = 0;
         backgrounds = new Texture[4];
         backgrounds[0] = new Texture("BlueBackground.png");
         backgrounds[1] = new Texture("Clouds1.png");
@@ -87,28 +85,20 @@ public class GameScreen implements Screen {
         backgrounds[3] = new Texture("Cloud4.png");
         maxScrollingSpeed = (float) (WORLD_HEIGHT)/4;
 
-        // Set up game objects
+        // Initialize player object
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
-        bee = enemyFactory.create("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
 
-        // Set up mode
+        // Initialize slow mode
         this.isSlowMode = false;
-        // Set current game speed to normal speed
-        this.gameSpeed = 1;
+        this.gameSpeed = 1; // Set current game speed to normal speed
 
-        bat = enemyFactory.create("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT*3/5);
-        covid = enemyFactory.create("Covid", WORLD_WIDTH/2-10, WORLD_HEIGHT*3/6);
-
+        // Initialize ammo and enemy lists
         playerAmmoList = new LinkedList<>();
         enemyAmmoList = new LinkedList<>();
         enemyList = new LinkedList<>();
 
+        // Initialize start time
         startTime = TimeUtils.millis();
-
-        // Add initial enemies to list
-        enemyList.add(bee);
-        enemyList.add(bat);
-        enemyList.add(covid);
 
         batch = new SpriteBatch();
     }
@@ -120,58 +110,83 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render(float deltaTime) {
+        // Get the game speed
+        gameSpeed = getGameSpeed();
+        deltaTime *= gameSpeed;
+
+        // Begin the Batch
+        batch.begin();
+
+        // Update scrolling background
+        renderBackground(deltaTime);
+
+        // Process player
+        player.draw(batch);         // Draw player
+        player.update(deltaTime);   // Update player
+        movePlayer(deltaTime);      // Move player
+        playerFire();               // Check player shooting input
+
+        // Process enemies
+        spawnEnemies();         // Spawn game enemies
+        enemyFire(deltaTime);   // Fire enemy bullets if they can fire
+        drawAndUpdateBulletsAndEnemies(deltaTime);  // Draw and update all bullets(enemy and player) and enemies
+        deleteEnemies();        // Delete enemies if they need deleted
+
+        // TODO: extract bullet processing
+
+        // End the batch
+        batch.end();
+
+        // Draw white dor in slow mode
+        drawWhiteDotInSlowMode();
+    }
+
+    /**
+     * Draw the white dot at the center of the player is the game
+     * is in slow mode.
+     */
+    public void drawWhiteDotInSlowMode() {
+        if (isSlowMode) {
+            ShapeRenderer shapeRenderer = new ShapeRenderer();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.circle(player.xPos, player.yPos, 10);
+            shapeRenderer.end();
+        }
+    }
+
+    /**
+     * Return the speed of the game. If the game is in slow speed, the
+     * speed of the game is reduced by 60%.
+     *
+     * @return  the speed of the game
+     */
+    public float getGameSpeed() {
         // If the L key is just press and it is not slow down mode
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)
                 && !isSlowMode) {
             isSlowMode = true;  // Change the slow mode to true
-            gameSpeed = 0.1f;   // Change the game speed to slow speed
+            gameSpeed = 0.4f;   // Change the game speed to slow speed
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.L)
                 && isSlowMode) {
             // If the L key is just press and it is slow down mode
             isSlowMode = false; // Change slow mode to false
             gameSpeed = 1;      // Change the game speed to normal speed
         }
-        deltaTime *= gameSpeed;
 
-        batch.begin();
+        return gameSpeed;
+    }
 
-        // Spawn game enemies
-        spawnEnemies();
-
-        // Update objects (movements and bullet times)
-        // TODO ???
-        player.update(deltaTime);
-        bee.update(deltaTime);
-        bat.update(deltaTime);
-        covid.update(deltaTime);
-
-        // Scrolling background
-        renderBackground(deltaTime);
-
-        // Draw the player
-        player.draw(batch);
-
-        // Fire enemy bullets if they can fire.
-        enemyFire(deltaTime);
-
-        // Draw and update all bullets(enemy and player) and enemies.
-        drawAndUpdateBulletsAndEnemies(deltaTime);
-
-        // Delete enemies if they need deleted
-        deleteEnemies();
-
-        // Move player
-        movePlayer(deltaTime);
-
-        // Check player shooting input
+    /**
+     * Fire the bullet from player if the space bar is pressed.
+     */
+    public void playerFire() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if(player.canFire()) {
                 Ammo ammo = player.fire("Bullet");
                 playerAmmoList.add(ammo);
             }
         }
-
-        batch.end();
     }
 
     /**
@@ -279,7 +294,7 @@ public class GameScreen implements Screen {
         spawnEnemies("Covid", xPos, yPos);
     }
 
-    /** TODO: Move update method for enemies
+    /** TODO: Move update method for enemies out of firing bullet.
      * Update the enemy position and fire their bullets if they can fire.
      *
      * @param deltaTime the delta time
@@ -298,6 +313,9 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * TODO: Move player bullet out of the method or
+     *  move the draw enemy out of the method.
+     *
      * Draw and update enemies and all bullets on the screen.
      *
      * @param deltaTime the delta time
