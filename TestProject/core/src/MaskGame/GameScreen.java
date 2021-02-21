@@ -134,11 +134,14 @@ public class GameScreen implements Screen {
 
         // TODO: extract bullet processing
 
+        // Draw white dor in slow mode
+        drawWhiteDotInSlowMode();
+
+
         // End the batch
         batch.end();
 
-        // Draw white dor in slow mode
-        drawWhiteDotInSlowMode();
+
     }
 
     /**
@@ -147,11 +150,7 @@ public class GameScreen implements Screen {
      */
     public void drawWhiteDotInSlowMode() {
         if (isSlowMode) {
-            ShapeRenderer shapeRenderer = new ShapeRenderer();
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.circle(player.xPos, player.yPos, 10);
-            shapeRenderer.end();
+            batch.draw(new Texture("CircleHitBox.png"), player.xPos+2,player.yPos+2, 5, 5);
         }
     }
 
