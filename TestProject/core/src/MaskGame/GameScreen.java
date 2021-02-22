@@ -142,26 +142,28 @@ public class GameScreen implements Screen {
 
         elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
 
+        System.out.println(Gdx.graphics.getHeight());
+
 
 
         //System.out.println(lastSpawnTime);
         if(elapsedTime % 5 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3)
         {
-            System.out.println("spawning enemies");
+            //System.out.println("spawning enemies");
             spawnEnemies();
             lastSpawnTime = elapsedTime;
         }
 
         if(elapsedTime % 20 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 3)
         {
-            System.out.println("spawning mid boss");
+            //System.out.println("spawning mid boss");
             spawnMidboss();
             lastMidBossTime = elapsedTime;
         }
 
         if(elapsedTime % 40 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 3)
         {
-            System.out.println("spawning final boss");
+            //System.out.println("spawning final boss");
             spawnFinalBoss();
             lastFinalBossTime = elapsedTime;
         }
