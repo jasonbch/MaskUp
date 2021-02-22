@@ -376,36 +376,22 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      * @param deltaTime the delta time
      */
     public void movePlayer(float deltaTime) {
-        // Make sure the bucket stays within the screen bounds
-        if (player.xPos <= 0) {
-            player.xPos = 0;
-        }
-        if (player.xPos >= WORLD_WIDTH - player.getImageWidth()) {
-            player.xPos = WORLD_WIDTH - player.getImageWidth();
-        }
-        if (player.yPos <= 0) {
-            player.yPos = 0;
-        }
-        if (player.yPos >= WORLD_HEIGHT - player.getImageHeight()) {
-            player.yPos = WORLD_HEIGHT - player.getImageHeight();
-        }
-
         // Check player movement
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        // Restrict player movement in the screen
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.xPos > 0) {
             player.xPos -= player.getSpeed() * deltaTime;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.xPos < WORLD_WIDTH - player.getImageWidth()) {
             player.xPos += player.getSpeed() * deltaTime;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.yPos < WORLD_HEIGHT - player.getImageHeight()) {
             player.yPos += player.getSpeed() * deltaTime;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.yPos > 0) {
             player.yPos -= player.getSpeed() * deltaTime;
         }
     }
-
-
+    
     @Override
     public void resize(int width, int height) {
         viewport.update(width,height, true);
