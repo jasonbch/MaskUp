@@ -74,5 +74,4 @@ public class Player extends Entity {
     public Ammo fire() {
         return null;
     }
-
 }

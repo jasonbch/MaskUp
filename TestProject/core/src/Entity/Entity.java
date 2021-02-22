@@ -74,7 +74,9 @@ public abstract class Entity {
      * @return The ammo that the entity fires.
      */
     public Ammo fire(String bullet) {
-        Ammo ammo = factory.create(bullet, xPos + (getImageWidth() / 2) - 5, yPos + getImageHeight());
+        Ammo ammo = factory.create(bullet,
+                xPos + (getImageWidth() / 2),
+                yPos + getImageHeight());
         timeSinceLastShot = 0;
         return  ammo;
     }
