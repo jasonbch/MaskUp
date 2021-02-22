@@ -67,7 +67,7 @@ public abstract class Ammo {
         boolean returnValue = true;
         String currentBullet = this.getName();
 
-        if(currentBullet == "Mask"
+        if (currentBullet == "Mask"
                 || currentBullet == "Syrenge"
                 || currentBullet == "Bullet" ) {
             returnValue = false;
@@ -82,14 +82,8 @@ public abstract class Ammo {
      * @param batch the current batch.
      */
     public void draw(Batch batch) {
-        int yOffset = 10;
-
-        if(isEnemyBullet()) {
-            yOffset = 0;
-        }
-
         Texture image = getImage();
-        batch.draw(getImage(), xPos + 4, yPos + yOffset, image.getWidth(), image.getHeight());
+        batch.draw(getImage(), xPos, yPos, image.getWidth(), image.getHeight());
     }
 
     /**

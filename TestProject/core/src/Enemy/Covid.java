@@ -48,8 +48,7 @@ public class Covid extends Enemy {
     public void updateMovement(float deltaTime) {
         if (isDone) {
             this.exitScreen(deltaTime);
-        }
-        else {
+        } else {
             // move up and down the screen
             if (this.yPos >= getWorldHeight() - getImageHeight() || this.yPos <= 0) {
                 yMultiplier *= -1;

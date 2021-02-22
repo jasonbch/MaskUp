@@ -1,6 +1,5 @@
 package Enemy;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -45,12 +44,10 @@ public class Bat extends Enemy {
      * Update the enemies position.
      */
     @Override
-    public void updateMovement(float deltaTime)
-    {
-        if(isDone) {
+    public void updateMovement(float deltaTime) {
+        if (isDone) {
             this.exitScreen(deltaTime);
-        }
-        else {
+        } else {
             if (this.xPos >= getWorldWidth() - getImageWidth() || this.xPos <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;

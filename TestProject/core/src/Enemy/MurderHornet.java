@@ -46,11 +46,10 @@ public class MurderHornet extends Enemy{
     @Override
     public void updateMovement(float deltaTime) {
 
-        if(isDone) {
+        if (isDone) {
             this.exitScreen(deltaTime);
-        }
-        else {
-            //move left and right across screen
+        } else {
+            // Move left and right across screen
             if (this.xPos >= getWorldWidth() - getImageWidth() || this.xPos <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;
@@ -71,9 +70,6 @@ public class MurderHornet extends Enemy{
     public String bullet() {
         return this.bullet;
     }
-
-
-
 
     /**
      * Return the time between shot.

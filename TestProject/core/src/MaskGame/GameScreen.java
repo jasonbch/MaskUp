@@ -41,7 +41,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private SpriteBatch batch;
     private Texture[] backgrounds;
 
-    long recentSpawnTime = 0;
+    private long recentSpawnTime = 0;
 
     // Timing Variables
     private float[] backgroundOffsets = {0,0,0,0};
@@ -197,7 +197,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     public void playerFire() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if(player.canFire()) {
+            if (player.canFire()) {
                 Ammo ammo = player.fire("Syringe");
                 playerAmmoList.add(ammo);
             }
@@ -211,6 +211,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public void spawnEnemies() {
         // Spawn enemies
         elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
+
         if (elapsedTime % 5 == 0
                 && elapsedTime != 1
                 && elapsedTime != 0
@@ -376,17 +377,17 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     public void movePlayer(float deltaTime) {
         // Make sure the bucket stays within the screen bounds
-        if (player.xPos < 0) {
+        if (player.xPos <= 0) {
             player.xPos = 0;
         }
-        if (player.xPos > WORLD_WIDTH - 10) {
-            player.xPos = WORLD_WIDTH - 10;
+        if (player.xPos >= WORLD_WIDTH - player.getImageWidth()) {
+            player.xPos = WORLD_WIDTH - player.getImageWidth();
         }
-        if (player.yPos < 0) {
+        if (player.yPos <= 0) {
             player.yPos = 0;
         }
-        if (player.yPos > WORLD_HEIGHT - 10) {
-            player.yPos = WORLD_HEIGHT - 10;
+        if (player.yPos >= WORLD_HEIGHT - player.getImageHeight()) {
+            player.yPos = WORLD_HEIGHT - player.getImageHeight();
         }
 
         // Check player movement

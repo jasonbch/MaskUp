@@ -29,12 +29,12 @@ public abstract class Enemy extends Entity {
      */
     public abstract void updateMovement(float deltaTime);
 
-    // function to exit the screen.
-    public void exitScreen(float deltaTime)
-    {
+    /**
+     * Exit the screen.
+     */
+    public void exitScreen(float deltaTime) {
         this.yPos += this.getSpeed() * deltaTime;
     }
-
 
     /**
      * Return the bullet string that the enemy fires.
@@ -46,10 +46,7 @@ public abstract class Enemy extends Entity {
      */
     public Ammo fire() {
         Ammo ammo = factory.create(bullet(), xPos + (getImageWidth() / 2), yPos);
-        System.out.println(getImageWidth());
         timeSinceLastShot = 0;
         return  ammo;
     }
-
-
 }

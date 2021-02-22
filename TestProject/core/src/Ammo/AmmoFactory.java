@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 
 /**
  * The factory class to create different kind of ammo.
- *
  */
 public class AmmoFactory {
     private final Texture texture1 = new Texture("Stinger.png");
@@ -23,7 +22,7 @@ public class AmmoFactory {
      * @param  yPos initial y position.
      */
     public Ammo create(String Ammo, float xPos, float yPos) {
-        switch(Ammo) {
+        switch (Ammo) {
             case "Stinger":
                 return new Stinger(xPos - (texture1.getWidth() / 2), yPos);
             case "GreenCloud":

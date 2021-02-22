@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Syringe extends Ammo{
     private final String name = "Syringe";
     private final String[] acceptableTargets = {"Covid"};
-    private final float speed = 350;
+    private final float speed = 370;
     private final Texture texture = new Texture("Syringe.png");
 
     /**

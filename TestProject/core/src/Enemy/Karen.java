@@ -45,10 +45,9 @@ public class Karen extends Enemy{
      */
     @Override
     public void updateMovement(float deltaTime) {
-        if(isDone) {
+        if (isDone) {
             this.exitScreen(deltaTime);
-        }
-        else {
+        } else {
             if (this.xPos >= getWorldWidth() - getImageWidth() || this.xPos <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;
