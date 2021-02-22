@@ -3,6 +3,7 @@ package Enemy;
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
 import Entity.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -10,8 +11,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * The Enemy abstract class that extends from Entity that can move and fire.
  */
 public abstract class Enemy extends Entity {
-
-
     protected float xMultiplier = 1;
     protected float yMultiplier = 1;
 
@@ -30,12 +29,12 @@ public abstract class Enemy extends Entity {
      */
     public abstract void updateMovement(float deltaTime);
 
-    // function to exit the screen.
-    public void exitScreen(float deltaTime)
-    {
+    /**
+     * Exit the screen.
+     */
+    public void exitScreen(float deltaTime) {
         this.yPos += this.getSpeed() * deltaTime;
     }
-
 
     /**
      * Return the bullet string that the enemy fires.
@@ -46,7 +45,7 @@ public abstract class Enemy extends Entity {
      * Return the ammo that the enemy fires.
      */
     public Ammo fire() {
-        Ammo ammo = factory.create(bullet(), xPos, yPos);
+        Ammo ammo = factory.create(bullet(), xPos + (getImageWidth() / 2), yPos);
         timeSinceLastShot = 0;
         return  ammo;
     }

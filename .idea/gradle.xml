@@ -22,8 +22,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/project" />
-            <option value="$PROJECT_DIR$/project/core" />
-            <option value="$PROJECT_DIR$/project/desktop" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class BabyCovid extends Ammo {
     private final String name = "BabyCovid";
     private final String[] acceptableTargets = {"Player"};
-    private final float speed = 45;
+    private final float speed = 150;
     private final Texture texture = new Texture("BabyCovid.png");
 
     /**

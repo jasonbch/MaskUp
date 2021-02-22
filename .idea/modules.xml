@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/project.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/project.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/project.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/project.core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/project.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/project.core.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/project.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/project.desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/project.desktop.main.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/project.desktop.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/project.desktop.test.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/project.desktop.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/team-madison.iml" filepath="$PROJECT_DIR$/.idea/team-madison.iml" />
     </modules>
   </component>
