@@ -2,17 +2,13 @@ package Entity;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+
 
 /**
  * The Entity abstract class that can move and fire.
  */
-public abstract class Entity {
+public abstract class Entity extends GameObject {
     protected AmmoFactory factory = new AmmoFactory();
-    protected float xPosition;  // Initial x position
-    protected float yPosition;  // Initial y position
     protected float timeSinceLastShot = 0;
 
     /**
@@ -27,29 +23,6 @@ public abstract class Entity {
     }
 
     /**
-     * Return the y position.
-     *
-     * @return y position
-     */
-    public float getYPos() {
-        return this.yPosition;
-    }
-
-    /**
-     * Return the x position.
-     *
-     * @return x position
-     */
-    public float getXPos() {
-        return this.xPosition;
-    }
-
-    /**
-     * Return the name.
-     */
-    public abstract String getName();
-
-    /**
      * Return the speed of the entity.
      */
     public abstract float getSpeed();
@@ -60,21 +33,16 @@ public abstract class Entity {
     public abstract float getTimeBetweenShots();
 
     /**
-     * Return the Texture image.
-     */
-    public abstract Texture getImage();
-
-    /**
      * Return the ammo that the entity fires.
      */
     public abstract Ammo fire();
 
     /**
-     * Update the position of the entity.
+     * Update time since last shot.
      *
      * @param  deltaTime The current delta time.
      */
-    public void update(float deltaTime) {
+    public void updateTimeSinceLastShot(float deltaTime) {
         timeSinceLastShot += deltaTime;
     }
 
@@ -97,43 +65,5 @@ public abstract class Entity {
                 yPosition + getImageHeight());
         timeSinceLastShot = 0;
         return  ammo;
-    }
-
-    /**
-     * Return the ammo that the entity fires.
-     *
-     * @param  batch  The current batch.
-     */
-    public void draw(Batch batch) {
-        Texture image = getImage();
-        batch.draw(image, xPosition, yPosition, image.getWidth(), image.getHeight());
-    }
-
-    /**
-     * Return the world width.
-     */
-    public int getWorldWidth() {
-        return Gdx.graphics.getWidth();
-    }
-
-    /**
-     * Return the world height.
-     */
-    public int getWorldHeight() {
-        return Gdx.graphics.getHeight();
-    }
-
-    /**
-     * Return the image width.
-     */
-    public int getImageWidth() {
-        return getImage().getWidth();
-    }
-
-    /**
-     * Return the image height.
-     */
-    public int getImageHeight() {
-        return getImage().getHeight();
     }
 }
