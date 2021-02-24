@@ -11,15 +11,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -59,9 +55,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // World dimension
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
-    private final int QUARTER_WORLD_HEIGHT = WORLD_HEIGHT/4;
-    private final int HALF_WORLD_HEIGHT = WORLD_HEIGHT/2;
-    private final int THREE_QUARTER__WORLD_HEIGHT = WORLD_HEIGHT*3/4;
+    //private final int QUARTER_WORLD_HEIGHT = WORLD_HEIGHT/4;
+    //private final int HALF_WORLD_HEIGHT = WORLD_HEIGHT/2;
+    //private final int THREE_QUARTER__WORLD_HEIGHT = WORLD_HEIGHT*3/4;
 
     // Game Objects
     private Entity player;
@@ -99,9 +95,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         // Initialize player object
         player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
-        //bee = enemyFactory.create("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-        //bat = enemyFactory.create("Bat", WORLD_WIDTH/2 - 10, WORLD_HEIGHT*3/5);
-        //covid = enemyFactory.create("Covid", WORLD_WIDTH/2 - 30, WORLD_HEIGHT*3/6);
 
 
 
@@ -120,10 +113,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         batch = new SpriteBatch();
 
         // Music
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
+        //backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
         // start the playback of the background music immediately
-        backgroundMusic.setLooping(true);
-        backgroundMusic.play();
+        //backgroundMusic.setLooping(true);
+        //backgroundMusic.play();
     }
 
     /**
@@ -140,48 +133,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Begin the Batch
         batch.begin();
 
-        /*  elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
-
-        System.out.println(Gdx.graphics.getHeight());
-
-
-
-        //System.out.println(lastSpawnTime);
-        if(elapsedTime % 5 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3)
-        {
-            //System.out.println("spawning enemies");
-            spawnEnemies();
-            lastSpawnTime = elapsedTime;
-        }
-
-        if(elapsedTime % 20 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 3)
-        {
-            //System.out.println("spawning mid boss");
-            spawnMidboss();
-            lastMidBossTime = elapsedTime;
-        }
-
-        if(elapsedTime % 40 == 0 && elapsedTime != 1 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 3)
-        {
-            //System.out.println("spawning final boss");
-            spawnFinalBoss();
-            lastFinalBossTime = elapsedTime;
-        }
-
-        //Update objects (movements and bullet times)
-        player.update(deltaTime);
-        bee.update(deltaTime);
-        bat.update(deltaTime);
-        covid.update(deltaTime);
-*/
-
         //scrolling background
         renderBackground(deltaTime);
 
-        //enemy
-        //bee.draw(batch);
-        //bat.draw(batch);
-        //covid.draw(batch);
 
         // Update scrolling background
         renderBackground(deltaTime);
@@ -200,39 +154,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
 
 
-        //bullets
-        //create new lasers
-        //bee
 
-       /* if(bee.canFire()) {
-            Ammo ammo = bee.fire("Stinger");
-            enemyAmmoList.add(ammo);
-
-        }
-        if(bat.canFire())
-        {
-            Ammo ammo = bat.fire("CovidGerm");
-            enemyAmmoList.add(ammo);
-        }
-        if(covid.canFire())
-        {
-            Ammo ammo = covid.fire("BabyCovid");
-            enemyAmmoList.add(ammo);
-        }
-
-        // fire enemy bullets, if they can fire.
-        enemyFire(deltaTime);
-
-
-        //draw and update all bullets(enemy and player) and enemies.
-        drawAndUpdateBulletsAndEnemies(deltaTime);
-
-        // delete enemies, if they need deleted
-        deleteEnemies();
-
-        // checking if the bullets intersect
-        //detectCollision();
-=======*/
         // TODO: extract bullet processing
 
         // Draw white dor in slow mode
@@ -240,6 +162,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         // End the batch
         batch.end();
+
     }
 
 
@@ -303,7 +226,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
                 && elapsedTime != 1
                 && elapsedTime != 0
                 && elapsedTime - lastSpawnTime > 3) {
-            System.out.println("spawning enemies");
+            //System.out.println("spawning enemies");
             spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
             spawnEnemies("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT*3/5);
             lastSpawnTime = elapsedTime;
@@ -314,7 +237,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
                 && elapsedTime != 1
                 && elapsedTime != 0
                 && elapsedTime - lastMidBossTime > 3) {
-            System.out.println("spawning mid boss");
+           // System.out.println("spawning mid boss");
             spawnMidBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
             lastMidBossTime = elapsedTime;
         }
@@ -324,7 +247,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
                 && elapsedTime != 1
                 && elapsedTime != 0
                 && elapsedTime - lastFinalBossTime > 3) {
-            System.out.println("spawning final boss");
+            //  System.out.println("spawning final boss");
             spawnFinalBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
             lastFinalBossTime = elapsedTime;
         }
@@ -350,47 +273,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
             batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
         }
     }
-    /*public void detectCollision()
-    {
-        ListIterator<Ammo> iterator1 = playerAmmoList.listIterator();
-        while(iterator1.hasNext()) {
-            Ammo ammo = iterator1.next();
-            //System.out.println("checking if bee is hit");
-            if (bee.intersects(ammo.boundingBox())) {
-                //System.out.println("hit");
-                iterator1.remove();
-            }
-        }
-        iterator1 = enemyAmmoList.listIterator();
-        while(iterator1.hasNext()) {
-            Ammo ammo = iterator1.next();
-            //System.out.println("checking if bee is hit");
-            if (player.intersects(ammo.boundingBox())) {
-                //System.out.println("hit");
-                iterator1.remove();
-            }
-        }
-        iterator1 = playerAmmoList.listIterator();
-        while(iterator1.hasNext()) {
-            Ammo ammo = iterator1.next();
-            //System.out.println("checking if bee is hit");
-            if (bat.intersects(ammo.boundingBox())) {
-                //System.out.println("hit");
-                iterator1.remove();
-            }
-        }
-        iterator1 = playerAmmoList.listIterator();
-        while(iterator1.hasNext()) {
-            Ammo ammo = iterator1.next();
-            //System.out.println("checking if bee is hit");
-            if (covid.intersects(ammo.boundingBox())) {
-                iterator1.remove();
-            }
-        }
-
-
-
-    }*/
 
     /**
      * Delete the enemies if they got out of the screen.
