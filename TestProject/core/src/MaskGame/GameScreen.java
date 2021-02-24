@@ -3,7 +3,6 @@ package MaskGame;
 import Ammo.Ammo;
 import Enemy.Enemy;
 import Enemy.EnemyFactory;
-import Enemy.MurderHornet;
 import Entity.Entity;
 import Entity.Player;
 
