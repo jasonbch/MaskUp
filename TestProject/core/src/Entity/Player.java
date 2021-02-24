@@ -24,6 +24,42 @@ public class Player extends Entity {
     }
 
     /**
+     * Move the player up.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveUp(float deltaTime) {
+        this.yPosition += getSpeed() * deltaTime;
+    }
+
+    /**
+     * Move the player down.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveDown(float deltaTime) {
+        this.yPosition -= getSpeed() * deltaTime;
+    }
+
+    /**
+     * Move the player left.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveLeft(float deltaTime) {
+        this.xPosition -= getSpeed() * deltaTime;
+    }
+
+    /**
+     * Move the player right.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveRight(float deltaTime) {
+        this.xPosition += getSpeed() * deltaTime;
+    }
+
+    /**
      * Return the name.
      */
     @Override
@@ -54,18 +90,6 @@ public class Player extends Entity {
     public Texture getImage() {
         return this.texture;
     }
-
-//    /**
-//     * Return the given bullet ammo that the entity fires.
-//     *
-//     * @param  bullet  The name of the type of bullet.
-//     * @return The ammo that the entity fires.
-//     */
-//    public Ammo fire(String bullet) {
-//        Ammo ammo = factory.create(bullet, xPos + (getImageWidth() / 2), yPos + getImageHeight());
-//        timeSinceLastShot = 0;
-//        return  ammo;
-//    }
 
     /**
      * Return the ammo that the entity fires.

@@ -48,12 +48,12 @@ public class Karen extends Enemy{
         if (isDone) {
             this.exitScreen(deltaTime);
         } else {
-            if (this.xPos >= getWorldWidth() - getImageWidth() || this.xPos <= 0) {
+            if (this.xPosition >= getWorldWidth() - getImageWidth() || this.xPosition <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;
             }
 
-            if (this.yPos >= getWorldHeight() - getImageHeight() || this.yPos <= 0) {
+            if (this.yPosition >= getWorldHeight() - getImageHeight() || this.yPosition <= 0) {
                 yMultiplier *= -1;
                 moveCounter++;
             }
@@ -62,8 +62,8 @@ public class Karen extends Enemy{
                 isDone = true;
             }
 
-            this.xPos += (this.speed * xMultiplier) * deltaTime;
-            this.yPos += (this.speed * yMultiplier) * deltaTime;
+            this.xPosition += (this.speed * xMultiplier) * deltaTime;
+            this.yPosition += (this.speed * yMultiplier) * deltaTime;
         }
     }
 
