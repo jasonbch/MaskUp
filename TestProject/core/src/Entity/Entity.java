@@ -10,20 +10,38 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * The Entity abstract class that can move and fire.
  */
 public abstract class Entity {
-    public AmmoFactory factory = new AmmoFactory();
-    public float xPos;  // Initial x position
-    public float yPos;  // Initial y position
-    public float timeSinceLastShot = 0;
+    protected AmmoFactory factory = new AmmoFactory();
+    protected float xPosition;  // Initial x position
+    protected float yPosition;  // Initial y position
+    protected float timeSinceLastShot = 0;
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param  xPosition initial x position.
+     * @param  yPosition initial y position.
      */
-    public Entity(float xPos, float yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Entity(float xPosition, float yPosition) {
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+    }
+
+    /**
+     * Return the y position.
+     *
+     * @return y position
+     */
+    public float getYPos() {
+        return this.yPosition;
+    }
+
+    /**
+     * Return the x position.
+     *
+     * @return x position
+     */
+    public float getXPos() {
+        return this.xPosition;
     }
 
     /**
@@ -75,8 +93,8 @@ public abstract class Entity {
      */
     public Ammo fire(String bullet) {
         Ammo ammo = factory.create(bullet,
-                xPos + (getImageWidth() / 2),
-                yPos + getImageHeight());
+                xPosition + (getImageWidth() / 2),
+                yPosition + getImageHeight());
         timeSinceLastShot = 0;
         return  ammo;
     }
@@ -88,7 +106,7 @@ public abstract class Entity {
      */
     public void draw(Batch batch) {
         Texture image = getImage();
-        batch.draw(image, xPos, yPos, image.getWidth(), image.getHeight());
+        batch.draw(image, xPosition, yPosition, image.getWidth(), image.getHeight());
     }
 
     /**

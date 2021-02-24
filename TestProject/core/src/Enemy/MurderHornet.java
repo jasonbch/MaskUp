@@ -50,7 +50,7 @@ public class MurderHornet extends Enemy{
             this.exitScreen(deltaTime);
         } else {
             // Move left and right across screen
-            if (this.xPos >= getWorldWidth() - getImageWidth() || this.xPos <= 0) {
+            if (this.xPosition >= getWorldWidth() - getImageWidth() || this.xPosition <= 0) {
                 xMultiplier *= -1;
                 moveCounter++;
             }
@@ -59,7 +59,7 @@ public class MurderHornet extends Enemy{
                 isDone = true;
             }
 
-            this.xPos += (this.speed * xMultiplier) * deltaTime;
+            this.xPosition += (this.speed * xMultiplier) * deltaTime;
         }
     }
 

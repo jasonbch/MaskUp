@@ -3,7 +3,6 @@ package MaskGame;
 import Ammo.Ammo;
 import Enemy.Enemy;
 import Enemy.EnemyFactory;
-import Enemy.MurderHornet;
 import Entity.Entity;
 import Entity.Player;
 
@@ -11,15 +10,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -163,8 +158,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public void drawWhiteDotInSlowMode() {
         if (isSlowMode) {
             batch.draw(new Texture("CircleHitBox.png"),
-                    player.xPos + (player.getImageWidth() / 2) - (player.getImageWidth() / 4),
-                    player.yPos + (player.getImageHeight() / 2) - (player.getImageWidth() / 4),
+                    player.getXPos() + (player.getImageWidth() / 2) - (player.getImageWidth() / 4),
+                    player.getYPos() + (player.getImageHeight() / 2) - (player.getImageWidth() / 4),
                     player.getImageWidth() / 2,
                     player.getImageWidth() / 2);
         }
@@ -272,7 +267,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
 
-            if (currEnemy.yPos > WORLD_HEIGHT) {
+            if (currEnemy.getYPos() > WORLD_HEIGHT) {
                 iter2.remove();
             }
         }
@@ -378,17 +373,21 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public void movePlayer(float deltaTime) {
         // Check player movement
         // Restrict player movement in the screen
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.xPos > 0) {
-            player.xPos -= player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getXPos() > 0) {
+            // Move left
+            ((Player)player).moveLeft(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.xPos < WORLD_WIDTH - player.getImageWidth()) {
-            player.xPos += player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getXPos() < WORLD_WIDTH - player.getImageWidth()) {
+            // Move right
+            ((Player)player).moveRight(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.yPos < WORLD_HEIGHT - player.getImageHeight()) {
-            player.yPos += player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.getYPos() < WORLD_HEIGHT - player.getImageHeight()) {
+            // Move up
+            ((Player)player).moveUp(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.yPos > 0) {
-            player.yPos -= player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.getYPos() > 0) {
+            // Move down
+            ((Player)player).moveDown(deltaTime);
         }
     }
     
