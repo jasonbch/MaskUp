@@ -6,6 +6,7 @@ import Enemy.EnemyFactory;
 import Entity.Entity;
 import Entity.Player;
 
+import GameEngine.ShootController;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Gdx;
 
@@ -49,7 +50,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
 
-
     // World dimension
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
@@ -61,6 +61,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private Entity player;
 
     private EnemyFactory enemyFactory = new EnemyFactory();
+    private ShootController shootController = new ShootController();
     private LinkedList<Ammo> enemyAmmoList;
     private LinkedList<Ammo> playerAmmoList;
     private LinkedList<Enemy> enemyList;
@@ -193,7 +194,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public void playerFire() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (player.canFire()) {
-                Ammo ammo = player.fire("Mask");
+                Ammo ammo = shootController.fire(player, "Mask");
                 playerAmmoList.add(ammo);
             }
         }
@@ -316,7 +317,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
             currEnemy.updateTimeSinceLastShot(deltaTime);
 
             if (currEnemy.canFire()) {
-                Ammo ammo = currEnemy.fire();
+                Ammo ammo = shootController.fire(currEnemy);
                 enemyAmmoList.add(ammo);
             }
         }

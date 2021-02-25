@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+/**
+ * GameObject class that has the x and y position. It also has an image and can
+ * draw the image on a batch.
+ */
 public abstract class GameObject {
     protected float xPosition;  // Initial x position
     protected float yPosition;  // Initial y position

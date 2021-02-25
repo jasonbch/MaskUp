@@ -71,7 +71,7 @@ public class Bat extends Enemy {
      * Return the bullet string that the enemy fires.
      */
     @Override
-    public String bullet() {
+    public String getBullet() {
         return this.bullet;
     }
 
