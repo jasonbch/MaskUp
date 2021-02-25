@@ -24,15 +24,15 @@ public class AmmoFactory {
     public Ammo create(String Ammo, float xPos, float yPos) {
         switch (Ammo) {
             case "Stinger":
-                return new Stinger(xPos - (texture1.getWidth() / 2), yPos);
+                return new Stinger(xPos - (texture1.getWidth() / 2), yPos - texture1.getHeight());
             case "GreenCloud":
-                return new GreenCloud(xPos - (texture2.getWidth() / 2), yPos);
+                return new GreenCloud(xPos - (texture2.getWidth() / 2), yPos - texture2.getHeight());
             case "BabyCovid":
-                return new BabyCovid(xPos - (texture3.getWidth() / 2), yPos);
+                return new BabyCovid(xPos - (texture3.getWidth() / 2), yPos - texture3.getHeight());
             case "Bullet":
                 return new Bullet(xPos - (texture4.getWidth() / 2), yPos);
             case "CovidGerm":
-                return new CovidGerm(xPos - (texture5.getWidth() / 2), yPos);
+                return new CovidGerm(xPos - (texture5.getWidth() / 2), yPos - texture5.getHeight());
             case "Mask":
                 return new Mask(xPos - (texture6.getWidth() / 2), yPos);
             case "Syringe":
