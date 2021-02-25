@@ -141,7 +141,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         // Process player
         player.draw(batch);         // Draw player
-        player.update(deltaTime);   // Update player
+        player.updateTimeSinceLastShot(deltaTime);   // Update player
         movePlayer(deltaTime);      // Move player
         playerFire();               // Check player shooting input
 
@@ -172,8 +172,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public void drawWhiteDotInSlowMode() {
         if (isSlowMode) {
             batch.draw(new Texture("CircleHitBox.png"),
-                    player.xPos + (player.getImageWidth() / 2) - (player.getImageWidth() / 4),
-                    player.yPos + (player.getImageHeight() / 2) - (player.getImageWidth() / 4),
+                    player.getXPosition() + (player.getImageWidth() / 2) - (player.getImageWidth() / 4),
+                    player.getYPosition() + (player.getImageHeight() / 2) - (player.getImageWidth() / 4),
                     player.getImageWidth() / 2,
                     player.getImageWidth() / 2);
         }
@@ -207,7 +207,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public void playerFire() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (player.canFire()) {
-                Ammo ammo = player.fire("Syringe");
+                Ammo ammo = player.fire("Mask");
                 playerAmmoList.add(ammo);
             }
         }
@@ -281,7 +281,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
 
-            if (currEnemy.yPos > WORLD_HEIGHT) {
+            if (currEnemy.getYPosition() > WORLD_HEIGHT) {
                 iter2.remove();
             }
         }
@@ -327,7 +327,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ListIterator<Enemy> iterator = enemyList.listIterator();
         while (iterator.hasNext()) {
             Enemy currEnemy = iterator.next();
-            currEnemy.update(deltaTime);
+            currEnemy.updateTimeSinceLastShot(deltaTime);
 
             if (currEnemy.canFire()) {
                 Ammo ammo = currEnemy.fire();
@@ -387,17 +387,21 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public void movePlayer(float deltaTime) {
         // Check player movement
         // Restrict player movement in the screen
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.xPos > 0) {
-            player.xPos -= player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getXPosition() > 0) {
+            // Move left
+            ((Player)player).moveLeft(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.xPos < WORLD_WIDTH - player.getImageWidth()) {
-            player.xPos += player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getXPosition() < WORLD_WIDTH - player.getImageWidth()) {
+            // Move right
+            ((Player)player).moveRight(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.yPos < WORLD_HEIGHT - player.getImageHeight()) {
-            player.yPos += player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.getYPosition() < WORLD_HEIGHT - player.getImageHeight()) {
+            // Move up
+            ((Player)player).moveUp(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.yPos > 0) {
-            player.yPos -= player.getSpeed() * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.getYPosition() > 0) {
+            // Move down
+            ((Player)player).moveDown(deltaTime);
         }
     }
     

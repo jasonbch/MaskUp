@@ -10,38 +10,27 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.awt.*;
 
+
 /**
  * The Entity abstract class that can move and fire.
  */
-public abstract class Entity {
 
-
-    Rectangle entityBoundingBox;
-
-    public AmmoFactory factory = new AmmoFactory();
-    public float xPos;  // Initial x position
-    public float yPos;  // Initial y position
-    public float timeSinceLastShot = 0;
-    public float Width = 10;
-    public float Height = 10;
+public abstract class Entity extends GameObject {
+    protected AmmoFactory factory = new AmmoFactory();
+    protected float timeSinceLastShot = 0;
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param  xPosition initial x position.
+     * @param  yPosition initial y position.
      */
-    public Entity(float xPos, float yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.entityBoundingBox = new Rectangle(xPos,yPos,Width,Height);
+
+    public Entity(float xPosition, float yPosition) {
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
     }
 
-
-    /**
-     * Return the name.
-     */
-    public abstract String getName();
 
     /**
      * Return the speed of the entity.
@@ -54,23 +43,18 @@ public abstract class Entity {
     public abstract float getTimeBetweenShots();
 
     /**
-     * Return the Texture image.
-     */
-    public abstract Texture getImage();
-
-    /**
      * Return the ammo that the entity fires.
      */
     public abstract Ammo fire();
 
     /**
-     * Update the position of the entity.
+     * Update time since last shot.
      *
      * @param  deltaTime The current delta time.
      */
-    public void update(float deltaTime) {
+    public void updateTimeSinceLastShot(float deltaTime) {
         timeSinceLastShot += deltaTime;
-        entityBoundingBox.set(xPos,yPos,Width,Height);
+        //entityBoundingBox.set(xPos,yPos,Width,Height);
     }
 
     /**
@@ -80,10 +64,10 @@ public abstract class Entity {
         return (timeSinceLastShot - getTimeBetweenShots() >= 0);
     }
 
-    public boolean intersects(Rectangle otherRectangle)
+    /*public boolean intersects(Rectangle otherRectangle)
     {
         return entityBoundingBox.overlaps(otherRectangle);
-    }
+    }*/
 
     /**
      * Return the bullet ammo that the entity fires.
@@ -93,47 +77,9 @@ public abstract class Entity {
      */
     public Ammo fire(String bullet) {
         Ammo ammo = factory.create(bullet,
-                xPos + (getImageWidth() / 2),
-                yPos + getImageHeight());
+                xPosition + (getImageWidth() / 2),
+                yPosition + getImageHeight());
         timeSinceLastShot = 0;
         return  ammo;
-    }
-
-    /**
-     * Return the ammo that the entity fires.
-     *
-     * @param  batch  The current batch.
-     */
-    public void draw(Batch batch) {
-        Texture image = getImage();
-        batch.draw(image, xPos, yPos, image.getWidth(), image.getHeight());
-    }
-
-    /**
-     * Return the world width.
-     */
-    public int getWorldWidth() {
-        return Gdx.graphics.getWidth();
-    }
-
-    /**
-     * Return the world height.
-     */
-    public int getWorldHeight() {
-        return Gdx.graphics.getHeight();
-    }
-
-    /**
-     * Return the image width.
-     */
-    public int getImageWidth() {
-        return getImage().getWidth();
-    }
-
-    /**
-     * Return the image height.
-     */
-    public int getImageHeight() {
-        return getImage().getHeight();
     }
 }

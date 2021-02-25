@@ -50,7 +50,7 @@ public class Covid extends Enemy {
             this.exitScreen(deltaTime);
         } else {
             // move up and down the screen
-            if (this.yPos >= getWorldHeight() - getImageHeight() || this.yPos <= 0) {
+            if (this.yPosition >= getWorldHeight() - getImageHeight() || this.yPosition <= 0) {
                 yMultiplier *= -1;
                 moveCounter++;
             }
@@ -59,7 +59,7 @@ public class Covid extends Enemy {
                 isDone = true;
             }
 
-            this.yPos += (this.speed * yMultiplier) * deltaTime;
+            this.yPosition += (this.speed * yMultiplier) * deltaTime;
         }
     }
 
