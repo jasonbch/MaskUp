@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.GridPoint2;
  * The Entity abstract class that can move and fire.
  */
 public abstract class Entity extends GameObject {
-    protected AmmoFactory factory = new AmmoFactory();
     protected float timeSinceLastShot = 0;
 
     /**
@@ -21,11 +20,6 @@ public abstract class Entity extends GameObject {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
-
-    /**
-     * Return the speed of the entity.
-     */
-    public abstract float getSpeed();
 
     /**
      * Return the time between shot.

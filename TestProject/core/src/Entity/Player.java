@@ -24,42 +24,6 @@ public class Player extends Entity {
     }
 
     /**
-     * Move the player up.
-     *
-     * @param  deltaTime delta time.
-     */
-    public void moveUp(float deltaTime) {
-        this.yPosition += getSpeed() * deltaTime;
-    }
-
-    /**
-     * Move the player down.
-     *
-     * @param  deltaTime delta time.
-     */
-    public void moveDown(float deltaTime) {
-        this.yPosition -= getSpeed() * deltaTime;
-    }
-
-    /**
-     * Move the player left.
-     *
-     * @param  deltaTime delta time.
-     */
-    public void moveLeft(float deltaTime) {
-        this.xPosition -= getSpeed() * deltaTime;
-    }
-
-    /**
-     * Move the player right.
-     *
-     * @param  deltaTime delta time.
-     */
-    public void moveRight(float deltaTime) {
-        this.xPosition += getSpeed() * deltaTime;
-    }
-
-    /**
      * Return the name.
      */
     @Override

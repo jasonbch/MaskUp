@@ -1,6 +1,6 @@
 package Ammo;
 
-import com.badlogic.gdx.Gdx;
+import Entity.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -8,24 +8,18 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * Abstract class for the Ammo that can be shoot from the player
  * or the enemies.
  */
-public abstract class Ammo {
-    protected final String name = "Ammo";
+public abstract class Ammo extends GameObject {
     protected final String[] acceptableTargets = {};
-    protected final float speed = 150;
-    protected final Texture texture = new Texture("Bullet.png");
-
-    public float xPos;  // Initial x position
-    public float yPos;  // Initial y position
 
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param  xPosition initial x position.
+     * @param  yPosition initial y position.
      */
-    public Ammo(float xPos, float yPos ) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Ammo(float xPosition, float yPosition) {
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
     }
 
     /**
@@ -53,7 +47,7 @@ public abstract class Ammo {
      */
     public Boolean isAcceptableTarget(String name) {
         for (String target: getAcceptableTargets()) {
-            if(target.equals(name)) {
+            if (target.equals(name)) {
                 return true;
             }
         }
@@ -68,9 +62,24 @@ public abstract class Ammo {
         String currentBullet = this.getName();
 
         if (currentBullet == "Mask"
-                || currentBullet == "Syrenge"
+                || currentBullet == "Syringe"
                 || currentBullet == "Bullet" ) {
             returnValue = false;
+        }
+
+        return returnValue;
+    }
+
+    /**
+     * Return True if the bullet is boss's bullet, otherwise False.
+     */
+    public boolean isBossBullet() {
+        boolean returnValue = false;
+        String currentBullet = this.getName();
+
+        if (currentBullet == "BabyCovid"
+                || currentBullet == "GreenCloud") {
+            returnValue = true;
         }
 
         return returnValue;
@@ -83,34 +92,6 @@ public abstract class Ammo {
      */
     public void draw(Batch batch) {
         Texture image = getImage();
-        batch.draw(getImage(), xPos, yPos, image.getWidth(), image.getHeight());
-    }
-
-    /**
-     * Return the world width.
-     */
-    public int getWordWidth() {
-        return Gdx.graphics.getWidth();
-    }
-
-    /**
-     * Return the world height.
-     */
-    public int getWorldHeight() {
-        return Gdx.graphics.getWidth();
-    }
-
-    /**
-     * Return the image width.
-     */
-    public int getImageWidth() {
-        return getImage().getWidth();
-    }
-
-    /**
-     * Return the image height.
-     */
-    public int getImageHeight() {
-        return getImage().getHeight();
+        batch.draw(getImage(), getXPosition(), getYPosition(), image.getWidth(), image.getHeight());
     }
 }
