@@ -2,7 +2,7 @@ package Entity;
 
 import Ammo.Ammo;
 import Ammo.AmmoFactory;
-
+import com.badlogic.gdx.math.GridPoint2;
 
 /**
  * The Entity abstract class that can move and fire.
@@ -33,9 +33,9 @@ public abstract class Entity extends GameObject {
     public abstract float getTimeBetweenShots();
 
     /**
-     * Return the ammo that the entity fires.
+     * Return the bullet string that the enemy fires.
      */
-    public abstract Ammo fire();
+    public abstract String getBullet();
 
     /**
      * Update time since last shot.
@@ -47,23 +47,26 @@ public abstract class Entity extends GameObject {
     }
 
     /**
+     * Reset time since last shot to 0.
+     *
+     */
+    public void resetTimeSinceLastShot() {
+        timeSinceLastShot = 0;
+    }
+
+    /**
      * Return True if the entity can fire, otherwise false.
+     *
+     * @return  if the entity can fie.
      */
     public boolean canFire() {
         return (timeSinceLastShot - getTimeBetweenShots() >= 0);
     }
 
     /**
-     * Return the bullet ammo that the entity fires.
+     * Return the coordinate for shooting position.
      *
-     * @param  bullet  The name of the type of bullet.
-     * @return The ammo that the entity fires.
+     * @return  shooting position.
      */
-    public Ammo fire(String bullet) {
-        Ammo ammo = factory.create(bullet,
-                xPosition + (getImageWidth() / 2),
-                yPosition + getImageHeight());
-        timeSinceLastShot = 0;
-        return  ammo;
-    }
+    public abstract GridPoint2 getShootingPosition();
 }

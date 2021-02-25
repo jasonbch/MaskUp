@@ -1,7 +1,7 @@
 package Enemy;
 
-import Ammo.Ammo;
 import Entity.Entity;
+import com.badlogic.gdx.math.GridPoint2;
 
 /**
  * The Enemy abstract class that extends from Entity that can move and fire.
@@ -33,16 +33,14 @@ public abstract class Enemy extends Entity {
     }
 
     /**
-     * Return the bullet string that the enemy fires.
+     * Return the coordinate for shooting position.
+     *
+     * @return shooting position.
      */
-    public abstract String bullet();
-
-    /**
-     * Return the ammo that the enemy fires.
-     */
-    public Ammo fire() {
-        Ammo ammo = factory.create(bullet(), xPosition + (getImageWidth() / 2), yPosition);
-        timeSinceLastShot = 0;
-        return  ammo;
+    public GridPoint2 getShootingPosition() {
+        float xShootPosition = getXPosition() + getImageWidth() / 2;
+        float yShootPosition = getYPosition();
+        GridPoint2 shootPosition = new GridPoint2((int) xShootPosition, (int) yShootPosition);
+        return shootPosition;
     }
 }
