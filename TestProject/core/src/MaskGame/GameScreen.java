@@ -30,11 +30,11 @@ import java.util.ListIterator;
  */
 public class GameScreen extends ApplicationAdapter implements Screen  {
     // Screen
-    private Camera camera;
-    private Viewport viewport;
+    private final Camera camera;
+    private final Viewport viewport;
 
     // Graphic
-    private SpriteBatch batch;
+    private final SpriteBatch batch;
     private Texture[] backgrounds;
 
     private long recentSpawnTime = 0;
@@ -337,9 +337,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
             ammo.draw(batch);
-            ammo.yPos += ammo.getSpeed()*deltaTime;
+            ammo.moveUp(deltaTime);
 
-            if (ammo.yPos > WORLD_HEIGHT) {
+            if (ammo.getYPosition() > WORLD_HEIGHT) {
                 iterator.remove();
             }
         }
@@ -349,9 +349,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
             ammo.draw(batch);
-            ammo.yPos -= ammo.getSpeed()*deltaTime;
+            ammo.moveDown(deltaTime);
 
-            if (ammo.yPos < 0) {
+            if (ammo.getYPosition() < 0) {
                 iter.remove();
             }
         }

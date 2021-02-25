@@ -36,6 +36,47 @@ public abstract class GameObject {
     }
 
     /**
+     * Return the speed of the entity.
+     */
+    public abstract float getSpeed();
+
+    /**
+     * Move the entity up.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveUp(float deltaTime) {
+        this.yPosition += getSpeed() * deltaTime;
+    }
+
+    /**
+     * Move the entity down.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveDown(float deltaTime) {
+        this.yPosition -= getSpeed() * deltaTime;
+    }
+
+    /**
+     * Move the entity left.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveLeft(float deltaTime) {
+        this.xPosition -= getSpeed() * deltaTime;
+    }
+
+    /**
+     * Move the entity right.
+     *
+     * @param  deltaTime delta time.
+     */
+    public void moveRight(float deltaTime) {
+        this.xPosition += getSpeed() * deltaTime;
+    }
+
+    /**
      * Return the Texture image.
      */
     public abstract Texture getImage();
