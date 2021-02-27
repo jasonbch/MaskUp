@@ -1,5 +1,7 @@
 package Entity;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 
@@ -73,5 +75,32 @@ public class Player extends Entity {
         float yShootPosition = getYPosition() + getImageHeight();
         GridPoint2 shootPosition = new GridPoint2((int) xShootPosition, (int) yShootPosition);
         return shootPosition;
+    }
+
+    /**
+     * Restrict the player position inside the screen.
+     * Move the player accordingly to the key presses.
+     *
+     * @param deltaTime the delta time
+     */
+    public void movePlayer(float deltaTime) {
+        // Check player movement
+        // Restrict player movement in the screen
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && getXPosition() > 0) {
+            // Move left
+            moveLeft(deltaTime);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && getXPosition() < getWorldWidth() - getImageWidth()) {
+            // Move right
+            moveRight(deltaTime);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && getYPosition() < getWorldHeight() - getImageHeight()) {
+            // Move up
+            moveUp(deltaTime);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && getYPosition() > 0) {
+            // Move down
+            moveDown(deltaTime);
+        }
     }
 }

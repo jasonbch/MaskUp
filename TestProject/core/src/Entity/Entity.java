@@ -1,7 +1,5 @@
 package Entity;
 
-import Ammo.Ammo;
-import Ammo.AmmoFactory;
 import com.badlogic.gdx.math.GridPoint2;
 
 /**
