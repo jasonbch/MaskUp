@@ -9,10 +9,12 @@ import GameEngine.EnemySpawningController;
 import GameEngine.ShootController;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -57,6 +59,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
 
+    private final FPSLogger logger = new FPSLogger();
+
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
@@ -94,6 +98,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     @Override
     public void render(float deltaTime) {
+        logger.log();
+
         // Get the game speed
         gameSpeed = getGameSpeed();
         deltaTime *= gameSpeed;
@@ -114,10 +120,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Process enemies
         enemySpawningController.spawnEnemies();                             // Spawn game enemies
         shootController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
-        drawAndUpdateBulletsAndEnemies(deltaTime);                          // Draw and update all
+        updateMovementAndDrawBullets(deltaTime);                            // Draw and update all
+        updateMovementAndDrawEnemies(deltaTime);
         enemySpawningController.deleteEnemies();                            // Delete enemies if they need deleted
-
-        // TODO: extract bullet processing
 
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();
@@ -196,23 +201,19 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         }
     }
 
-
-
     /**
-     * TODO: Move player bullet out of the method or
-     *  move the draw enemy out of the method.
-     *
-     * Draw and update enemies and all bullets on the screen.
+     * TODO: Update movement
+     * Draw and update bullets on the screen.
      *
      * @param deltaTime the delta time
      */
-    private void drawAndUpdateBulletsAndEnemies(float deltaTime) {
+    private void updateMovementAndDrawBullets(float deltaTime) {
         // Player bullets
         ListIterator<Ammo> iterator = shootController.getPlayerAmmoList().listIterator();
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
-            ammo.draw(batch);
             ammo.moveUp(deltaTime);
+            ammo.draw(batch);
 
             if (ammo.getYPosition() > WORLD_HEIGHT) {
                 iterator.remove();
@@ -223,14 +224,22 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ListIterator<Ammo> iter = shootController.getEnemyAmmoList().listIterator();
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            ammo.draw(batch);
             ammo.moveDown(deltaTime);
+            ammo.draw(batch);
 
             if (ammo.getYPosition() < 0) {
                 iter.remove();
             }
         }
+    }
 
+    /**
+     * TODO: Update movement
+     * Draw and update enemies on the screen.
+     *
+     * @param deltaTime the delta time
+     */
+    private void updateMovementAndDrawEnemies(float deltaTime) {
         // Draw Enemies
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
@@ -239,7 +248,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
             currEnemy.draw(batch);
         }
     }
-    
+
     @Override
     public void resize(int width, int height) {
         viewport.update(width,height, true);

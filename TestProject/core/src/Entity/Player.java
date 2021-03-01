@@ -18,15 +18,17 @@ public class Player extends Entity {
     /**
      * Create a new instance of a Player at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param  xPosition initial x position.
+     * @param  yPosition initial y position.
      */
-    public Player(float xPos, float yPos) {
-        super(xPos, yPos);
+    public Player(float xPosition, float yPosition) {
+        super(xPosition, yPosition);
     }
 
     /**
      * Return the name.
+     *
+     * @return  the name of the player.
      */
     @Override
     public String getName() {
@@ -35,6 +37,8 @@ public class Player extends Entity {
 
     /**
      * Return the speed.
+     *
+     * @return  the speed of the player.
      */
     @Override
     public float getSpeed() {
@@ -42,7 +46,9 @@ public class Player extends Entity {
     }
 
     /**
-     * Return the bullet string that the enemy fires.
+     * Return the bullet string that the player fires.
+     *
+     * @return  the bullet string the player use.
      */
     @Override
     public String getBullet() {
@@ -51,6 +57,8 @@ public class Player extends Entity {
 
     /**
      * Return the time between shot.
+     *
+     * @return  the time between shot of the player.
      */
     @Override
     public float getTimeBetweenShots() {
@@ -59,6 +67,8 @@ public class Player extends Entity {
 
     /**
      * Return the Texture image.
+     *
+     * @return  the texture of the player.
      */
     @Override
     public Texture getImage() {
@@ -78,6 +88,7 @@ public class Player extends Entity {
     }
 
     /**
+     * TODO: Feed Gdx.input as an parameter?
      * Restrict the player position inside the screen.
      * Move the player accordingly to the key presses.
      *
