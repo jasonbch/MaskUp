@@ -10,6 +10,9 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 576;
 		config.height = 1024;
+		config.vSyncEnabled = true;
+		config.foregroundFPS = 60;
+		config.backgroundFPS = 60;
 		new LwjglApplication(new MaskGame(), config);
 	}
 }
