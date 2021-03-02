@@ -79,6 +79,11 @@ public abstract class Ammo {
         return returnValue;
     }
 
+    /*public Rectangle getBoundingBox()
+    {
+        return new Rectangle(xPos,yPos, getImageWidth(), getImageHeight());
+    }*/
+
     /**
      * Draw the object.
      *

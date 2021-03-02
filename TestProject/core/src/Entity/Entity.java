@@ -79,7 +79,8 @@ public abstract class Entity extends GameObject {
 
     /*public boolean intersects(Rectangle otherRectangle)
     {
-        return entityBoundingBox.overlaps(otherRectangle);
+        Rectangle rectangle = new Rectangle(xPosition,yPosition,getImageWidth(), getImageHeight());
+        return rectangle.overlaps(otherRectangle);
     }*/
 
     /**

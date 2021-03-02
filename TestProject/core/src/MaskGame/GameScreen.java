@@ -144,7 +144,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         player.updateTimeSinceLastShot(deltaTime);   // Update player
         movePlayer(deltaTime);      // Move player
         playerFire();               // Check player shooting input
-
+        //detectCollision();
         // Process enemies
         spawnEnemies();         // Spawn game enemies
         enemyFire(deltaTime);   // Fire enemy bullets if they can fire
@@ -404,6 +404,32 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
             ((Player)player).moveDown(deltaTime);
         }
     }
+
+    /**
+     * Checks the collision between enemy ammo to player
+     * Checks the collision between player ammo to enemy
+     */
+    /*private void detectCollision() {
+        ListIterator<Ammo> iterator = enemyAmmoList.listIterator();
+        while (iterator.hasNext()) {
+            Ammo ammo = iterator.next();
+            if (player.intersects(ammo.getBoundingBox())) {
+                iterator.remove();
+            }
+        }
+
+        ListIterator<Enemy> iter2 = enemyList.listIterator();
+        iterator = playerAmmoList.listIterator();
+
+        while(iterator.hasNext() && iter2.hasNext())
+        {
+            Ammo ammo = iterator.next();
+            Enemy currenemy = iter2.next();
+            if(currenemy.intersects(ammo.getBoundingBox())) {
+                iterator.remove();
+            }
+        }
+    }*/
     
     @Override
     public void resize(int width, int height) {
