@@ -5,11 +5,12 @@ import Enemy.Enemy;
 import Entity.Entity;
 import Entity.Player;
 
+
 import GameEngine.EnemySpawningController;
+import GameEngine.EnemyMovementController;
 import GameEngine.ShootController;
 
 import com.badlogic.gdx.Input;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Gdx;
@@ -54,6 +55,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // Game controllers
     private final ShootController shootController = new ShootController();
     private final EnemySpawningController enemySpawningController = new EnemySpawningController();
+    private EnemyMovementController enemyMoveController = new EnemyMovementController();
 
     // Slow mode variables
     private boolean isSlowMode;
@@ -244,7 +246,20 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
-            currEnemy.updateMovement(deltaTime);
+
+            //eventually have all enemies use enemyMoveController, but just testing w/ bat first
+            if (currEnemy.getName().equals("Bat")) {
+                if(!currEnemy.isSpawned) {
+                    enemyMoveController.spawnMove(currEnemy, deltaTime);
+                }
+                else {
+                    enemyMoveController.patternBat(currEnemy, deltaTime);
+                }
+            }
+            else {
+                currEnemy.updateMovement(deltaTime);
+            }
+
             currEnemy.draw(batch);
         }
     }

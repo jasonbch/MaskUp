@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.GridPoint2;
  */
 public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
+    public float xMultiplier = 1;
+    public float yMultiplier = 1;
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
