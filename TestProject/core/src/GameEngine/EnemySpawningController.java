@@ -62,7 +62,7 @@ public class EnemySpawningController {
         if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3) {
             System.out.println("spawning enemies");
             spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-            spawnEnemies("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT*3/5);
+            spawnEnemies("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT);
             lastSpawnTime = elapsedTime;
         }
 

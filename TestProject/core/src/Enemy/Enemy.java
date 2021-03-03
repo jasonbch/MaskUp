@@ -7,8 +7,14 @@ import com.badlogic.gdx.math.GridPoint2;
  * The Enemy abstract class that extends from Entity that can move and fire.
  */
 public abstract class Enemy extends Entity {
-    protected float xMultiplier = 1;
-    protected float yMultiplier = 1;
+    public float xMultiplier = 1;
+    public float yMultiplier = 1;
+
+    // Enemy attributes used in the movement controller. default value set to true.
+    protected boolean isMovingLeft = true;
+    protected boolean isMovingRight = true;
+    public boolean isSpawned = false;
+
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -20,6 +26,10 @@ public abstract class Enemy extends Entity {
         super(xPos, yPos);
     }
 
+
+    /*
+    TODO: take out when EnemyMovementController is fully implemented
+     */
     /**
      * Update the enemies position.
      */

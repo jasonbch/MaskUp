@@ -41,6 +41,24 @@ public abstract class GameObject {
     public abstract float getSpeed();
 
     /**
+     * setter for the object xPosition
+     * @param xPos
+     */
+    public void setxPosition(float xPos)
+    {
+        this.xPosition = xPos;
+    }
+
+    /**
+     * setter for the object xPosition
+     * @param yPos
+     */
+    public void setyPosition(float yPos)
+    {
+        this.yPosition = yPos;
+    }
+
+    /**
      * Move the entity up.
      *
      * @param  deltaTime delta time.
@@ -75,6 +93,57 @@ public abstract class GameObject {
     public void moveRight(float deltaTime) {
         this.xPosition += getSpeed() * deltaTime;
     }
+
+    /**\
+     * @return returns if the game object is above the screen.
+     */
+    public boolean isAboveScreen() {
+        boolean retVal = false;
+        if (this.yPosition >= getWorldHeight() - getImageHeight()) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    /**\
+     * @return returns if the game object is below the screen.
+     */
+    public boolean isBelowScreen() {
+        boolean retVal = false;
+        if (this.yPosition <= 0) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    /**\
+     * @return returns if the game object is left of the screen.
+     */
+    public boolean isLeftOfScreen() {
+        boolean retVal = false;
+        if (this.xPosition <= 0)
+        {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    /**\
+     * @return returns if the game object is right of the screen.
+     */
+    public boolean isRightOfScreen() {
+        boolean retVal = false;
+        if (this.xPosition >= getWorldWidth() - getImageWidth())
+        {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
 
     /**
      * Return the Texture image.
