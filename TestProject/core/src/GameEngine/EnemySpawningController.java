@@ -24,7 +24,8 @@ public class EnemySpawningController {
 
     private long startTime = TimeUtils.millis();
     private long elapsedTime = 0;
-    private long lastSpawnTime = 0;
+    private long lastBatSpawnTime = 0;
+    private long lastMurderHornetSpawnTime = 0;
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
     private int stageOneStart = 0;
@@ -64,42 +65,44 @@ public class EnemySpawningController {
         elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
 
         if (elapsedTime >= stageOneStart && elapsedTime < stageTwoStart) {
-            stageOneSpawn();
+            spawnBat();
+            spawnMurderHornet();
         } else if (elapsedTime >= stageTwoStart && elapsedTime <= stageThreeStart) {
-            stageTwoSpawn();
+            spawnKaren();
         } else if (elapsedTime >= stageThreeStart && elapsedTime <= stageFourStart) {
-            stageThreeSpawn();
+            spawnBat();
+            spawnMurderHornet();
         } else if (elapsedTime >= stageFourStart) {
-            stageFourSpawn();
+            spawnCovid();
         }
     }
 
-    private void stageOneSpawn() {
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3) {
+    private void spawnBat() {
+        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
             System.out.println("spawning enemies");
             spawnEnemies("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT);
-            lastSpawnTime = elapsedTime;
+            lastBatSpawnTime = elapsedTime;
         }
     }
 
-    private void stageTwoSpawn(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3) {
+    private void spawnMurderHornet(){
+        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
             System.out.println("spawning enemies");
             spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT);
-            lastSpawnTime = elapsedTime;
+            lastMurderHornetSpawnTime = elapsedTime;
         }
     }
 
-    private void stageThreeSpawn(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 3) {
+    private void spawnKaren(){
+        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 1) {
             System.out.println("spawning mid boss");
             spawnMidBoss(WORLD_WIDTH/3, WORLD_HEIGHT);
             lastMidBossTime = elapsedTime;
         }
     }
 
-    private void stageFourSpawn(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 3) {
+    private void spawnCovid(){
+        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 1) {
             System.out.println("spawning final boss");
             spawnFinalBoss(WORLD_WIDTH/3, WORLD_HEIGHT);
             lastFinalBossTime = elapsedTime;
