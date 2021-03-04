@@ -11,7 +11,7 @@ public class MovementFactory {
             case "PatternOne":
                 return new PatternOne();
             default:
-                return new PatternOne();
+                return null;
         }
 
 

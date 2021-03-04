@@ -2,6 +2,8 @@ package GameEngine;
 
 import Enemy.Enemy;
 import Entity.Entity;
+import Factories.MovementFactory;
+import MovementPatterns.Pattern;
 
 import java.lang.Math;
 
@@ -10,6 +12,7 @@ import java.lang.Math;
  */
 public class EnemyMovementController {
 
+    MovementFactory movementFactory = new MovementFactory();
 
     public EnemyMovementController(){
     }
@@ -22,6 +25,21 @@ public class EnemyMovementController {
 
         if (enemy.getYPosition() <= 600) {
             enemy.isSpawned = true;
+        }
+    }
+
+    public void move(Enemy enemy, float deltaTime, Integer stage){
+        Pattern pattern = null;
+        switch(enemy.getName()){
+            case "Bat":
+                switch(stage){
+                    case 1:
+                        pattern = movementFactory.create("PatternOne");
+                }
+        }
+        if(pattern != null)
+        {
+            pattern.Move(enemy, deltaTime);
         }
     }
 

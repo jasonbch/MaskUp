@@ -253,7 +253,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
                     enemyMoveController.spawnMove(currEnemy, deltaTime);
                 }
                 else {
-                    enemyMoveController.patternBat(currEnemy, deltaTime);
+                    enemyMoveController.move(currEnemy,deltaTime,1);
                 }
             }
             else {
