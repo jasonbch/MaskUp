@@ -1,10 +1,9 @@
 package GameEngine;
 
 import Enemy.Enemy;
-import Entity.Entity;
 import Factories.MovementFactory;
 import MovementPatterns.Pattern;
-
+import com.badlogic.gdx.Gdx;
 import java.lang.Math;
 
 /**
@@ -14,9 +13,9 @@ public class EnemyMovementController {
 
     MovementFactory movementFactory = new MovementFactory();
 
+
     public EnemyMovementController(){
     }
-
 
     public void spawnMove(Enemy enemy, float deltaTime) {
         // a function that brings the enemies down from top of screen.
@@ -58,20 +57,46 @@ public class EnemyMovementController {
     }
 
     // Murder Hornet pattern function
-    public void patternMurderHornet(Entity entity, float deltaTime) {
-        // move in a circle
-        // center of the circle - (200, 500)
+    public void patternMurderHornet(Enemy enemy, float deltaTime) {
+        // Move left and right across screen
+        if (enemy.getXPosition() >= enemy.getWorldWidth() - enemy.getImageWidth() || enemy.getXPosition() <= 0) {
+            enemy.xMultiplier *= -1;
+        }
 
+        enemy.setxPosition(enemy.getXPosition() + enemy.getSpeed() * enemy.xMultiplier * deltaTime);
 
     }
 
-    // Karen mid boss pattern function
-    public void patternKaren(Entity entity, float deltaTime) {
+    // Karen md boss pattern function
+    public void patternKaren(Enemy enemy, float deltaTime) {
 
+        if (enemy.getXPosition() >= enemy.getWorldWidth() - enemy.getImageWidth() || enemy.getXPosition() <= 0) {
+            enemy.xMultiplier *= -1;
+        }
+
+        if (enemy.getYPosition() >= enemy.getWorldHeight() - enemy.getImageHeight() || enemy.getYPosition() <= 0) {
+            enemy.yMultiplier *= -1;
+        }
+
+
+        enemy.setxPosition(enemy.getXPosition() + enemy.getSpeed() * enemy.xMultiplier * deltaTime);
+        enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * enemy.yMultiplier * deltaTime);
     }
 
     // Covid final boss pattern function
-    public void patternCovid(Entity entity, float deltaTime) {
+    public void patternCovid(Enemy enemy, float deltaTime) {
 
+        if (enemy.getYPosition() >= enemy.getWorldHeight() - enemy.getImageHeight() || enemy.getYPosition() <= 0) {
+            enemy.yMultiplier *= -1;
+        }
+
+        enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * enemy.yMultiplier * deltaTime);
+    }
+
+    /**
+     * Exit the screen.
+     */
+    public void exitScreen(Enemy enemy, float deltaTime) {
+        enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * deltaTime);
     }
 }

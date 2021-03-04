@@ -46,21 +46,16 @@ public class Covid extends Enemy {
      */
     @Override
     public void updateMovement(float deltaTime) {
-        if (isDone) {
-            this.exitScreen(deltaTime);
-        } else {
+
             // move up and down the screen
             if (this.yPosition >= getWorldHeight() - getImageHeight() || this.yPosition <= 0) {
                 yMultiplier *= -1;
                 moveCounter++;
             }
 
-            if (moveCounter == 7) {
-                isDone = true;
-            }
 
             this.yPosition += (this.speed * yMultiplier) * deltaTime;
-        }
+
     }
 
     /**
