@@ -46,21 +46,14 @@ public class MurderHornet extends Enemy{
     @Override
     public void updateMovement(float deltaTime) {
 
-        if (isDone) {
-            this.exitScreen(deltaTime);
-        } else {
-            // Move left and right across screen
-            if (this.xPosition >= getWorldWidth() - getImageWidth() || this.xPosition <= 0) {
-                xMultiplier *= -1;
-                moveCounter++;
-            }
-
-            if (moveCounter == 5) {
-                isDone = true;
-            }
-
-            this.xPosition += (this.speed * xMultiplier) * deltaTime;
+        // Move left and right across screen
+        if (this.xPosition >= getWorldWidth() - getImageWidth() || this.xPosition <= 0) {
+            xMultiplier *= -1;
+            moveCounter++;
         }
+
+        this.xPosition += (this.speed * xMultiplier) * deltaTime;
+
     }
 
     /**

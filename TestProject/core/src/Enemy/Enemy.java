@@ -15,6 +15,10 @@ public abstract class Enemy extends Entity {
     protected boolean isMovingRight = true;
     public boolean isSpawned = false;
 
+    public long timeAlive;
+
+
+
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -27,6 +31,8 @@ public abstract class Enemy extends Entity {
     }
 
 
+
+
     /*
     TODO: take out when EnemyMovementController is fully implemented
      */
@@ -35,12 +41,12 @@ public abstract class Enemy extends Entity {
      */
     public abstract void updateMovement(float deltaTime);
 
-    /**
-     * Exit the screen.
-     */
-    public void exitScreen(float deltaTime) {
-        this.yPosition += this.getSpeed() * deltaTime;
-    }
+//    /**
+//     * Exit the screen.
+//     */
+//    public void exitScreen(float deltaTime) {
+//        this.yPosition += this.getSpeed() * deltaTime;
+//    }
 
     /**
      * Return the coordinate for shooting position.

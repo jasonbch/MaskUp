@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -61,6 +62,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
 
+    //game screen start time
+    private long startTime;
+
     private final FPSLogger logger = new FPSLogger();
 
     /**
@@ -82,6 +86,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         // Initialize start time
         enemySpawningController.setStartTime();
+        startTime = TimeUtils.millis();
 
         batch = new SpriteBatch();
 
@@ -256,8 +261,15 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
                     enemyMoveController.patternBat(currEnemy, deltaTime);
                 }
             }
-            else {
-                currEnemy.updateMovement(deltaTime);
+            else if (currEnemy.getName().equals("MurderHornet")) {
+                enemyMoveController.patternMurderHornet(currEnemy, deltaTime);
+            }
+            else if(currEnemy.getName().equals("Karen")) {
+                enemyMoveController.patternKaren(currEnemy, deltaTime);
+            }
+            else if(currEnemy.getName().equals("Covid")) {
+                enemyMoveController.patternCovid(currEnemy, deltaTime);
+
             }
 
             currEnemy.draw(batch);
