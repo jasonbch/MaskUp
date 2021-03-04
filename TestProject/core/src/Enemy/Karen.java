@@ -13,6 +13,7 @@ public class Karen extends Enemy{
     private final Texture texture = new Texture("Karen.png");
     private int moveCounter = 0;
     private boolean isDone = false;
+    private int maxLifespan = 5;
 
     /**
      * Create a new instance of a Karen at the xPos and yPos.
@@ -62,5 +63,10 @@ public class Karen extends Enemy{
     @Override
     public Texture getImage() {
         return this.texture;
+    }
+
+    @Override
+    public int getMaxLifespan(){
+        return this.maxLifespan;
     }
 }

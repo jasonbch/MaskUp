@@ -25,22 +25,28 @@ public class EnemyMovementController {
 
     public void move(Enemy enemy, float deltaTime, Integer stage){
         Pattern pattern = null;
+        enemy.updateTimeAlive();
 
-        switch (enemy.getName()) {
-            case "Bat":
-                pattern = movementFactory.create("PatternOne");
-                break;
-            case "MurderHornet":
-                pattern = movementFactory.create("PatternTwo");
-                break;
-            case "Karen":
-                pattern = movementFactory.create("PatternThree");
-                break;
-            case "Covid":
-                pattern = movementFactory.create("PatternFour");
-                break;
-            default:
-                pattern = movementFactory.create("PatternOne");
+        if(enemy.getTimeAlive() >= enemy.getMaxLifespan()){
+            pattern = movementFactory.create("PatternExit");
+        }
+        else {
+            switch (enemy.getName()) {
+                case "Bat":
+                    pattern = movementFactory.create("PatternOne");
+                    break;
+                case "MurderHornet":
+                    pattern = movementFactory.create("PatternTwo");
+                    break;
+                case "Karen":
+                    pattern = movementFactory.create("PatternThree");
+                    break;
+                case "Covid":
+                    pattern = movementFactory.create("PatternFour");
+                    break;
+                default:
+                    pattern = movementFactory.create("PatternOne");
+            }
         }
 
         pattern.Move(enemy, deltaTime);
