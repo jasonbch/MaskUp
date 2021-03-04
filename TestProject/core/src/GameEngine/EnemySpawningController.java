@@ -117,7 +117,7 @@ public class EnemySpawningController {
     }
 
     private void stageThreeSpawn(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3) {
+        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 3) {
             System.out.println("spawning mid boss");
             spawnMidBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
             lastMidBossTime = elapsedTime;
@@ -125,7 +125,7 @@ public class EnemySpawningController {
     }
 
     private void stageFourSpawn(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3) {
+        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 3) {
             System.out.println("spawning final boss");
             spawnFinalBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
             lastFinalBossTime = elapsedTime;

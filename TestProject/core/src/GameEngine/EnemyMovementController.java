@@ -13,7 +13,6 @@ public class EnemyMovementController {
 
     MovementFactory movementFactory = new MovementFactory();
 
-
     public EnemyMovementController(){
     }
 
