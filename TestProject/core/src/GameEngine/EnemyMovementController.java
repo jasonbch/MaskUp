@@ -11,9 +11,6 @@ import java.lang.Math;
  */
 public class EnemyMovementController {
 
-    private final int WORLD_WIDTH = Gdx.graphics.getWidth();
-    private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
-
     public EnemyMovementController(){
     }
 
