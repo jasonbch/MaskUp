@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class MainMenuScreen implements Screen {
-
     private MaskGame game;
     private Batch batch;
     private Texture exitButtonActive;
@@ -20,7 +19,6 @@ public class MainMenuScreen implements Screen {
         this.batch = batch;
     }
 
-
     @Override
     public void show() {
 
@@ -31,33 +29,26 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClearColor(1,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-
         batch.end();
-
     }
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void dispose() {
-
     }
 }

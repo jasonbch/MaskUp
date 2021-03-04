@@ -252,24 +252,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
 
-            //eventually have all enemies use enemyMoveController, but just testing w/ bat first
-            if (currEnemy.getName().equals("Bat")) {
-                if(!currEnemy.isSpawned) {
-                    enemyMoveController.spawnMove(currEnemy, deltaTime);
-                }
-                else {
-                    enemyMoveController.move(currEnemy,deltaTime,1);
-                }
-            }
-            else if (currEnemy.getName().equals("MurderHornet")) {
-                enemyMoveController.patternMurderHornet(currEnemy, deltaTime);
-            }
-            else if(currEnemy.getName().equals("Karen")) {
-                enemyMoveController.patternKaren(currEnemy, deltaTime);
-            }
-            else if(currEnemy.getName().equals("Covid")) {
-                enemyMoveController.patternCovid(currEnemy, deltaTime);
-
+            if(!currEnemy.isSpawned()) {
+                enemyMoveController.spawnMove(currEnemy, deltaTime);
+            } else {
+                enemyMoveController.move(currEnemy,deltaTime,1);
             }
 
             currEnemy.draw(batch);

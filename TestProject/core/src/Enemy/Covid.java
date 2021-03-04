@@ -42,23 +42,6 @@ public class Covid extends Enemy {
     }
 
     /**
-     * Update the enemies position.
-     */
-    @Override
-    public void updateMovement(float deltaTime) {
-
-            // move up and down the screen
-            if (this.yPosition >= getWorldHeight() - getImageHeight() || this.yPosition <= 0) {
-                yMultiplier *= -1;
-                moveCounter++;
-            }
-
-
-            this.yPosition += (this.speed * yMultiplier) * deltaTime;
-
-    }
-
-    /**
      * Return the bullet string that the enemy fires.
      */
     @Override

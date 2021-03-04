@@ -1,7 +1,6 @@
 package MovementPatterns;
 
 import Enemy.Enemy;
-import Entity.GameObject;
 
 public class PatternOne extends Pattern{
 
@@ -15,10 +14,10 @@ public class PatternOne extends Pattern{
         float val = 600 + (float)(50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
         enemy.setyPosition(val);
 
-        enemy.setxPosition(enemy.getXPosition() + (enemy.xMultiplier * enemy.getSpeed() * deltaTime));
+        enemy.setxPosition(enemy.getXPosition() + (enemy.getXMultiplier() * enemy.getSpeed() * deltaTime));
 
         if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()){
-            enemy.xMultiplier *= -1;
+            enemy.revertXMultiplier();
         }
     }
 }

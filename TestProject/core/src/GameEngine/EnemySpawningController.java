@@ -27,6 +27,10 @@ public class EnemySpawningController {
     private long lastSpawnTime = 0;
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
+    private int stageOneStart = 0;
+    private int stageTwoStart = 30;
+    private int stageThreeStart = 60;
+    private int stageFourStart = 90;
 
     /**
      * Create an instance of the EnemySpawningController.
@@ -59,45 +63,15 @@ public class EnemySpawningController {
         // Spawn enemies
         elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
 
-        if(elapsedTime < 30){
+        if (elapsedTime >= stageOneStart && elapsedTime < stageTwoStart) {
             stageOneSpawn();
-        }
-
-        if(elapsedTime >= 60 && elapsedTime <= 90)
-        {
+        } else if (elapsedTime >= stageTwoStart && elapsedTime <= stageThreeStart) {
             stageTwoSpawn();
-        }
-
-        if(elapsedTime >= 90 && elapsedTime <= 120)
-        {
+        } else if (elapsedTime >= stageThreeStart && elapsedTime <= stageFourStart) {
             stageThreeSpawn();
-        }
-
-        if(elapsedTime >= 120)
-        {
+        } else if (elapsedTime >= stageFourStart) {
             stageFourSpawn();
         }
-
-//        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3) {
-//            System.out.println("spawning enemies");
-//            spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-//            spawnEnemies("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT);
-//            lastSpawnTime = elapsedTime;
-//        }
-//
-//        // Spawn mid boss
-//        if (elapsedTime % 20 == 0 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 3) {
-//            System.out.println("spawning mid boss");
-//            spawnMidBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-//            lastMidBossTime = elapsedTime;
-//        }
-//
-//        // Spawn final boss
-//        if (elapsedTime % 40 == 0 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 3) {
-//            System.out.println("spawning final boss");
-//            spawnFinalBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-//            lastFinalBossTime = elapsedTime;
-//        }
     }
 
     private void stageOneSpawn() {
@@ -111,7 +85,7 @@ public class EnemySpawningController {
     private void stageTwoSpawn(){
         if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastSpawnTime > 3) {
             System.out.println("spawning enemies");
-            spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
+            spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT);
             lastSpawnTime = elapsedTime;
         }
     }
@@ -119,7 +93,7 @@ public class EnemySpawningController {
     private void stageThreeSpawn(){
         if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 3) {
             System.out.println("spawning mid boss");
-            spawnMidBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
+            spawnMidBoss(WORLD_WIDTH/3, WORLD_HEIGHT);
             lastMidBossTime = elapsedTime;
         }
     }
@@ -127,7 +101,7 @@ public class EnemySpawningController {
     private void stageFourSpawn(){
         if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 3) {
             System.out.println("spawning final boss");
-            spawnFinalBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
+            spawnFinalBoss(WORLD_WIDTH/3, WORLD_HEIGHT);
             lastFinalBossTime = elapsedTime;
         }
     }

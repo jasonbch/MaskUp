@@ -38,6 +38,7 @@ public class AmmoFactory {
             case "Syringe":
                 return new Syringe(xPos - (texture7.getWidth() / 2), yPos);
         }
+
         return null;
     }
 }

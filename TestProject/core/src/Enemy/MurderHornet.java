@@ -40,21 +40,6 @@ public class MurderHornet extends Enemy{
         return this.speed;
     }
 
-    /**
-     * Update the enemies position.
-     */
-    @Override
-    public void updateMovement(float deltaTime) {
-
-        // Move left and right across screen
-        if (this.xPosition >= getWorldWidth() - getImageWidth() || this.xPosition <= 0) {
-            xMultiplier *= -1;
-            moveCounter++;
-        }
-
-        this.xPosition += (this.speed * xMultiplier) * deltaTime;
-
-    }
 
     /**
      * Return the bullet string that the enemy fires.

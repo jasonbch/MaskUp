@@ -1,11 +1,8 @@
 package MovementPatterns;
 
 import Enemy.Enemy;
-import Entity.GameObject;
 
 public abstract class Pattern {
-
-
     /**
      * Return the name of the pattern.
      */

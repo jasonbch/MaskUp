@@ -41,31 +41,6 @@ public class Karen extends Enemy{
     }
 
     /**
-     * Update the enemies position.
-     */
-    @Override
-    public void updateMovement(float deltaTime) {
-
-
-            if (this.xPosition >= getWorldWidth() - getImageWidth() || this.xPosition <= 0) {
-                xMultiplier *= -1;
-                moveCounter++;
-            }
-
-            if (this.yPosition >= getWorldHeight() - getImageHeight() || this.yPosition <= 0) {
-                yMultiplier *= -1;
-                moveCounter++;
-            }
-
-            if (moveCounter == 15) {
-                isDone = true;
-            }
-
-            this.xPosition += (this.speed * xMultiplier) * deltaTime;
-            this.yPosition += (this.speed * yMultiplier) * deltaTime;
-    }
-
-    /**
      * Return the bullet string that the enemy fires.
      */
     @Override
