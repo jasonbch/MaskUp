@@ -1,8 +1,11 @@
-package MovementPatterns;
+package EnemyMovementPattern;
 
 import Enemy.Enemy;
 
-public abstract class Pattern {
+/**
+ * The EnemyMovementPattern class that move the enemy in a specific order.
+ */
+public abstract class EnemyMovementPattern {
     /**
      * Return the name of the pattern.
      */

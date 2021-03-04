@@ -1,5 +1,6 @@
-package Ammo;
+package Factories;
 
+import Ammo.*;
 import com.badlogic.gdx.graphics.Texture;
 
 /**

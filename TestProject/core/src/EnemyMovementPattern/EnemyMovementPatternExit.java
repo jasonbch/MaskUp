@@ -1,8 +1,11 @@
-package MovementPatterns;
+package EnemyMovementPattern;
 
 import Enemy.Enemy;
 
-public class PatternExit extends Pattern {
+/**
+ * The EnemyMovementPattern that move the enemy to the top of the screen.
+ */
+public class EnemyMovementPatternExit extends EnemyMovementPattern {
     @Override
     public String getName() {
         return "PatternExit";

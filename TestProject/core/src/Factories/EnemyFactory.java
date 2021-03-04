@@ -1,4 +1,6 @@
-package Enemy;
+package Factories;
+
+import Enemy.*;
 
 /**
  * The factory class to create different kind of enemies.

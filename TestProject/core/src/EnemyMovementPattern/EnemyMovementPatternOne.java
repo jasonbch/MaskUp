@@ -1,8 +1,13 @@
-package MovementPatterns;
+package EnemyMovementPattern;
 
 import Enemy.Enemy;
 
-public class PatternOne extends Pattern{
+/**
+ * The EnemyMovementPattern that move the enemy left and right on the screen
+ * in a sine wave pattern. If the enemy touches the side of the screen, the
+ * enemy changes direction and continue moving.
+ */
+public class EnemyMovementPatternOne extends EnemyMovementPattern {
 
     @Override
     public String getName() {
@@ -11,7 +16,7 @@ public class PatternOne extends Pattern{
 
     @Override
     public void Move(Enemy enemy, float deltaTime) {
-        float val = 600 + (float)(50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
+        float val = 600 + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
         enemy.setyPosition(val);
 
         enemy.setxPosition(enemy.getXPosition() + (enemy.getXMultiplier() * enemy.getSpeed() * deltaTime));

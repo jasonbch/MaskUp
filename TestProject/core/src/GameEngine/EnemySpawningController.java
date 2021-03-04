@@ -1,13 +1,15 @@
 package GameEngine;
 
 import Enemy.Enemy;
-import Enemy.EnemyFactory;
+import Factories.EnemyFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Random;
+
 
 /**
  * EnemySpawningController class that in charge of spawning enemies.
@@ -28,10 +30,16 @@ public class EnemySpawningController {
     private long lastMurderHornetSpawnTime = 0;
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
-    private int stageOneStart = 0;
-    private int stageTwoStart = 30;
-    private int stageThreeStart = 60;
-    private int stageFourStart = 90;
+    private final int stageOneStart = 0;
+    private final int stageTwoStart = 30;
+    private final int stageThreeStart = 60;
+    private final int stageFourStart = 90;
+    private final int interval = 5;
+
+    private boolean isJustSpawnMidBoss = false;
+    private boolean isJustSpawnFinalBoss = false;
+
+    private Random rand = new Random();
 
     /**
      * Create an instance of the EnemySpawningController.
@@ -68,43 +76,49 @@ public class EnemySpawningController {
             spawnBat();
             spawnMurderHornet();
         } else if (elapsedTime >= stageTwoStart && elapsedTime <= stageThreeStart) {
-            spawnKaren();
+            if (!isJustSpawnMidBoss) {
+                spawnKaren();
+                isJustSpawnMidBoss = true;
+            }
         } else if (elapsedTime >= stageThreeStart && elapsedTime <= stageFourStart) {
             spawnBat();
             spawnMurderHornet();
         } else if (elapsedTime >= stageFourStart) {
-            spawnCovid();
+            if (!isJustSpawnFinalBoss) {
+                spawnCovid();
+                isJustSpawnFinalBoss = true;
+            }
         }
     }
 
     private void spawnBat() {
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
-            System.out.println("spawning enemies");
-            spawnEnemies("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT);
+        int xPosition = rand.nextInt(WORLD_WIDTH + 1);
+        if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
+            spawnEnemies("Bat", xPosition, WORLD_HEIGHT);
             lastBatSpawnTime = elapsedTime;
         }
     }
 
-    private void spawnMurderHornet(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
-            System.out.println("spawning enemies");
-            spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT);
+    private void spawnMurderHornet() {
+        int xPosition = rand.nextInt(WORLD_WIDTH + 1);
+        if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
+            spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT);
             lastMurderHornetSpawnTime = elapsedTime;
         }
     }
 
-    private void spawnKaren(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastMidBossTime > 1) {
-            System.out.println("spawning mid boss");
-            spawnMidBoss(WORLD_WIDTH/3, WORLD_HEIGHT);
+    private void spawnKaren() {
+        int xPosition = rand.nextInt(WORLD_WIDTH + 1);
+        if (elapsedTime != 0 && elapsedTime - lastMidBossTime > 1) {
+            spawnMidBoss(xPosition, WORLD_HEIGHT);
             lastMidBossTime = elapsedTime;
         }
     }
 
-    private void spawnCovid(){
-        if (elapsedTime % 5 == 0 && elapsedTime != 0 && elapsedTime - lastFinalBossTime > 1) {
-            System.out.println("spawning final boss");
-            spawnFinalBoss(WORLD_WIDTH/3, WORLD_HEIGHT);
+    private void spawnCovid() {
+        int xPosition = rand.nextInt(WORLD_WIDTH + 1);
+        if (elapsedTime != 0 && elapsedTime - lastFinalBossTime > 1) {
+            spawnFinalBoss(xPosition, WORLD_HEIGHT);
             lastFinalBossTime = elapsedTime;
         }
     }

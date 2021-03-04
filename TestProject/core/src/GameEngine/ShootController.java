@@ -1,7 +1,7 @@
 package GameEngine;
 
 import Ammo.Ammo;
-import Ammo.AmmoFactory;
+import Factories.AmmoFactory;
 import Enemy.Enemy;
 import Entity.Entity;
 

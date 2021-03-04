@@ -1,24 +1,24 @@
-package MovementPatterns;
+package EnemyMovementPattern;
 
 import Enemy.Enemy;
 
-public class PatternThree extends Pattern {
+/**
+ * The EnemyMovementPattern that move the enemy up and down. If the enemy touch
+ * the top of the screen, the enemy changes direction and move down to the bottom
+ * of the screen and vice versa.
+ */
+public class EnemyMovementPatternFour extends EnemyMovementPattern {
     @Override
     public String getName() {
-        return "PatternThree";
+        return "PatternFour";
     }
 
     @Override
     public void Move(Enemy enemy, float deltaTime) {
-        if (enemy.getXPosition() >= enemy.getWorldWidth() - enemy.getImageWidth() || enemy.getXPosition() <= 0) {
-            enemy.revertXMultiplier();
-        }
-
         if (enemy.getYPosition() >= enemy.getWorldHeight() - enemy.getImageHeight() || enemy.getYPosition() <= 0) {
             enemy.revertYMultiplier();
         }
 
-        enemy.setxPosition(enemy.getXPosition() + enemy.getSpeed() * enemy.getXMultiplier() * deltaTime);
         enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * enemy.getYMultiplier() * deltaTime);
     }
 }

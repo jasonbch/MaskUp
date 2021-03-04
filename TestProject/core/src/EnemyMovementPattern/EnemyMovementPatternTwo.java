@@ -1,8 +1,13 @@
-package MovementPatterns;
+package EnemyMovementPattern;
 
 import Enemy.Enemy;
 
-public class PatternTwo extends Pattern {
+/**
+ * The EnemyMovementPattern that move the enemy left and right of the screen.
+ * If the enemy touches the side of the screen, the enemy switches horizontal
+ * direction and continue moving.
+ */
+public class EnemyMovementPatternTwo extends EnemyMovementPattern {
 
     @Override
     public String getName() {

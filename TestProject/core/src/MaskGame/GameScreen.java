@@ -5,7 +5,6 @@ import Enemy.Enemy;
 import Entity.Entity;
 import Entity.Player;
 
-
 import GameEngine.EnemySpawningController;
 import GameEngine.EnemyMovementController;
 import GameEngine.ShootController;
@@ -56,7 +55,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // Game controllers
     private final ShootController shootController = new ShootController();
     private final EnemySpawningController enemySpawningController = new EnemySpawningController();
-    private EnemyMovementController enemyMoveController = new EnemyMovementController();
+    private final EnemyMovementController enemyMoveController = new EnemyMovementController();
 
     // Slow mode variables
     private boolean isSlowMode;
@@ -241,7 +240,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     }
 
     /**
-     * TODO: Update movement
+     * TODO: Get rid of spawnMove
      * Draw and update enemies on the screen.
      *
      * @param deltaTime the delta time

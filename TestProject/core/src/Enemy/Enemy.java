@@ -11,7 +11,6 @@ public abstract class Enemy extends Entity {
     private float xMultiplier = 1;
     private float yMultiplier = 1;
     private boolean isSpawned = false;
-
     private long spawnTime = TimeUtils.millis();
     private long timeAlive;
 
@@ -65,7 +64,7 @@ public abstract class Enemy extends Entity {
      * @return shooting position.
      */
     public GridPoint2 getShootingPosition() {
-        float xShootPosition = getXPosition() + getImageWidth() / 2;
+        float xShootPosition = getXPosition() + (float) getImageWidth() / 2;
         float yShootPosition = getYPosition();
         GridPoint2 shootPosition = new GridPoint2((int) xShootPosition, (int) yShootPosition);
         return shootPosition;

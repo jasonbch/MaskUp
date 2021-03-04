@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class CovidGerm extends Ammo{
     private final String name = "CovidGerm";
     private final String[] acceptableTargets = {"Player"};
-    private final float speed = 150;
+    private final float speed = 300;
     private final Texture texture = new Texture("CovidGerm.png");
 
     /**
