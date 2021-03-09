@@ -122,28 +122,15 @@ public abstract class GameObject {
      * @return returns if the game object is left of the screen.
      */
     public boolean isLeftOfScreen() {
-        boolean retVal = false;
-        if (this.xPosition <= 0)
-        {
-            retVal = true;
-        }
-
-        return retVal;
+        return this.xPosition <= 10;
     }
 
     /**\
      * @return returns if the game object is right of the screen.
      */
     public boolean isRightOfScreen() {
-        boolean retVal = false;
-        if (this.xPosition >= getWorldWidth() - getImageWidth())
-        {
-            retVal = true;
-        }
-
-        return retVal;
+        return this.xPosition >= getWorldWidth() - getImageWidth() - 10;
     }
-
 
     /**
      * Return the Texture image.
