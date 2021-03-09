@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
 
-
 /**
  * EnemySpawningController class that implements Singleton.
  * The class is in charged of spawning enemies. The class can
@@ -27,16 +26,16 @@ public class EnemySpawningController {
     private final EnemyFactory enemyFactory = new EnemyFactory();
     private final LinkedList<Enemy> enemyList = new LinkedList<>();
 
+    // Timing for spawning enemies
     private final long startTime = TimeUtils.millis();
     private long elapsedTime = 0;
-
     private long lastBatSpawnTime = 0;
     private long lastMurderHornetSpawnTime = 0;
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
-
     private final int spawnGruntInterval = 5;
 
+    // Checks to spawn only one boss
     private boolean isJustSpawnMidBoss = false;
     private boolean isJustSpawnFinalBoss = false;
 
@@ -113,7 +112,7 @@ public class EnemySpawningController {
      * @param startTime the start time.
      * @param endTime   the end time
      */
-    public void spawnMidBossStage(long startTime, long endTime) {
+    public void spawnMidBossWave(long startTime, long endTime) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             if (!isJustSpawnMidBoss) {
                 spawnMidBoss();

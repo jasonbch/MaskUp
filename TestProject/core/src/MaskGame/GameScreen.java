@@ -20,7 +20,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -52,8 +51,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
     // Game controllers
     private final ShootController shootController = new ShootController();
-    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final EnemyMovementController enemyMoveController = new EnemyMovementController();
+
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
 
     // Slow mode variables
@@ -117,7 +117,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         shootController.playerFire(player);         // Check player shooting input
 
         // Process enemies
-        stageController.makeStage();                                // Spawn game enemies
+        stageController.makeStages();                                // Spawn game enemies
 
         shootController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
         updateMovementAndDrawBullets(deltaTime);                            // Draw and update all

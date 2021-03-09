@@ -2,6 +2,10 @@ package GameEngine;
 
 import com.badlogic.gdx.utils.TimeUtils;
 
+/**
+ * StageController class that implements Singleton.
+ * The class can create stages for a game.
+ */
 public class StageController {
     // Implement Singleton
     private static StageController uniqueInstance = null;
@@ -42,7 +46,7 @@ public class StageController {
     private StageController() {
     }
 
-    public void makeStage() {
+    public void makeStages() {
         // Set new elapsed time
         long newStartTime = enemySpawningController.getStartTime();
         enemySpawningController.setElapsedTime(TimeUtils.timeSinceMillis(newStartTime) / 1000);
@@ -52,7 +56,7 @@ public class StageController {
         enemySpawningController.spawnMurderHornetWave(stageOneStart, stageOneEnd);
 
         // Stage 2
-        enemySpawningController.spawnMidBossStage(stageTwoStart, stageTwoEnd);
+        enemySpawningController.spawnMidBossWave(stageTwoStart, stageTwoEnd);
 
         // Stage 3
         enemySpawningController.spawnBatWave(stageThreeStart, stageThreeEnd);
