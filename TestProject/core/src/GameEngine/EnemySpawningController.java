@@ -32,11 +32,24 @@ public class EnemySpawningController {
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
 
+    // Variable for stages
+    private final int stageBuffer = 5;
+
     private final int stageOneStart = 0;
-    private final int stageTwoStart = 30;
-    private final int stageThreeStart = 70;
-    private final int stageFourStart = 100;
-    private final int stageFourEnd = 160;
+    private final int stageOneDuration = 30;
+    private final int stageOneEnd = stageOneStart + stageOneDuration;
+
+    private final int stageTwoStart = stageOneEnd + stageBuffer;
+    private final int stageTwoDuration = 45;
+    private final int stageTwoEnd = stageTwoStart + stageTwoDuration;
+
+    private final int stageThreeStart = stageTwoEnd + stageBuffer;
+    private final int stageThreeDuration = 30;
+    private final int stageThreeEnd = stageThreeStart + stageThreeDuration;
+
+    private final int stageFourStart = stageThreeEnd + stageBuffer;
+    private final int stageFourDuration = 60;
+    private final int stageFourEnd = stageFourStart + stageFourDuration;
 
     private final int interval = 5;
 
@@ -76,12 +89,13 @@ public class EnemySpawningController {
         // Spawn enemies
         elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
 
-        spawnStage1(stageOneStart, stageTwoStart);
-        spawnStage2(stageTwoStart, stageThreeStart);
-        spawnStage3(stageThreeStart, stageFourStart);
+        spawnStage1(stageOneStart, stageOneEnd);
+        spawnStage2(stageTwoStart, stageTwoEnd);
+        spawnStage3(stageThreeStart, stageThreeEnd);
         spawnStage4(stageFourStart, stageFourEnd);
     }
 
+    // TODO: Refactor into one function. May take a while.
     public void spawnStage1(long startTime, long endTime) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             spawnBat();
@@ -115,7 +129,7 @@ public class EnemySpawningController {
     }
 
     private void spawnBat() {
-        int xPosition = rand.nextInt(WORLD_WIDTH);
+        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 150;
         if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
             spawnEnemies("Bat", xPosition, WORLD_HEIGHT);
             lastBatSpawnTime = elapsedTime;
@@ -123,7 +137,7 @@ public class EnemySpawningController {
     }
 
     private void spawnMurderHornet() {
-        int xPosition = rand.nextInt(WORLD_WIDTH);
+        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 150;
         if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
             spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT);
             lastMurderHornetSpawnTime = elapsedTime;
@@ -134,7 +148,7 @@ public class EnemySpawningController {
      * Spawn the mid boss at the given position.
      */
     private void spawnMidBoss() {
-        int xPosition = rand.nextInt(WORLD_WIDTH);
+        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 100;
         if (elapsedTime != 0 && elapsedTime - lastMidBossTime > 1) {
             spawnEnemies("Karen", xPosition, WORLD_HEIGHT);
             lastMidBossTime = elapsedTime;
@@ -145,7 +159,7 @@ public class EnemySpawningController {
      * Spawn the final boss at the given position.
      */
     private void spawnFinalBoss() {
-        int xPosition = rand.nextInt(WORLD_WIDTH);
+        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 100;
         if (elapsedTime != 0 && elapsedTime - lastFinalBossTime > 1) {
             spawnEnemies("Covid", xPosition, WORLD_HEIGHT);
             lastFinalBossTime = elapsedTime;

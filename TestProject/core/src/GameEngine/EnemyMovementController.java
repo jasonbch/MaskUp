@@ -47,10 +47,10 @@ public class EnemyMovementController {
                     enemyMovementPattern = enemyMovementFactory.create("PatternThree");
                     break;
                 case "Covid":
-                    enemyMovementPattern = enemyMovementFactory.create("PatternFour");
+                    enemyMovementPattern = enemyMovementFactory.create("PatternOne");
                     break;
                 default:
-                    enemyMovementPattern = enemyMovementFactory.create("PatternOne");
+                    enemyMovementPattern = enemyMovementFactory.create("PatternFour");
             }
         }
 

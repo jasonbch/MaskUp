@@ -13,7 +13,7 @@ public class Karen extends Enemy{
     private final Texture texture = new Texture("Karen.png");
     private int moveCounter = 0;
     private boolean isDone = false;
-    private int maxLifespan = 30;
+    private int maxLifespan = 45;
 
     /**
      * Create a new instance of a Karen at the xPos and yPos.
