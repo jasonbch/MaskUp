@@ -12,19 +12,22 @@ import java.util.Random;
 
 
 /**
- * EnemySpawningController class that in charge of spawning enemies.
- * The class can create different type of enemies. The class can also
- * create waves of enemies.
+ * EnemySpawningController class that implements Singleton.
+ * The class is in charged of spawning enemies. The class can
+ * also create different type of enemies.
  */
 public class EnemySpawningController {
     // TODO: Refactor words dimension
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
 
+    // Implement Singleton
+    private static EnemySpawningController uniqueInstance = null;
+
     private final EnemyFactory enemyFactory = new EnemyFactory();
     private final LinkedList<Enemy> enemyList = new LinkedList<>();
 
-    private long startTime = TimeUtils.millis();
+    private final long startTime = TimeUtils.millis();
     private long elapsedTime = 0;
 
     private long lastBatSpawnTime = 0;
@@ -32,11 +35,11 @@ public class EnemySpawningController {
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
 
-    // Variable for stages
     private final int spawnGruntInterval = 5;
-    private final int stageBuffer = 5;
 
     // Stages duration
+    private final int stageBuffer = 5;
+
     private final int stageOneDuration = 30;
     private final int stageTwoDuration = 45;
     private final int stageThreeDuration = 30;
@@ -58,47 +61,39 @@ public class EnemySpawningController {
     private Random rand = new Random();
 
     /**
-     * Create an instance of the EnemySpawningController.
+     * Return the instance of EnemySpawningController.
+     * Create the instance if the instance has not been initialized.
+     *
+     * @return the instance of EnemySpawningController.
      */
-    public EnemySpawningController() {
+    public static EnemySpawningController instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new EnemySpawningController();
+        }
+
+        return uniqueInstance;
     }
 
-    /**
-     * Return the enemy list.
-     *
-     * @return the enemy list.
-     */
+    private EnemySpawningController() {
+    }
+
+
     public LinkedList<Enemy> getEnemyList() {
         return this.enemyList;
     }
 
     /**
-     * Set start time for spawning.
+     * Get start time for spawning.
      */
-    public void setStartTime() {
-        this.startTime = TimeUtils.millis();
+    public long getStartTime() {
+        return this.startTime;
     }
 
     /**
-     * TODO: Introduce interval variables.
-     * This is where the movement class will be used
-     * Spawn enemies, mid boss, and final boss on the screen in different intervals.
+     * Set elaspse time for spawning.
      */
-    public void spawnEnemies() {
-        // Spawn enemies
-        elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
-
-        // Stage 1
-        spawnGruntStage(stageOneStart, stageOneEnd);
-
-        // Stage 2
-        spawnMidBossStage(stageTwoStart, stageTwoEnd);
-
-        // Stage 3
-        spawnGruntStage(stageThreeStart, stageThreeEnd);
-
-        // Stage 4
-        spawnFinalBossStage(stageFourStart, stageFourEnd);
+    public void setElapsedTime(long time) {
+        this.elapsedTime = time;
     }
 
     /**

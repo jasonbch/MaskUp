@@ -9,6 +9,7 @@ import GameEngine.EnemySpawningController;
 import GameEngine.EnemyMovementController;
 import GameEngine.ShootController;
 
+import GameEngine.StageController;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.audio.Music;
@@ -45,24 +46,19 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // World dimension
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
-//    private final int QUARTER_WORLD_HEIGHT = WORLD_HEIGHT/4;
-//    private final int HALF_WORLD_HEIGHT = WORLD_HEIGHT/2;
-//    private final int THREE_QUARTER__WORLD_HEIGHT = WORLD_HEIGHT*3/4;
 
     // Game objects
     private final Entity player;
 
     // Game controllers
     private final ShootController shootController = new ShootController();
-    private final EnemySpawningController enemySpawningController = new EnemySpawningController();
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final EnemyMovementController enemyMoveController = new EnemyMovementController();
+    private final StageController stageController = StageController.instance();
 
     // Slow mode variables
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
-
-    //game screen start time
-    private long startTime;
 
     private final FPSLogger logger = new FPSLogger();
 
@@ -83,18 +79,14 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         this.isSlowMode = false;
         this.gameSpeed = 1; // Set current game speed to normal speed
 
-        // Initialize start time
-        enemySpawningController.setStartTime();
-        startTime = TimeUtils.millis();
-
         batch = new SpriteBatch();
 
         // Music
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
 
-        // start the playback of the background music immediately
-        //backgroundMusic.setLooping(true);
-        //backgroundMusic.play();
+        // Play background music
+        // backgroundMusic.setLooping(true);
+        // backgroundMusic.play();
     }
 
     /**
@@ -124,7 +116,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         shootController.playerFire(player);         // Check player shooting input
 
         // Process enemies
-        enemySpawningController.spawnEnemies();                             // Spawn game enemies
+        stageController.makeStage();                                // Spawn game enemies
+
         shootController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
         updateMovementAndDrawBullets(deltaTime);                            // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
