@@ -59,7 +59,6 @@ public class EnemySpawningController {
     private EnemySpawningController() {
     }
 
-
     public LinkedList<Enemy> getEnemyList() {
         return this.enemyList;
     }
@@ -80,24 +79,36 @@ public class EnemySpawningController {
 
     /**
      * TODO: Refactor into one function. May take a while.
-     * Spawn enemies for grunt stage one of the game. The enemies
-     * are spawned constantly in an interval and during the
-     * given start time and end time.
+     * Spawn bat in a wave. The enemies are spawned constantly
+     * in an interval and during the given start time and end time.
      *
      * @param startTime the start time.
      * @param endTime   the end time
      */
-    public void spawnGruntStage(long startTime, long endTime) {
+    public void spawnBatWave(long startTime, long endTime) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             spawnBat();
+        }
+    }
+
+    /**
+     * TODO: Refactor into one function. May take a while.
+     * Spawn murder hornet in a wave. The enemies are spawned constantly
+     * in an interval and during the given start time and end time.
+     *
+     * @param startTime the start time.
+     * @param endTime   the end time
+     */
+    public void spawnMurderHornetWave(long startTime, long endTime) {
+        if (elapsedTime >= startTime && elapsedTime < endTime) {
             spawnMurderHornet();
         }
     }
 
     /**
      * TODO: Refactor into one function. May take a while.
-     * Spawn mid boss for mid boss stage of the game. The boss
-     * is spawned once during the given start time and end time.
+     * Spawn mid boss for a wave. The mid boss is spawned once
+     * during the given start time and end time.
      *
      * @param startTime the start time.
      * @param endTime   the end time
@@ -113,13 +124,13 @@ public class EnemySpawningController {
 
     /**
      * TODO: Refactor into one function. May take a while.
-     * Spawn mid boss for final boss stage of the game. The boss
-     * is spawned once during the given start time and end time.
+     * Spawn final boss for a wave. The boss is spawned once
+     * during the given start time and end time.
      *
      * @param startTime the start time.
      * @param endTime   the end time
      */
-    public void spawnFinalBossStage(long startTime, long endTime) {
+    public void spawnFinalBossWave(long startTime, long endTime) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             if (!isJustSpawnFinalBoss) {
                 spawnFinalBoss();

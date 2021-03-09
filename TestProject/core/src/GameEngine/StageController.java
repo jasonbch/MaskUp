@@ -48,15 +48,17 @@ public class StageController {
         enemySpawningController.setElapsedTime(TimeUtils.timeSinceMillis(newStartTime) / 1000);
 
         // Stage 1
-        enemySpawningController.spawnGruntStage(stageOneStart, stageOneEnd);
+        enemySpawningController.spawnBatWave(stageOneStart, stageOneEnd);
+        enemySpawningController.spawnMurderHornetWave(stageOneStart, stageOneEnd);
 
         // Stage 2
         enemySpawningController.spawnMidBossStage(stageTwoStart, stageTwoEnd);
 
         // Stage 3
-        enemySpawningController.spawnGruntStage(stageThreeStart, stageThreeEnd);
+        enemySpawningController.spawnBatWave(stageThreeStart, stageThreeEnd);
+        enemySpawningController.spawnMurderHornetWave(stageThreeStart, stageThreeEnd);
 
         // Stage 4
-        enemySpawningController.spawnFinalBossStage(stageFourStart, stageFourEnd);
+        enemySpawningController.spawnFinalBossWave(stageFourStart, stageFourEnd);
     }
 }
