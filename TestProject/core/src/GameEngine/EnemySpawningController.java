@@ -33,25 +33,24 @@ public class EnemySpawningController {
     private long lastFinalBossTime = 0;
 
     // Variable for stages
+    private final int spawnGruntInterval = 5;
     private final int stageBuffer = 5;
 
-    private final int stageOneStart = 0;
+    // Stages duration
     private final int stageOneDuration = 30;
-    private final int stageOneEnd = stageOneStart + stageOneDuration;
-
-    private final int stageTwoStart = stageOneEnd + stageBuffer;
     private final int stageTwoDuration = 45;
-    private final int stageTwoEnd = stageTwoStart + stageTwoDuration;
-
-    private final int stageThreeStart = stageTwoEnd + stageBuffer;
     private final int stageThreeDuration = 30;
-    private final int stageThreeEnd = stageThreeStart + stageThreeDuration;
-
-    private final int stageFourStart = stageThreeEnd + stageBuffer;
     private final int stageFourDuration = 60;
+
+    private final int stageOneStart = 0;
+    private final int stageOneEnd = stageOneStart + stageOneDuration;
+    private final int stageTwoStart = stageOneEnd + stageBuffer;
+    private final int stageTwoEnd = stageTwoStart + stageTwoDuration;
+    private final int stageThreeStart = stageTwoEnd + stageBuffer;
+    private final int stageThreeEnd = stageThreeStart + stageThreeDuration;
+    private final int stageFourStart = stageThreeEnd + stageBuffer;
     private final int stageFourEnd = stageFourStart + stageFourDuration;
 
-    private final int interval = 5;
 
     private boolean isJustSpawnMidBoss = false;
     private boolean isJustSpawnFinalBoss = false;
@@ -89,21 +88,44 @@ public class EnemySpawningController {
         // Spawn enemies
         elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
 
-        spawnStage1(stageOneStart, stageOneEnd);
-        spawnStage2(stageTwoStart, stageTwoEnd);
-        spawnStage3(stageThreeStart, stageThreeEnd);
-        spawnStage4(stageFourStart, stageFourEnd);
+        // Stage 1
+        spawnGruntStage(stageOneStart, stageOneEnd);
+
+        // Stage 2
+        spawnMidBossStage(stageTwoStart, stageTwoEnd);
+
+        // Stage 3
+        spawnGruntStage(stageThreeStart, stageThreeEnd);
+
+        // Stage 4
+        spawnFinalBossStage(stageFourStart, stageFourEnd);
     }
 
-    // TODO: Refactor into one function. May take a while.
-    public void spawnStage1(long startTime, long endTime) {
+    /**
+     * TODO: Refactor into one function. May take a while.
+     * Spawn enemies for grunt stage one of the game. The enemies
+     * are spawned constantly in an interval and during the
+     * given start time and end time.
+     *
+     * @param startTime the start time.
+     * @param endTime   the end time
+     */
+    public void spawnGruntStage(long startTime, long endTime) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             spawnBat();
             spawnMurderHornet();
         }
     }
 
-    public void spawnStage2(long startTime, long endTime) {
+    /**
+     * TODO: Refactor into one function. May take a while.
+     * Spawn mid boss for mid boss stage of the game. The boss
+     * is spawned once during the given start time and end time.
+     *
+     * @param startTime the start time.
+     * @param endTime   the end time
+     */
+    public void spawnMidBossStage(long startTime, long endTime) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             if (!isJustSpawnMidBoss) {
                 spawnMidBoss();
@@ -112,14 +134,15 @@ public class EnemySpawningController {
         }
     }
 
-    public void spawnStage3(long startTime, long endTime) {
-        if (elapsedTime >= startTime && elapsedTime < endTime) {
-            spawnBat();
-            spawnMurderHornet();
-        }
-    }
-
-    public void spawnStage4(long startTime, long endTime) {
+    /**
+     * TODO: Refactor into one function. May take a while.
+     * Spawn mid boss for final boss stage of the game. The boss
+     * is spawned once during the given start time and end time.
+     *
+     * @param startTime the start time.
+     * @param endTime   the end time
+     */
+    public void spawnFinalBossStage(long startTime, long endTime) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             if (!isJustSpawnFinalBoss) {
                 spawnFinalBoss();
@@ -130,7 +153,7 @@ public class EnemySpawningController {
 
     private void spawnBat() {
         int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
-        if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
+        if (elapsedTime % spawnGruntInterval == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
             spawnEnemies("Bat", xPosition, WORLD_HEIGHT);
             lastBatSpawnTime = elapsedTime;
         }
@@ -138,7 +161,7 @@ public class EnemySpawningController {
 
     private void spawnMurderHornet() {
         int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
-        if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
+        if (elapsedTime % spawnGruntInterval == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
             spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT);
             lastMurderHornetSpawnTime = elapsedTime;
         }
