@@ -129,7 +129,7 @@ public class EnemySpawningController {
     }
 
     private void spawnBat() {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 150;
+        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
         if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
             spawnEnemies("Bat", xPosition, WORLD_HEIGHT);
             lastBatSpawnTime = elapsedTime;
@@ -137,7 +137,7 @@ public class EnemySpawningController {
     }
 
     private void spawnMurderHornet() {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 150;
+        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
         if (elapsedTime % interval == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
             spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT);
             lastMurderHornetSpawnTime = elapsedTime;
