@@ -37,28 +37,10 @@ public class EnemySpawningController {
 
     private final int spawnGruntInterval = 5;
 
-    // Stages duration
-    private final int stageBuffer = 5;
-
-    private final int stageOneDuration = 30;
-    private final int stageTwoDuration = 45;
-    private final int stageThreeDuration = 30;
-    private final int stageFourDuration = 60;
-
-    private final int stageOneStart = 0;
-    private final int stageOneEnd = stageOneStart + stageOneDuration;
-    private final int stageTwoStart = stageOneEnd + stageBuffer;
-    private final int stageTwoEnd = stageTwoStart + stageTwoDuration;
-    private final int stageThreeStart = stageTwoEnd + stageBuffer;
-    private final int stageThreeEnd = stageThreeStart + stageThreeDuration;
-    private final int stageFourStart = stageThreeEnd + stageBuffer;
-    private final int stageFourEnd = stageFourStart + stageFourDuration;
-
-
     private boolean isJustSpawnMidBoss = false;
     private boolean isJustSpawnFinalBoss = false;
 
-    private Random rand = new Random();
+    private final Random rand = new Random();
 
     /**
      * Return the instance of EnemySpawningController.
@@ -90,7 +72,7 @@ public class EnemySpawningController {
     }
 
     /**
-     * Set elaspse time for spawning.
+     * Set elapse time for spawning.
      */
     public void setElapsedTime(long time) {
         this.elapsedTime = time;

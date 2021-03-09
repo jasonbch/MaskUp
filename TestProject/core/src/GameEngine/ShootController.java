@@ -103,7 +103,7 @@ public class ShootController {
     public void playerFire(Entity player) {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (player.canFire()) {
-                Ammo ammo = fire(player, "Mask");
+                Ammo ammo = fire(player, "Syringe");
                 playerAmmoList.add(ammo);
             }
         }

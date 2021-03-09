@@ -85,8 +85,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
 
         // Play background music
-        // backgroundMusic.setLooping(true);
-        // backgroundMusic.play();
+        backgroundMusic.setVolume((float) 0.05);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.play();
     }
 
     /**
