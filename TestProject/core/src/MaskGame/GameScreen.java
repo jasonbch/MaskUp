@@ -244,13 +244,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
-
-            if(!currEnemy.isSpawned()) {
-                enemyMoveController.spawnMove(currEnemy, deltaTime);
-            } else {
-                enemyMoveController.move(currEnemy,deltaTime,1);
-            }
-
+            enemyMoveController.move(currEnemy,deltaTime,1);
             currEnemy.draw(batch);
         }
     }
