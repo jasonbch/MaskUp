@@ -84,9 +84,9 @@ public class EnemySpawningController {
      * @param startTime the start time.
      * @param endTime   the end time
      */
-    public void spawnBatWave(long startTime, long endTime) {
+    public void spawnBatWave(long startTime, long endTime, String pattern) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
-            spawnBat();
+            spawnBat(pattern);
         }
     }
 
@@ -98,9 +98,9 @@ public class EnemySpawningController {
      * @param startTime the start time.
      * @param endTime   the end time
      */
-    public void spawnMurderHornetWave(long startTime, long endTime) {
+    public void spawnMurderHornetWave(long startTime, long endTime, String pattern) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
-            spawnMurderHornet();
+            spawnMurderHornet(pattern);
         }
     }
 
@@ -112,10 +112,10 @@ public class EnemySpawningController {
      * @param startTime the start time.
      * @param endTime   the end time
      */
-    public void spawnMidBossWave(long startTime, long endTime) {
+    public void spawnMidBossWave(long startTime, long endTime, String pattern) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             if (!isJustSpawnMidBoss) {
-                spawnMidBoss();
+                spawnMidBoss(pattern);
                 isJustSpawnMidBoss = true;
             }
         }
@@ -129,27 +129,27 @@ public class EnemySpawningController {
      * @param startTime the start time.
      * @param endTime   the end time
      */
-    public void spawnFinalBossWave(long startTime, long endTime) {
+    public void spawnFinalBossWave(long startTime, long endTime, String pattern) {
         if (elapsedTime >= startTime && elapsedTime < endTime) {
             if (!isJustSpawnFinalBoss) {
-                spawnFinalBoss();
+                spawnFinalBoss(pattern);
                 isJustSpawnFinalBoss = true;
             }
         }
     }
 
-    private void spawnBat() {
+    private void spawnBat(String pattern) {
         int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
         if (elapsedTime % spawnGruntInterval == 0 && elapsedTime != 0 && elapsedTime - lastBatSpawnTime > 1) {
-            spawnEnemies("Bat", xPosition, WORLD_HEIGHT);
+            spawnEnemies("Bat", xPosition, WORLD_HEIGHT, pattern);
             lastBatSpawnTime = elapsedTime;
         }
     }
 
-    private void spawnMurderHornet() {
+    private void spawnMurderHornet(String pattern) {
         int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
         if (elapsedTime % spawnGruntInterval == 0 && elapsedTime != 0 && elapsedTime - lastMurderHornetSpawnTime > 1) {
-            spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT);
+            spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT, pattern);
             lastMurderHornetSpawnTime = elapsedTime;
         }
     }
@@ -157,10 +157,10 @@ public class EnemySpawningController {
     /**
      * Spawn the mid boss at the given position.
      */
-    private void spawnMidBoss() {
+    private void spawnMidBoss(String pattern) {
         int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 100;
         if (elapsedTime != 0 && elapsedTime - lastMidBossTime > 1) {
-            spawnEnemies("Karen", xPosition, WORLD_HEIGHT);
+            spawnEnemies("Karen", xPosition, WORLD_HEIGHT, pattern);
             lastMidBossTime = elapsedTime;
         }
     }
@@ -168,10 +168,10 @@ public class EnemySpawningController {
     /**
      * Spawn the final boss at the given position.
      */
-    private void spawnFinalBoss() {
+    private void spawnFinalBoss(String pattern) {
         int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 100;
         if (elapsedTime != 0 && elapsedTime - lastFinalBossTime > 1) {
-            spawnEnemies("Covid", xPosition, WORLD_HEIGHT);
+            spawnEnemies("Covid", xPosition, WORLD_HEIGHT, pattern);
             lastFinalBossTime = elapsedTime;
         }
     }
@@ -197,7 +197,7 @@ public class EnemySpawningController {
      * @param xPosition the x position
      * @param yPosition the y position
      */
-    private void spawnEnemies(String enemy, int xPosition, int yPosition) {
-        enemyList.add(enemyFactory.create(enemy, xPosition, yPosition));
+    private void spawnEnemies(String enemy, int xPosition, int yPosition, String pattern) {
+        enemyList.add(enemyFactory.create(enemy, xPosition, yPosition, pattern));
     }
 }

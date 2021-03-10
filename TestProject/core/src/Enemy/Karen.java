@@ -16,13 +16,14 @@ public class Karen extends Enemy{
     private int maxLifespan = 45;
 
     /**
-     * Create a new instance of a Karen at the xPos and yPos.
+     * Create a new instance of an Enemy at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param xPos    initial x position.
+     * @param yPos    initial y position.
+     * @param pattern
      */
-    public Karen(float xPos, float yPos) {
-        super(xPos, yPos);
+    public Karen(float xPos, float yPos, String pattern) {
+        super(xPos, yPos, pattern);
     }
 
     /**

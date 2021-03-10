@@ -36,22 +36,8 @@ public class EnemyMovementController {
         if (enemy.getTimeAlive() >= enemy.getMaxLifespan()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternExit");
         } else {
-            switch (enemy.getName()) {
-                case "Bat":
-                    enemyMovementPattern = enemyMovementFactory.create("PatternOne");
-                    break;
-                case "MurderHornet":
-                    enemyMovementPattern = enemyMovementFactory.create("PatternTwo");
-                    break;
-                case "Karen":
-                    enemyMovementPattern = enemyMovementFactory.create("PatternThree");
-                    break;
-                case "Covid":
-                    enemyMovementPattern = enemyMovementFactory.create("PatternOne");
-                    break;
-                default:
-                    enemyMovementPattern = enemyMovementFactory.create("PatternFour");
-            }
+            String enemyPattern = enemy.getPattern();
+            enemyMovementPattern = enemyMovementFactory.create(enemyPattern);
         }
 
         enemyMovementPattern.Move(enemy, deltaTime);
