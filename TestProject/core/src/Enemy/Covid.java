@@ -17,13 +17,14 @@ public class Covid extends Enemy {
     private int maxLifespan = 60;
 
     /**
-     * Create a new instance of a Covid at the xPos and yPos.
+     * Create a new instance of an Enemy at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param xPos    initial x position.
+     * @param yPos    initial y position.
+     * @param pattern
      */
-    public Covid(float xPos, float yPos) {
-        super(xPos, yPos);
+    public Covid(float xPos, float yPos, String pattern) {
+        super(xPos, yPos, pattern);
     }
 
     /**

@@ -13,6 +13,7 @@ public abstract class Enemy extends Entity {
     private boolean isSpawned = false;
     private long spawnTime = TimeUtils.millis();
     private long timeAlive;
+    private String pattern;
 
     public boolean isSpawned() {
         return isSpawned;
@@ -48,14 +49,23 @@ public abstract class Enemy extends Entity {
 
     public abstract int getMaxLifespan();
 
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
      *
      * @param  xPos initial x position.
      * @param  yPos initial y position.
      */
-    public Enemy(float xPos, float yPos) {
+    public Enemy(float xPos, float yPos, String pattern) {
         super(xPos, yPos);
+        this.pattern = pattern;
     }
 
     /**
