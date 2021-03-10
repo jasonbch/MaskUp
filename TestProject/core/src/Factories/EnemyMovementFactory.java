@@ -15,6 +15,8 @@ public class EnemyMovementFactory {
                 return new EnemyMovementPatternFour();
             case "PatternExit":
                 return new EnemyMovementPatternExit();
+            case "PatternEnter":
+                return new EnemyMovementPatternEnter();
             default:
                 return null;
         }
