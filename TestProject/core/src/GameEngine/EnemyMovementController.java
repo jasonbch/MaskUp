@@ -13,21 +13,26 @@ public class EnemyMovementController {
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
     private Random rand = new Random();
 
-    public EnemyMovementController() {
-    }
+    // Implement Singleton
+    private static EnemyMovementController uniqueInstance = null;
 
     /**
-     * TODO: Randomize 650
+     * Return the instance of EnemySpawningController.
+     * Create the instance if the instance has not been initialized.
+     *
+     * @return the instance of EnemySpawningController.
      */
-    public void spawnMove(Enemy enemy, float deltaTime) {
-        // a function that brings the enemies down from top of screen.
-        // once spawned, will change enemy.isSpawned = true
-        enemy.moveDown(deltaTime);
-
-        if (enemy.getYPosition() <= 650) {
-            enemy.setIsSpawned(true);
+    public static EnemyMovementController instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new EnemyMovementController();
         }
+
+        return uniqueInstance;
     }
+
+    private EnemyMovementController() {
+    }
+
 
     public void move(Enemy enemy, float deltaTime, Integer stage){
         EnemyMovementPattern enemyMovementPattern = null;

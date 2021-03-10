@@ -50,8 +50,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private final Entity player;
 
     // Game controllers
-    private final ShootController shootController = new ShootController();
-    private final EnemyMovementController enemyMoveController = new EnemyMovementController();
+    private final ShootController shootController = ShootController.instance();
+    private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
 
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
@@ -212,11 +212,16 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ListIterator<Ammo> iterator = shootController.getPlayerAmmoList().listIterator();
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
-            ammo.moveUp(deltaTime);
             ammo.draw(batch);
+        }
+
+        ListIterator<Ammo> iterator2 = shootController.getPlayerAmmoList().listIterator();
+        while (iterator2.hasNext()) {
+            Ammo ammo = iterator2.next();
+            ammo.moveUp(deltaTime);
 
             if (ammo.getYPosition() > WORLD_HEIGHT) {
-                iterator.remove();
+                iterator2.remove();
             }
         }
 

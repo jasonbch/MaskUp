@@ -21,10 +21,27 @@ public class ShootController {
     private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
     private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
 
+    // Implement Singleton
+    private static ShootController uniqueInstance = null;
+
+    /**
+     * Return the instance of EnemySpawningController.
+     * Create the instance if the instance has not been initialized.
+     *
+     * @return the instance of EnemySpawningController.
+     */
+    public static ShootController instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new ShootController();
+        }
+
+        return uniqueInstance;
+    }
+
     /**
      * Create a new instance of the ShootController.
      */
-    public ShootController() {
+    private ShootController() {
     }
 
     /**
