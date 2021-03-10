@@ -5,11 +5,8 @@ import Enemy.Enemy;
 import Entity.Entity;
 import Entity.Player;
 
-import GameEngine.EnemySpawningController;
-import GameEngine.EnemyMovementController;
-import GameEngine.ShootController;
+import GameEngine.*;
 
-import GameEngine.StageController;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.audio.Music;
@@ -49,6 +46,13 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // Game objects
     private final Entity player;
 
+
+    private CollisionController collisionController;
+    Command PlayerisHit;
+    Command EnemyisHit;
+
+
+
     // Game controllers
     private final ShootController shootController = ShootController.instance();
     private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
@@ -75,6 +79,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Initialize player object
         player = new Player((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 4);
 
+        collisionController = new CollisionController();
+
+        PlayerisHit = new PlayerCommand(player);
+
         // Initialize slow mode
         this.isSlowMode = false;
         this.gameSpeed = 1; // Set current game speed to normal speed
@@ -97,7 +105,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     @Override
     public void render(float deltaTime) {
-        logger.log();
+        //logger.log();
 
         // Get the game speed
         gameSpeed = getGameSpeed();
@@ -114,12 +122,16 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
-        shootController.playerFire(player);         // Check player shooting input
+        shootController.playerFire(player);
+        // Check player shooting input
 
         // Process enemies
         stageController.makeStages();                                // Spawn game enemies
 
         shootController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
+        collisionController.setCommand(PlayerisHit);
+        collisionController.CollisionDetection();
+
         updateMovementAndDrawBullets(deltaTime);                            // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
         enemySpawningController.deleteEnemies();                            // Delete enemies if they need deleted
