@@ -158,7 +158,8 @@ public class EnemySpawningController {
      * Spawn the mid boss at the given position.
      */
     private void spawnMidBoss(String pattern) {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 100;
+        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 50;
+        System.out.println("Karen x position: " + xPosition);
         if (elapsedTime != 0 && elapsedTime - lastMidBossTime > 1) {
             spawnEnemies("Karen", xPosition, WORLD_HEIGHT, pattern);
             lastMidBossTime = elapsedTime;

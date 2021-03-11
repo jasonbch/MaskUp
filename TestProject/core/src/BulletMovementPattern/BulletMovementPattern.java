@@ -16,6 +16,6 @@ public abstract class BulletMovementPattern {
     /**
      * Move the game object.
      */
-    public abstract void Move(Ammo ammo, float deltaTime);
+    public abstract void Move(Ammo ammo, float deltaTime, float xMultiplier, float yMultiplier);
 
 }
