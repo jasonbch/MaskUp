@@ -13,7 +13,7 @@ public class EnemyMovementPatternEnter extends EnemyMovementPattern {
     }
 
     @Override
-    public void Move(Enemy enemy, float deltaTime) {
+    public void move(Enemy enemy, float deltaTime) {
         enemy.moveDown(deltaTime);
 
         if (enemy.getYPosition() <= 650) {

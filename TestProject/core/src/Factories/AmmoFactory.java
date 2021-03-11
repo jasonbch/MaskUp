@@ -1,6 +1,7 @@
 package Factories;
 
 import Ammo.*;
+import Ammo.Ammo.*;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -22,22 +23,22 @@ public class AmmoFactory {
      * @param  xPos initial x position.
      * @param  yPos initial y position.
      */
-    public Ammo create(String Ammo, float xPos, float yPos) {
+    public Ammo create(String Ammo, float xPos, float yPos, PatternAttribute patternAttribute) {
         switch (Ammo) {
             case "Stinger":
-                return new Stinger(xPos - (texture1.getWidth() / 2), yPos - texture1.getHeight());
+                return new Stinger(xPos - (texture1.getWidth() / 2), yPos - texture1.getHeight(), patternAttribute);
             case "GreenCloud":
-                return new GreenCloud(xPos - (texture2.getWidth() / 2), yPos - texture2.getHeight());
+                return new GreenCloud(xPos - (texture2.getWidth() / 2), yPos - texture2.getHeight(), patternAttribute);
             case "BabyCovid":
-                return new BabyCovid(xPos - (texture3.getWidth() / 2), yPos - texture3.getHeight());
+                return new BabyCovid(xPos - (texture3.getWidth() / 2), yPos - texture3.getHeight(), patternAttribute);
             case "Bullet":
-                return new Bullet(xPos - (texture4.getWidth() / 2), yPos);
+                return new Bullet(xPos - (texture4.getWidth() / 2), yPos, patternAttribute);
             case "CovidGerm":
-                return new CovidGerm(xPos - (texture5.getWidth() / 2), yPos - texture5.getHeight());
+                return new CovidGerm(xPos - (texture5.getWidth() / 2), yPos - texture5.getHeight(), patternAttribute);
             case "Mask":
-                return new Mask(xPos - (texture6.getWidth() / 2), yPos);
+                return new Mask(xPos - (texture6.getWidth() / 2), yPos, patternAttribute);
             case "Syringe":
-                return new Syringe(xPos - (texture7.getWidth() / 2), yPos);
+                return new Syringe(xPos - (texture7.getWidth() / 2), yPos, patternAttribute);
         }
 
         return null;

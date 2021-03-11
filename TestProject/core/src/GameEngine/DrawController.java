@@ -1,18 +1,15 @@
 package GameEngine;
 
-import Ammo.Ammo;
 import Entity.GameObject;
-import Entity.Player;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
 public class DrawController {
 
-    private final ShootController shootController = ShootController.instance();
+    private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private Batch batch;
     GameObject player;
@@ -31,10 +28,10 @@ public class DrawController {
         switch (type)
         {
             case "ammoPlayer":
-                objectList = (List<GameObject>)(List<?>)shootController.getPlayerAmmoList();
+                objectList = (List<GameObject>)(List<?>) bulletSpawningController.getPlayerAmmoList();
                 break;
             case "ammoEnemy":
-                objectList = (List<GameObject>)(List<?>)shootController.getEnemyAmmoList();
+                objectList = (List<GameObject>)(List<?>) bulletSpawningController.getEnemyAmmoList();
                 break;
             case "enemy":
                 objectList = (List<GameObject>)(List<?>)enemySpawningController.getEnemyList();

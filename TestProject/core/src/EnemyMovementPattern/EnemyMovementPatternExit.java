@@ -12,7 +12,7 @@ public class EnemyMovementPatternExit extends EnemyMovementPattern {
     }
 
     @Override
-    public void Move(Enemy enemy, float deltaTime) {
+    public void move(Enemy enemy, float deltaTime) {
         enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * deltaTime);
     }
 }

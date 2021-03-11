@@ -10,6 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public abstract class Ammo extends GameObject {
     protected final String[] acceptableTargets = {};
+    private PatternAttribute patternAttribute;
+
+    public PatternAttribute getPatternAttribute() {
+        return this.patternAttribute;
+    }
 
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
@@ -17,9 +22,10 @@ public abstract class Ammo extends GameObject {
      * @param  xPosition initial x position.
      * @param  yPosition initial y position.
      */
-    public Ammo(float xPosition, float yPosition) {
+    public Ammo(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+        this.patternAttribute = patternAttribute;
     }
 
     /**
@@ -93,5 +99,29 @@ public abstract class Ammo extends GameObject {
     public void draw(Batch batch) {
         Texture image = getImage();
         batch.draw(getImage(), getXPosition(), getYPosition(), image.getWidth(), image.getHeight());
+    }
+
+    public static class PatternAttribute {
+        private String name;
+        private float x;
+        private float y;
+
+        public String getName() {
+            return this.name;
+        }
+
+        public float getXMultiplier() {
+            return this.x;
+        }
+
+        public float getYMultiplier() {
+            return this.y;
+        }
+
+        public PatternAttribute(String name, float x, float y) {
+            this.name = name;
+            this.x = x;
+            this.y = y;
+        }
     }
 }

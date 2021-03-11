@@ -17,10 +17,10 @@ public class EnemyMovementController {
     private static EnemyMovementController uniqueInstance = null;
 
     /**
-     * Return the instance of EnemySpawningController.
+     * Return the instance of EnemyMovementController.
      * Create the instance if the instance has not been initialized.
      *
-     * @return the instance of EnemySpawningController.
+     * @return the instance of EnemyMovementController.
      */
     public static EnemyMovementController instance() {
         if (uniqueInstance == null) {
@@ -34,8 +34,8 @@ public class EnemyMovementController {
     }
 
 
-    public void move(Enemy enemy, float deltaTime, Integer stage){
-        EnemyMovementPattern enemyMovementPattern = null;
+    public void move(Enemy enemy, float deltaTime) {
+        EnemyMovementPattern enemyMovementPattern;
         enemy.updateTimeAlive();
 
         if (enemy.getTimeAlive() >= enemy.getMaxLifespan()) {
@@ -47,6 +47,6 @@ public class EnemyMovementController {
             enemyMovementPattern = enemyMovementFactory.create(enemyPattern);
         }
 
-        enemyMovementPattern.Move(enemy, deltaTime);
+        enemyMovementPattern.move(enemy, deltaTime);
     }
 }
