@@ -5,11 +5,8 @@ import Enemy.Enemy;
 import Entity.Entity;
 import Entity.Player;
 
-import GameEngine.EnemySpawningController;
-import GameEngine.EnemyMovementController;
-import GameEngine.ShootController;
+import GameEngine.*;
 
-import GameEngine.StageController;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.audio.Music;
@@ -52,10 +49,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // Game controllers
     private final ShootController shootController = ShootController.instance();
     private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
-
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
-
+    DrawController drawController;
     // Slow mode variables
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
@@ -80,7 +76,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         this.gameSpeed = 1; // Set current game speed to normal speed
 
         batch = new SpriteBatch();
-
+        drawController = new DrawController(batch, player);
         // Music
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
 
@@ -110,7 +106,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         renderBackground(deltaTime);
 
         // Process player
-        player.draw(batch);                         // Draw player
+        drawController.draw("player");                      // Draw player
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
@@ -209,11 +205,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     private void updateMovementAndDrawBullets(float deltaTime) {
         // Player bullets
-        ListIterator<Ammo> iterator = shootController.getPlayerAmmoList().listIterator();
-        while (iterator.hasNext()) {
-            Ammo ammo = iterator.next();
-            ammo.draw(batch);
-        }
+        drawController.draw("ammoPlayer");
+        drawController.draw("ammoEnemy");
 
         ListIterator<Ammo> iterator2 = shootController.getPlayerAmmoList().listIterator();
         while (iterator2.hasNext()) {
@@ -230,8 +223,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
             ammo.moveDown(deltaTime);
-            ammo.draw(batch);
-
             if (ammo.getYPosition() < 0) {
                 iter.remove();
             }
@@ -246,11 +237,11 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     private void updateMovementAndDrawEnemies(float deltaTime) {
         // Draw Enemies
+        drawController.draw("enemy");
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
             enemyMoveController.move(currEnemy,deltaTime,1);
-            currEnemy.draw(batch);
         }
     }
 
