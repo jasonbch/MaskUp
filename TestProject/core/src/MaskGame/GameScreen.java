@@ -82,6 +82,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         collisionController = new CollisionController();
 
         PlayerisHit = new PlayerCommand(player);
+        //EnemyisHit = new EnemyCommand();
 
         // Initialize slow mode
         this.isSlowMode = false;
@@ -128,9 +129,16 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Process enemies
         stageController.makeStages();                                // Spawn game enemies
 
-        shootController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
+        EnemyisHit = new EnemyCommand();
+
+
         collisionController.setCommand(PlayerisHit);
         collisionController.CollisionDetection();
+        collisionController.setCommand(EnemyisHit);
+        collisionController.CollisionDetection();
+
+        shootController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
+
 
         updateMovementAndDrawBullets(deltaTime);                            // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);

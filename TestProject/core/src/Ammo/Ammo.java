@@ -3,6 +3,7 @@ package Ammo;
 import Entity.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Abstract class for the Ammo that can be shoot from the player
@@ -83,6 +84,11 @@ public abstract class Ammo extends GameObject {
         }
 
         return returnValue;
+    }
+
+    public Rectangle getBoundingBox()
+    {
+        return new Rectangle(xPosition,yPosition, getImageWidth(), getImageHeight() - 10);
     }
 
     /**

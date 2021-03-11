@@ -1,12 +1,23 @@
 package Entity;
 
+import Ammo.Ammo;
+import Enemy.Enemy;
+import GameEngine.EnemySpawningController;
+import GameEngine.ShootController;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Rectangle;
+
+import java.util.ListIterator;
 
 /**
  * The Entity abstract class that can move and fire.
  */
 public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
+    private static final ShootController sc = ShootController.instance();
+    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+
+
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
@@ -61,4 +72,37 @@ public abstract class Entity extends GameObject {
      * @return  shooting position.
      */
     public abstract GridPoint2 getShootingPosition();
+
+    public boolean intersects(Rectangle otherRectangle)
+    {
+        Rectangle rectangle = new Rectangle(xPosition,yPosition,getImage().getWidth(), getImage().getHeight());
+        return rectangle.overlaps(otherRectangle);
+    }
+
+    public void Playercollision(Entity player)
+    {
+        ListIterator<Ammo> iter = sc.getEnemyAmmoList().listIterator();
+        while(iter.hasNext())
+        {
+            Ammo ammo = iter.next();
+            if(player.intersects(ammo.getBoundingBox()))
+            {
+                iter.remove();
+            }
+        }
+    }
+    public boolean Enemycollision(Enemy enemy)
+    {
+        ListIterator<Ammo> iter = sc.getPlayerAmmoList().listIterator();
+        while(iter.hasNext())
+        {
+            Ammo ammo = iter.next();
+            if(enemy.intersects(ammo.getBoundingBox()))
+            {
+                iter.remove();
+                return true;
+            }
+        }
+        return false;
+    }
 }

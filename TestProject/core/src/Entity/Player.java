@@ -1,9 +1,13 @@
 package Entity;
 
+import Ammo.Ammo;
+import GameEngine.ShootController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+
+import java.util.ListIterator;
 
 /**
  * The Player class that extends from Entity that can move and fire.
