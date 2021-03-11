@@ -51,7 +51,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
-
+    DrawController drawController;
     // Slow mode variables
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
@@ -76,7 +76,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         this.gameSpeed = 1; // Set current game speed to normal speed
 
         batch = new SpriteBatch();
-
+        drawController = new DrawController(batch, player);
         // Music
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
 
@@ -106,7 +106,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         renderBackground(deltaTime);
 
         // Process player
-        player.draw(batch);                         // Draw player
+        drawController.draw("player");                      // Draw player
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
@@ -205,7 +205,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     private void updateMovementAndDrawBullets(float deltaTime) {
         // Player bullets
-        DrawController drawController = new DrawController(batch);
         drawController.draw("ammoPlayer");
         drawController.draw("ammoEnemy");
 
@@ -238,11 +237,11 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     private void updateMovementAndDrawEnemies(float deltaTime) {
         // Draw Enemies
+        drawController.draw("enemy");
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
             enemyMoveController.move(currEnemy,deltaTime,1);
-            currEnemy.draw(batch);
         }
     }
 
