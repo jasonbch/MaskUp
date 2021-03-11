@@ -1,6 +1,6 @@
 package GameEngine;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 import Factories.EnemyFactory;
 
 import com.badlogic.gdx.Gdx;

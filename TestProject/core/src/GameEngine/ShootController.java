@@ -2,54 +2,61 @@ package GameEngine;
 
 import Ammo.*;
 import Ammo.Ammo.*;
-import Enemy.Enemy;
+import Entity.Entity;
 import Factories.AmmoFactory;
+
 import com.badlogic.gdx.math.GridPoint2;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ShootController {
-    // Implement Singleton
-    private static ShootController uniqueInstance = null;
-
-    //private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
-
-    private AmmoFactory factory = new AmmoFactory();
+    private AmmoFactory ammoFactory = new AmmoFactory();
 
     public ShootController() {
-
     }
 
-    public List<Ammo> create(Enemy enemy, String pattern) {
-        List<Ammo> ammos = null;
+    public List<Ammo> create(Entity entity, String pattern) {
+        List<Ammo> ammoList = null;
+
+        // Get shoot position
+        GridPoint2 shootPosition = entity.getShootingPosition();
+        int xShootPosition = shootPosition.x;
+        int yShootPosition = shootPosition.y;
 
         if (pattern.equals("FanPattern")) {
-            ammos = shootFanPattern(enemy);
+            ammoList = shootFanPattern(entity, xShootPosition, yShootPosition);
+        } else  if (pattern.equals("LinearPattern")) {
+            ammoList = shootLinearPattern(entity, xShootPosition, yShootPosition);
         }
 
-        System.out.println(ammos.size());
-
-        return ammos;
+        return ammoList;
     }
 
-    public List<Ammo> shootFanPattern(Enemy enemy) {
+    private List<Ammo> shootFanPattern(Entity entity, int xShootPosition, int yShootPosition) {
+        List<Ammo> ammoList;
+
         PatternAttribute patternAttribute1 = new PatternAttribute("LinearPattern", -1, -1);
         PatternAttribute patternAttribute2 = new PatternAttribute("LinearPattern", 0, -1);
         PatternAttribute patternAttribute3 = new PatternAttribute("LinearPattern", 1, -1);
 
-        // Get shoot position
-        GridPoint2 shootPosition = enemy.getShootingPosition();
-        int xShootPosition = shootPosition.x;
-        int yShootPosition = shootPosition.y;
+        Ammo ammo1 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute1);
+        Ammo ammo2 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute2);
+        Ammo ammo3 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute3);
 
-        Ammo ammo1 = factory.create(enemy.getBullet(), xShootPosition, yShootPosition, patternAttribute1);
-        Ammo ammo2 = factory.create(enemy.getBullet(), xShootPosition, yShootPosition, patternAttribute2);
-        Ammo ammo3 = factory.create(enemy.getBullet(), xShootPosition, yShootPosition, patternAttribute3);
+       ammoList = Arrays.asList(ammo1, ammo2, ammo3);
 
-        List<Ammo> result = Arrays.asList(ammo1, ammo2, ammo3);
+        return ammoList;
+    }
 
+    private List<Ammo> shootLinearPattern(Entity entity, int xShootPosition, int yShootPosition) {
+        List<Ammo> ammoList;
 
-        return result;
+        PatternAttribute patternAttribute = new PatternAttribute("LinearPattern", 0, -1);
+
+        Ammo ammo = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute);
+        ammoList = Arrays.asList(ammo);
+
+        return ammoList;
     }
 }

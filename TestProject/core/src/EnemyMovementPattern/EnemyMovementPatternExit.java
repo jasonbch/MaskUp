@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 
 /**
  * The EnemyMovementPattern that move the enemy to the top of the screen.

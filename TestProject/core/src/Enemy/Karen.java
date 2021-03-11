@@ -1,11 +1,12 @@
 package Enemy;
 
+import Entity.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
  * The Karen class that extends from Enemy that can move and fire.
  */
-public class Karen extends Enemy{
+public class Karen extends Enemy {
     private final String name = "Karen";
     private final float speed = 150;
     private final String bullet = "GreenCloud";
