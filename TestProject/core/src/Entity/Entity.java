@@ -58,7 +58,12 @@ public abstract class Entity extends GameObject {
     /**
      * Return the coordinate for shooting position.
      *
-     * @return  shooting position.
+     * @return shooting position.
      */
-    public abstract GridPoint2 getShootingPosition();
+    public GridPoint2 getShootingPosition() {
+        float xShootPosition = getXPosition() + (float) getImageWidth() / 2;
+        float yShootPosition = getYPosition();
+        GridPoint2 shootPosition = new GridPoint2((int) xShootPosition, (int) yShootPosition);
+        return shootPosition;
+    }
 }

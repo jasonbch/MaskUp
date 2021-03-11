@@ -1,8 +1,11 @@
 package GameEngine;
 
 import Ammo.Ammo;
+import Entity.*;
 import Factories.AmmoFactory;
-import Enemy.Enemy;
+import Enemy.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +20,8 @@ public class BulletSpawningController {
     private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
     private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
     private final ShootController shootController = new ShootController();
+
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
 
     // Implement Singleton
     private static BulletSpawningController uniqueInstance = null;
@@ -59,11 +64,24 @@ public class BulletSpawningController {
         return this.playerAmmoList;
     }
 
-    private List<Ammo> fire(Enemy enemy) {
-        List<Ammo> ammos = shootController.create(enemy, "FanPattern");
-        enemy.resetTimeSinceLastShot();
+    private List<Ammo> fire(Entity entity) {
+        List<Ammo> ammoList;
 
-        return ammos;
+
+        if (entity instanceof Bat) {
+            ammoList = shootController.create(entity, "FanPattern");
+        } else if (entity instanceof MurderHornet) {
+            ammoList = shootController.create(entity, "FanPattern");
+        } else if (entity instanceof Karen) {
+            ammoList = shootController.create(entity, "FanPattern");
+        } else if (entity instanceof Covid) {
+            ammoList = shootController.create(entity, "FanPattern");
+        } else {
+            ammoList = shootController.create(entity, "LinearPattern");
+        }
+        entity.resetTimeSinceLastShot();
+
+        return ammoList;
     }
 
     /**
@@ -71,31 +89,36 @@ public class BulletSpawningController {
      *
      * @param deltaTime the delta time
      */
-    public void enemyFire(float deltaTime, EnemySpawningController enemySpawningController) {
+    public void enemyFire(float deltaTime) {
         ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
         while (iterator.hasNext()) {
             Enemy currEnemy = iterator.next();
             currEnemy.updateTimeSinceLastShot(deltaTime);
 
             if (currEnemy.canFire()) {
-                List<Ammo> ammos = fire(currEnemy);
+                List<Ammo> ammoList = fire(currEnemy);
 
-                for (Ammo ammo : ammos) {
+                for (Ammo ammo : ammoList) {
                     enemyAmmoList.add(ammo);
                 }
             }
         }
     }
 
-//    /**
-//     * Fire the bullet from player if the space bar is pressed.
-//     */
-//    public void playerFire(Entity player) {
-//        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-//            if (player.canFire()) {
-//                Ammo ammo = fire(player, "Syringe");
-//                playerAmmoList.add(ammo);
-//            }
-//        }
-//    }
+    /**
+     * Fire the bullet from player if the space bar is pressed.
+     */
+    public void playerFire(Entity player) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if (player.canFire()) {
+                List<Ammo> ammoList;
+
+                ammoList = fire(player);
+                System.out.println("ammoList: " + ammoList.size());
+                for (Ammo ammo : ammoList) {
+                    playerAmmoList.add(ammo);
+                }
+            }
+        }
+    }
 }

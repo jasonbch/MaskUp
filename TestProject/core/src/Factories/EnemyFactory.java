@@ -1,6 +1,7 @@
 package Factories;
 
 import Enemy.*;
+import Entity.Enemy;
 
 /**
  * The factory class to create different kind of enemies.

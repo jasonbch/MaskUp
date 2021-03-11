@@ -1,6 +1,6 @@
 package GameEngine;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 import Factories.EnemyMovementFactory;
 import EnemyMovementPattern.EnemyMovementPattern;
 

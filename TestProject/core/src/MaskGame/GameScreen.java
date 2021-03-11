@@ -1,7 +1,7 @@
 package MaskGame;
 
 import Ammo.Ammo;
-import Enemy.Enemy;
+import Entity.Enemy;
 import Entity.Entity;
 import Entity.Player;
 
@@ -109,16 +109,15 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         renderBackground(deltaTime);
 
         // Process player
-        drawController.draw("player");                      // Draw player
+        drawController.draw("player");
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
-        //bulletSpawningController.playerFire(player);         // Check player shooting input
+        bulletSpawningController.playerFire(player);
+        bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
 
         // Process enemies
         stageController.makeStages();                                // Spawn game enemies
-
-        bulletSpawningController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
         updateMovementAndDrawBullets(deltaTime);                            // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
         enemySpawningController.deleteEnemies();                            // Delete enemies if they need deleted
@@ -211,13 +210,14 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         drawController.draw("ammoPlayer");
         drawController.draw("ammoEnemy");
 
-        ListIterator<Ammo> iterator2 = bulletSpawningController.getPlayerAmmoList().listIterator();
-        while (iterator2.hasNext()) {
-            Ammo ammo = iterator2.next();
-            ammo.moveUp(deltaTime);
+        ListIterator<Ammo> iterator = bulletSpawningController.getPlayerAmmoList().listIterator();
+        while (iterator.hasNext()) {
+            Ammo ammo = iterator.next();
+            //ammo.moveUp(deltaTime);
+            bulletMovementController.move(ammo, deltaTime);
 
             if (ammo.getYPosition() > WORLD_HEIGHT) {
-                iterator2.remove();
+                iterator.remove();
             }
         }
 

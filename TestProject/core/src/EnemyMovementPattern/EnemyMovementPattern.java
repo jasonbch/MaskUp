@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 
 /**
  * The EnemyMovementPattern class that move the enemy in a specific order.

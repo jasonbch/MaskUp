@@ -1,4 +1,4 @@
-package Enemy;
+package Entity;
 
 import Entity.Entity;
 import com.badlogic.gdx.math.GridPoint2;
@@ -66,17 +66,5 @@ public abstract class Enemy extends Entity {
     public Enemy(float xPos, float yPos, String pattern) {
         super(xPos, yPos);
         this.pattern = pattern;
-    }
-
-    /**
-     * Return the coordinate for shooting position.
-     *
-     * @return shooting position.
-     */
-    public GridPoint2 getShootingPosition() {
-        float xShootPosition = getXPosition() + (float) getImageWidth() / 2;
-        float yShootPosition = getYPosition();
-        GridPoint2 shootPosition = new GridPoint2((int) xShootPosition, (int) yShootPosition);
-        return shootPosition;
     }
 }

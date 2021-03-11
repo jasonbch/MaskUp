@@ -1,5 +1,6 @@
 package Enemy;
 
+import Entity.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
