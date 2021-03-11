@@ -15,6 +15,6 @@ public abstract class EnemyMovementPattern {
     /**
      * Move the game object.
      */
-    public abstract void Move(Enemy enemy, float deltaTime);
+    public abstract void move(Enemy enemy, float deltaTime);
 
 }

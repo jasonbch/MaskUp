@@ -14,7 +14,7 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     }
 
     @Override
-    public void Move(Enemy enemy, float deltaTime) {
+    public void move(Enemy enemy, float deltaTime) {
         if (enemy.getYPosition() >= enemy.getWorldHeight() - enemy.getImageHeight() || enemy.getYPosition() <= 0) {
             enemy.revertYMultiplier();
         }

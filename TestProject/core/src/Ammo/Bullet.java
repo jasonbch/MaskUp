@@ -12,13 +12,14 @@ public class Bullet extends Ammo {
     private final Texture texture = new Texture("Bullet.png");
 
     /**
-     * Create a new instance of a Bullet at the xPos and yPos.
+     * Create a new instance of a Ammo at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param xPosition        initial x position.
+     * @param yPosition        initial y position.
+     * @param patternAttribute
      */
-    public Bullet(float xPos, float yPos) {
-        super(xPos, yPos);
+    public Bullet(float xPosition, float yPosition, PatternAttribute patternAttribute) {
+        super(xPosition, yPosition, patternAttribute);
     }
 
     /**
