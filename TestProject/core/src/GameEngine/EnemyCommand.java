@@ -19,9 +19,11 @@ public class EnemyCommand implements Command{
         while (iter.hasNext())
         {
             Enemy enemy = iter.next();
-            boolean isShot = enemy.enemyCollidedWith(enemy);
+            boolean isShot = enemy.enemyCollidedWith();
             if (isShot)
             {
+                // set enemy state
+                // remove iter.remove
                 iter.remove();
             }
         }

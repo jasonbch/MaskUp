@@ -179,6 +179,7 @@ public class EnemySpawningController {
     /**
      * Delete the enemies if they got out of the screen.
      */
+    //TODO check enemy state and change enemy state if out of screen
     public void deleteEnemies() {
         ListIterator<Enemy> iter2 = enemyList.listIterator();
         while (iter2.hasNext()) {

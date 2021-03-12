@@ -1,8 +1,6 @@
 package Entity;
 
 import Ammo.Ammo;
-import Enemy.Enemy;
-import GameEngine.EnemySpawningController;
 import GameEngine.ShootController;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,7 +13,6 @@ import java.util.ListIterator;
 public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
     private static final ShootController sc = ShootController.instance();
-    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
 
 
 
@@ -79,26 +76,37 @@ public abstract class Entity extends GameObject {
         return rectangle.overlaps(otherRectangle);
     }
 
-    public void playerCollidedWith(Entity player)
+    //TODO make abstract collision function
+
+    // move to player
+    // collision
+    public void playerCollidedWith()
     {
         ListIterator<Ammo> iter = sc.getEnemyAmmoList().listIterator();
         while(iter.hasNext())
         {
             Ammo ammo = iter.next();
-            if(player.intersects(ammo.getBoundingBox()))
+            if(intersects(ammo.getBoundingBox()))
             {
+                // set bullet and player state
+                // remove iter.remove
                 iter.remove();
             }
         }
     }
-    public boolean enemyCollidedWith(Enemy enemy)
+
+    // move to enemy
+    // collision
+    public boolean enemyCollidedWith()
     {
         ListIterator<Ammo> iter = sc.getPlayerAmmoList().listIterator();
         while(iter.hasNext())
         {
             Ammo ammo = iter.next();
-            if(enemy.intersects(ammo.getBoundingBox()))
+            if(intersects(ammo.getBoundingBox()))
             {
+                // set bullet state
+                // remove iter.remove
                 iter.remove();
                 return true;
             }
