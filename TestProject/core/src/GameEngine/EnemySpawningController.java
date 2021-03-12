@@ -77,6 +77,13 @@ public class EnemySpawningController {
     }
 
     /**
+     * Get elapse time for spawning.
+     */
+    public long getElapsedTime() {
+        return this.elapsedTime;
+    }
+
+    /**
      * TODO: Refactor into one function. May take a while.
      * Spawn bat in a wave. The enemies are spawned constantly
      * in an interval and during the given start time and end time.

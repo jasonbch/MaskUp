@@ -46,27 +46,23 @@ public class BulletSpawningController {
     private BulletSpawningController() {
     }
 
-    /**
-     * Return the enemy ammo list.
-     *
-     * @return  the enemy ammo list.
-     */
+
     public LinkedList<Ammo> getEnemyAmmoList() {
         return this.enemyAmmoList;
     }
 
-    /**
-     * Return the player ammo list.
-     *
-     * @return  the player ammo list.
-     */
+
     public LinkedList<Ammo> getPlayerAmmoList() {
         return this.playerAmmoList;
     }
 
+    /**
+     * Return a list of ammo that the entity fires.
+     *
+     * @param entity the entity that fires the bullet
+     */
     private List<Ammo> fire(Entity entity) {
         List<Ammo> ammoList;
-
 
         if (entity instanceof Bat) {
             ammoList = shootController.create(entity, "FanPattern");
@@ -76,6 +72,8 @@ public class BulletSpawningController {
             ammoList = shootController.create(entity, "FanPattern");
         } else if (entity instanceof Covid) {
             ammoList = shootController.create(entity, "FanPattern");
+        } else if (entity instanceof Player) {
+            ammoList = shootController.create(entity, "LinearPattern");
         } else {
             ammoList = shootController.create(entity, "LinearPattern");
         }
@@ -112,9 +110,8 @@ public class BulletSpawningController {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (player.canFire()) {
                 List<Ammo> ammoList;
-
                 ammoList = fire(player);
-                System.out.println("ammoList: " + ammoList.size());
+
                 for (Ammo ammo : ammoList) {
                     playerAmmoList.add(ammo);
                 }
