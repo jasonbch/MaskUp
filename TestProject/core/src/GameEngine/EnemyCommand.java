@@ -16,11 +16,11 @@ public class EnemyCommand implements Command{
     public void execute()
     {
         ListIterator<Enemy> iter = enemySpawningController.getEnemyList().listIterator();
-        while(iter.hasNext())
+        while (iter.hasNext())
         {
             Enemy enemy = iter.next();
-            boolean isShot = enemy.Enemycollision(enemy);
-            if(isShot)
+            boolean isShot = enemy.enemyCollidedWith(enemy);
+            if (isShot)
             {
                 iter.remove();
             }

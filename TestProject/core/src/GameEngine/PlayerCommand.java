@@ -2,7 +2,7 @@ package GameEngine;
 
 import Entity.Entity;
 
-public class PlayerCommand implements Command{
+public class PlayerCommand implements Command {
 
     Entity player;
 
@@ -10,6 +10,6 @@ public class PlayerCommand implements Command{
 
     public void execute()
     {
-        player.Playercollision(player);
+        player.playerCollidedWith(player);
     }
 }

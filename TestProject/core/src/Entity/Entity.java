@@ -79,7 +79,7 @@ public abstract class Entity extends GameObject {
         return rectangle.overlaps(otherRectangle);
     }
 
-    public void Playercollision(Entity player)
+    public void playerCollidedWith(Entity player)
     {
         ListIterator<Ammo> iter = sc.getEnemyAmmoList().listIterator();
         while(iter.hasNext())
@@ -91,7 +91,7 @@ public abstract class Entity extends GameObject {
             }
         }
     }
-    public boolean Enemycollision(Enemy enemy)
+    public boolean enemyCollidedWith(Enemy enemy)
     {
         ListIterator<Ammo> iter = sc.getPlayerAmmoList().listIterator();
         while(iter.hasNext())
