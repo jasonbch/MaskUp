@@ -5,5 +5,5 @@ public class CollisionController {
 
     public void setCommand(Command command) { this.command = command;}
 
-    public void CollisionDetection() { command.execute();}
+    public void collisionDetection() { command.execute();}
 }
