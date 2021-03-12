@@ -4,14 +4,11 @@ import Entity.Enemy;
 import Factories.EnemyMovementFactory;
 import EnemyMovementPattern.EnemyMovementPattern;
 
-import java.util.Random;
-
 /**
  * EnemyMovementController class that controls the moving of enemies.
  */
 public class EnemyMovementController {
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
-    private Random rand = new Random();
 
     // Implement Singleton
     private static EnemyMovementController uniqueInstance = null;
@@ -33,7 +30,6 @@ public class EnemyMovementController {
     private EnemyMovementController() {
     }
 
-
     public void move(Enemy enemy, float deltaTime) {
         EnemyMovementPattern enemyMovementPattern;
         enemy.updateTimeAlive();
@@ -43,7 +39,7 @@ public class EnemyMovementController {
         } else if (!enemy.isSpawned()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternEnter");
         } else {
-            String enemyPattern = enemy.getPattern();
+            String enemyPattern = enemy.getMovingPattern();
             enemyMovementPattern = enemyMovementFactory.create(enemyPattern);
         }
 

@@ -110,6 +110,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         // Process player
         drawController.draw("player");
+        drawController.draw("enemy");
+        drawController.draw("ammoPlayer");
+        drawController.draw("ammoEnemy");
+
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
@@ -117,10 +121,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
 
         // Process enemies
-        stageController.makeStages();                                // Spawn game enemies
-        updateMovementAndDrawBullets(deltaTime);                            // Draw and update all
+        stageController.makeStages();               // Spawn game enemies
+        updateMovementAndDrawBullets(deltaTime);    // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
-        enemySpawningController.deleteEnemies();                            // Delete enemies if they need deleted
+        enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
 
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();
@@ -206,14 +210,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      * @param deltaTime the delta time
      */
     private void updateMovementAndDrawBullets(float deltaTime) {
-        // Player bullets
-        drawController.draw("ammoPlayer");
-        drawController.draw("ammoEnemy");
-
         ListIterator<Ammo> iterator = bulletSpawningController.getPlayerAmmoList().listIterator();
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
-            //ammo.moveUp(deltaTime);
             bulletMovementController.move(ammo, deltaTime);
 
             if (ammo.getYPosition() > WORLD_HEIGHT) {
@@ -240,8 +239,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      * @param deltaTime the delta time
      */
     private void updateMovementAndDrawEnemies(float deltaTime) {
-        // Draw Enemies
-        drawController.draw("enemy");
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();

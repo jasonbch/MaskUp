@@ -1,6 +1,11 @@
 package GameEngine;
 
+import Ammo.Ammo;
+import Entity.Enemy;
+import Enemy.*;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.ListIterator;
 
 /**
  * StageController class that implements Singleton.
@@ -64,5 +69,40 @@ public class StageController {
 
         // Stage 4
         enemySpawningController.spawnFinalBossWave(stageFourStart, stageFourEnd, "PatternThree");
+
+        // Change pattern of Karen into PatternOne in the middle of stage 2
+        int midBossChangeMovementPatternTime = ((stageTwoEnd - stageTwoStart)/2 + stageTwoStart);
+        changeMovementPatternOfMidBoss(midBossChangeMovementPatternTime, "PatternOne");
+
+        int finalBossChangeMovementPatternTime = ((stageFourEnd - stageFourStart)/2 + stageFourStart);
+        changeMovementPatternOfFinalBoss(finalBossChangeMovementPatternTime, "PatternOne");
+    }
+
+    private void changeMovementPatternOfMidBoss(int time, String pattern) {
+        if (enemySpawningController.getElapsedTime() == time) {
+            ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
+
+            while (iterator.hasNext()) {
+                Enemy currentEnemy = iterator.next();
+
+                if (currentEnemy instanceof Karen) {
+                    currentEnemy.setMovingPattern(pattern);
+                }
+            }
+        }
+    }
+
+    private void changeMovementPatternOfFinalBoss(int time, String pattern) {
+        if (enemySpawningController.getElapsedTime() == time) {
+            ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
+
+            while (iterator.hasNext()) {
+                Enemy currentEnemy = iterator.next();
+
+                if (currentEnemy instanceof Covid) {
+                    currentEnemy.setMovingPattern(pattern);
+                }
+            }
+        }
     }
 }

@@ -1,7 +1,5 @@
 package Entity;
 
-import Entity.Entity;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.TimeUtils;
 
 /**
@@ -13,7 +11,7 @@ public abstract class Enemy extends Entity {
     private boolean isSpawned = false;
     private long spawnTime = TimeUtils.millis();
     private long timeAlive;
-    private String pattern;
+    private String movingPattern;
 
     public boolean isSpawned() {
         return isSpawned;
@@ -49,12 +47,12 @@ public abstract class Enemy extends Entity {
 
     public abstract int getMaxLifespan();
 
-    public String getPattern() {
-        return pattern;
+    public String getMovingPattern() {
+        return movingPattern;
     }
 
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
+    public void setMovingPattern(String movingPattern) {
+        this.movingPattern = movingPattern;
     }
 
     /**
@@ -63,8 +61,8 @@ public abstract class Enemy extends Entity {
      * @param  xPos initial x position.
      * @param  yPos initial y position.
      */
-    public Enemy(float xPos, float yPos, String pattern) {
+    public Enemy(float xPos, float yPos, String movingPattern) {
         super(xPos, yPos);
-        this.pattern = pattern;
+        this.movingPattern = movingPattern;
     }
 }
