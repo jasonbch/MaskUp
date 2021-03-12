@@ -48,8 +48,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
 
     private CollisionController collisionController;
-    Command PlayerisHit;
-    Command EnemyisHit;
+    private Command PlayerisHit;
+    private Command EnemyisHit;
 
 
 
