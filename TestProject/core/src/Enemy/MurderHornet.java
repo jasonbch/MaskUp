@@ -1,11 +1,12 @@
 package Enemy;
 
+import Entity.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
  * The MurderHornet class that extends from Enemy that can move and fire.
  */
-public class MurderHornet extends Enemy{
+public class MurderHornet extends Enemy {
     private final String name = "MurderHornet";
     private final float speed = 150;
     private final String bullet = "Stinger";

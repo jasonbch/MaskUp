@@ -1,26 +1,23 @@
 package GameEngine;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 import Factories.EnemyMovementFactory;
 import EnemyMovementPattern.EnemyMovementPattern;
-
-import java.util.Random;
 
 /**
  * EnemyMovementController class that controls the moving of enemies.
  */
 public class EnemyMovementController {
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
-    private Random rand = new Random();
 
     // Implement Singleton
     private static EnemyMovementController uniqueInstance = null;
 
     /**
-     * Return the instance of EnemySpawningController.
+     * Return the instance of EnemyMovementController.
      * Create the instance if the instance has not been initialized.
      *
-     * @return the instance of EnemySpawningController.
+     * @return the instance of EnemyMovementController.
      */
     public static EnemyMovementController instance() {
         if (uniqueInstance == null) {
@@ -33,9 +30,8 @@ public class EnemyMovementController {
     private EnemyMovementController() {
     }
 
-
-    public void move(Enemy enemy, float deltaTime, Integer stage){
-        EnemyMovementPattern enemyMovementPattern = null;
+    public void move(Enemy enemy, float deltaTime) {
+        EnemyMovementPattern enemyMovementPattern;
         enemy.updateTimeAlive();
 
         if (enemy.getTimeAlive() >= enemy.getMaxLifespan()) {
@@ -43,10 +39,10 @@ public class EnemyMovementController {
         } else if (!enemy.isSpawned()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternEnter");
         } else {
-            String enemyPattern = enemy.getPattern();
+            String enemyPattern = enemy.getMovingPattern();
             enemyMovementPattern = enemyMovementFactory.create(enemyPattern);
         }
 
-        enemyMovementPattern.Move(enemy, deltaTime);
+        enemyMovementPattern.move(enemy, deltaTime);
     }
 }

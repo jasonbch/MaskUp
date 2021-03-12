@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 
 /**
  * The EnemyMovementPattern that move the enemy diagonally in the screen.
@@ -16,7 +16,7 @@ public class EnemyMovementPatternThree extends EnemyMovementPattern {
     }
 
     @Override
-    public void Move(Enemy enemy, float deltaTime) {
+    public void move(Enemy enemy, float deltaTime) {
         if (enemy.getXPosition() >= enemy.getWorldWidth() - enemy.getImageWidth() || enemy.getXPosition() <= 0) {
             enemy.revertXMultiplier();
         }

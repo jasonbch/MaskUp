@@ -1,6 +1,6 @@
 package GameEngine;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 import Factories.EnemyFactory;
 
 import com.badlogic.gdx.Gdx;
@@ -74,6 +74,13 @@ public class EnemySpawningController {
      */
     public void setElapsedTime(long time) {
         this.elapsedTime = time;
+    }
+
+    /**
+     * Get elapse time for spawning.
+     */
+    public long getElapsedTime() {
+        return this.elapsedTime;
     }
 
     /**
@@ -158,7 +165,8 @@ public class EnemySpawningController {
      * Spawn the mid boss at the given position.
      */
     private void spawnMidBoss(String pattern) {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 100;
+        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 50;
+        System.out.println("Karen x position: " + xPosition);
         if (elapsedTime != 0 && elapsedTime - lastMidBossTime > 1) {
             spawnEnemies("Karen", xPosition, WORLD_HEIGHT, pattern);
             lastMidBossTime = elapsedTime;

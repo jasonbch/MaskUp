@@ -1,6 +1,5 @@
 package BulletMovementPattern;
 
-
 import Ammo.Ammo;
 
 /**
@@ -16,6 +15,6 @@ public abstract class BulletMovementPattern {
     /**
      * Move the game object.
      */
-    public abstract void Move(Ammo ammo, float deltaTime);
+    public abstract void move(Ammo ammo, float deltaTime, float xMultiplier, float yMultiplier);
 
 }

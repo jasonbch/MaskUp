@@ -12,14 +12,16 @@ public class GreenCloud extends Ammo{
     private final Texture texture = new Texture("GreenCloud.png");
 
     /**
-     * Create a new instance of a GreenCloud at the xPos and yPos.
+     * Create a new instance of a Ammo at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param xPosition        initial x position.
+     * @param yPosition        initial y position.
+     * @param patternAttribute
      */
-    public GreenCloud(float xPos, float yPos) {
-        super(xPos, yPos);
+    public GreenCloud(float xPosition, float yPosition, PatternAttribute patternAttribute) {
+        super(xPosition, yPosition, patternAttribute);
     }
+
 
     /**
      * Return the name.

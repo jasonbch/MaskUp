@@ -66,7 +66,7 @@ public abstract class Entity extends GameObject {
     /**
      * Return the coordinate for shooting position.
      *
-     * @return  shooting position.
+     * @return shooting position.
      */
     public abstract GridPoint2 getShootingPosition();
 

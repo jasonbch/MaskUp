@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 
 /**
  * The EnemyMovementPattern class that move the enemy in a specific order.
@@ -15,6 +15,6 @@ public abstract class EnemyMovementPattern {
     /**
      * Move the game object.
      */
-    public abstract void Move(Enemy enemy, float deltaTime);
+    public abstract void move(Enemy enemy, float deltaTime);
 
 }

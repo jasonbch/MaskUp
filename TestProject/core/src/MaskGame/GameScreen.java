@@ -1,7 +1,7 @@
 package MaskGame;
 
 import Ammo.Ammo;
-import Enemy.Enemy;
+import Entity.Enemy;
 import Entity.Entity;
 import Entity.Player;
 
@@ -54,11 +54,13 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
 
     // Game controllers
-    private final ShootController shootController = ShootController.instance();
+    private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
-
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
+    private final BulletMovementController bulletMovementController = BulletMovementController.instance();
+
+    DrawController drawController;
 
     // Slow mode variables
     private boolean isSlowMode;
@@ -88,7 +90,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         this.gameSpeed = 1; // Set current game speed to normal speed
 
         batch = new SpriteBatch();
-
+        drawController = new DrawController(batch, player);
         // Music
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
 
@@ -118,12 +120,14 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         renderBackground(deltaTime);
 
         // Process player
-        player.draw(batch);                         // Draw player
+        drawController.draw("player");
+        drawController.draw("enemy");
+        drawController.draw("ammoPlayer");
+        drawController.draw("ammoEnemy");
+
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
-        shootController.playerFire(player);
-        // Check player shooting input
 
         // Process enemies
         stageController.makeStages();                                // Spawn game enemies
@@ -136,12 +140,16 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         collisionController.setCommand(enemyisHit);
         collisionController.collisionDetection();
 
-        shootController.enemyFire(deltaTime, enemySpawningController);      // Fire enemy bullets if they can fire
 
 
-        updateMovementAndDrawBullets(deltaTime);                            // Draw and update all
+        bulletSpawningController.playerFire(player);
+        bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
+
+        // Process enemies
+        stageController.makeStages();               // Spawn game enemies
+        updateMovementAndDrawBullets(deltaTime);    // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
-        enemySpawningController.deleteEnemies();                            // Delete enemies if they need deleted
+        enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
 
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();
@@ -227,29 +235,21 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      * @param deltaTime the delta time
      */
     private void updateMovementAndDrawBullets(float deltaTime) {
-        // Player bullets
-        ListIterator<Ammo> iterator = shootController.getPlayerAmmoList().listIterator();
+        ListIterator<Ammo> iterator = bulletSpawningController.getPlayerAmmoList().listIterator();
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
-            ammo.draw(batch);
-        }
-
-        ListIterator<Ammo> iterator2 = shootController.getPlayerAmmoList().listIterator();
-        while (iterator2.hasNext()) {
-            Ammo ammo = iterator2.next();
-            ammo.moveUp(deltaTime);
+            bulletMovementController.move(ammo, deltaTime);
 
             if (ammo.getYPosition() > WORLD_HEIGHT) {
-                iterator2.remove();
+                iterator.remove();
             }
         }
 
         // Enemy bullets
-        ListIterator<Ammo> iter = shootController.getEnemyAmmoList().listIterator();
+        ListIterator<Ammo> iter = bulletSpawningController.getEnemyAmmoList().listIterator();
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            ammo.moveDown(deltaTime);
-            ammo.draw(batch);
+            bulletMovementController.move(ammo, deltaTime);
 
             if (ammo.getYPosition() < 0) {
                 iter.remove();
@@ -264,12 +264,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      * @param deltaTime the delta time
      */
     private void updateMovementAndDrawEnemies(float deltaTime) {
-        // Draw Enemies
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
-            enemyMoveController.move(currEnemy,deltaTime,1);
-            currEnemy.draw(batch);
+            enemyMoveController.move(currEnemy,deltaTime);
         }
     }
 

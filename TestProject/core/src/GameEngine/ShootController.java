@@ -1,128 +1,62 @@
 package GameEngine;
 
-import Ammo.Ammo;
-import Factories.AmmoFactory;
-import Enemy.Enemy;
+import Ammo.*;
+import Ammo.Ammo.*;
 import Entity.Entity;
+import Factories.AmmoFactory;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.GridPoint2;
 
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.Arrays;
+import java.util.List;
 
-/**
- * ShootController class that controls the spawning of ammo. The entity can
- * fire their default bullet or a given bullet can be given to them.
- */
 public class ShootController {
-    protected AmmoFactory factory = new AmmoFactory();
-    private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
-    private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
+    private AmmoFactory ammoFactory = new AmmoFactory();
 
-    // Implement Singleton
-    private static ShootController uniqueInstance = null;
-
-    /**
-     * Return the instance of EnemySpawningController.
-     * Create the instance if the instance has not been initialized.
-     *
-     * @return the instance of EnemySpawningController.
-     */
-    public static ShootController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new ShootController();
-        }
-
-        return uniqueInstance;
+    public ShootController() {
     }
 
-    /**
-     * Create a new instance of the ShootController.
-     */
-    private ShootController() {
-    }
+    public List<Ammo> create(Entity entity, String pattern) {
+        List<Ammo> ammoList = null;
 
-    /**
-     * Return the enemy ammo list.
-     *
-     * @return  the enemy ammo list.
-     */
-    public LinkedList<Ammo> getEnemyAmmoList() {
-        return this.enemyAmmoList;
-    }
-
-    /**
-     * Return the player ammo list.
-     *
-     * @return  the player ammo list.
-     */
-    public LinkedList<Ammo> getPlayerAmmoList() {
-        return this.playerAmmoList;
-    }
-
-    /**
-     * Return the bullet ammo at the given entity and the default bullet.
-     *
-     * @param   entity  the entity.
-     * @return  The ammo that the entity fires.
-     */
-    public Ammo fire(Entity entity) {
-        // Get the entity default bullet
-        String currentBullet = entity.getBullet();
-
-        return this.fire(entity, currentBullet);
-    }
-
-    /**
-     * Return the bullet ammo at the given entity and the given bullet.
-     *
-     * @param   entity  the entity.
-     * @param   bullet  the type of bullet.
-     * @return  The ammo that the entity fires.
-     */
-    public Ammo fire(Entity entity, String bullet) {
         // Get shoot position
         GridPoint2 shootPosition = entity.getShootingPosition();
+        int xShootPosition = shootPosition.x;
+        int yShootPosition = shootPosition.y;
 
-        // Create the ammo
-        Ammo ammo = factory.create(bullet,
-                shootPosition.x,
-                shootPosition.y);
+        if (pattern.equals("FanPattern")) {
+            ammoList = shootFanPattern(entity, xShootPosition, yShootPosition);
+        } else  if (pattern.equals("LinearPattern")) {
+            ammoList = shootLinearPattern(entity, xShootPosition, yShootPosition);
+        }
 
-        // Reset the time since last shot
-        entity.resetTimeSinceLastShot();
-        return  ammo;
+        return ammoList;
     }
 
-    /**
-     * Update the enemy position and fire their bullets if they can fire.
-     *
-     * @param deltaTime the delta time
-     */
-    public void enemyFire(float deltaTime, EnemySpawningController enemySpawningController) {
-        ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
-        while (iterator.hasNext()) {
-            Enemy currEnemy = iterator.next();
-            currEnemy.updateTimeSinceLastShot(deltaTime);
+    private List<Ammo> shootFanPattern(Entity entity, int xShootPosition, int yShootPosition) {
+        List<Ammo> ammoList;
 
-            if (currEnemy.canFire()) {
-                Ammo ammo = fire(currEnemy);
-                enemyAmmoList.add(ammo);
-            }
-        }
+        PatternAttribute patternAttribute1 = new PatternAttribute("LinearPattern", -1, -1);
+        PatternAttribute patternAttribute2 = new PatternAttribute("LinearPattern", 0, -1);
+        PatternAttribute patternAttribute3 = new PatternAttribute("LinearPattern", 1, -1);
+
+        Ammo ammo1 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute1);
+        Ammo ammo2 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute2);
+        Ammo ammo3 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute3);
+
+       ammoList = Arrays.asList(ammo1, ammo2, ammo3);
+
+        return ammoList;
     }
 
-    /**
-     * Fire the bullet from player if the space bar is pressed.
-     */
-    public void playerFire(Entity player) {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if (player.canFire()) {
-                Ammo ammo = fire(player, "Syringe");
-                playerAmmoList.add(ammo);
-            }
-        }
+    private List<Ammo> shootLinearPattern(Entity entity, int xShootPosition, int yShootPosition) {
+        List<Ammo> ammoList;
+
+        PatternAttribute patternAttribute = new PatternAttribute("LinearPattern", 0, -1);
+
+        Ammo ammo = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute);
+        ammoList = Arrays.asList(ammo);
+
+        return ammoList;
     }
 }
