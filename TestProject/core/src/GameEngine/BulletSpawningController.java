@@ -103,6 +103,29 @@ public class BulletSpawningController {
             }
         }
     }
+    public void enemyDeleteBullets() {
+        ListIterator<Ammo> iter = getEnemyAmmoList().listIterator();
+        while (iter.hasNext())
+        {
+            Ammo ammo = iter.next();
+            if(ammo.getIsDone())
+            {
+                iter.remove();
+            }
+        }
+    }
+
+    public void playerDeleteBullets() {
+        ListIterator<Ammo> iter = getPlayerAmmoList().listIterator();
+        while (iter.hasNext())
+        {
+            Ammo ammo = iter.next();
+            if(ammo.getIsDone())
+            {
+                iter.remove();
+            }
+        }
+    }
 
     /**
      * Fire the bullet from player if the space bar is pressed.

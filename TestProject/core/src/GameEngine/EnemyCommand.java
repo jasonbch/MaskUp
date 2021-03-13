@@ -8,7 +8,7 @@ public class EnemyCommand implements Command{
 
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private static final BulletSpawningController bsc = BulletSpawningController.instance();
-
+    boolean ishit = false;
 
     public EnemyCommand()
     {
@@ -21,8 +21,10 @@ public class EnemyCommand implements Command{
         while (iter.hasNext())
         {
             Enemy enemy = iter.next();
-            enemy.collide(bsc.getPlayerAmmoList().listIterator());
-            iter.remove();
+            ishit = enemy.collide(bsc.getPlayerAmmoList().listIterator());
+            if(ishit) {
+                enemy.setIsDone(ishit);
+            }
         }
 
     }

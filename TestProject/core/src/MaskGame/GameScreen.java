@@ -129,9 +129,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ((Player) player).movePlayer(deltaTime);    // Move player
 
 
-        // Process enemies
-        stageController.makeStages();                                // Spawn game enemies
-
         enemyisHit = new EnemyCommand();
 
 
@@ -150,6 +147,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         updateMovementAndDrawBullets(deltaTime);    // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
         enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
+        bulletSpawningController.enemyDeleteBullets();
+        bulletSpawningController.playerDeleteBullets();
 
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();

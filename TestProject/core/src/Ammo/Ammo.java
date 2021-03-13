@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 public abstract class Ammo extends GameObject {
     protected final String[] acceptableTargets = {};
     private PatternAttribute patternAttribute;
+    private boolean isDone =false;
 
     public PatternAttribute getPatternAttribute() {
         return this.patternAttribute;
@@ -28,6 +29,10 @@ public abstract class Ammo extends GameObject {
         this.yPosition = yPosition;
         this.patternAttribute = patternAttribute;
     }
+
+    public boolean getIsDone() { return this.isDone;}
+
+    public boolean setIsDone(boolean done) { return this.isDone = done;}
 
     /**
      * Return the name.

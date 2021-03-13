@@ -28,15 +28,9 @@ public abstract class Entity extends GameObject {
         this.yPosition = yPosition;
     }
 
-    public boolean getIsDone()
-    {
-         return this.isDone;
-    }
+    public boolean getIsDone() { return this.isDone;}
 
-    public boolean setIsDone(boolean done)
-    {
-        return this.isDone = done;
-    }
+    public boolean setIsDone(boolean done) { return this.isDone = done;}
 
     /**
      * Return the time between shot.
@@ -80,7 +74,7 @@ public abstract class Entity extends GameObject {
         return rectangle.overlaps(otherRectangle);
     }
 
-    public abstract void collide(ListIterator<Ammo> entityammolist);
+    public abstract boolean collide(ListIterator<Ammo> entityammolist);
 
     /**
      * Return the coordinate for shooting position.

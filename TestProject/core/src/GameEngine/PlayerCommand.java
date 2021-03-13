@@ -7,6 +7,7 @@ import java.util.ListIterator;
 public class PlayerCommand implements Command {
 
     private static final BulletSpawningController bsc = BulletSpawningController.instance();
+    boolean ishit = false;
 
     // pass in enemyammolist
     // switch to player type
@@ -17,6 +18,10 @@ public class PlayerCommand implements Command {
     public void execute()
     {
         // set player state
-        player.collide(bsc.getEnemyAmmoList().listIterator());
+        ishit = player.collide(bsc.getEnemyAmmoList().listIterator());
+        if(ishit)
+        {
+            player.setIsDone(ishit);
+        }
     }
 }

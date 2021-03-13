@@ -69,7 +69,7 @@ public abstract class Enemy extends Entity {
         this.movingPattern = movingPattern;
     }
 
-    public void collide(ListIterator<Ammo> playerammolist)
+    public boolean collide(ListIterator<Ammo> playerammolist)
     {
         ListIterator<Ammo> iter = playerammolist;
         while(iter.hasNext())
@@ -77,12 +77,10 @@ public abstract class Enemy extends Entity {
             Ammo ammo = iter.next();
             if(intersects(ammo.getBoundingBox()))
             {
-                // set bullet state
-                // remove iter.remove
-                iter.remove();
-                //return true;
+                setIsDone(true);
+                ammo.setIsDone(true);
             }
         }
-        //return false;
+        return getIsDone();
     }
 }

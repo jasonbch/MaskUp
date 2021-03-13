@@ -118,10 +118,9 @@ public class Player extends Entity {
             moveDown(deltaTime);
         }
     }
-    // move to player
-    // collision
+
     @Override
-    public void collide(ListIterator<Ammo> enemyammolist)
+    public boolean collide(ListIterator<Ammo> enemyammolist)
     {
         ListIterator<Ammo> iter = enemyammolist;
         while(iter.hasNext())
@@ -129,10 +128,10 @@ public class Player extends Entity {
             Ammo ammo = iter.next();
             if(intersects(ammo.getBoundingBox()))
             {
-                // set bullet and player state
-                // remove iter.remove
-                iter.remove();
+                setIsDone(true);
+                ammo.setIsDone(true);
             }
         }
+        return getIsDone();
     }
 }
