@@ -1,6 +1,9 @@
 package Entity;
 
+import Ammo.Ammo;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.ListIterator;
 
 /**
  * The Enemy abstract class that extends from Entity that can move and fire.
@@ -64,5 +67,22 @@ public abstract class Enemy extends Entity {
     public Enemy(float xPos, float yPos, String movingPattern) {
         super(xPos, yPos);
         this.movingPattern = movingPattern;
+    }
+
+    public void collide(ListIterator<Ammo> playerammolist)
+    {
+        ListIterator<Ammo> iter = playerammolist;
+        while(iter.hasNext())
+        {
+            Ammo ammo = iter.next();
+            if(intersects(ammo.getBoundingBox()))
+            {
+                // set bullet state
+                // remove iter.remove
+                iter.remove();
+                //return true;
+            }
+        }
+        //return false;
     }
 }

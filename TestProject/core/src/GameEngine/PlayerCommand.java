@@ -2,7 +2,11 @@ package GameEngine;
 
 import Entity.Entity;
 
+import java.util.ListIterator;
+
 public class PlayerCommand implements Command {
+
+    private static final BulletSpawningController bsc = BulletSpawningController.instance();
 
     // pass in enemyammolist
     // switch to player type
@@ -13,6 +17,6 @@ public class PlayerCommand implements Command {
     public void execute()
     {
         // set player state
-        player.playerCollidedWith();
+        player.collide(bsc.getEnemyAmmoList().listIterator());
     }
 }

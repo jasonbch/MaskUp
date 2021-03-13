@@ -13,7 +13,6 @@ public class Karen extends Enemy {
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("Karen.png");
     private int moveCounter = 0;
-    private boolean isDone = false;
     private int maxLifespan = 45;
 
     /**

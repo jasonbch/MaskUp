@@ -14,7 +14,6 @@ public class Covid extends Enemy {
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("BigCovid.png");
     private int moveCounter = 0;
-    private boolean isDone = false;
     private int maxLifespan = 60;
 
     /**

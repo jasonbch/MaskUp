@@ -1,6 +1,7 @@
 package Entity;
 
 import Ammo.Ammo;
+import GameEngine.BulletSpawningController;
 import GameEngine.ShootController;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
@@ -12,7 +13,7 @@ import java.util.ListIterator;
  */
 public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
-    private static final ShootController sc = ShootController.instance();
+    private boolean isDone = false;
 
 
 
@@ -25,6 +26,16 @@ public abstract class Entity extends GameObject {
     public Entity(float xPosition, float yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+    }
+
+    public boolean getIsDone()
+    {
+         return this.isDone;
+    }
+
+    public boolean setIsDone(boolean done)
+    {
+        return this.isDone = done;
     }
 
     /**
@@ -63,54 +74,23 @@ public abstract class Entity extends GameObject {
         return (timeSinceLastShot - getTimeBetweenShots() >= 0);
     }
 
-    /**
-     * Return the coordinate for shooting position.
-     *
-     * @return shooting position.
-     */
-    public abstract GridPoint2 getShootingPosition();
-
     public boolean intersects(Rectangle otherRectangle)
     {
         Rectangle rectangle = new Rectangle(xPosition,yPosition,getImage().getWidth(), getImage().getHeight());
         return rectangle.overlaps(otherRectangle);
     }
 
-    //TODO make abstract collision function
+    public abstract void collide(ListIterator<Ammo> entityammolist);
 
-    // move to player
-    // collision
-    public void playerCollidedWith()
-    {
-        ListIterator<Ammo> iter = sc.getEnemyAmmoList().listIterator();
-        while(iter.hasNext())
-        {
-            Ammo ammo = iter.next();
-            if(intersects(ammo.getBoundingBox()))
-            {
-                // set bullet and player state
-                // remove iter.remove
-                iter.remove();
-            }
-        }
-    }
-
-    // move to enemy
-    // collision
-    public boolean enemyCollidedWith()
-    {
-        ListIterator<Ammo> iter = sc.getPlayerAmmoList().listIterator();
-        while(iter.hasNext())
-        {
-            Ammo ammo = iter.next();
-            if(intersects(ammo.getBoundingBox()))
-            {
-                // set bullet state
-                // remove iter.remove
-                iter.remove();
-                return true;
-            }
-        }
-        return false;
+    /**
+     * Return the coordinate for shooting position.
+     *
+     * @return shooting position.
+     */
+    public GridPoint2 getShootingPosition() {
+        float xShootPosition = getXPosition() + (float) getImageWidth() / 2;
+        float yShootPosition = getYPosition();
+        GridPoint2 shootPosition = new GridPoint2((int) xShootPosition, (int) yShootPosition);
+        return shootPosition;
     }
 }

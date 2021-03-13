@@ -13,7 +13,6 @@ public class MurderHornet extends Enemy {
     private final float timeBetweenShot = 0.45f;
     private final Texture texture = new Texture("MurderHornet.png");
     private int moveCounter = 0;
-    private boolean isDone = false;
     private int maxLifespan = 10;
 
     /**

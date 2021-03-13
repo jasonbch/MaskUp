@@ -1,12 +1,14 @@
 package GameEngine;
 
-import Enemy.Enemy;
+import Entity.Enemy;
 
 import java.util.ListIterator;
 
 public class EnemyCommand implements Command{
 
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private static final BulletSpawningController bsc = BulletSpawningController.instance();
+
 
     public EnemyCommand()
     {
@@ -19,13 +21,8 @@ public class EnemyCommand implements Command{
         while (iter.hasNext())
         {
             Enemy enemy = iter.next();
-            boolean isShot = enemy.enemyCollidedWith();
-            if (isShot)
-            {
-                // set enemy state
-                // remove iter.remove
-                iter.remove();
-            }
+            enemy.collide(bsc.getPlayerAmmoList().listIterator());
+            iter.remove();
         }
 
     }
