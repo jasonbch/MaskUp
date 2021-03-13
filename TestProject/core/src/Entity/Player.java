@@ -1,7 +1,6 @@
 package Entity;
 
 import Ammo.Ammo;
-import GameEngine.ShootController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -120,18 +119,18 @@ public class Player extends Entity {
     }
 
     @Override
-    public boolean collide(ListIterator<Ammo> enemyammolist)
+    public boolean collide(ListIterator<Ammo> enemyAmmoList)
     {
-        ListIterator<Ammo> iter = enemyammolist;
-        while(iter.hasNext())
+        ListIterator<Ammo> iter = enemyAmmoList;
+        while (iter.hasNext())
         {
             Ammo ammo = iter.next();
-            if(intersects(ammo.getBoundingBox()))
+            if (intersects(ammo.getBoundingBox()))
             {
                 setIsDone(true);
                 ammo.setIsDone(true);
             }
         }
-        return getIsDone();
+        return IsDone();
     }
 }

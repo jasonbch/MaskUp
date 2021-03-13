@@ -103,24 +103,24 @@ public class BulletSpawningController {
             }
         }
     }
-    public void enemyDeleteBullets() {
+    public void deleteEnemeyBullet() {
         ListIterator<Ammo> iter = getEnemyAmmoList().listIterator();
         while (iter.hasNext())
         {
             Ammo ammo = iter.next();
-            if(ammo.getIsDone())
+            if (ammo.isDone())
             {
                 iter.remove();
             }
         }
     }
 
-    public void playerDeleteBullets() {
+    public void deletePlayerBullet() {
         ListIterator<Ammo> iter = getPlayerAmmoList().listIterator();
         while (iter.hasNext())
         {
             Ammo ammo = iter.next();
-            if(ammo.getIsDone())
+            if (ammo.isDone())
             {
                 iter.remove();
             }

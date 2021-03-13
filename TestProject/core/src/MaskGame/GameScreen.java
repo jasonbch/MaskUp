@@ -48,8 +48,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
 
     private CollisionController collisionController;
-    private Command playerisHit;
-    private Command enemyisHit;
+    private Command playerIsHitCommand;
+    private Command enemyIsHitCommand;
 
 
 
@@ -83,7 +83,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         collisionController = new CollisionController();
 
-        playerisHit = new PlayerCommand(player);
+        playerIsHitCommand = new PlayerCommand(player);
 
         // Initialize slow mode
         this.isSlowMode = false;
@@ -129,12 +129,12 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ((Player) player).movePlayer(deltaTime);    // Move player
 
 
-        enemyisHit = new EnemyCommand();
+        enemyIsHitCommand = new EnemyCommand();
 
 
-        collisionController.setCommand(playerisHit);
+        collisionController.setCommand(playerIsHitCommand);
         collisionController.collisionDetection();
-        collisionController.setCommand(enemyisHit);
+        collisionController.setCommand(enemyIsHitCommand);
         collisionController.collisionDetection();
 
 
@@ -147,8 +147,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         updateMovementAndDrawBullets(deltaTime);    // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
         enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
-        bulletSpawningController.enemyDeleteBullets();
-        bulletSpawningController.playerDeleteBullets();
+        bulletSpawningController.deleteEnemeyBullet();
+        bulletSpawningController.deletePlayerBullet();
 
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();

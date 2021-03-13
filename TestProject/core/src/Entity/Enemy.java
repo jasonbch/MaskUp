@@ -69,18 +69,18 @@ public abstract class Enemy extends Entity {
         this.movingPattern = movingPattern;
     }
 
-    public boolean collide(ListIterator<Ammo> playerammolist)
+    public boolean collide(ListIterator<Ammo> playerAmmolist)
     {
-        ListIterator<Ammo> iter = playerammolist;
-        while(iter.hasNext())
+        ListIterator<Ammo> iter = playerAmmolist;
+        while (iter.hasNext())
         {
             Ammo ammo = iter.next();
-            if(intersects(ammo.getBoundingBox()))
+            if (intersects(ammo.getBoundingBox()))
             {
                 setIsDone(true);
                 ammo.setIsDone(true);
             }
         }
-        return getIsDone();
+        return IsDone();
     }
 }

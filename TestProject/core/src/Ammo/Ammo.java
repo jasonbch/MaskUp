@@ -30,7 +30,7 @@ public abstract class Ammo extends GameObject {
         this.patternAttribute = patternAttribute;
     }
 
-    public boolean getIsDone() { return this.isDone;}
+    public boolean isDone() { return this.isDone;}
 
     public boolean setIsDone(boolean done) { return this.isDone = done;}
 
