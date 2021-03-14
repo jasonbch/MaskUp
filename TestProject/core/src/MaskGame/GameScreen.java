@@ -59,8 +59,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
+    private final GameController gameController = GameController.instance();
 
     DrawController drawController;
+
 
     // Slow mode variables
     private boolean isSlowMode;
@@ -91,6 +93,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         batch = new SpriteBatch();
         drawController = new DrawController(batch, player);
+
         // Music
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
 
@@ -112,6 +115,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Get the game speed
         gameSpeed = getGameSpeed();
         deltaTime *= gameSpeed;
+
+        //update gameController time
+        gameController.updateTime();
 
         // Begin the Batch
         batch.begin();

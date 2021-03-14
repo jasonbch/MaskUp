@@ -33,6 +33,8 @@ public class StageController {
     private final int stageFourEnd = stageFourStart + stageFourDuration;
 
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private static final GameController gameController = GameController.instance();
+
 
     /**
      * Return the instance of StageController.
@@ -53,8 +55,8 @@ public class StageController {
 
     public void makeStages() {
         // Set new elapsed time
-        long newStartTime = enemySpawningController.getStartTime();
-        enemySpawningController.setElapsedTime(TimeUtils.timeSinceMillis(newStartTime) / 1000);
+        //long newStartTime = enemySpawningController.getStartTime();
+        //enemySpawningController.setElapsedTime(TimeUtils.timeSinceMillis(newStartTime) / 1000);
 
         // Stage 1
         enemySpawningController.spawnBatWave(stageOneStart, stageOneEnd, "PatternOne");
@@ -79,7 +81,7 @@ public class StageController {
     }
 
     private void changeMovementPatternOfMidBoss(int time, String pattern) {
-        if (enemySpawningController.getElapsedTime() == time) {
+        if (gameController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
 
             while (iterator.hasNext()) {
@@ -93,7 +95,7 @@ public class StageController {
     }
 
     private void changeMovementPatternOfFinalBoss(int time, String pattern) {
-        if (enemySpawningController.getElapsedTime() == time) {
+        if (gameController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
 
             while (iterator.hasNext()) {
