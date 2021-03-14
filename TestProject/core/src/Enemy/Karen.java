@@ -7,12 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
  * The Karen class that extends from Enemy that can move and fire.
  */
 public class Karen extends Enemy {
-    private final String name = "Karen";
-    private final float speed = 150;
-    private final String bullet = "GreenCloud";
-    private final float timeBetweenShot = 0.5f;
-    private final Texture texture = new Texture("Karen.png");
-    private int moveCounter = 0;
     private int maxLifespan = 45;
 
     /**
@@ -24,6 +18,10 @@ public class Karen extends Enemy {
      */
     public Karen(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
+        this.speed = 150;
+        this.name = "Karen";
+        this.bullet = "GreenCloud";
+        this.texture = new Texture("Karen.png");
     }
 
 

@@ -1,6 +1,9 @@
 package Entity;
 
 import Ammo.Ammo;
+import GameEngine.BulletSpawningController;
+import GameEngine.GameResources;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -12,6 +15,12 @@ import java.util.ListIterator;
 public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
     private boolean isDone = false;
+    private String formationPattern = "FanFormation";
+    protected String name = "Entity";
+    protected float speed = 250;
+    protected String bullet = "Bullet";
+    protected Texture texture = new Texture("CovidGerm.png");
+    protected float timeBetweenShot = 0.5f;
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
@@ -23,6 +32,19 @@ public abstract class Entity extends GameObject {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
+
+    /**
+     * Constructor for player
+     */
+    public Entity(){
+        this.xPosition = gameResources.getWorldWidth()/2;
+        this.yPosition = gameResources.getWorldHeight()/4;
+        setFormationPattern("UpwardLinearFormation");
+        this.name = "Player";
+        this.texture = new Texture("Player.png");
+        this.timeBetweenShot = 0.25f;
+    }
+
 
     /**
      *
@@ -47,15 +69,6 @@ public abstract class Entity extends GameObject {
      */
     public void setIsDone() { this.isDone = true;}
 
-    /**
-     * Return the time between shot.
-     */
-    public abstract float getTimeBetweenShots();
-
-    /**
-     * Return the bullet string that the enemy fires.
-     */
-    public abstract String getBullet();
 
     /**
      * Update time since last shot.
@@ -101,5 +114,48 @@ public abstract class Entity extends GameObject {
         float yShootPosition = getYPosition();
         GridPoint2 shootPosition = new GridPoint2((int) xShootPosition, (int) yShootPosition);
         return shootPosition;
+    }
+
+    /**
+     * Return the name.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Return the speed.
+     */
+    public float getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Return the bullet string that the enemy fires.
+     */
+    public String getBullet() {
+        return this.bullet;
+    }
+
+    /**
+     * Return the time between shot.
+     */
+    public float getTimeBetweenShots() {
+        return this.timeBetweenShot;
+    }
+
+    /**
+     * Return the Texture image.
+     */
+    public Texture getImage() {
+        return this.texture;
+    }
+
+    public String getFormationPattern() {
+        return formationPattern;
+    }
+
+    public void setFormationPattern(String formationPattern) {
+        this.formationPattern = formationPattern;
     }
 }

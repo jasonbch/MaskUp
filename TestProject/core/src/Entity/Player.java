@@ -1,6 +1,7 @@
 package Entity;
 
 import Ammo.Ammo;
+import GameEngine.GameResources;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,12 +13,17 @@ import java.util.ListIterator;
  * The Player class that extends from Entity that can move and fire.
  */
 public class Player extends Entity {
-    private final String name = "Player";
-    private final float speed = 250;
-    private final String bullet = "Bullet";
-    private final float timeBetweenShot = 0.25f;
-    private final Texture texture = new Texture("Player.png");
     private int maxHealth = 3;
+
+    // Implement Singleton
+    private static Player uniqueInstance = null;
+
+    public static Player instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Player();
+        }
+        return uniqueInstance;
+    }
 
     /**
      * Create a new instance of a Player at the xPos and yPos.
@@ -25,9 +31,6 @@ public class Player extends Entity {
      * @param  xPosition initial x position.
      * @param  yPosition initial y position.
      */
-    public Player(float xPosition, float yPosition) {
-        super(xPosition, yPosition);
-    }
 
     /**
      * Return the name.
