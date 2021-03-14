@@ -47,7 +47,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private final Entity player;
 
 
-    private CollisionController collisionController;
+    private CommandController collisionController;
     private Command playerIsHitCommand;
     private Command enemyIsHitCommand;
 
@@ -81,7 +81,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Initialize player object
         player = new Player((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 4);
 
-        collisionController = new CollisionController();
+        collisionController = new CommandController();
 
         playerIsHitCommand = new PlayerCommand(player);
 
@@ -132,10 +132,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         enemyIsHitCommand = new EnemyCommand();
 
 
-        collisionController.setCommand(playerIsHitCommand);
-        collisionController.collisionDetection();
-        collisionController.setCommand(enemyIsHitCommand);
-        collisionController.collisionDetection();
+        collisionController.addCommand(playerIsHitCommand);
+        collisionController.addCommand(enemyIsHitCommand);
+        collisionController.executeCommand();
 
 
 
