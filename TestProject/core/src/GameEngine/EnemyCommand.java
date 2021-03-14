@@ -9,7 +9,6 @@ public class EnemyCommand implements Command{
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private static final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
 
-    public EnemyCommand()
     {
 
     }
