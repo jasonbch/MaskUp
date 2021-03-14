@@ -23,18 +23,17 @@ public abstract class Entity extends GameObject {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
-
-    /**
-     *
-     * Return maxLifeSpan
-     */
-    public abstract int getMaxLifeSpan();
-
     /**
      *
      * @param bulletDamage
      */
-    public abstract void setMaxLifeSpan(int bulletDamage);
+    public abstract void setHealth(int bulletDamage);
+
+    /**
+     *
+     * @return
+     */
+    public abstract int getHealth();
 
     /**
      *
