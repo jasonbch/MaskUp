@@ -15,6 +15,8 @@ public class Covid extends Enemy {
     private final Texture texture = new Texture("BigCovid.png");
     private int moveCounter = 0;
     private int maxLifespan = 60;
+    private int maxHealth = 20;
+
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -81,5 +83,11 @@ public class Covid extends Enemy {
      * @param bulletDamage
      */
     @Override
-    public void setMaxLifeSpan(int bulletDamage) { this.maxLifespan -= bulletDamage; }
+    public void setHealth(int bulletDamage) { this.maxHealth -= bulletDamage; }
+    /**
+     *
+     */
+    @Override
+    public int getHealth() { return this.maxHealth; }
+
 }
