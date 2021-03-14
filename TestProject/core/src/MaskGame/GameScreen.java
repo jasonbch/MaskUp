@@ -147,8 +147,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         updateMovementAndDrawBullets(deltaTime);    // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
         enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
-        bulletSpawningController.deleteEnemeyBullet();
-        bulletSpawningController.deletePlayerBullet();
+        bulletSpawningController.deleteBullet("Player");
+        bulletSpawningController.deleteBullet("Enemy");
 
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();

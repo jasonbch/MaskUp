@@ -103,8 +103,19 @@ public class BulletSpawningController {
             }
         }
     }
-    public void deleteEnemeyBullet() {
-        ListIterator<Ammo> iter = getEnemyAmmoList().listIterator();
+
+    /**
+     * Deleting the enemies bullet if state isDone
+     */
+    public void deleteBullet(String type) {
+        ListIterator<Ammo> iter;
+        if (type == "Player") {
+
+          iter = getPlayerAmmoList().listIterator();
+        }
+        else {
+            iter = getEnemyAmmoList().listIterator();
+        }
         while (iter.hasNext())
         {
             Ammo ammo = iter.next();
@@ -115,17 +126,7 @@ public class BulletSpawningController {
         }
     }
 
-    public void deletePlayerBullet() {
-        ListIterator<Ammo> iter = getPlayerAmmoList().listIterator();
-        while (iter.hasNext())
-        {
-            Ammo ammo = iter.next();
-            if (ammo.isDone())
-            {
-                iter.remove();
-            }
-        }
-    }
+
 
     /**
      * Fire the bullet from player if the space bar is pressed.

@@ -17,6 +17,7 @@ public class Player extends Entity {
     private final String bullet = "Bullet";
     private final float timeBetweenShot = 0.25f;
     private final Texture texture = new Texture("Player.png");
+    private int maxHealth = 3;
 
     /**
      * Create a new instance of a Player at the xPos and yPos.
@@ -57,6 +58,14 @@ public class Player extends Entity {
     public String getBullet() {
         return this.bullet;
     }
+
+    @Override
+    public int getMaxLifeSpan(){
+        return this.maxHealth;
+    }
+
+    @Override
+    public void setMaxLifeSpan(int bulletDamage) { this.maxHealth-= bulletDamage; }
 
     /**
      * Return the time between shot.
@@ -118,8 +127,13 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Set the states of ammo, player
+     * Set player health
+     * @param enemyAmmoList
+     */
     @Override
-    public boolean collide(ListIterator<Ammo> enemyAmmoList)
+    public void collide(ListIterator<Ammo> enemyAmmoList)
     {
         ListIterator<Ammo> iter = enemyAmmoList;
         while (iter.hasNext())
@@ -127,10 +141,10 @@ public class Player extends Entity {
             Ammo ammo = iter.next();
             if (intersects(ammo.getBoundingBox()))
             {
-                setIsDone(true);
-                ammo.setIsDone(true);
+                setIsDone();
+                ammo.setIsDone();
+                setMaxLifeSpan(ammo.getBulletDamage());
             }
         }
-        return IsDone();
     }
 }

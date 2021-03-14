@@ -26,6 +26,8 @@ public class Karen extends Enemy {
         super(xPos, yPos, pattern);
     }
 
+
+
     /**
      * Return the name.
      */
@@ -66,8 +68,17 @@ public class Karen extends Enemy {
         return this.texture;
     }
 
+    /**
+     * Return maxLifeSpan
+     */
     @Override
-    public int getMaxLifespan(){
+    public int getMaxLifeSpan(){
         return this.maxLifespan;
     }
+
+    /**
+     * @param bulletDamage
+     */
+    @Override
+    public void setMaxLifeSpan(int bulletDamage) { this.maxLifespan-= bulletDamage; }
 }

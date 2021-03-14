@@ -48,8 +48,6 @@ public abstract class Enemy extends Entity {
         return this.timeAlive;
     }
 
-    public abstract int getMaxLifespan();
-
     public String getMovingPattern() {
         return movingPattern;
     }
@@ -69,7 +67,11 @@ public abstract class Enemy extends Entity {
         this.movingPattern = movingPattern;
     }
 
-    public boolean collide(ListIterator<Ammo> playerAmmolist)
+    /**
+     *
+     * @param playerAmmolist
+     */
+    public void collide(ListIterator<Ammo> playerAmmolist)
     {
         ListIterator<Ammo> iter = playerAmmolist;
         while (iter.hasNext())
@@ -77,10 +79,10 @@ public abstract class Enemy extends Entity {
             Ammo ammo = iter.next();
             if (intersects(ammo.getBoundingBox()))
             {
-                setIsDone(true);
-                ammo.setIsDone(true);
+                setIsDone();
+                ammo.setIsDone();
+                setMaxLifeSpan(ammo.getBulletDamage());
             }
         }
-        return IsDone();
     }
 }

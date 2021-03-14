@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 public abstract class Ammo extends GameObject {
     protected final String[] acceptableTargets = {};
     private PatternAttribute patternAttribute;
-    private boolean isDone =false;
+    private boolean isDone = false;
 
     public PatternAttribute getPatternAttribute() {
         return this.patternAttribute;
@@ -32,7 +32,9 @@ public abstract class Ammo extends GameObject {
 
     public boolean isDone() { return this.isDone;}
 
-    public boolean setIsDone(boolean done) { return this.isDone = done;}
+    public void setIsDone() { this.isDone = true;}
+
+    public abstract int getBulletDamage();
 
     /**
      * Return the name.
@@ -97,6 +99,10 @@ public abstract class Ammo extends GameObject {
         return returnValue;
     }
 
+    /**
+     *
+     * Return ammo boundingbox
+     */
     public Rectangle getBoundingBox()
     {
         return new Rectangle(xPosition,yPosition, getImageWidth(), getImageHeight() - 10);

@@ -1,8 +1,6 @@
 package Entity;
 
 import Ammo.Ammo;
-import GameEngine.BulletSpawningController;
-import GameEngine.ShootController;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -15,8 +13,6 @@ public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
     private boolean isDone = false;
 
-
-
     /**
      * Create a new instance of an Entity at the xPos and yPos.
      *
@@ -28,9 +24,28 @@ public abstract class Entity extends GameObject {
         this.yPosition = yPosition;
     }
 
+    /**
+     *
+     * Return maxLifeSpan
+     */
+    public abstract int getMaxLifeSpan();
+
+    /**
+     *
+     * @param bulletDamage
+     */
+    public abstract void setMaxLifeSpan(int bulletDamage);
+
+    /**
+     *
+     * Returns the state
+     */
     public boolean IsDone() { return this.isDone;}
 
-    public boolean setIsDone(boolean done) { return this.isDone = done;}
+    /**
+     * Set state
+     */
+    public void setIsDone() { this.isDone = true;}
 
     /**
      * Return the time between shot.
@@ -74,7 +89,7 @@ public abstract class Entity extends GameObject {
         return rectangle.overlaps(otherRectangle);
     }
 
-    public abstract boolean collide(ListIterator<Ammo> entityAmmolist);
+    public abstract void collide(ListIterator<Ammo> entityAmmolist);
 
     /**
      * Return the coordinate for shooting position.

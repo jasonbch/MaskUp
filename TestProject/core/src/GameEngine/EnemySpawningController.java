@@ -187,7 +187,6 @@ public class EnemySpawningController {
     /**
      * Delete the enemies if they got out of the screen.
      */
-    //TODO check enemy state and change enemy state if out of screen
     public void deleteEnemies() {
         ListIterator<Enemy> iter2 = enemyList.listIterator();
         while (iter2.hasNext()) {
@@ -196,7 +195,7 @@ public class EnemySpawningController {
             if (currEnemy.getYPosition() > WORLD_HEIGHT) {
                 iter2.remove();
             }
-            if (currEnemy.IsDone())
+            if (currEnemy.IsDone() && currEnemy.getMaxLifeSpan()== 0)
             {
                 iter2.remove();
             }
