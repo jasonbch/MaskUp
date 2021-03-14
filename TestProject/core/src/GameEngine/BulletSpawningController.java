@@ -66,17 +66,17 @@ public class BulletSpawningController {
         List<Ammo> ammoList;
 
         if (entity instanceof Bat) {
-            ammoList = shootController.create(entity, "FanPattern");
+            ammoList = shootController.create(entity, "FanFormation");
         } else if (entity instanceof MurderHornet) {
-            ammoList = shootController.create(entity, "FanPattern");
+            ammoList = shootController.create(entity, "FanFormation");
         } else if (entity instanceof Karen) {
-            ammoList = shootController.create(entity, "FanPattern");
+            ammoList = shootController.create(entity, "FanFormation");
         } else if (entity instanceof Covid) {
-            ammoList = shootController.create(entity, "FanPattern");
+            ammoList = shootController.create(entity, "FanFormation");
         } else if (entity instanceof Player) {
-            ammoList = shootController.create(entity, "LinearPattern");
+            ammoList = shootController.create(entity, "UpwardLinearFormation");
         } else {
-            ammoList = shootController.create(entity, "LinearPattern");
+            ammoList = shootController.create(entity, "DownwardLinearFormation");
         }
         entity.resetTimeSinceLastShot();
 
