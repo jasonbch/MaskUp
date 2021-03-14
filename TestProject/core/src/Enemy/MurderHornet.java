@@ -16,6 +16,7 @@ public class MurderHornet extends Enemy {
     private int maxLifespan = 10;
     private int maxHealth = 1;
 
+
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
      *

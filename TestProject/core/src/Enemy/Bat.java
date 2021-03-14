@@ -72,9 +72,7 @@ public class Bat extends Enemy {
      * Return maxLifeSpan
      */
     @Override
-    public int getMaxLifeSpan(){
-        return this.maxLifespan;
-    }
+    public int getMaxLifeSpan(){ return this.maxLifespan; }
 
     /**
      *
@@ -87,4 +85,5 @@ public class Bat extends Enemy {
      */
     @Override
     public int getHealth() { return this.maxHealth; }
+
 }
