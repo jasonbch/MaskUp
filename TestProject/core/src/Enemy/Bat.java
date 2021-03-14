@@ -13,7 +13,8 @@ public class Bat extends Enemy {
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("Bat.png");
     private int moveCounter = 0;
-    private int maxLifespan = 3;
+    private int maxLifespan = 10;
+    private int maxHealth = 1;
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -80,5 +81,10 @@ public class Bat extends Enemy {
      * @param bulletDamage
      */
     @Override
-    public void setMaxLifeSpan(int bulletDamage) { this.maxLifespan -= bulletDamage; }
+    public void setHealth(int bulletDamage) { this.maxHealth -= bulletDamage; }
+    /**
+     *
+     */
+    @Override
+    public int getHealth() { return this.maxHealth; }
 }

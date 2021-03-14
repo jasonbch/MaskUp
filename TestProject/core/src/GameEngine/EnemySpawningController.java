@@ -195,7 +195,7 @@ public class EnemySpawningController {
             if (currEnemy.getYPosition() > WORLD_HEIGHT) {
                 iter2.remove();
             }
-            if (currEnemy.IsDone() && currEnemy.getMaxLifeSpan()== 0)
+            if (currEnemy.IsDone() && currEnemy.getHealth() == 0)
             {
                 iter2.remove();
             }

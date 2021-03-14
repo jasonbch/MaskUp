@@ -14,6 +14,7 @@ public class Karen extends Enemy {
     private final Texture texture = new Texture("Karen.png");
     private int moveCounter = 0;
     private int maxLifespan = 45;
+    private int maxHealth = 10;
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -80,5 +81,10 @@ public class Karen extends Enemy {
      * @param bulletDamage
      */
     @Override
-    public void setMaxLifeSpan(int bulletDamage) { this.maxLifespan-= bulletDamage; }
+    public void setHealth(int bulletDamage) { this.maxHealth-= bulletDamage; }
+    /**
+     *
+     */
+    @Override
+    public int getHealth() { return this.maxHealth; }
 }
