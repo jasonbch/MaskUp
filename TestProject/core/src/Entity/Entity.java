@@ -32,7 +32,6 @@ public abstract class Entity extends GameObject {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
-
     /**
      * Constructor for player
      */
@@ -48,15 +47,15 @@ public abstract class Entity extends GameObject {
 
     /**
      *
-     * Return maxLifeSpan
+     * @param bulletDamage
      */
-    public abstract int getMaxLifeSpan();
+    public abstract void setHealth(int bulletDamage);
 
     /**
      *
-     * @param bulletDamage
+     * @return
      */
-    public abstract void setMaxLifeSpan(int bulletDamage);
+    public abstract int getHealth();
 
     /**
      *

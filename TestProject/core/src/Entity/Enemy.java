@@ -24,6 +24,12 @@ public abstract class Enemy extends Entity {
         this.isSpawned = value;
     }
 
+    /**
+     *
+     * Return maxLifeSpan
+     */
+    public abstract int getMaxLifeSpan();
+
     public float getXMultiplier() {
         return xMultiplier;
     }
@@ -81,7 +87,7 @@ public abstract class Enemy extends Entity {
             {
                 setIsDone();
                 ammo.setIsDone();
-                setMaxLifeSpan(ammo.getBulletDamage());
+                setHealth(ammo.getBulletDamage());
             }
         }
     }

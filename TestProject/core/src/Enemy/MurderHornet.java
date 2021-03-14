@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class MurderHornet extends Enemy {
     private int maxLifespan = 10;
+    private int maxHealth = 1;
+
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -76,5 +78,10 @@ public class MurderHornet extends Enemy {
      * @param bulletDamage
      */
     @Override
-    public void setMaxLifeSpan(int bulletDamage) { this.maxLifespan -= bulletDamage;}
+    public void setHealth(int bulletDamage) { this.maxHealth -= bulletDamage;}
+    /**
+     *
+     */
+    @Override
+    public int getHealth() { return this.maxHealth; }
 }

@@ -63,12 +63,11 @@ public class Player extends Entity {
     }
 
     @Override
-    public int getMaxLifeSpan(){
-        return this.maxHealth;
-    }
+    public int getHealth() { return this.maxHealth; }
 
     @Override
-    public void setMaxLifeSpan(int bulletDamage) { this.maxHealth-= bulletDamage; }
+    public void setHealth(int bulletDamage) { this.maxHealth-= bulletDamage; }
+
 
     /**
      * Return the time between shot.
@@ -146,7 +145,8 @@ public class Player extends Entity {
             {
                 setIsDone();
                 ammo.setIsDone();
-                setMaxLifeSpan(ammo.getBulletDamage());
+                setHealth(ammo.getBulletDamage());
+
             }
         }
     }

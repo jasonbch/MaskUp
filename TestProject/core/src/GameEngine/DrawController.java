@@ -15,26 +15,23 @@ public class DrawController {
     GameObject player;
 
     // TODO come back later to think about passing in the player
-    public DrawController (Batch batch, GameObject player)
-    {
+    public DrawController(Batch batch, GameObject player) {
         this.batch = batch;
         this.player = player;
     }
 
-    public void draw(String type)
-    {
+    public void draw(String type) {
         ListIterator<GameObject> iterator;
         List<GameObject> objectList;
-        switch (type)
-        {
+        switch (type) {
             case "ammoPlayer":
-                objectList = (List<GameObject>)(List<?>) bulletSpawningController.getPlayerAmmoList();
+                objectList = (List<GameObject>) (List<?>) bulletSpawningController.getPlayerAmmoList();
                 break;
             case "ammoEnemy":
-                objectList = (List<GameObject>)(List<?>) bulletSpawningController.getEnemyAmmoList();
+                objectList = (List<GameObject>) (List<?>) bulletSpawningController.getEnemyAmmoList();
                 break;
             case "enemy":
-                objectList = (List<GameObject>)(List<?>)enemySpawningController.getEnemyList();
+                objectList = (List<GameObject>) (List<?>) enemySpawningController.getEnemyList();
                 break;
             case "player":
                 objectList = Arrays.asList(player);
@@ -42,8 +39,9 @@ public class DrawController {
             default:
                 return;
         }
+
         iterator = objectList.listIterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             GameObject object = iterator.next();
             object.draw(batch);
         }
