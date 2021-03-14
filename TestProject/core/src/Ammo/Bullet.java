@@ -10,6 +10,7 @@ public class Bullet extends Ammo {
     private final String[] acceptableTargets = {"Bat", "Hornet"};
     private final float speed = 300;
     private final Texture texture = new Texture("Bullet.png");
+    private int damage = 1;
 
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
@@ -54,8 +55,10 @@ public class Bullet extends Ammo {
         return this.texture;
     }
 
-    //    @Override
-    //    public int getDamage() {
-    //        return 1;
-    //    }
+    /**
+     *
+     * Return damage
+     */
+    @Override
+    public int getBulletDamage() { return this.damage; }
 }

@@ -34,7 +34,7 @@ public class EnemyMovementController {
         EnemyMovementPattern enemyMovementPattern;
         enemy.updateTimeAlive();
 
-        if (enemy.getTimeAlive() >= enemy.getMaxLifespan()) {
+        if (enemy.getTimeAlive() >= enemy.getMaxLifeSpan()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternExit");
         } else if (!enemy.isSpawned()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternEnter");

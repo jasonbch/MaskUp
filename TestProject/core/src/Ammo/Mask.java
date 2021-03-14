@@ -10,6 +10,7 @@ public class Mask extends Ammo{
     private final String[] acceptableTargets = {"Karen"};
     private final float speed = 300;
     private final Texture texture = new Texture("Mask.png");
+    private int damage = 1;
 
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
@@ -21,7 +22,6 @@ public class Mask extends Ammo{
     public Mask(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
     }
-
 
     /**
      * Return the name.
@@ -54,4 +54,11 @@ public class Mask extends Ammo{
     public Texture getImage() {
         return this.texture;
     }
+
+    /**
+     *
+     * Return damage
+     */
+    @Override
+    public int getBulletDamage() { return this.damage; }
 }

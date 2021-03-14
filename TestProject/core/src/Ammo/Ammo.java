@@ -3,6 +3,7 @@ package Ammo;
 import Entity.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Abstract class for the Ammo that can be shoot from the player
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public abstract class Ammo extends GameObject {
     protected final String[] acceptableTargets = {};
     private PatternAttribute patternAttribute;
+    private boolean isDone = false;
 
     public PatternAttribute getPatternAttribute() {
         return this.patternAttribute;
@@ -27,6 +29,12 @@ public abstract class Ammo extends GameObject {
         this.yPosition = yPosition;
         this.patternAttribute = patternAttribute;
     }
+
+    public boolean isDone() { return this.isDone;}
+
+    public void setIsDone() { this.isDone = true;}
+
+    public abstract int getBulletDamage();
 
     /**
      * Return the name.
@@ -89,6 +97,15 @@ public abstract class Ammo extends GameObject {
         }
 
         return returnValue;
+    }
+
+    /**
+     *
+     * Return ammo boundingbox
+     */
+    public Rectangle getBoundingBox()
+    {
+        return new Rectangle(xPosition,yPosition, getImageWidth(), getImageHeight() - 10);
     }
 
     /**
