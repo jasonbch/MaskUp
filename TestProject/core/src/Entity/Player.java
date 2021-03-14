@@ -1,9 +1,12 @@
 package Entity;
 
+import Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+
+import java.util.ListIterator;
 
 /**
  * The Player class that extends from Entity that can move and fire.
@@ -14,6 +17,7 @@ public class Player extends Entity {
     private final String bullet = "Bullet";
     private final float timeBetweenShot = 0.25f;
     private final Texture texture = new Texture("Player.png");
+    private int maxHealth = 3;
 
     /**
      * Create a new instance of a Player at the xPos and yPos.
@@ -54,6 +58,14 @@ public class Player extends Entity {
     public String getBullet() {
         return this.bullet;
     }
+
+    @Override
+    public int getMaxLifeSpan(){
+        return this.maxHealth;
+    }
+
+    @Override
+    public void setMaxLifeSpan(int bulletDamage) { this.maxHealth-= bulletDamage; }
 
     /**
      * Return the time between shot.
@@ -112,6 +124,27 @@ public class Player extends Entity {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && getYPosition() > 0) {
             // Move down
             moveDown(deltaTime);
+        }
+    }
+
+    /**
+     * Set the states of ammo, player
+     * Set player health
+     * @param enemyAmmoList
+     */
+    @Override
+    public void collide(ListIterator<Ammo> enemyAmmoList)
+    {
+        ListIterator<Ammo> iter = enemyAmmoList;
+        while (iter.hasNext())
+        {
+            Ammo ammo = iter.next();
+            if (intersects(ammo.getBoundingBox()))
+            {
+                setIsDone();
+                ammo.setIsDone();
+                setMaxLifeSpan(ammo.getBulletDamage());
+            }
         }
     }
 }

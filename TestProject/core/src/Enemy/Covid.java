@@ -14,7 +14,6 @@ public class Covid extends Enemy {
     private final float timeBetweenShot = 0.5f;
     private final Texture texture = new Texture("BigCovid.png");
     private int moveCounter = 0;
-    private boolean isDone = false;
     private int maxLifespan = 60;
 
     /**
@@ -68,8 +67,19 @@ public class Covid extends Enemy {
         return this.texture;
     }
 
+    /**
+     *
+     * Return maxLifeSpan
+     */
     @Override
-    public int getMaxLifespan(){
+    public int getMaxLifeSpan(){
         return this.maxLifespan;
     }
+
+    /**
+     *
+     * @param bulletDamage
+     */
+    @Override
+    public void setMaxLifeSpan(int bulletDamage) { this.maxLifespan -= bulletDamage; }
 }

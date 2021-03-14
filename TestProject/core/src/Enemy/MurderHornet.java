@@ -13,8 +13,7 @@ public class MurderHornet extends Enemy {
     private final float timeBetweenShot = 0.45f;
     private final Texture texture = new Texture("MurderHornet.png");
     private int moveCounter = 0;
-    private boolean isDone = false;
-    private int maxLifespan = 10;
+    private int maxLifespan = 3;
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -67,8 +66,17 @@ public class MurderHornet extends Enemy {
         return this.texture;
     }
 
+    /**
+     * Return maxLifeSpan
+     */
     @Override
-    public int getMaxLifespan(){
+    public int getMaxLifeSpan(){
         return this.maxLifespan;
     }
+
+    /**
+     * @param bulletDamage
+     */
+    @Override
+    public void setMaxLifeSpan(int bulletDamage) { this.maxLifespan -= bulletDamage;}
 }

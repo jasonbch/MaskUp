@@ -1,12 +1,17 @@
 package Entity;
 
+import Ammo.Ammo;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Rectangle;
+
+import java.util.ListIterator;
 
 /**
  * The Entity abstract class that can move and fire.
  */
 public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
+    private boolean isDone = false;
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
@@ -18,6 +23,29 @@ public abstract class Entity extends GameObject {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
+
+    /**
+     *
+     * Return maxLifeSpan
+     */
+    public abstract int getMaxLifeSpan();
+
+    /**
+     *
+     * @param bulletDamage
+     */
+    public abstract void setMaxLifeSpan(int bulletDamage);
+
+    /**
+     *
+     * Returns the state
+     */
+    public boolean IsDone() { return this.isDone;}
+
+    /**
+     * Set state
+     */
+    public void setIsDone() { this.isDone = true;}
 
     /**
      * Return the time between shot.
@@ -54,6 +82,14 @@ public abstract class Entity extends GameObject {
     public boolean canFire() {
         return (timeSinceLastShot - getTimeBetweenShots() >= 0);
     }
+
+    public boolean intersects(Rectangle otherRectangle)
+    {
+        Rectangle rectangle = new Rectangle(xPosition,yPosition,getImage().getWidth(), getImage().getHeight());
+        return rectangle.overlaps(otherRectangle);
+    }
+
+    public abstract void collide(ListIterator<Ammo> entityAmmolist);
 
     /**
      * Return the coordinate for shooting position.

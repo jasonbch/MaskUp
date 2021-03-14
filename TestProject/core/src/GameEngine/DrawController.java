@@ -47,7 +47,5 @@ public class DrawController {
             GameObject object = iterator.next();
             object.draw(batch);
         }
-
     }
-
 }

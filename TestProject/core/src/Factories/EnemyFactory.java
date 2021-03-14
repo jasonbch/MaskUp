@@ -26,7 +26,6 @@ public class EnemyFactory {
             case "Covid":
                 return new Covid(xPos, yPos, pattern);
         }
-
         return null;
     }
 }

@@ -46,6 +46,13 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // Game objects
     private final Entity player;
 
+
+    private CommandController collisionController;
+    private Command playerIsHitCommand;
+    private Command enemyIsHitCommand;
+
+
+
     // Game controllers
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
@@ -74,6 +81,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Initialize player object
         player = new Player((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 4);
 
+        collisionController = new CommandController();
+
+        playerIsHitCommand = new PlayerCommand(player);
+
         // Initialize slow mode
         this.isSlowMode = false;
         this.gameSpeed = 1; // Set current game speed to normal speed
@@ -96,7 +107,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      */
     @Override
     public void render(float deltaTime) {
-        logger.log();
+        //logger.log();
 
         // Get the game speed
         gameSpeed = getGameSpeed();
@@ -117,6 +128,16 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
+
+        enemyIsHitCommand = new EnemyCommand();
+
+
+        collisionController.addCommand(playerIsHitCommand);
+        collisionController.addCommand(enemyIsHitCommand);
+        collisionController.executeCommand();
+
+
+
         bulletSpawningController.playerFire(player);
         bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
 
@@ -125,6 +146,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         updateMovementAndDrawBullets(deltaTime);    // Draw and update all
         updateMovementAndDrawEnemies(deltaTime);
         enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
+        bulletSpawningController.deleteBullet("Player");
+        bulletSpawningController.deleteBullet("Enemy");
 
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();

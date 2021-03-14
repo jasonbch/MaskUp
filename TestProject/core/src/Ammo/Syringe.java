@@ -10,6 +10,7 @@ public class Syringe extends Ammo{
     private final String[] acceptableTargets = {"Covid"};
     private final float speed = 500;
     private final Texture texture = new Texture("Syringe.png");
+    private int damage = 1;
 
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
@@ -54,4 +55,11 @@ public class Syringe extends Ammo{
     public Texture getImage() {
         return this.texture;
     }
+
+    /**
+     *
+     * Return damage
+     */
+    @Override
+    public int getBulletDamage() { return this.damage; }
 }
