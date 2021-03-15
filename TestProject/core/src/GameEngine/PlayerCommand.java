@@ -8,10 +8,11 @@ public class PlayerCommand implements Command {
 
     Entity player;
 
-    public PlayerCommand(Entity player) { this.player = player;}
+    public PlayerCommand(Entity player) {
+        this.player = player;
+    }
 
-    public void execute()
-    {
+    public void execute() {
         player.collide(bulletSpawningController.getEnemyAmmoList().listIterator());
     }
 }

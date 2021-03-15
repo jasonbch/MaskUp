@@ -81,7 +81,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         initializeScrollingBackground();
 
         // Initialize player object
-        player = new Player((float) WORLD_WIDTH / 2, (float) WORLD_HEIGHT / 4);
+        player = new Player();
 
         collisionController = new CommandController();
 

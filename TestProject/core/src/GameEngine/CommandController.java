@@ -7,13 +7,14 @@ public class CommandController {
     Queue<Command> command = new LinkedList<>();
     private Command cmd;
 
-    public void addCommand(Command command) { this.command.add(command); }
+    public void addCommand(Command command) {
+        this.command.add(command);
+    }
 
-    public void executeCommand()
-    {
+    public void executeCommand() {
         while (command.size() > 0) {
-               cmd =  command.poll();
-               cmd.execute();
-            }
+            cmd = command.poll();
+            cmd.execute();
         }
     }
+}
