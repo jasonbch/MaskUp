@@ -27,7 +27,6 @@ public class Karen extends Enemy {
     }
 
 
-
     /**
      * Return the name.
      */
@@ -72,7 +71,7 @@ public class Karen extends Enemy {
      * Return maxLifeSpan
      */
     @Override
-    public int getMaxLifeSpan(){
+    public int getMaxLifeSpan() {
         return this.maxLifespan;
     }
 
@@ -80,10 +79,15 @@ public class Karen extends Enemy {
      * @param bulletDamage
      */
     @Override
-    public void setHealth(int bulletDamage) { this.maxHealth-= bulletDamage; }
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
+
     /**
      *
      */
     @Override
-    public int getHealth() { return this.maxHealth; }
+    public int getHealth() {
+        return this.maxHealth;
+    }
 }

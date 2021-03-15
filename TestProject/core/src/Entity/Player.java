@@ -35,7 +35,7 @@ public class Player extends Entity {
     /**
      * Return the name.
      *
-     * @return  the name of the player.
+     * @return the name of the player.
      */
     @Override
     public String getName() {
@@ -45,7 +45,7 @@ public class Player extends Entity {
     /**
      * Return the speed.
      *
-     * @return  the speed of the player.
+     * @return the speed of the player.
      */
     @Override
     public float getSpeed() {
@@ -55,7 +55,7 @@ public class Player extends Entity {
     /**
      * Return the bullet string that the player fires.
      *
-     * @return  the bullet string the player use.
+     * @return the bullet string the player use.
      */
     @Override
     public String getBullet() {
@@ -63,16 +63,20 @@ public class Player extends Entity {
     }
 
     @Override
-    public int getHealth() { return this.maxHealth; }
+    public int getHealth() {
+        return this.maxHealth;
+    }
 
     @Override
-    public void setHealth(int bulletDamage) { this.maxHealth-= bulletDamage; }
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
 
 
     /**
      * Return the time between shot.
      *
-     * @return  the time between shot of the player.
+     * @return the time between shot of the player.
      */
     @Override
     public float getTimeBetweenShots() {
@@ -82,7 +86,7 @@ public class Player extends Entity {
     /**
      * Return the Texture image.
      *
-     * @return  the texture of the player.
+     * @return the texture of the player.
      */
     @Override
     public Texture getImage() {
@@ -132,17 +136,15 @@ public class Player extends Entity {
     /**
      * Set the states of ammo, player
      * Set player health
+     *
      * @param enemyAmmoList
      */
     @Override
-    public void collide(ListIterator<Ammo> enemyAmmoList)
-    {
+    public void collide(ListIterator<Ammo> enemyAmmoList) {
         ListIterator<Ammo> iter = enemyAmmoList;
-        while (iter.hasNext())
-        {
+        while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            if (intersects(ammo.getBoundingBox()))
-            {
+            if (intersects(ammo.getBoundingBox())) {
                 setIsDone();
                 ammo.setIsDone();
                 setHealth(ammo.getBulletDamage());
