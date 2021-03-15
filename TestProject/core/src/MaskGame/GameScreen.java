@@ -15,8 +15,12 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -26,17 +30,20 @@ import java.util.ListIterator;
  * GameScreen class that implements from Screen that let the user play
  * the game.
  */
-public class GameScreen extends ApplicationAdapter implements Screen  {
+public class GameScreen extends ApplicationAdapter implements Screen {
     // Screen
     private final Camera camera;
+
     private final Viewport viewport;
+
 
     // Graphic
     private final SpriteBatch batch;
+    private final SpriteBatch batch2;
     private Texture[] backgrounds;
 
     // Background variables
-    private final float[] backgroundOffsets = {0,0,0,0};
+    private final float[] backgroundOffsets = {0, 0, 0, 0};
     private float maxScrollingSpeed;
 
     // World dimension
@@ -46,11 +53,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     // Game objects
     private final Entity player;
 
-
     private CommandController collisionController;
     private Command playerIsHitCommand;
     private Command enemyIsHitCommand;
-
 
 
     // Game controllers
@@ -76,6 +81,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
+
         initializeScrollingBackground();
 
         // Initialize player object
@@ -90,6 +96,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         this.gameSpeed = 1; // Set current game speed to normal speed
 
         batch = new SpriteBatch();
+        batch2 = new SpriteBatch();
+
         drawController = new DrawController(batch, player);
         // Music
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
@@ -99,6 +107,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
     }
+
 
     /**
      * Render the screen.
@@ -115,6 +124,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         // Begin the Batch
         batch.begin();
+        batch2.begin();
 
         // Update scrolling background
         renderBackground(deltaTime);
@@ -137,7 +147,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         collisionController.executeCommand();
 
 
-
         bulletSpawningController.playerFire(player);
         bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
 
@@ -152,8 +161,18 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();
 
+        //hud rendering
+        //creatHudScreen();
+        drawController.updateAndRenderHUD();
+        drawController.Invulnerable();
+
         // End the batch
         batch.end();
+        batch2.end();
+    }
+
+    private void creatHudScreen() {
+        batch2.draw(new Texture("Cloud4.png"), (float) (WORLD_HEIGHT / 2), (float) (WORLD_WIDTH / 2));
     }
 
     /**
@@ -187,7 +206,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
      * Return the speed of the game. If the game is in slow speed, the
      * speed of the game is reduced by 60%.
      *
-     * @return  the speed of the game
+     * @return the speed of the game
      */
     private float getGameSpeed() {
         // If the L key is just press and it is not slow down mode
@@ -216,7 +235,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
-        for (int layer = 0; layer < backgroundOffsets.length; layer ++) {
+        for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (backgroundOffsets[layer] > WORLD_HEIGHT) {
                 backgroundOffsets[layer] = 0;
             }
@@ -265,14 +284,13 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
-            enemyMoveController.move(currEnemy,deltaTime);
+            enemyMoveController.move(currEnemy, deltaTime);
         }
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height, true);
-        batch.setProjectionMatrix(camera.combined);
+
     }
 
     @Override

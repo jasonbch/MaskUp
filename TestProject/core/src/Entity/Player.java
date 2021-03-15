@@ -4,10 +4,13 @@ import Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 
 import java.util.ListIterator;
-
+// Flicker the player for a couple of seconds
+// Possibly delete enemy bullets
 /**
  * The Player class that extends from Entity that can move and fire.
  */
@@ -18,6 +21,8 @@ public class Player extends Entity {
     private final float timeBetweenShot = 0.25f;
     private final Texture texture = new Texture("Player.png");
     private int maxHealth = 3;
+    private Batch batch = new SpriteBatch();
+    private boolean invulnerable = false;
 
     /**
      * Create a new instance of a Player at the xPos and yPos.
@@ -28,6 +33,10 @@ public class Player extends Entity {
     public Player(float xPosition, float yPosition) {
         super(xPosition, yPosition);
     }
+
+    public boolean getInvulnerable() { return this.invulnerable; }
+
+    public void setInvulnerable() { this.invulnerable = true; }
 
     /**
      * Return the name.
@@ -140,10 +149,9 @@ public class Player extends Entity {
             Ammo ammo = iter.next();
             if (intersects(ammo.getBoundingBox()))
             {
-                setIsDone();
+                setInvulnerable();
                 ammo.setIsDone();
                 setHealth(ammo.getBulletDamage());
-
             }
         }
     }

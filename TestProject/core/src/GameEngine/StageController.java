@@ -51,6 +51,7 @@ public class StageController {
     private StageController() {
     }
 
+    // figure out time munipulation
     public void makeStages() {
         // Set new elapsed time
         long newStartTime = enemySpawningController.getStartTime();
