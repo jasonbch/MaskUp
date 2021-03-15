@@ -1,5 +1,6 @@
 package Entity;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.physics.bullet.softbody.btSoftBody;
  * draw the image on a batch.
  */
 public abstract class GameObject {
+    protected final GameResources gameResources = GameResources.instance();
     protected float xPosition;  // Initial x position
     protected float yPosition;  // Initial y position
 

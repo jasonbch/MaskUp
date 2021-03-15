@@ -8,12 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
  * Covid is the final boss of the game.
  */
 public class Covid extends Enemy {
-    private final String name = "Covid";
-    private final float speed = 150;
-    private final String bullet = "BabyCovid";
-    private final float timeBetweenShot = 0.5f;
-    private final Texture texture = new Texture("BigCovid.png");
-    private int moveCounter = 0;
     private int maxLifespan = 60;
     private int maxHealth = 20;
 
@@ -27,6 +21,11 @@ public class Covid extends Enemy {
      */
     public Covid(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
+        this.speed = 150;
+        this.name = "Covid";
+        this.bullet = "BabyCovid";
+        this.texture = new Texture("BigCovid.png");
+        setFormationPattern("FanFormation");
     }
 
     /**
@@ -70,24 +69,27 @@ public class Covid extends Enemy {
     }
 
     /**
-     *
      * Return maxLifeSpan
      */
     @Override
-    public int getMaxLifeSpan(){
+    public int getMaxLifeSpan() {
         return this.maxLifespan;
     }
 
     /**
-     *
      * @param bulletDamage
      */
     @Override
-    public void setHealth(int bulletDamage) { this.maxHealth -= bulletDamage; }
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
+
     /**
      *
      */
     @Override
-    public int getHealth() { return this.maxHealth; }
+    public int getHealth() {
+        return this.maxHealth;
+    }
 
 }

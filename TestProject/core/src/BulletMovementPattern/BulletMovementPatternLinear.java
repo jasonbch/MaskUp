@@ -7,7 +7,7 @@ public class BulletMovementPatternLinear extends BulletMovementPattern {
 
     @Override
     public String getName() {
-        return null;
+        return "Linear";
     }
 
     @Override

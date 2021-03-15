@@ -3,6 +3,7 @@ package GameEngine;
 import Ammo.Ammo;
 import Entity.Enemy;
 import Enemy.*;
+import Entity.Player;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ListIterator;
@@ -33,6 +34,8 @@ public class StageController {
     private final int stageFourEnd = stageFourStart + stageFourDuration;
 
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private static final Player player = Player.instance();
+
 
     /**
      * Return the instance of StageController.
@@ -105,4 +108,19 @@ public class StageController {
             }
         }
     }
+
+
+    private void changeBulletFormationOfEnemy(int time,String pattern, String type)
+    {
+        if (enemySpawningController.getElapsedTime() == time) {
+            ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
+            while (iterator.hasNext()) {
+                Enemy currentEnemy = iterator.next();
+                if (currentEnemy.getName() == type) {
+                    currentEnemy.setFormationPattern(pattern);
+                }
+            }
+        }
+    }
+
 }
