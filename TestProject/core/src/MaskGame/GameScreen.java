@@ -17,8 +17,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.*;
 
 import java.util.ListIterator;
 
@@ -76,7 +75,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public GameScreen() {
         // Initialize camera and view
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+        viewport = new StretchViewport(576, 1024, camera);
+
 
         initializeScrollingBackground();
 
@@ -117,7 +117,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         deltaTime *= gameSpeed;
 
         //update gameController time
-        gameController.updateTime();
+        gameController.updateElapsedTime();
 
         // Begin the Batch
         batch.begin();
@@ -141,7 +141,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         collisionController.addCommand(playerIsHitCommand);
         collisionController.addCommand(enemyIsHitCommand);
         collisionController.executeCommand();
-
 
 
         bulletSpawningController.playerFire(player);

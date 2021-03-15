@@ -29,8 +29,7 @@ public class EnemySpawningController {
     // Timing for spawning enemies
 
     private static final GameController gameController = GameController.instance();
-    //private final long startTime = TimeUtils.millis();
-    //private long elapsedTime = 0;
+
     private long lastBatSpawnTime = 0;
     private long lastMurderHornetSpawnTime = 0;
     private long lastMidBossTime = 0;
@@ -64,26 +63,6 @@ public class EnemySpawningController {
         return this.enemyList;
     }
 
-    /**
-     * Get start time for spawning.
-     */
-//    public long getStartTime() {
-//        return this.startTime;
-//    }
-
-    /**
-     * Set elapse time for spawning.
-     */
-//    public void setElapsedTime(long time) {
-//        this.elapsedTime = time;
-//    }
-
-    /**
-     * Get elapse time for spawning.
-     */
-//    public long getElapsedTime() {
-//        return this.elapsedTime;
-//    }
 
     /**
      * TODO: Refactor into one function. May take a while.

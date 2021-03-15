@@ -8,6 +8,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		// game width = 576
+		// game height = 1024
 		config.width = 576;
 		config.height = 1024;
 		config.vSyncEnabled = true;
