@@ -1,7 +1,6 @@
 package Entity;
 
 import Ammo.Ammo;
-import GameEngine.BulletSpawningController;
 import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
@@ -19,60 +18,52 @@ public abstract class Entity extends GameObject {
     protected String name = "Entity";
     protected float speed = 250;
     protected String bullet = "Bullet";
-    protected Texture texture = new Texture("CovidGerm.png");
+    protected Texture texture = GameResources.getAssetsManager().get("CovidGerm.png", Texture.class);
     protected float timeBetweenShot = 0.5f;
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
      *
-     * @param  xPosition initial x position.
-     * @param  yPosition initial y position.
+     * @param xPosition initial x position.
+     * @param yPosition initial y position.
      */
     public Entity(float xPosition, float yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
-    /**
-     * Constructor for player
-     */
-    public Entity(){
-        this.xPosition = gameResources.getWorldWidth()/2;
-        this.yPosition = gameResources.getWorldHeight()/4;
-        setFormationPattern("UpwardLinearFormation");
-        this.name = "Player";
-        this.texture = new Texture("Player.png");
-        this.timeBetweenShot = 0.25f;
+
+    public Entity() {
     }
 
-
     /**
-     *
      * @param bulletDamage
      */
     public abstract void setHealth(int bulletDamage);
 
     /**
-     *
      * @return
      */
     public abstract int getHealth();
 
     /**
-     *
      * Returns the state
      */
-    public boolean IsDone() { return this.isDone;}
+    public boolean IsDone() {
+        return this.isDone;
+    }
 
     /**
      * Set state
      */
-    public void setIsDone() { this.isDone = true;}
+    public void setIsDone() {
+        this.isDone = true;
+    }
 
 
     /**
      * Update time since last shot.
      *
-     * @param  deltaTime The current delta time.
+     * @param deltaTime The current delta time.
      */
     public void updateTimeSinceLastShot(float deltaTime) {
         timeSinceLastShot += deltaTime;
@@ -80,7 +71,6 @@ public abstract class Entity extends GameObject {
 
     /**
      * Reset time since last shot to 0.
-     *
      */
     public void resetTimeSinceLastShot() {
         timeSinceLastShot = 0;
@@ -89,15 +79,14 @@ public abstract class Entity extends GameObject {
     /**
      * Return True if the entity can fire, otherwise false.
      *
-     * @return  if the entity can fie.
+     * @return if the entity can fie.
      */
     public boolean canFire() {
         return (timeSinceLastShot - getTimeBetweenShots() >= 0);
     }
 
-    public boolean intersects(Rectangle otherRectangle)
-    {
-        Rectangle rectangle = new Rectangle(xPosition,yPosition,getImage().getWidth(), getImage().getHeight());
+    public boolean intersects(Rectangle otherRectangle) {
+        Rectangle rectangle = new Rectangle(xPosition, yPosition, getImage().getWidth(), getImage().getHeight());
         return rectangle.overlaps(otherRectangle);
     }
 

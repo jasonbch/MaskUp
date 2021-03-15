@@ -1,11 +1,11 @@
 package Entity;
 
 import Ammo.Ammo;
-import GameEngine.GameResources;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ListIterator;
 
@@ -23,6 +23,21 @@ public class Player extends Entity {
             uniqueInstance = new Player();
         }
         return uniqueInstance;
+    }
+
+    /**
+     * Constructor for player
+     */
+    private Player() {
+        super();
+        this.xPosition = (gameResources.getWorldWidth() / 2) - (getImageWidth());
+        this.yPosition = gameResources.getWorldHeight() / 6;
+        setFormationPattern("UpwardLinearFormation");
+        this.name = "Player";
+        this.speed = 330;
+        this.bullet = "Syringe";
+        this.texture = new Texture("Player.png");
+        this.timeBetweenShot = 0.3f;
     }
 
     /**
@@ -133,6 +148,16 @@ public class Player extends Entity {
         }
     }
 
+    @Override
+    public boolean intersects(Rectangle otherRectangle) {
+        Rectangle rectangle = new Rectangle(
+                xPosition + (getImageWidth() / 4),
+                yPosition + (getImageHeight() / 4),
+                getImage().getWidth() / 2,
+                getImage().getHeight() / 2);
+        return rectangle.overlaps(otherRectangle);
+    }
+
     /**
      * Set the states of ammo, player
      * Set player health
@@ -142,13 +167,20 @@ public class Player extends Entity {
     @Override
     public void collide(ListIterator<Ammo> enemyAmmoList) {
         ListIterator<Ammo> iter = enemyAmmoList;
+
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            if (intersects(ammo.getBoundingBox())) {
-                setIsDone();
-                ammo.setIsDone();
-                setHealth(ammo.getBulletDamage());
 
+            // Check if the two objects are near each other
+            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 200
+                    && (Math.abs(ammo.getYPosition() - getYPosition()) <= 200)) {
+
+                // Check for intersect
+                if (intersects(ammo.getBoundingBox())) {
+                    setIsDone();
+                    ammo.setIsDone();
+                    setHealth(ammo.getBulletDamage());
+                }
             }
         }
     }

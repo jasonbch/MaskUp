@@ -24,7 +24,7 @@ public class StageController {
     private final int stageThreeDuration = 30;
     private final int stageFourDuration = 60;
 
-    private final int stageOneStart = 0;
+    private final int stageOneStart = 10;
     private final int stageOneEnd = stageOneStart + stageOneDuration;
     private final int stageTwoStart = stageOneEnd + stageBuffer;
     private final int stageTwoEnd = stageTwoStart + stageTwoDuration;

@@ -1,5 +1,6 @@
 package Ammo;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -9,7 +10,7 @@ public class Bullet extends Ammo {
     private final String name = "Bullet";
     private final String[] acceptableTargets = {"Bat", "Hornet"};
     private final float speed = 300;
-    private final Texture texture = new Texture("Bullet.png");
+    private final Texture texture = GameResources.getAssetsManager().get("Bullet.png",Texture.class);
     private int damage = 1;
 
     /**

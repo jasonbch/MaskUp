@@ -1,5 +1,6 @@
 package Ammo;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -9,7 +10,7 @@ public class BabyCovid extends Ammo {
     private final String name = "BabyCovid";
     private final String[] acceptableTargets = {"Player"};
     private final float speed = 300;
-    private final Texture texture = new Texture("BabyCovid.png");
+    private final Texture texture = GameResources.getAssetsManager().get("BabyCovid.png",Texture.class);
     private int damage = 1;
 
     /**
@@ -60,5 +61,7 @@ public class BabyCovid extends Ammo {
      * Return damage
      */
     @Override
-    public int getBulletDamage() { return this.damage; }
+    public int getBulletDamage() {
+        return this.damage;
+    }
 }

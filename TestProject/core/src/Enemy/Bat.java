@@ -1,6 +1,7 @@
 package Enemy;
 
 import Entity.Enemy;
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -20,13 +21,12 @@ public class Bat extends Enemy {
     public Bat(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
         this.name = "Bat";
+        this.speed = 300;
         this.bullet = "CovidGerm";
-        this.texture = new Texture("Bat.png");
+        this.texture = GameResources.getAssetsManager().get("Bat.png", Texture.class);
+        this.timeBetweenShot = 0.6f;
         setFormationPattern("FanFormation");
-
     }
-
-
 
     /**
      *
