@@ -1,5 +1,6 @@
 package Ammo;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -8,8 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class Syringe extends Ammo{
     private final String name = "Syringe";
     private final String[] acceptableTargets = {"Covid"};
-    private final float speed = 500;
-    private final Texture texture = new Texture("Syringe.png");
+    private final float speed = 700;
+    private final Texture texture = GameResources.getAssetsManager().get("Syringe.png",Texture.class);
     private int damage = 1;
 
     /**
@@ -22,7 +23,6 @@ public class Syringe extends Ammo{
     public Syringe(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
     }
-
 
     /**
      * Return the name.

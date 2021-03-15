@@ -125,14 +125,14 @@ public abstract class GameObject {
      * @return returns if the game object is left of the screen.
      */
     public boolean isLeftOfScreen() {
-        return this.xPosition <= 10;
+        return this.xPosition <= 0;
     }
 
     /**\
      * @return returns if the game object is right of the screen.
      */
     public boolean isRightOfScreen() {
-        return this.xPosition >= getWorldWidth() - getImageWidth() - 10;
+        return this.xPosition >= getWorldWidth() - getImageWidth();
     }
 
     /**

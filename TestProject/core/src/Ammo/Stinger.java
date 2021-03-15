@@ -1,5 +1,6 @@
 package Ammo;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -9,7 +10,7 @@ public class Stinger extends Ammo {
     private final String name = "Stinger";
     private final String[] acceptableTargets = {"Player"};
     private final float speed = 300;
-    private final Texture texture = new Texture("Stinger.png");
+    private final Texture texture = GameResources.getAssetsManager().get("Stinger.png",Texture.class);
     private int damage = 1;
 
     /**

@@ -1,5 +1,6 @@
 package Ammo;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -9,7 +10,7 @@ public class CovidGerm extends Ammo{
     private final String name = "CovidGerm";
     private final String[] acceptableTargets = {"Player"};
     private final float speed = 300;
-    private final Texture texture = new Texture("CovidGerm.png");
+    private final Texture texture = GameResources.getAssetsManager().get("CovidGerm.png",Texture.class);
     private int damage = 1;
 
     /**

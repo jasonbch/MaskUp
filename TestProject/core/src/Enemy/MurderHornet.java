@@ -1,6 +1,7 @@
 package Enemy;
 
 import Entity.Enemy;
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -20,10 +21,11 @@ public class MurderHornet extends Enemy {
      */
     public MurderHornet(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
-        this.speed = 150;
         this.name = "MurderHornet";
+        this.speed = 150;
         this.bullet = "Stinger";
-        this.texture = new Texture("MurderHornet.png");
+        this.texture = GameResources.getAssetsManager().get("MurderHornet.png", Texture.class);
+        this.timeBetweenShot = 0.6f;
         setFormationPattern("FanFormation");
     }
 
