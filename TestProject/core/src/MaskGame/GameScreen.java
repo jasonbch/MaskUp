@@ -17,8 +17,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.*;
 
 import java.util.ListIterator;
 
@@ -59,8 +58,10 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
+    private final GameController gameController = GameController.instance();
 
     DrawController drawController;
+
 
     // Slow mode variables
     private boolean isSlowMode;
@@ -74,7 +75,8 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     public GameScreen() {
         // Initialize camera and view
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+        viewport = new StretchViewport(576, 1024, camera);
+
 
         initializeScrollingBackground();
 
@@ -91,6 +93,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         batch = new SpriteBatch();
         drawController = new DrawController(batch, player);
+
         // Music
         Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
 
@@ -112,6 +115,9 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Get the game speed
         gameSpeed = getGameSpeed();
         deltaTime *= gameSpeed;
+
+        //update gameController time
+        gameController.updateElapsedTime();
 
         // Begin the Batch
         batch.begin();
@@ -135,7 +141,6 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         collisionController.addCommand(playerIsHitCommand);
         collisionController.addCommand(enemyIsHitCommand);
         collisionController.executeCommand();
-
 
 
         bulletSpawningController.playerFire(player);
