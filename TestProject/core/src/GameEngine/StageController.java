@@ -37,10 +37,6 @@ public class StageController {
 
     private static final GameController gameController = GameController.instance();
 
-    private static final Player player = Player.instance();
-
-
-
     /**
      * Return the instance of StageController.
      * Create the instance if the instance has not been initialized.
