@@ -22,6 +22,7 @@ public class Bat extends Enemy {
         this.name = "Bat";
         this.bullet = "CovidGerm";
         this.texture = new Texture("Bat.png");
+        setFormationPattern("FanFormation");
 
     }
 

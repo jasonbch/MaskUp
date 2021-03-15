@@ -24,6 +24,7 @@ public class MurderHornet extends Enemy {
         this.name = "MurderHornet";
         this.bullet = "Stinger";
         this.texture = new Texture("MurderHornet.png");
+        setFormationPattern("FanFormation");
     }
 
     /**

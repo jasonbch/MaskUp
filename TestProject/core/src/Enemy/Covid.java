@@ -25,6 +25,7 @@ public class Covid extends Enemy {
         this.name = "Covid";
         this.bullet = "BabyCovid";
         this.texture = new Texture("BigCovid.png");
+        setFormationPattern("FanFormation");
     }
 
     /**

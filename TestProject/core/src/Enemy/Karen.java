@@ -23,6 +23,7 @@ public class Karen extends Enemy {
         this.name = "Karen";
         this.bullet = "GreenCloud";
         this.texture = new Texture("Karen.png");
+        setFormationPattern("FanFormation");
     }
 
 
