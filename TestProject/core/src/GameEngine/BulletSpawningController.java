@@ -3,10 +3,8 @@ package GameEngine;
 import Ammo.Ammo;
 import Entity.*;
 import Factories.AmmoFactory;
-import Enemy.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -65,19 +63,8 @@ public class BulletSpawningController {
     private List<Ammo> fire(Entity entity) {
         List<Ammo> ammoList;
 
-        if (entity instanceof Bat) {
-            ammoList = shootController.create(entity, "FanPattern");
-        } else if (entity instanceof MurderHornet) {
-            ammoList = shootController.create(entity, "FanPattern");
-        } else if (entity instanceof Karen) {
-            ammoList = shootController.create(entity, "FanPattern");
-        } else if (entity instanceof Covid) {
-            ammoList = shootController.create(entity, "FanPattern");
-        } else if (entity instanceof Player) {
-            ammoList = shootController.create(entity, "LinearPattern");
-        } else {
-            ammoList = shootController.create(entity, "LinearPattern");
-        }
+        ammoList = shootController.create(entity, entity.getFormationPattern());
+
         entity.resetTimeSinceLastShot();
 
         return ammoList;

@@ -7,11 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
  * The MurderHornet class that extends from Enemy that can move and fire.
  */
 public class MurderHornet extends Enemy {
-    private final String name = "MurderHornet";
-    private final float speed = 150;
-    private final String bullet = "Stinger";
     private final float timeBetweenShot = 0.45f;
-    private final Texture texture = new Texture("MurderHornet.png");
     private int moveCounter = 0;
     private int maxLifespan = 10;
     private int maxHealth = 1;
@@ -26,6 +22,11 @@ public class MurderHornet extends Enemy {
      */
     public MurderHornet(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
+        this.speed = 150;
+        this.name = "MurderHornet";
+        this.bullet = "Stinger";
+        this.texture = new Texture("MurderHornet.png");
+        setFormationPattern("FanFormation");
     }
 
     /**
@@ -72,7 +73,7 @@ public class MurderHornet extends Enemy {
      * Return maxLifeSpan
      */
     @Override
-    public int getMaxLifeSpan(){
+    public int getMaxLifeSpan() {
         return this.maxLifespan;
     }
 
@@ -80,10 +81,14 @@ public class MurderHornet extends Enemy {
      * @param bulletDamage
      */
     @Override
-    public void setHealth(int bulletDamage) { this.maxHealth -= bulletDamage;}
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
     /**
      *
      */
     @Override
-    public int getHealth() { return this.maxHealth; }
+    public int getHealth() {
+        return this.maxHealth;
+    }
 }

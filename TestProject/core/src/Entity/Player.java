@@ -15,23 +15,18 @@ import java.util.ListIterator;
  * The Player class that extends from Entity that can move and fire.
  */
 public class Player extends Entity {
-    private final String name = "Player";
-    private final float speed = 250;
-    private final String bullet = "Bullet";
-    private final float timeBetweenShot = 0.25f;
-    private final Texture texture = new Texture("Player.png");
     private int maxHealth = 3;
     private Batch batch = new SpriteBatch();
     private boolean invulnerable = false;
 
-    /**
-     * Create a new instance of a Player at the xPos and yPos.
-     *
-     * @param  xPosition initial x position.
-     * @param  yPosition initial y position.
-     */
-    public Player(float xPosition, float yPosition) {
-        super(xPosition, yPosition);
+    // Implement Singleton
+    private static Player uniqueInstance = null;
+
+    public static Player instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Player();
+        }
+        return uniqueInstance;
     }
 
     public boolean getInvulnerable() { return this.invulnerable; }
@@ -41,7 +36,7 @@ public class Player extends Entity {
     /**
      * Return the name.
      *
-     * @return  the name of the player.
+     * @return the name of the player.
      */
     @Override
     public String getName() {
@@ -51,7 +46,7 @@ public class Player extends Entity {
     /**
      * Return the speed.
      *
-     * @return  the speed of the player.
+     * @return the speed of the player.
      */
     @Override
     public float getSpeed() {
@@ -61,7 +56,7 @@ public class Player extends Entity {
     /**
      * Return the bullet string that the player fires.
      *
-     * @return  the bullet string the player use.
+     * @return the bullet string the player use.
      */
     @Override
     public String getBullet() {
@@ -74,11 +69,10 @@ public class Player extends Entity {
     @Override
     public void setHealth(int bulletDamage) { this.maxHealth-= bulletDamage; }
 
-
     /**
      * Return the time between shot.
      *
-     * @return  the time between shot of the player.
+     * @return the time between shot of the player.
      */
     @Override
     public float getTimeBetweenShots() {
@@ -88,7 +82,7 @@ public class Player extends Entity {
     /**
      * Return the Texture image.
      *
-     * @return  the texture of the player.
+     * @return the texture of the player.
      */
     @Override
     public Texture getImage() {
@@ -138,14 +132,13 @@ public class Player extends Entity {
     /**
      * Set the states of ammo, player
      * Set player health
+     *
      * @param enemyAmmoList
      */
     @Override
-    public void collide(ListIterator<Ammo> enemyAmmoList)
-    {
+    public void collide(ListIterator<Ammo> enemyAmmoList) {
         ListIterator<Ammo> iter = enemyAmmoList;
-        while (iter.hasNext())
-        {
+        while (iter.hasNext()) {
             Ammo ammo = iter.next();
             if (intersects(ammo.getBoundingBox()))
             {

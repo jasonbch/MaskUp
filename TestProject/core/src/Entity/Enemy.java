@@ -50,7 +50,7 @@ public abstract class Enemy extends Entity {
         timeAlive = TimeUtils.timeSinceMillis(spawnTime) / 1000;
     }
 
-    public long getTimeAlive(){
+    public long getTimeAlive() {
         return this.timeAlive;
     }
 
@@ -65,8 +65,8 @@ public abstract class Enemy extends Entity {
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param xPos initial x position.
+     * @param yPos initial y position.
      */
     public Enemy(float xPos, float yPos, String movingPattern) {
         super(xPos, yPos);
@@ -74,17 +74,13 @@ public abstract class Enemy extends Entity {
     }
 
     /**
-     *
      * @param playerAmmolist
      */
-    public void collide(ListIterator<Ammo> playerAmmolist)
-    {
+    public void collide(ListIterator<Ammo> playerAmmolist) {
         ListIterator<Ammo> iter = playerAmmolist;
-        while (iter.hasNext())
-        {
+        while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            if (intersects(ammo.getBoundingBox()))
-            {
+            if (intersects(ammo.getBoundingBox())) {
                 setIsDone();
                 ammo.setIsDone();
                 setHealth(ammo.getBulletDamage());

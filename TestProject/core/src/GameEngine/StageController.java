@@ -1,9 +1,8 @@
 package GameEngine;
 
-import Ammo.Ammo;
 import Entity.Enemy;
 import Enemy.*;
-import com.badlogic.gdx.utils.TimeUtils;
+import Entity.Player;
 
 import java.util.ListIterator;
 
@@ -34,6 +33,12 @@ public class StageController {
 
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
 
+    private static final GameController gameController = GameController.instance();
+
+    private static final Player player = Player.instance();
+
+
+
     /**
      * Return the instance of StageController.
      * Create the instance if the instance has not been initialized.
@@ -54,8 +59,8 @@ public class StageController {
     // figure out time munipulation
     public void makeStages() {
         // Set new elapsed time
-        long newStartTime = enemySpawningController.getStartTime();
-        enemySpawningController.setElapsedTime(TimeUtils.timeSinceMillis(newStartTime) / 1000);
+        //long newStartTime = enemySpawningController.getStartTime();
+        //enemySpawningController.setElapsedTime(TimeUtils.timeSinceMillis(newStartTime) / 1000);
 
         // Stage 1
         enemySpawningController.spawnBatWave(stageOneStart, stageOneEnd, "PatternOne");
@@ -80,7 +85,7 @@ public class StageController {
     }
 
     private void changeMovementPatternOfMidBoss(int time, String pattern) {
-        if (enemySpawningController.getElapsedTime() == time) {
+        if (gameController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
 
             while (iterator.hasNext()) {
@@ -94,7 +99,7 @@ public class StageController {
     }
 
     private void changeMovementPatternOfFinalBoss(int time, String pattern) {
-        if (enemySpawningController.getElapsedTime() == time) {
+        if (gameController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
 
             while (iterator.hasNext()) {
@@ -106,4 +111,19 @@ public class StageController {
             }
         }
     }
+
+
+    private void changeBulletFormationOfEnemy(int time,String pattern, String type)
+    {
+        if (gameController.getElapsedTime() == time) {
+            ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
+            while (iterator.hasNext()) {
+                Enemy currentEnemy = iterator.next();
+                if (currentEnemy.getName() == type) {
+                    currentEnemy.setFormationPattern(pattern);
+                }
+            }
+        }
+    }
+
 }
