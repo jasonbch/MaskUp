@@ -84,7 +84,6 @@ public class Karen extends Enemy {
     public void setHealth(int bulletDamage) {
         this.maxHealth -= bulletDamage;
     }
-
     /**
      *
      */

@@ -4,7 +4,6 @@ import Entity.Enemy;
 import Factories.EnemyFactory;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -182,6 +181,10 @@ public class EnemySpawningController {
                 scoreController.addScore(currEnemy);
                 System.out.println("The current score is: " + scoreController.getScore());
                 iter2.remove();
+            }
+            else if (currEnemy.getHealth() <= 0)
+            {
+                currEnemy.setIsDone();
             }
         }
     }
