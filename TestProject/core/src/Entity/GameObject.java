@@ -140,16 +140,6 @@ public abstract class GameObject {
     public abstract Texture getImage();
 
     /**
-     * Return the ammo that the entity fires.
-     *
-     * @param  batch  The current batch.
-     */
-    public void draw(Batch batch) {
-        Texture image = getImage();
-        batch.draw(image, xPosition, yPosition, image.getWidth(), image.getHeight());
-    }
-
-    /**
      * Return the world width.
      */
     public int getWorldWidth() {
