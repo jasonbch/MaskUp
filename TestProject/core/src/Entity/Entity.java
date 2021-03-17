@@ -32,6 +32,7 @@ public abstract class Entity extends GameObject {
         this.yPosition = yPosition;
     }
 
+
     public Entity() {
     }
 
@@ -90,7 +91,7 @@ public abstract class Entity extends GameObject {
         return rectangle.overlaps(otherRectangle);
     }
 
-    public abstract void collide(ListIterator<Ammo> entityAmmolist);
+    public abstract boolean collide(ListIterator<Ammo> entityAmmolist);
 
     /**
      * Return the coordinate for shooting position.

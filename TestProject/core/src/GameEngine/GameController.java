@@ -2,11 +2,13 @@ package GameEngine;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import Entity.Player;
 import com.badlogic.gdx.utils.TimeUtils;
 
 
 public class GameController {
 
+    private static Player player = Player.instance();
     private static GameController uniqueInstance = null;
 
     private boolean isSlowMode;
@@ -36,15 +38,23 @@ public class GameController {
         return this.elapsedTime;
     }
 
-    public long getStartTime() {
-        return this.startTime;
-    }
+    public long getStartTime() { return this.startTime; }
 
     public boolean getIsSlowMode(){return this.isSlowMode;}
     public void setIsSlowMode(Boolean val){this.isSlowMode = val;}
     public void reinitializeStartTime() {
         this.startTime = TimeUtils.millis();
 
+    public void reinitializeStartTime() { this.startTime = TimeUtils.millis(); }
+
+    public void checkInvulnerabilityTime() {
+        if (player.getInvulnerable()) {
+            long elapsedTime = TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
+            System.out.println("Invulnerability time " + elapsedTime);
+            if (elapsedTime >= 10) {
+                player.setInvulnerable(false);
+            }
+        }
     }
 
     /**

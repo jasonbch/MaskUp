@@ -12,9 +12,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.viewport.*;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ListIterator;
 
@@ -22,14 +28,21 @@ import java.util.ListIterator;
  * GameScreen class that implements from Screen that let the user play
  * the game.
  */
-public class GameScreen extends ApplicationAdapter implements Screen  {
+public class GameScreen extends ApplicationAdapter implements Screen {
     // Screen
     private final Camera camera;
+
     private final Viewport viewport;
+
 
     // Graphic
     private final SpriteBatch batch;
+    private final SpriteBatch batch2;
+    private Texture[] backgrounds;
 
+    // Background variables
+    private final float[] backgroundOffsets = {0, 0, 0, 0};
+    private float maxScrollingSpeed;
 
     // World dimension
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
@@ -40,6 +53,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
     private CommandController collisionController;
     private Command playerIsHitCommand;
     private Command enemyIsHitCommand;
+
 
     // Game controllers
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
@@ -59,16 +73,14 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Initialize camera and view
         camera = new OrthographicCamera();
         viewport = new StretchViewport(576, 1024, camera);
-
         collisionController = new CommandController();
-
         playerIsHitCommand = new PlayerCommand(player);
-
         batch = new SpriteBatch();
         UIController = new UIController(batch);
-
+        batch2 = new SpriteBatch();
         UIController.playMusic();
     }
+
 
     /**
      * Render the screen
@@ -87,6 +99,7 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
 
         // Begin the Batch
         batch.begin();
+        batch2.begin();
 
         // Update scrolling background
         UIController.drawBackground(deltaTime);
@@ -97,14 +110,13 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
-
         enemyIsHitCommand = new EnemyCommand();
-
 
         collisionController.addCommand(playerIsHitCommand);
         collisionController.addCommand(enemyIsHitCommand);
         collisionController.executeCommand();
 
+        gameController.checkInvulnerabilityTime();
 
         bulletSpawningController.playerFire(player);
         bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
@@ -120,11 +132,18 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         // Draw white dor in slow mode
         UIController.drawWhiteDotInSlowMode();
 
+        //hud rendering
+        //createHudScreen();
+        UIController.updateAndRenderHUD();
+
         // End the batch
         batch.end();
+        batch2.end();
     }
 
-
+    private void creatHudScreen() {
+        batch2.draw(new Texture("Cloud4.png"), (float) (WORLD_HEIGHT / 2), (float) (WORLD_WIDTH / 2));
+    }
 
 
 
@@ -167,14 +186,13 @@ public class GameScreen extends ApplicationAdapter implements Screen  {
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
-            enemyMoveController.move(currEnemy,deltaTime);
+            enemyMoveController.move(currEnemy, deltaTime);
         }
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height, true);
-        batch.setProjectionMatrix(camera.combined);
+
     }
 
     @Override
