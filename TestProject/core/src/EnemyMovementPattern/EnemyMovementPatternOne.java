@@ -21,7 +21,7 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
 
         enemy.setxPosition(enemy.getXPosition() + (enemy.getXMultiplier() * enemy.getSpeed() * deltaTime));
 
-        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()) {
+        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()){
             enemy.revertXMultiplier();
         }
     }

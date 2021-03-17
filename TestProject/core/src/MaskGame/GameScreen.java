@@ -4,20 +4,21 @@ import Ammo.Ammo;
 import Entity.Enemy;
 import Entity.Entity;
 import Entity.Player;
+
 import GameEngine.*;
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.viewport.*;
 
 import java.util.ListIterator;
 
@@ -25,20 +26,30 @@ import java.util.ListIterator;
  * GameScreen class that implements from Screen that let the user play
  * the game.
  */
-public class GameScreen extends ApplicationAdapter implements Screen {
+public class GameScreen extends ApplicationAdapter implements Screen  {
     // Screen
     private final Camera camera;
     private final Viewport viewport;
 
     // Graphic
     private final SpriteBatch batch;
+    private Texture[] backgrounds;
+
     // Background variables
-    private final float[] backgroundOffsets = {0, 0, 0, 0};
+    private final float[] backgroundOffsets = {0,0,0,0};
+    private float maxScrollingSpeed;
+
     // World dimension
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
+
     // Game objects
     private final Entity player = Player.instance();
+
+    private CommandController collisionController;
+    private Command playerIsHitCommand;
+    private Command enemyIsHitCommand;
+
     // Game controllers
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
@@ -48,24 +59,19 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final GameController gameController = GameController.instance();
     private final GameResources gameResources = GameResources.instance();
     private final AssetManager assetManager = GameResources.getAssetsManager();
+
     private final DrawController drawController;
-    private final FPSLogger logger = new FPSLogger();
-    private Texture[] backgrounds;
-    private float maxScrollingSpeed;
-    private CommandController collisionController;
-    private Command playerIsHitCommand;
-    private Command enemyIsHitCommand;
+
     // Slow mode variables
     private boolean isSlowMode;
     private float gameSpeed;    // Current game speed
-    private MaskGame game;
+
+    private final FPSLogger logger = new FPSLogger();
 
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
-    public GameScreen(MaskGame game) {
-        this.game = game;
-
+    public GameScreen() {
         // Initialize camera and view
         camera = new OrthographicCamera();
         viewport = new StretchViewport(576, 1024, camera);
@@ -146,12 +152,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Draw white dor in slow mode
         drawWhiteDotInSlowMode();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            pause();
-            game.setScreen(new MainMenuScreen(game));
-            System.out.println("Switch to Menu Screen");
-        }
-
         // End the batch
         batch.end();
     }
@@ -187,7 +187,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
      * Return the speed of the game. If the game is in slow speed, the
      * speed of the game is reduced by 60%.
      *
-     * @return the speed of the game
+     * @return  the speed of the game
      */
     private float getGameSpeed() {
         // If the L key is just press and it is not slow down mode
@@ -216,7 +216,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
-        for (int layer = 0; layer < backgroundOffsets.length; layer++) {
+        for (int layer = 0; layer < backgroundOffsets.length; layer ++) {
             if (layer == 0) {
                 // Keep the blue background static
                 batch.draw(backgrounds[layer], 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
@@ -230,7 +230,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
             }
         }
     }
-
 
     /**
      * TODO: Update movement
@@ -271,13 +270,13 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
-            enemyMoveController.move(currEnemy, deltaTime);
+            enemyMoveController.move(currEnemy,deltaTime);
         }
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
+        viewport.update(width,height, true);
         batch.setProjectionMatrix(camera.combined);
     }
 
@@ -299,6 +298,5 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
     }
 }

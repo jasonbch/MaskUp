@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Mask class that extends Ammo.
  */
-public class Mask extends Ammo {
+public class Mask extends Ammo{
     private final String name = "Mask";
     private final String[] acceptableTargets = {"Karen"};
     private final float speed = 300;

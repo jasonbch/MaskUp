@@ -1,12 +1,11 @@
 package Factories;
 
-import BulletMovementPattern.BulletMovementPattern;
-import BulletMovementPattern.BulletMovementPatternLinear;
+import BulletMovementPattern.*;
 
 public class BulletMovementFactory {
 
     public BulletMovementPattern create(String pattern) {
-        switch (pattern) {
+        switch(pattern) {
             case "LinearPattern":
                 return new BulletMovementPatternLinear();
             default:

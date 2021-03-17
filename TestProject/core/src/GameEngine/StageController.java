@@ -13,11 +13,12 @@ import java.util.ListIterator;
  * The class can create stages for a game.
  */
 public class StageController {
-    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     // Implement Singleton
     private static StageController uniqueInstance = null;
+
     // Stages duration
     private final int stageBuffer = 5;
+
     private final int stageOneDuration = 30;
     private final int stageTwoDuration = 45;
     private final int stageThreeDuration = 30;
@@ -32,8 +33,7 @@ public class StageController {
     private final int stageFourStart = stageThreeEnd + stageBuffer;
     private final int stageFourEnd = stageFourStart + stageFourDuration;
 
-    private StageController() {
-    }
+    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
 
     private static final GameController gameController = GameController.instance();
 
@@ -49,6 +49,9 @@ public class StageController {
         }
 
         return uniqueInstance;
+    }
+
+    private StageController() {
     }
 
     public void makeStages() {
@@ -71,10 +74,10 @@ public class StageController {
         enemySpawningController.spawnFinalBossWave(stageFourStart, stageFourEnd, "PatternThree");
 
         // Change pattern of Karen into PatternOne in the middle of stage 2
-        int midBossChangeMovementPatternTime = ((stageTwoEnd - stageTwoStart) / 2 + stageTwoStart);
+        int midBossChangeMovementPatternTime = ((stageTwoEnd - stageTwoStart)/2 + stageTwoStart);
         changeMovementPatternOfMidBoss(midBossChangeMovementPatternTime, "PatternOne");
 
-        int finalBossChangeMovementPatternTime = ((stageFourEnd - stageFourStart) / 2 + stageFourStart);
+        int finalBossChangeMovementPatternTime = ((stageFourEnd - stageFourStart)/2 + stageFourStart);
         changeMovementPatternOfFinalBoss(finalBossChangeMovementPatternTime, "PatternOne");
     }
 

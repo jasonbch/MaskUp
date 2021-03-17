@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class ShootController {
     private AmmoFactory ammoFactory = new AmmoFactory();
     private BulletFormationFactory bulletFormationFactory = new BulletFormationFactory();
@@ -27,9 +26,11 @@ public class ShootController {
         int xShootPosition = shootPosition.x;
         int yShootPosition = shootPosition.y;
 
-
         ammoList = bulletFormationFactory.create(pattern).shoot(entity, xShootPosition, yShootPosition);
 
         return ammoList;
     }
+
+
+
 }

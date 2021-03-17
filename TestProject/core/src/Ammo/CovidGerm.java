@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * CovidGerm class that extends Ammo.
  */
-public class CovidGerm extends Ammo {
+public class CovidGerm extends Ammo{
     private final String name = "CovidGerm";
     private final String[] acceptableTargets = {"Player"};
     private final float speed = 300;

@@ -1,7 +1,7 @@
 package GameEngine;
 
 import Ammo.Ammo;
-import Ammo.Ammo.PatternAttribute;
+import Ammo.Ammo.*;
 import BulletMovementPattern.BulletMovementPattern;
 import Factories.BulletMovementFactory;
 
@@ -16,9 +16,6 @@ public class BulletMovementController {
 
     private final BulletMovementFactory bulletMovementFactory = new BulletMovementFactory();
 
-    private BulletMovementController() {
-    }
-
     /**
      * Return the instance of BulletMovementController.
      * Create the instance if the instance has not been initialized.
@@ -31,6 +28,9 @@ public class BulletMovementController {
         }
 
         return uniqueInstance;
+    }
+
+    private BulletMovementController() {
     }
 
     public void move(Ammo ammo, float deltaTime) {

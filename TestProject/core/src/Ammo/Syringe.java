@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Syringe class that extends Ammo.
  */
-public class Syringe extends Ammo {
+public class Syringe extends Ammo{
     private final String name = "Syringe";
     private final String[] acceptableTargets = {"Covid"};
     private final float speed = 700;

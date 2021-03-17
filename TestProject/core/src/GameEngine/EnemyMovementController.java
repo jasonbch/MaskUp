@@ -1,19 +1,17 @@
 package GameEngine;
 
-import EnemyMovementPattern.EnemyMovementPattern;
 import Entity.Enemy;
 import Factories.EnemyMovementFactory;
+import EnemyMovementPattern.EnemyMovementPattern;
 
 /**
  * EnemyMovementController class that controls the moving of enemies.
  */
 public class EnemyMovementController {
-    // Implement Singleton
-    private static EnemyMovementController uniqueInstance = null;
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
 
-    private EnemyMovementController() {
-    }
+    // Implement Singleton
+    private static EnemyMovementController uniqueInstance = null;
 
     /**
      * Return the instance of EnemyMovementController.
@@ -27,6 +25,9 @@ public class EnemyMovementController {
         }
 
         return uniqueInstance;
+    }
+
+    private EnemyMovementController() {
     }
 
     public void move(Enemy enemy, float deltaTime) {

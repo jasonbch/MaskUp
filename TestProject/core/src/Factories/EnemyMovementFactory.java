@@ -4,7 +4,7 @@ import EnemyMovementPattern.*;
 
 public class EnemyMovementFactory {
     public EnemyMovementPattern create(String pattern) {
-        switch (pattern) {
+        switch(pattern) {
             case "PatternOne":
                 return new EnemyMovementPatternOne();
             case "PatternTwo":

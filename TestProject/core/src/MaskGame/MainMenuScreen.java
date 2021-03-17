@@ -1,88 +1,39 @@
 package MaskGame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class MainMenuScreen extends InputAdapter implements Screen {
-    private final Camera camera;
-    private final Viewport viewport;
-    private final int WORLD_WIDTH = Gdx.graphics.getWidth();
-    private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
+public class MainMenuScreen implements Screen {
     private MaskGame game;
     private Batch batch;
     private Texture exitButtonActive;
     private Texture exitButtonInActive;
     private Texture playButtonActive;
-    private Texture playButtonInActive;
-    private Texture background;
-    private int buttonWidth = 241;
-    private int buttonHeight = 41;
+    private Texture getPlayButtonInActive;
 
-    public MainMenuScreen(MaskGame game) {
+    public MainMenuScreen(MaskGame game, Batch batch){
         this.game = game;
-
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        batch = new SpriteBatch();
-        initializeTextures();
-    }
-
-    private void initializeTextures() {
-        background = new Texture("Background.png");
-        playButtonActive = new Texture("PlayButtonPressed.png");
-        playButtonInActive = new Texture("PlayButton.png");
-        exitButtonActive = new Texture("ExitButtonPressed.png");
-        exitButtonInActive = new Texture("ExitButton.png");
+        this.batch = batch;
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(this);
+
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(1,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-
-        batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            batch.draw(playButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
-            dispose();
-            game.setScreen(new GameScreen(game));
-            System.out.println("Switch to Game Screen");
-        } else {
-            batch.draw(playButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            batch.draw(exitButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
-            dispose();
-            Gdx.app.exit();
-        } else {
-            batch.draw(exitButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
-        }
-
         batch.end();
-
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        batch.setProjectionMatrix(camera.combined);
     }
 
     @Override
@@ -99,6 +50,5 @@ public class MainMenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
     }
 }
