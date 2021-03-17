@@ -1,7 +1,7 @@
 package Factories;
 
 import Ammo.*;
-import Ammo.Ammo.*;
+import Ammo.Ammo.PatternAttribute;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -19,9 +19,9 @@ public class AmmoFactory {
     /**
      * The factory class to create different kind of ammo.
      *
-     * @param  Ammo the name of the ammo.
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param Ammo the name of the ammo.
+     * @param xPos initial x position.
+     * @param yPos initial y position.
      */
     public Ammo create(String Ammo, float xPos, float yPos, PatternAttribute patternAttribute) {
         switch (Ammo) {

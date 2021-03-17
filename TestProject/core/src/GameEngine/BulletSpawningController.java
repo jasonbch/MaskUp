@@ -1,9 +1,14 @@
 package GameEngine;
 
 import Ammo.Ammo;
-import Entity.*;
+import Enemy.Bat;
+import Enemy.Covid;
+import Enemy.Karen;
+import Enemy.MurderHornet;
+import Entity.Enemy;
+import Entity.Entity;
+import Entity.Player;
 import Factories.AmmoFactory;
-import Enemy.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
@@ -16,16 +21,21 @@ import java.util.ListIterator;
  * fire their default bullet or a given bullet can be given to them.
  */
 public class BulletSpawningController {
-    private AmmoFactory factory = new AmmoFactory();
+    // Implement Singleton
+    private static BulletSpawningController uniqueInstance = null;
     private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
     private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
     private final ShootController shootController = new ShootController();
 
 
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private AmmoFactory factory = new AmmoFactory();
 
-    // Implement Singleton
-    private static BulletSpawningController uniqueInstance = null;
+    /**
+     * Create a new instance of the ShootController.
+     */
+    private BulletSpawningController() {
+    }
 
     /**
      * Return the instance of EnemySpawningController.
@@ -40,13 +50,6 @@ public class BulletSpawningController {
 
         return uniqueInstance;
     }
-
-    /**
-     * Create a new instance of the ShootController.
-     */
-    private BulletSpawningController() {
-    }
-
 
     public LinkedList<Ammo> getEnemyAmmoList() {
         return this.enemyAmmoList;
