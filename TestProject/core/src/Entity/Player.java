@@ -43,8 +43,8 @@ public class Player extends Entity {
     /**
      * Create a new instance of a Player at the xPos and yPos.
      *
-     * @param  xPosition initial x position.
-     * @param  yPosition initial y position.
+     * @param xPosition initial x position.
+     * @param yPosition initial y position.
      */
 
     /**

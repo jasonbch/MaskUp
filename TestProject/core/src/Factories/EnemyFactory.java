@@ -1,19 +1,21 @@
 package Factories;
 
-import Enemy.*;
+import Enemy.Bat;
+import Enemy.Covid;
+import Enemy.Karen;
+import Enemy.MurderHornet;
 import Entity.Enemy;
 
 /**
  * The factory class to create different kind of enemies.
- *
  */
 public class EnemyFactory {
 
     /**
      * Return the enemy from the given enemy's name at the given position.
      *
-     * @param  xPos initial x position.
-     * @param  yPos initial y position.
+     * @param xPos initial x position.
+     * @param yPos initial y position.
      */
     public Enemy create(String enemy, float xPos, float yPos, String pattern) {
         switch (enemy) {

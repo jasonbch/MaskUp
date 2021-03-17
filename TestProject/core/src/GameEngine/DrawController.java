@@ -11,8 +11,8 @@ public class DrawController {
 
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-    private Batch batch;
     GameObject player;
+    private Batch batch;
 
     // TODO come back later to think about passing in the player
     public DrawController(Batch batch, GameObject player) {

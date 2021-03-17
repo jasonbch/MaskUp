@@ -45,26 +45,26 @@ public abstract class GameObject {
 
     /**
      * setter for the object xPosition
+     *
      * @param xPos
      */
-    public void setxPosition(float xPos)
-    {
+    public void setxPosition(float xPos) {
         this.xPosition = xPos;
     }
 
     /**
      * setter for the object xPosition
+     *
      * @param yPos
      */
-    public void setyPosition(float yPos)
-    {
+    public void setyPosition(float yPos) {
         this.yPosition = yPos;
     }
 
     /**
      * Move the entity up.
      *
-     * @param  deltaTime delta time.
+     * @param deltaTime delta time.
      */
     public void moveUp(float deltaTime) {
         this.yPosition += getSpeed() * deltaTime;
@@ -73,7 +73,7 @@ public abstract class GameObject {
     /**
      * Move the entity down.
      *
-     * @param  deltaTime delta time.
+     * @param deltaTime delta time.
      */
     public void moveDown(float deltaTime) {
         this.yPosition -= getSpeed() * deltaTime;
@@ -82,7 +82,7 @@ public abstract class GameObject {
     /**
      * Move the entity left.
      *
-     * @param  deltaTime delta time.
+     * @param deltaTime delta time.
      */
     public void moveLeft(float deltaTime) {
         this.xPosition -= getSpeed() * deltaTime;
@@ -91,13 +91,15 @@ public abstract class GameObject {
     /**
      * Move the entity right.
      *
-     * @param  deltaTime delta time.
+     * @param deltaTime delta time.
      */
     public void moveRight(float deltaTime) {
         this.xPosition += getSpeed() * deltaTime;
     }
 
-    /**\
+    /**
+     * \
+     *
      * @return returns if the game object is above the screen.
      */
     public boolean isAboveScreen() {
@@ -109,7 +111,9 @@ public abstract class GameObject {
         return retVal;
     }
 
-    /**\
+    /**
+     * \
+     *
      * @return returns if the game object is below the screen.
      */
     public boolean isBelowScreen() {
@@ -121,14 +125,18 @@ public abstract class GameObject {
         return retVal;
     }
 
-    /**\
+    /**
+     * \
+     *
      * @return returns if the game object is left of the screen.
      */
     public boolean isLeftOfScreen() {
         return this.xPosition <= 0;
     }
 
-    /**\
+    /**
+     * \
+     *
      * @return returns if the game object is right of the screen.
      */
     public boolean isRightOfScreen() {
@@ -143,7 +151,7 @@ public abstract class GameObject {
     /**
      * Return the ammo that the entity fires.
      *
-     * @param  batch  The current batch.
+     * @param batch The current batch.
      */
     public void draw(Batch batch) {
         Texture image = getImage();

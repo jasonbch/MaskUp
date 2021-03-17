@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * GreenCloud class that extends Ammo.
  */
-public class GreenCloud extends Ammo{
+public class GreenCloud extends Ammo {
     private final String name = "GreenCloud";
     private final String[] acceptableTargets = {"Player"};
     private final float speed = 300;

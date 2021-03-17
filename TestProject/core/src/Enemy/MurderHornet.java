@@ -78,18 +78,18 @@ public class MurderHornet extends Enemy {
     }
 
     /**
-     * @param bulletDamage
-     */
-    @Override
-    public void setHealth(int bulletDamage) {
-        this.maxHealth -= bulletDamage;
-    }
-
-    /**
      *
      */
     @Override
     public int getHealth() {
         return this.maxHealth;
+    }
+
+    /**
+     * @param bulletDamage
+     */
+    @Override
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
     }
 }
