@@ -7,20 +7,28 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ListIterator;
 // Flicker the player for a couple of seconds
 // Possibly delete enemy bullets
+
 /**
  * The Player class that extends from Entity that can move and fire.
  */
 public class Player extends Entity {
     private int maxHealth = 3;
     private Batch batch = new SpriteBatch();
-    private boolean invulnerable = false;
+    private boolean invulnerable;
+
+    private long startInvulnerabilityTime;
 
     // Implement Singleton
     private static Player uniqueInstance = null;
+
+    private Player() {
+        invulnerable = false;
+    }
 
     public static Player instance() {
         if (uniqueInstance == null) {
@@ -29,9 +37,22 @@ public class Player extends Entity {
         return uniqueInstance;
     }
 
-    public boolean getInvulnerable() { return this.invulnerable; }
+    public boolean getInvulnerable() {
+        return this.invulnerable;
+    }
 
-    public void setInvulnerable() { this.invulnerable = true; }
+    public long getStartInvulnerabilityTime() {
+        return this.startInvulnerabilityTime;
+    }
+
+    public void setInvulnerable(boolean invulnerableStatus) {
+        this.invulnerable = invulnerableStatus;
+        if (invulnerable) {
+            this.setxPosition(Gdx.graphics.getWidth() / 2);
+            this.setyPosition(10);
+            this.startInvulnerabilityTime = TimeUtils.millis();
+        }
+    }
 
     /**
      * Return the name.
@@ -64,10 +85,19 @@ public class Player extends Entity {
     }
 
     @Override
-    public int getHealth() { return this.maxHealth; }
+    public int getHealth() {
+        return this.maxHealth;
+    }
 
     @Override
-    public void setHealth(int bulletDamage) { this.maxHealth-= bulletDamage; }
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
+
+    public void setInvulnerabilityStartTime(long time) {
+        this.startInvulnerabilityTime = time;
+
+    }
 
     /**
      * Return the time between shot.
@@ -136,16 +166,22 @@ public class Player extends Entity {
      * @param enemyAmmoList
      */
     @Override
-    public void collide(ListIterator<Ammo> enemyAmmoList) {
+    public boolean collide(ListIterator<Ammo> enemyAmmoList) {
         ListIterator<Ammo> iter = enemyAmmoList;
+
+        boolean retval = false;
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            if (intersects(ammo.getBoundingBox()))
-            {
-                setInvulnerable();
+            boolean didIntersect = intersects(ammo.getBoundingBox());
+            if (didIntersect) {
+                setInvulnerable(true);
+                boolean test = getInvulnerable();
                 ammo.setIsDone();
                 setHealth(ammo.getBulletDamage());
+                retval = true;
             }
         }
+
+        return retval;
     }
 }

@@ -55,6 +55,10 @@ public class BulletSpawningController {
         return this.playerAmmoList;
     }
 
+    public void clearEnemyAmmoList(){
+        this.enemyAmmoList.clear();
+    }
+
     /**
      * Return a list of ammo that the entity fires.
      *

@@ -1,10 +1,12 @@
 package GameEngine;
 
+import Entity.Player;
 import com.badlogic.gdx.utils.TimeUtils;
 
 
 public class GameController {
 
+    private static Player player = Player.instance();
     private static GameController uniqueInstance = null;
 
     private long startTime;
@@ -34,8 +36,18 @@ public class GameController {
         return this.startTime;
     }
 
+
     public void reinitializeStartTime() {
         this.startTime = TimeUtils.millis();
 
+    }
+
+    public void checkInvulnerabilityTime() {
+        if (player.getInvulnerable()) {
+            long elapsedTime = TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
+            if (elapsedTime >= 3) {
+                player.setInvulnerable(false);
+            }
+        }
     }
 }

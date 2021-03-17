@@ -51,7 +51,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
 
     // Game objects
-    private final Entity player;
+    private final Entity player = Player.instance();
 
     private CommandController collisionController;
     private Command playerIsHitCommand;
@@ -83,12 +83,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         camera = new OrthographicCamera();
         viewport = new StretchViewport(576, 1024, camera);
 
-
-
         initializeScrollingBackground();
-
-        // Initialize player object
-        player = new Player();
 
         collisionController = new CommandController();
 
@@ -145,14 +140,13 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         player.updateTimeSinceLastShot(deltaTime);  // Update player
         ((Player) player).movePlayer(deltaTime);    // Move player
 
-
         enemyIsHitCommand = new EnemyCommand();
-
 
         collisionController.addCommand(playerIsHitCommand);
         collisionController.addCommand(enemyIsHitCommand);
         collisionController.executeCommand();
 
+        gameController.checkInvulnerabilityTime();
 
         bulletSpawningController.playerFire(player);
         bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
@@ -169,9 +163,8 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         drawWhiteDotInSlowMode();
 
         //hud rendering
-        //creatHudScreen();
+        //createHudScreen();
         drawController.updateAndRenderHUD();
-        drawController.Invulnerable();
 
         // End the batch
         batch.end();

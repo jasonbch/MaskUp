@@ -38,7 +38,6 @@ public class StageController {
     private static final Player player = Player.instance();
 
 
-
     /**
      * Return the instance of StageController.
      * Create the instance if the instance has not been initialized.
@@ -77,10 +76,10 @@ public class StageController {
         enemySpawningController.spawnFinalBossWave(stageFourStart, stageFourEnd, "PatternThree");
 
         // Change pattern of Karen into PatternOne in the middle of stage 2
-        int midBossChangeMovementPatternTime = ((stageTwoEnd - stageTwoStart)/2 + stageTwoStart);
+        int midBossChangeMovementPatternTime = ((stageTwoEnd - stageTwoStart) / 2 + stageTwoStart);
         changeMovementPatternOfMidBoss(midBossChangeMovementPatternTime, "PatternOne");
 
-        int finalBossChangeMovementPatternTime = ((stageFourEnd - stageFourStart)/2 + stageFourStart);
+        int finalBossChangeMovementPatternTime = ((stageFourEnd - stageFourStart) / 2 + stageFourStart);
         changeMovementPatternOfFinalBoss(finalBossChangeMovementPatternTime, "PatternOne");
     }
 
@@ -113,8 +112,7 @@ public class StageController {
     }
 
 
-    private void changeBulletFormationOfEnemy(int time,String pattern, String type)
-    {
+    private void changeBulletFormationOfEnemy(int time, String pattern, String type) {
         if (gameController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
             while (iterator.hasNext()) {

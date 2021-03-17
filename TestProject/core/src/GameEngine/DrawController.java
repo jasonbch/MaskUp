@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
@@ -51,25 +52,10 @@ public class DrawController {
         }
     }
 
-    private void dispose()
-    {
+    private void dispose() {
         healthBatch.end();
     }
 
-    /*private void lives() {
-        BitmapFont font = new BitmapFont();
-        font.draw()
-    }*/
-    // Timer for invulnerable 
-    public void Invulnerable()
-    {
-        if (((Player) player).getInvulnerable())
-        {
-            ((Player) player).setxPosition(Gdx.graphics.getWidth()/2);
-            ((Player) player).setyPosition(10);
-            bulletSpawningController.getEnemyAmmoList().clear();
-        }
-    }
 
     public void updateAndRenderHUD() {
         int xoffset = 30;
@@ -77,7 +63,7 @@ public class DrawController {
             if (((Player) player).getHealth() != 0) {
                 Texture image = ((Player) player).getImage();
                 healthBatch.begin();
-                healthBatch.draw(image, xoffset*i, 1000, image.getWidth()/2, image.getHeight()/2);
+                healthBatch.draw(image, xoffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
                 dispose();
             }
         }
