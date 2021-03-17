@@ -1,7 +1,11 @@
 package GameEngine;
 
 import Entity.GameObject;
+import Entity.Player;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +16,7 @@ public class DrawController {
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private Batch batch;
+    private Batch healthBatch = new SpriteBatch();
     GameObject player;
 
     // TODO come back later to think about passing in the player
@@ -45,5 +50,23 @@ public class DrawController {
             GameObject object = iterator.next();
             object.draw(batch);
         }
+    }
+
+    private void dispose() {
+        healthBatch.end();
+    }
+
+
+    public void updateAndRenderHUD() {
+        int xoffset = 30;
+        for (int i = 0; i < ((Player) player).getHealth(); i++) {
+            if (((Player) player).getHealth() != 0) {
+                Texture image = ((Player) player).getImage();
+                healthBatch.begin();
+                healthBatch.draw(image, xoffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
+                dispose();
+            }
+        }
+
     }
 }

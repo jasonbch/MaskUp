@@ -75,8 +75,9 @@ public abstract class Enemy extends Entity {
     /**
      * @param playerAmmolist
      */
-    public void collide(ListIterator<Ammo> playerAmmolist) {
+    public boolean collide(ListIterator<Ammo> playerAmmolist) {
         ListIterator<Ammo> iter = playerAmmolist;
+        boolean retval = false;
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
 
@@ -86,11 +87,13 @@ public abstract class Enemy extends Entity {
 
                 // Check for intersect
                 if (intersects(ammo.getBoundingBox())) {
-                    setIsDone();
                     ammo.setIsDone();
                     setHealth(ammo.getBulletDamage());
+                    retval = true;
                 }
             }
         }
+
+        return retval;
     }
 }
