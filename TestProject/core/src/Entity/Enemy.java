@@ -25,7 +25,6 @@ public abstract class Enemy extends Entity {
     }
 
     /**
-     *
      * Return maxLifeSpan
      */
     public abstract int getMaxLifeSpan();
@@ -78,15 +77,20 @@ public abstract class Enemy extends Entity {
      */
     public boolean collide(ListIterator<Ammo> playerAmmolist) {
         ListIterator<Ammo> iter = playerAmmolist;
-
         boolean retval = false;
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            if (intersects(ammo.getBoundingBox())) {
-                setIsDone();
-                ammo.setIsDone();
-                setHealth(ammo.getBulletDamage());
-                retval = true;
+
+            // Check if the two objects are near each other
+            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 150
+                    && (Math.abs(ammo.getYPosition() - getYPosition()) <= 150)) {
+
+                // Check for intersect
+                if (intersects(ammo.getBoundingBox())) {
+                    ammo.setIsDone();
+                    setHealth(ammo.getBulletDamage());
+                    retval = true;
+                }
             }
         }
 

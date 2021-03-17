@@ -1,5 +1,6 @@
 package Ammo;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -9,7 +10,7 @@ public class GreenCloud extends Ammo{
     private final String name = "GreenCloud";
     private final String[] acceptableTargets = {"Player"};
     private final float speed = 300;
-    private final Texture texture = new Texture("GreenCloud.png");
+    private final Texture texture = GameResources.getAssetsManager().get("GreenCloud.png",Texture.class);
     private int damage = 1;
 
     /**

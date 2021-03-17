@@ -14,7 +14,7 @@ public class PlayerCommand implements Command {
 
     public void execute() {
         if(player.collide(bulletSpawningController.getEnemyAmmoList().listIterator())){
-            bulletSpawningController.getEnemyAmmoList().clear();
+            bulletSpawningController.clearEnemyAmmoList();
         }
     }
 }

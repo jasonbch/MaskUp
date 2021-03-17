@@ -1,5 +1,6 @@
 package Ammo;
 
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -9,7 +10,7 @@ public class Mask extends Ammo{
     private final String name = "Mask";
     private final String[] acceptableTargets = {"Karen"};
     private final float speed = 300;
-    private final Texture texture = new Texture("Mask.png");
+    private final Texture texture = GameResources.getAssetsManager().get("Mask.png",Texture.class);
     private int damage = 1;
 
     /**

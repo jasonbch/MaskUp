@@ -9,6 +9,7 @@ import GameEngine.*;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -65,9 +66,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final StageController stageController = StageController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final GameController gameController = GameController.instance();
+    private final GameResources gameResources = GameResources.instance();
+    private final AssetManager assetManager = GameResources.getAssetsManager();
 
-    DrawController drawController;
-
+    private final DrawController drawController;
 
     // Slow mode variables
     private boolean isSlowMode;
@@ -99,10 +101,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         drawController = new DrawController(batch, player);
 
         // Music
-        Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
+        Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
 
         // Play background music
-        backgroundMusic.setVolume((float) 0.05);
+        backgroundMusic.setVolume((float) 0.01);
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
     }
@@ -115,7 +117,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
      */
     @Override
     public void render(float deltaTime) {
-        //logger.log();
+        logger.log();
 
         // Get the game speed
         gameSpeed = getGameSpeed();
@@ -181,10 +183,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private void initializeScrollingBackground() {
         // Initialize background objects
         backgrounds = new Texture[4];
-        backgrounds[0] = new Texture("BlueBackground.png");
-        backgrounds[1] = new Texture("Clouds1.png");
-        backgrounds[2] = new Texture("Clouds2.png");
-        backgrounds[3] = new Texture("Cloud4.png");
+        backgrounds[0] = assetManager.get("BlueBackground.png", Texture.class);
+        backgrounds[1] = assetManager.get("Clouds1.png", Texture.class);
+        backgrounds[2] = assetManager.get("Clouds2.png", Texture.class);
+        backgrounds[3] = assetManager.get("Cloud4.png", Texture.class);
         maxScrollingSpeed = (float) (WORLD_HEIGHT) / 4;
     }
 
@@ -194,7 +196,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
      */
     private void drawWhiteDotInSlowMode() {
         if (isSlowMode) {
-            batch.draw(new Texture("CircleHitBox.png"),
+            batch.draw(assetManager.get("CircleHitBox.png", Texture.class),
                     player.getXPosition() + (float) (player.getImageWidth() / 2) - (float) (player.getImageWidth() / 4),
                     player.getYPosition() + (float) (player.getImageHeight() / 2) - (float) (player.getImageWidth() / 4),
                     (float) player.getImageWidth() / 2,
@@ -236,12 +238,17 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
-            if (backgroundOffsets[layer] > WORLD_HEIGHT) {
-                backgroundOffsets[layer] = 0;
-            }
+            if (layer == 0) {
+                // Keep the blue background static
+                batch.draw(backgrounds[layer], 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+            } else {
+                if (backgroundOffsets[layer] > WORLD_HEIGHT) {
+                    backgroundOffsets[layer] = 0;
+                }
 
-            batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], WORLD_WIDTH, WORLD_HEIGHT);
-            batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], WORLD_WIDTH, WORLD_HEIGHT);
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+            }
         }
     }
 

@@ -32,20 +32,16 @@ public class GameController {
         return this.elapsedTime;
     }
 
-    public long getStartTime() {
-        return this.startTime;
-    }
+    public long getStartTime() { return this.startTime; }
 
 
-    public void reinitializeStartTime() {
-        this.startTime = TimeUtils.millis();
-
-    }
+    public void reinitializeStartTime() { this.startTime = TimeUtils.millis(); }
 
     public void checkInvulnerabilityTime() {
         if (player.getInvulnerable()) {
             long elapsedTime = TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
-            if (elapsedTime >= 3) {
+            System.out.println("Invulnerability time " + elapsedTime);
+            if (elapsedTime >= 10) {
                 player.setInvulnerable(false);
             }
         }

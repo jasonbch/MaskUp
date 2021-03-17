@@ -4,10 +4,9 @@ import Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ListIterator;
 // Flicker the player for a couple of seconds
@@ -18,7 +17,6 @@ import java.util.ListIterator;
  */
 public class Player extends Entity {
     private int maxHealth = 3;
-    private Batch batch = new SpriteBatch();
     private boolean invulnerable;
 
     private long startInvulnerabilityTime;
@@ -26,9 +24,6 @@ public class Player extends Entity {
     // Implement Singleton
     private static Player uniqueInstance = null;
 
-    private Player() {
-        invulnerable = false;
-    }
 
     public static Player instance() {
         if (uniqueInstance == null) {
@@ -48,11 +43,32 @@ public class Player extends Entity {
     public void setInvulnerable(boolean invulnerableStatus) {
         this.invulnerable = invulnerableStatus;
         if (invulnerable) {
-            this.setxPosition(Gdx.graphics.getWidth() / 2);
-            this.setyPosition(10);
+            this.setxPosition((gameResources.getWorldWidth() / 2) - (getImageWidth()) + 30);
+            System.out.println("world width respawn " + getWorldWidth());
+            System.out.println("xPosition respawn " + getXPosition());
+            this.setyPosition(gameResources.getWorldHeight() / 6);
             this.startInvulnerabilityTime = TimeUtils.millis();
         }
     }
+
+    /**
+     * Constructor for player
+     */
+    private Player() {
+        super();
+        this.xPosition = (gameResources.getWorldWidth() / 2) - (getImageWidth());
+        System.out.println("world width first spawn " + getWorldWidth());
+        System.out.println("xPosition player first spawn " + getXPosition());
+        this.yPosition = gameResources.getWorldHeight() / 6;
+        setFormationPattern("UpwardLinearFormation");
+        this.name = "Player";
+        this.speed = 330;
+        this.bullet = "Syringe";
+        this.texture = new Texture("Player.png");
+        this.timeBetweenShot = 0.3f;
+        this.invulnerable = false;
+    }
+
 
     /**
      * Return the name.
@@ -159,6 +175,16 @@ public class Player extends Entity {
         }
     }
 
+    @Override
+    public boolean intersects(Rectangle otherRectangle) {
+        Rectangle rectangle = new Rectangle(
+                xPosition + (getImageWidth() / 4),
+                yPosition + (getImageHeight() / 4),
+                getImage().getWidth() / 2,
+                getImage().getHeight() / 2);
+        return rectangle.overlaps(otherRectangle);
+    }
+
     /**
      * Set the states of ammo, player
      * Set player health
@@ -168,20 +194,23 @@ public class Player extends Entity {
     @Override
     public boolean collide(ListIterator<Ammo> enemyAmmoList) {
         ListIterator<Ammo> iter = enemyAmmoList;
-
         boolean retval = false;
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            boolean didIntersect = intersects(ammo.getBoundingBox());
-            if (didIntersect) {
-                setInvulnerable(true);
-                boolean test = getInvulnerable();
-                ammo.setIsDone();
-                setHealth(ammo.getBulletDamage());
-                retval = true;
+
+            // Check if the two objects are near each other
+            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 200
+                    && (Math.abs(ammo.getYPosition() - getYPosition()) <= 200)) {
+
+                // Check for intersect
+                if (intersects(ammo.getBoundingBox())) {
+                    setInvulnerable(true);
+                    ammo.setIsDone();
+                    setHealth(ammo.getBulletDamage());
+                    retval = true;
+                }
             }
         }
-
         return retval;
     }
 }

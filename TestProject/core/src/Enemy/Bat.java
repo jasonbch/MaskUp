@@ -1,15 +1,13 @@
 package Enemy;
 
 import Entity.Enemy;
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
  * The Bat class that extends from Enemy that can move and fire.
  */
 public class Bat extends Enemy {
-    private final float speed = 250;
-    private final float timeBetweenShot = 0.5f;
-    private int moveCounter = 0;
     private int maxLifespan = 10;
     private int maxHealth = 1;
 
@@ -23,24 +21,32 @@ public class Bat extends Enemy {
     public Bat(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
         this.name = "Bat";
+        this.speed = 300;
         this.bullet = "CovidGerm";
-        this.texture = new Texture("Bat.png");
+        this.texture = GameResources.getAssetsManager().get("Bat.png", Texture.class);
+        this.timeBetweenShot = 0.6f;
         setFormationPattern("FanFormation");
-
     }
+
     /**
-     *
      * Return maxLifeSpan
      */
     @Override
-    public int getMaxLifeSpan(){ return this.maxLifespan; }
+    public int getMaxLifeSpan() {
+        return this.maxLifespan;
+    }
+
     @Override
-    public void setHealth(int bulletDamage) { this.maxHealth -= bulletDamage; }
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
 
     /**
      *
      */
     @Override
-    public int getHealth() { return this.maxHealth; }
+    public int getHealth() {
+        return this.maxHealth;
+    }
 
 }

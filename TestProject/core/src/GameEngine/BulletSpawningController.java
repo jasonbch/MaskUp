@@ -5,6 +5,7 @@ import Entity.*;
 import Factories.AmmoFactory;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -55,9 +56,7 @@ public class BulletSpawningController {
         return this.playerAmmoList;
     }
 
-    public void clearEnemyAmmoList(){
-        this.enemyAmmoList.clear();
-    }
+    public void clearEnemyAmmoList() { this.enemyAmmoList.clear(); }
 
     /**
      * Return a list of ammo that the entity fires.
@@ -102,21 +101,17 @@ public class BulletSpawningController {
         ListIterator<Ammo> iter;
         if (type == "Player") {
 
-          iter = getPlayerAmmoList().listIterator();
-        }
-        else {
+            iter = getPlayerAmmoList().listIterator();
+        } else {
             iter = getEnemyAmmoList().listIterator();
         }
-        while (iter.hasNext())
-        {
+        while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            if (ammo.isDone())
-            {
+            if (ammo.isDone()) {
                 iter.remove();
             }
         }
     }
-
 
 
     /**

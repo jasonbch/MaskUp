@@ -1,14 +1,13 @@
 package Enemy;
 
 import Entity.Enemy;
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
  * The MurderHornet class that extends from Enemy that can move and fire.
  */
 public class MurderHornet extends Enemy {
-    private final float timeBetweenShot = 0.45f;
-    private int moveCounter = 0;
     private int maxLifespan = 10;
     private int maxHealth = 1;
 
@@ -22,10 +21,11 @@ public class MurderHornet extends Enemy {
      */
     public MurderHornet(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
-        this.speed = 150;
         this.name = "MurderHornet";
+        this.speed = 150;
         this.bullet = "Stinger";
-        this.texture = new Texture("MurderHornet.png");
+        this.texture = GameResources.getAssetsManager().get("MurderHornet.png", Texture.class);
+        this.timeBetweenShot = 0.6f;
         setFormationPattern("FanFormation");
     }
 

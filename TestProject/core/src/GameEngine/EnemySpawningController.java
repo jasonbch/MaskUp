@@ -28,6 +28,7 @@ public class EnemySpawningController {
     // Timing for spawning enemies
 
     private static final GameController gameController = GameController.instance();
+    private static final ScoreController scoreController = ScoreController.instance();
 
     private long lastBatSpawnTime = 0;
     private long lastMurderHornetSpawnTime = 0;
@@ -175,10 +176,15 @@ public class EnemySpawningController {
             if (currEnemy.getYPosition() > WORLD_HEIGHT) {
                 iter2.remove();
             }
-
-            else if (currEnemy.IsDone() && currEnemy.getHealth() == 0)
+            else if (currEnemy.IsDone())
             {
+                scoreController.addScore(currEnemy);
+                System.out.println("The current score is: " + scoreController.getScore());
                 iter2.remove();
+            }
+            else if (currEnemy.getHealth() <= 0)
+            {
+                currEnemy.setIsDone();
             }
         }
     }
