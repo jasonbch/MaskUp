@@ -6,9 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -20,7 +18,7 @@ public class UIController {
     private final GameResources gameResources = GameResources.instance();
     private final GameController gameController = GameController.instance();
     private Batch batch;
-    private Batch healthBatch = new SpriteBatch();
+    //private Batch healthBatch = new SpriteBatch();
     private final AssetManager assetManager = GameResources.getAssetsManager();
     // Background
     private float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
@@ -114,19 +112,13 @@ public class UIController {
         batch.draw(object.getImage(), object.getXPosition(), object.getYPosition(), object.getImage().getWidth(), object.getImage().getHeight());
     }
 
-    private void dispose() {
-        healthBatch.end();
-    }
-
 
     public void updateAndRenderHUD() {
         int xoffset = 30;
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
-                Texture image = ((Player) player).getImage();
-                healthBatch.begin();
-                healthBatch.draw(image, xoffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
-                dispose();
+                Texture image = player.getImage();
+                batch.draw(image, xoffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
             }
         }
 

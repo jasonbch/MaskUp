@@ -4,21 +4,14 @@ import Ammo.Ammo;
 import Entity.Enemy;
 import Entity.Entity;
 import Entity.Player;
-
 import GameEngine.*;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -31,18 +24,10 @@ import java.util.ListIterator;
 public class GameScreen extends ApplicationAdapter implements Screen {
     // Screen
     private final Camera camera;
-
     private final Viewport viewport;
-
 
     // Graphic
     private final SpriteBatch batch;
-    private final SpriteBatch batch2;
-    private Texture[] backgrounds;
-
-    // Background variables
-    private final float[] backgroundOffsets = {0, 0, 0, 0};
-    private float maxScrollingSpeed;
 
     // World dimension
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
@@ -50,7 +35,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     // Game objects
     private final Entity player = Player.instance();
 
-    private CommandController collisionController;
+    // Commands
     private Command playerIsHitCommand;
     private Command enemyIsHitCommand;
 
@@ -63,6 +48,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final GameController gameController = GameController.instance();
     private final UIController UIController;
+    private CommandController collisionController;
 
     private final FPSLogger logger = new FPSLogger();
 
@@ -77,7 +63,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         playerIsHitCommand = new PlayerCommand(player);
         batch = new SpriteBatch();
         UIController = new UIController(batch);
-        batch2 = new SpriteBatch();
         UIController.playMusic();
     }
 
@@ -99,7 +84,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Begin the Batch
         batch.begin();
-        batch2.begin();
 
         // Update scrolling background
         UIController.drawBackground(deltaTime);
@@ -133,19 +117,11 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         UIController.drawWhiteDotInSlowMode();
 
         //hud rendering
-        //createHudScreen();
         UIController.updateAndRenderHUD();
 
         // End the batch
         batch.end();
-        batch2.end();
     }
-
-    private void creatHudScreen() {
-        batch2.draw(new Texture("Cloud4.png"), (float) (WORLD_HEIGHT / 2), (float) (WORLD_WIDTH / 2));
-    }
-
-
 
     /**
      * TODO: Update movement

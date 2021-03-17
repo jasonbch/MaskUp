@@ -1,8 +1,8 @@
 package GameEngine;
 
+import Entity.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import Entity.Player;
 import com.badlogic.gdx.utils.TimeUtils;
 
 
@@ -42,9 +42,6 @@ public class GameController {
 
     public boolean getIsSlowMode(){return this.isSlowMode;}
     public void setIsSlowMode(Boolean val){this.isSlowMode = val;}
-    public void reinitializeStartTime() {
-        this.startTime = TimeUtils.millis();
-
     public void reinitializeStartTime() { this.startTime = TimeUtils.millis(); }
 
     public void checkInvulnerabilityTime() {
