@@ -1,10 +1,8 @@
 package GameEngine;
 
-import Ammo.Ammo;
 import Entity.Enemy;
 import Enemy.*;
 import Entity.Player;
-import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ListIterator;
 
@@ -37,6 +35,9 @@ public class StageController {
 
     private static final GameController gameController = GameController.instance();
 
+    private static final Player player = Player.instance();
+
+
     /**
      * Return the instance of StageController.
      * Create the instance if the instance has not been initialized.
@@ -54,6 +55,7 @@ public class StageController {
     private StageController() {
     }
 
+    // figure out time munipulation
     public void makeStages() {
         // Set new elapsed time
         //long newStartTime = enemySpawningController.getStartTime();
@@ -74,10 +76,10 @@ public class StageController {
         enemySpawningController.spawnFinalBossWave(stageFourStart, stageFourEnd, "PatternThree");
 
         // Change pattern of Karen into PatternOne in the middle of stage 2
-        int midBossChangeMovementPatternTime = ((stageTwoEnd - stageTwoStart)/2 + stageTwoStart);
+        int midBossChangeMovementPatternTime = ((stageTwoEnd - stageTwoStart) / 2 + stageTwoStart);
         changeMovementPatternOfMidBoss(midBossChangeMovementPatternTime, "PatternOne");
 
-        int finalBossChangeMovementPatternTime = ((stageFourEnd - stageFourStart)/2 + stageFourStart);
+        int finalBossChangeMovementPatternTime = ((stageFourEnd - stageFourStart) / 2 + stageFourStart);
         changeMovementPatternOfFinalBoss(finalBossChangeMovementPatternTime, "PatternOne");
     }
 
@@ -110,8 +112,7 @@ public class StageController {
     }
 
 
-    private void changeBulletFormationOfEnemy(int time,String pattern, String type)
-    {
+    private void changeBulletFormationOfEnemy(int time, String pattern, String type) {
         if (gameController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
             while (iterator.hasNext()) {

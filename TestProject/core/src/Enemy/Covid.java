@@ -90,8 +90,7 @@ public class Covid extends Enemy {
      *
      */
     @Override
-    public int getHealth() {
-        return this.maxHealth;
-    }
+    public int getHealth() { return this.maxHealth; }
+
 
 }

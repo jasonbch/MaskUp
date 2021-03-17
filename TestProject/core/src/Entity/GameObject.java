@@ -4,7 +4,6 @@ import GameEngine.GameResources;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.physics.bullet.softbody.btSoftBody;
 
 /**
  * GameObject class that has the x and y position. It also has an image and can
@@ -139,16 +138,6 @@ public abstract class GameObject {
      * Return the Texture image.
      */
     public abstract Texture getImage();
-
-    /**
-     * Return the ammo that the entity fires.
-     *
-     * @param  batch  The current batch.
-     */
-    public void draw(Batch batch) {
-        Texture image = getImage();
-        batch.draw(image, xPosition, yPosition, image.getWidth(), image.getHeight());
-    }
 
     /**
      * Return the world width.

@@ -5,18 +5,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ListIterator;
+// Flicker the player for a couple of seconds
+// Possibly delete enemy bullets
 
 /**
  * The Player class that extends from Entity that can move and fire.
  */
 public class Player extends Entity {
     private int maxHealth = 3;
+    private boolean invulnerable;
+
+    private long startInvulnerabilityTime;
 
     // Implement Singleton
     private static Player uniqueInstance = null;
+
 
     public static Player instance() {
         if (uniqueInstance == null) {
@@ -25,12 +32,33 @@ public class Player extends Entity {
         return uniqueInstance;
     }
 
+    public boolean getInvulnerable() {
+        return this.invulnerable;
+    }
+
+    public long getStartInvulnerabilityTime() {
+        return this.startInvulnerabilityTime;
+    }
+
+    public void setInvulnerable(boolean invulnerableStatus) {
+        this.invulnerable = invulnerableStatus;
+        if (invulnerable) {
+            this.setxPosition((gameResources.getWorldWidth() / 2) - (getImageWidth()) + 30);
+            System.out.println("world width respawn " + getWorldWidth());
+            System.out.println("xPosition respawn " + getXPosition());
+            this.setyPosition(gameResources.getWorldHeight() / 6);
+            this.startInvulnerabilityTime = TimeUtils.millis();
+        }
+    }
+
     /**
      * Constructor for player
      */
     private Player() {
         super();
         this.xPosition = (gameResources.getWorldWidth() / 2) - (getImageWidth());
+        System.out.println("world width first spawn " + getWorldWidth());
+        System.out.println("xPosition player first spawn " + getXPosition());
         this.yPosition = gameResources.getWorldHeight() / 6;
         setFormationPattern("UpwardLinearFormation");
         this.name = "Player";
@@ -38,14 +66,9 @@ public class Player extends Entity {
         this.bullet = "Syringe";
         this.texture = new Texture("Player.png");
         this.timeBetweenShot = 0.3f;
+        this.invulnerable = false;
     }
 
-    /**
-     * Create a new instance of a Player at the xPos and yPos.
-     *
-     * @param  xPosition initial x position.
-     * @param  yPosition initial y position.
-     */
 
     /**
      * Return the name.
@@ -87,6 +110,10 @@ public class Player extends Entity {
         this.maxHealth -= bulletDamage;
     }
 
+    public void setInvulnerabilityStartTime(long time) {
+        this.startInvulnerabilityTime = time;
+
+    }
 
     /**
      * Return the time between shot.
@@ -165,9 +192,9 @@ public class Player extends Entity {
      * @param enemyAmmoList
      */
     @Override
-    public void collide(ListIterator<Ammo> enemyAmmoList) {
+    public boolean collide(ListIterator<Ammo> enemyAmmoList) {
         ListIterator<Ammo> iter = enemyAmmoList;
-
+        boolean retval = false;
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
 
@@ -177,11 +204,13 @@ public class Player extends Entity {
 
                 // Check for intersect
                 if (intersects(ammo.getBoundingBox())) {
-                    setIsDone();
+                    setInvulnerable(true);
                     ammo.setIsDone();
                     setHealth(ammo.getBulletDamage());
+                    retval = true;
                 }
             }
         }
+        return retval;
     }
 }

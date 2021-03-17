@@ -1,14 +1,12 @@
 package GameEngine;
 
 import Ammo.*;
-import Ammo.Ammo.*;
 import Entity.Entity;
 import Factories.AmmoFactory;
 
 import Factories.BulletFormationFactory;
 import com.badlogic.gdx.math.GridPoint2;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ShootController {
@@ -30,7 +28,6 @@ public class ShootController {
 
         return ammoList;
     }
-
 
 
 }
