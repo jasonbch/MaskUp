@@ -1,15 +1,17 @@
 package GameEngine;
 
+import EnemyMovementPattern.EnemyMovementPattern;
 import Entity.Enemy;
 import Factories.EnemyMovementFactory;
-import EnemyMovementPattern.EnemyMovementPattern;
+
+import java.util.ListIterator;
 
 /**
  * EnemyMovementController class that controls the moving of enemies.
  */
 public class EnemyMovementController {
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
-
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     // Implement Singleton
     private static EnemyMovementController uniqueInstance = null;
 
@@ -29,6 +31,15 @@ public class EnemyMovementController {
 
     private EnemyMovementController() {
     }
+
+    public void update(float deltaTime) {
+        ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
+        while (iter2.hasNext()) {
+            Enemy currEnemy = iter2.next();
+            this.move(currEnemy, deltaTime);
+        }
+    }
+
 
     public void move(Enemy enemy, float deltaTime) {
         EnemyMovementPattern enemyMovementPattern;
