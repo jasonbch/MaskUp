@@ -1,7 +1,5 @@
 package MaskGame;
 
-import Ammo.Ammo;
-import Entity.Enemy;
 import Entity.Entity;
 import Entity.Player;
 import GameEngine.*;
@@ -14,8 +12,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.ListIterator;
 
 /**
  * GameScreen class that implements from Screen that let the user play
@@ -107,8 +103,8 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Process enemies
         stageController.makeStages();               // Spawn game enemies
-        updateMovementAndDrawBullets(deltaTime);    // Draw and update all
-        updateMovementAndDrawEnemies(deltaTime);
+        bulletMovementController.update(deltaTime);
+        enemyMoveController.update(deltaTime);
         enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
         bulletSpawningController.deleteBullet("Player");
         bulletSpawningController.deleteBullet("Enemy");
@@ -121,49 +117,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // End the batch
         batch.end();
-    }
-
-    /**
-     * TODO: Update movement
-     * Draw and update bullets on the screen.
-     *
-     * @param deltaTime the delta time
-     */
-    private void updateMovementAndDrawBullets(float deltaTime) {
-        ListIterator<Ammo> iterator = bulletSpawningController.getPlayerAmmoList().listIterator();
-        while (iterator.hasNext()) {
-            Ammo ammo = iterator.next();
-            bulletMovementController.move(ammo, deltaTime);
-
-            if (ammo.getYPosition() > WORLD_HEIGHT) {
-                iterator.remove();
-            }
-        }
-
-        // Enemy bullets
-        ListIterator<Ammo> iter = bulletSpawningController.getEnemyAmmoList().listIterator();
-        while (iter.hasNext()) {
-            Ammo ammo = iter.next();
-            bulletMovementController.move(ammo, deltaTime);
-
-            if (ammo.getYPosition() < 0) {
-                iter.remove();
-            }
-        }
-    }
-
-    /**
-     * TODO: Get rid of spawnMove
-     * Draw and update enemies on the screen.
-     *
-     * @param deltaTime the delta time
-     */
-    private void updateMovementAndDrawEnemies(float deltaTime) {
-        ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
-        while (iter2.hasNext()) {
-            Enemy currEnemy = iter2.next();
-            enemyMoveController.move(currEnemy, deltaTime);
-        }
     }
 
     @Override
