@@ -17,11 +17,11 @@ public class EnemyMovementPatternThree extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        if (enemy.getXPosition() >= enemy.getWorldWidth() - enemy.getImageWidth() || enemy.getXPosition() <= 0) {
+        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()) {
             enemy.revertXMultiplier();
         }
 
-        if (enemy.getYPosition() >= enemy.getWorldHeight() - enemy.getImageHeight() || enemy.getYPosition() <= 0) {
+        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()) {
             enemy.revertYMultiplier();
         }
 

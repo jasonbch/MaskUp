@@ -16,7 +16,8 @@ public class EnemyMovementPatternTwo extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        if (enemy.getXPosition() >= enemy.getWorldWidth() - enemy.getImageWidth() || enemy.getXPosition() <= 0) {
+        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()) {
+            System.out.println("changing xMultiplier");
             enemy.revertXMultiplier();
         }
 
