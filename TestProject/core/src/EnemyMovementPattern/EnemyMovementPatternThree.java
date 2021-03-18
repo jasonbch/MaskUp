@@ -17,13 +17,23 @@ public class EnemyMovementPatternThree extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        if (enemy.isLeftOfScreen()){
+
+        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()) {
             enemy.revertXMultiplier();
-            enemy.setxPosition(enemy.getXPosition()+3);
+            enemy.setxPosition(enemy.getXPosition() + 3);
         }
-        if(enemy.isRightOfScreen()){
+        else if(enemy.isRightOfScreen()){
             enemy.revertXMultiplier();
-            enemy.setxPosition(enemy.getXPosition()-3);
+            enemy.setxPosition(enemy.getXPosition() - 3);
+        }
+
+        if (enemy.isAboveScreen()) {
+            enemy.revertYMultiplier();
+            enemy.setyPosition(enemy.getYPosition() - 3);
+        }
+        else if(enemy.isBelowScreen()) {
+            enemy.revertYMultiplier();
+            enemy.setyPosition(enemy.getYPosition() + 3);
         }
 
         enemy.setxPosition(enemy.getXPosition() + enemy.getSpeed() * enemy.getXMultiplier() * deltaTime);
