@@ -6,7 +6,7 @@ import Ammo.Ammo.PatternAttribute;
 import java.util.Arrays;
 import java.util.List;
 
-public class UpwardLinearFormation extends FormationPattern{
+public class UpwardLinearFormation extends Formation {
     @Override
     public String getName() {
         return "UpwardLinear";

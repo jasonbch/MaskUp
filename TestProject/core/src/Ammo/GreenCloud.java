@@ -6,13 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * GreenCloud class that extends Ammo.
  */
-public class GreenCloud extends Ammo{
-    private final String name = "GreenCloud";
-    private final String[] acceptableTargets = {"Player"};
-    private final float speed = 300;
-    private final Texture texture = GameResources.getAssetsManager().get("GreenCloud.png",Texture.class);
-    private int damage = 1;
-
+public class GreenCloud extends Ammo {
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
      *
@@ -22,44 +16,10 @@ public class GreenCloud extends Ammo{
      */
     public GreenCloud(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
+        this.name = "GreenCloud";
+        this.speed = 300;
+        this.acceptableTargets = new String[]{"Player"};
+        this.texture = GameResources.getAssetsManager().get("GreenCloud.png", Texture.class);
+        this.damage = 1;
     }
-
-    /**
-     * Return the name.
-     */
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Return the array of acceptable targets.
-     */
-    @Override
-    public String[] getAcceptableTargets() {
-        return this.acceptableTargets;
-    }
-
-    /**
-     * Return the speed.
-     */
-    @Override
-    public float getSpeed() {
-        return this.speed;
-    }
-
-    /**
-     * Return the Texture image.
-     */
-    @Override
-    public Texture getImage() {
-        return this.texture;
-    }
-
-    /**
-     *
-     * Return damage
-     */
-    @Override
-    public int getBulletDamage() { return this.damage; }
 }

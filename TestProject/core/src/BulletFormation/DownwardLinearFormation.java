@@ -7,7 +7,7 @@ import Entity.Entity;
 import java.util.Arrays;
 import java.util.List;
 
-public class DownwardLinearFormation extends FormationPattern{
+public class DownwardLinearFormation extends Formation {
     @Override
     public String getName() {
         return "DownwardLinear";

@@ -18,11 +18,12 @@ public class UIController {
     private final GameResources gameResources = GameResources.instance();
     private final GameController gameController = GameController.instance();
     private Batch batch;
+
     //private Batch healthBatch = new SpriteBatch();
     private final AssetManager assetManager = GameResources.getAssetsManager();
+
     // Background
     private float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
-    ;
     private Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class), assetManager.get("Clouds1.png", Texture.class),
             assetManager.get("Clouds2.png", Texture.class), assetManager.get("Cloud4.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
@@ -50,12 +51,11 @@ public class UIController {
         backgroundMusic.play();
     }
 
-
     public void drawGameObjects() {
-        drawEnemies();
-        drawPlayer();
         drawPlayerAmmo();
         drawEnemyAmmo();
+        drawEnemies();
+        drawPlayer();
     }
 
     /**
@@ -114,15 +114,13 @@ public class UIController {
 
 
     public void updateAndRenderHUD() {
-        int xoffset = 30;
+        int xOffset = 30;
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
                 Texture image = player.getImage();
-                batch.draw(image, xoffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
+                batch.draw(image, xOffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
             }
         }
 
     }
-
-
 }

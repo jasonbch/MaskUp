@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Entity.Enemy;
+import Enemy.Enemy;
 
 /**
  * The EnemyMovementPattern that move the enemy diagonally in the screen.
