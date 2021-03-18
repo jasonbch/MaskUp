@@ -43,9 +43,7 @@ public class Player extends Entity {
     public void setInvulnerable(boolean invulnerableStatus) {
         this.invulnerable = invulnerableStatus;
         if (invulnerable) {
-            this.setxPosition((gameResources.getWorldWidth() / 2) - (getImageWidth()) + 30);
-            System.out.println("world width respawn " + getWorldWidth());
-            System.out.println("xPosition respawn " + getXPosition());
+            this.setxPosition((gameResources.getScreenOneEnd())/2 - (getImageWidth()) + 30);
             this.setyPosition(gameResources.getWorldHeight() / 6);
             this.startInvulnerabilityTime = TimeUtils.millis();
         }
@@ -56,17 +54,15 @@ public class Player extends Entity {
      */
     private Player() {
         super();
-        this.xPosition = (gameResources.getWorldWidth() / 2) - (getImageWidth());
-        System.out.println("world width first spawn " + getWorldWidth());
-        System.out.println("xPosition player first spawn " + getXPosition());
+        this.xPosition = (gameResources.getScreenOneEnd())/2 - (getImageWidth());
         this.yPosition = gameResources.getWorldHeight() / 6;
-        setFormationPattern("UpwardLinearFormation");
         this.name = "Player";
         this.speed = 330;
         this.bullet = "Syringe";
         this.texture = new Texture("Player.png");
         this.timeBetweenShot = 0.3f;
         this.invulnerable = false;
+        setFormationPattern("UpwardLinearFormation");
     }
 
 
@@ -161,11 +157,11 @@ public class Player extends Entity {
             // Move left
             moveLeft(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && getXPosition() < getWorldWidth() - getImageWidth()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && getXPosition() < gameResources.getScreenOneEnd() - getImageWidth()) {
             // Move right
             moveRight(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && getYPosition() < getWorldHeight() - getImageHeight()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && getYPosition() < gameResources.getWorldHeight() - getImageHeight()) {
             // Move up
             moveUp(deltaTime);
         }

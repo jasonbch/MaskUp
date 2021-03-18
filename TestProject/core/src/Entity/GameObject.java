@@ -101,7 +101,7 @@ public abstract class GameObject {
      */
     public boolean isAboveScreen() {
         boolean retVal = false;
-        if (this.yPosition >= getWorldHeight() - getImageHeight()) {
+        if (this.yPosition >= gameResources.getWorldHeight() - getImageHeight()) {
             retVal = true;
         }
 
@@ -131,27 +131,14 @@ public abstract class GameObject {
      * @return returns if the game object is right of the screen.
      */
     public boolean isRightOfScreen() {
-        return this.xPosition >= getWorldWidth() - getImageWidth() - 20;
+
+        return this.xPosition+getImageWidth() >= gameResources.getScreenOneEnd();
     }
 
     /**
      * Return the Texture image.
      */
     public abstract Texture getImage();
-
-    /**
-     * Return the world width.
-     */
-    public int getWorldWidth() {
-        return Gdx.graphics.getWidth();
-    }
-
-    /**
-     * Return the world height.
-     */
-    public int getWorldHeight() {
-        return Gdx.graphics.getHeight();
-    }
 
     /**
      * Return the image width.

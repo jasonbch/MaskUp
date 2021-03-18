@@ -20,6 +20,8 @@ public class BulletSpawningController {
     private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
     private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
     private final ShootController shootController = new ShootController();
+    private final GameResources gameResources = GameResources.instance();
+
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
 
     // Implement Singleton
@@ -106,6 +108,11 @@ public class BulletSpawningController {
 
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
+            if(ammo.getXPosition()+ammo.getImageWidth() >= gameResources.getScreenOneEnd())
+            {
+                ammo.isDone();
+                iter.remove();
+            }
             if (ammo.isDone()) {
                 iter.remove();
             }

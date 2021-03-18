@@ -31,7 +31,7 @@ public class EnemyMovementPatternThree extends EnemyMovementPattern {
             enemy.revertYMultiplier();
             enemy.setyPosition(enemy.getYPosition() - 3);
         }
-        else if(enemy.isBelowScreen()){
+        else if(enemy.isBelowScreen()) {
             enemy.revertYMultiplier();
             enemy.setyPosition(enemy.getYPosition() + 3);
         }
