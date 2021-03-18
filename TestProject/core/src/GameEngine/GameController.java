@@ -1,12 +1,11 @@
 package GameEngine;
 
-import Entity.Player;
+import GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameController {
-
     private static Player player = Player.instance();
     private static GameController uniqueInstance = null;
 
@@ -15,18 +14,17 @@ public class GameController {
     private long startTime;
     private long elapsedTime = 0;
 
+    private GameController() {
+        this.startTime = TimeUtils.millis();
+        this.isSlowMode = false;
+        this.gameSpeed = 1;
+    }
 
     public static GameController instance() {
         if (uniqueInstance == null) {
             uniqueInstance = new GameController();
         }
         return uniqueInstance;
-    }
-
-    private GameController() {
-        this.startTime = TimeUtils.millis();
-        this.isSlowMode = false;
-        this.gameSpeed = 1;
     }
 
     public void updateElapsedTime() {
@@ -66,7 +64,7 @@ public class GameController {
      * Return the speed of the game. If the game is in slow speed, the
      * speed of the game is reduced by 60%.
      *
-     * @return  the speed of the game
+     * @return the speed of the game
      */
     public float getGameSpeed() {
         // If the L key is just press and it is not slow down mode

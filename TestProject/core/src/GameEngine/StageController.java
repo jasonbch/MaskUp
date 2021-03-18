@@ -1,8 +1,10 @@
 package GameEngine;
 
-import Enemy.Enemy;
-import Enemy.*;
-import Entity.Player;
+import GameEngine.Spawning.EnemySpawningController;
+import GameObject.Enemy.Covid;
+import GameObject.Enemy.Enemy;
+import GameObject.Enemy.Karen;
+import GameObject.Player;
 
 import java.util.ListIterator;
 
@@ -11,17 +13,18 @@ import java.util.ListIterator;
  * The class can create stages for a game.
  */
 public class StageController {
+    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private static final GameController gameController = GameController.instance();
+
     // Implement Singleton
     private static StageController uniqueInstance = null;
 
     // Stages duration
     private final int stageBuffer = 5;
-
     private final int stageOneDuration = 30;
     private final int stageTwoDuration = 45;
     private final int stageThreeDuration = 30;
     private final int stageFourDuration = 60;
-
     private final int stageOneStart = 10;
     private final int stageOneEnd = stageOneStart + stageOneDuration;
     private final int stageTwoStart = stageOneEnd + stageBuffer;
@@ -31,12 +34,8 @@ public class StageController {
     private final int stageFourStart = stageThreeEnd + stageBuffer;
     private final int stageFourEnd = stageFourStart + stageFourDuration;
 
-    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-
-    private static final GameController gameController = GameController.instance();
-
-    private static final Player player = Player.instance();
-
+    private StageController() {
+    }
 
     /**
      * Return the instance of StageController.
@@ -52,10 +51,7 @@ public class StageController {
         return uniqueInstance;
     }
 
-    private StageController() {
-    }
-
-    // figure out time munipulation
+    // figure out time manipulation
     public void makeStages() {
         // Set new elapsed time
         //long newStartTime = enemySpawningController.getStartTime();
@@ -123,5 +119,4 @@ public class StageController {
             }
         }
     }
-
 }

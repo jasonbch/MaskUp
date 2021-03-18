@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Enemy.Enemy;
+import GameObject.Enemy.Enemy;
 
 /**
  * The EnemyMovementPattern that move the enemy diagonally in the screen.
@@ -20,23 +20,21 @@ public class EnemyMovementPatternThree extends EnemyMovementPattern {
 
         if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()) {
             enemy.revertXMultiplier();
-            enemy.setxPosition(enemy.getXPosition() + 3);
-        }
-        else if(enemy.isRightOfScreen()){
+            enemy.setXPosition(enemy.getXPosition() + 3);
+        } else if (enemy.isRightOfScreen()) {
             enemy.revertXMultiplier();
-            enemy.setxPosition(enemy.getXPosition() - 3);
+            enemy.setXPosition(enemy.getXPosition() - 3);
         }
 
         if (enemy.isAboveScreen()) {
             enemy.revertYMultiplier();
-            enemy.setyPosition(enemy.getYPosition() - 3);
-        }
-        else if(enemy.isBelowScreen()) {
+            enemy.setYPosition(enemy.getYPosition() - 3);
+        } else if (enemy.isBelowScreen()) {
             enemy.revertYMultiplier();
-            enemy.setyPosition(enemy.getYPosition() + 3);
+            enemy.setYPosition(enemy.getYPosition() + 3);
         }
 
-        enemy.setxPosition(enemy.getXPosition() + enemy.getSpeed() * enemy.getXMultiplier() * deltaTime);
-        enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * enemy.getYMultiplier() * deltaTime);
+        enemy.setXPosition(enemy.getXPosition() + enemy.getSpeed() * enemy.getXMultiplier() * deltaTime);
+        enemy.setYPosition(enemy.getYPosition() + enemy.getSpeed() * enemy.getYMultiplier() * deltaTime);
     }
 }

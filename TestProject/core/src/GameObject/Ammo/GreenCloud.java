@@ -1,0 +1,25 @@
+package GameObject.Ammo;
+
+import GameEngine.GameResources;
+import com.badlogic.gdx.graphics.Texture;
+
+/**
+ * GreenCloud class that extends Entity.Ammo.
+ */
+public class GreenCloud extends Ammo {
+    /**
+     * Create a new instance of a Entity.Ammo at the xPos and yPos.
+     *
+     * @param xPosition        initial x position.
+     * @param yPosition        initial y position.
+     * @param patternAttribute
+     */
+    public GreenCloud(float xPosition, float yPosition, PatternAttribute patternAttribute) {
+        super(xPosition, yPosition, patternAttribute);
+        this.name = "GreenCloud";
+        this.speed = 400;
+        this.acceptableTargets = new String[]{"Player"};
+        this.texture = GameResources.getAssetsManager().get("GreenCloud.png", Texture.class);
+        this.damage = 1;
+    }
+}

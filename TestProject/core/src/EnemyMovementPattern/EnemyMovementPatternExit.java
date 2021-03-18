@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Enemy.Enemy;
+import GameObject.Enemy.Enemy;
 
 /**
  * The EnemyMovementPattern that move the enemy to the top of the screen.
@@ -13,14 +13,14 @@ public class EnemyMovementPatternExit extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        if (enemy.isLeftOfScreen()){
+        if (enemy.isLeftOfScreen()) {
             enemy.revertXMultiplier();
-            enemy.setxPosition(enemy.getXPosition()+3);
+            enemy.setXPosition(enemy.getXPosition() + 3);
         }
-        if(enemy.isRightOfScreen()){
+        if (enemy.isRightOfScreen()) {
             enemy.revertXMultiplier();
-            enemy.setxPosition(enemy.getXPosition()-3);
+            enemy.setXPosition(enemy.getXPosition() - 3);
         }
-        enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * deltaTime);
+        enemy.setYPosition(enemy.getYPosition() + enemy.getSpeed() * deltaTime);
     }
 }

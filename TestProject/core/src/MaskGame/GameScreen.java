@@ -1,8 +1,17 @@
 package MaskGame;
 
-import Entity.Entity;
-import Entity.Player;
-import GameEngine.*;
+import GameEngine.Collision.CommandController;
+import GameEngine.Collision.EnemyCollisionCommand;
+import GameEngine.Collision.PlayerCollisionCommand;
+import GameEngine.GameController;
+import GameEngine.Movement.BulletMovementController;
+import GameEngine.Movement.EnemyMovementController;
+import GameEngine.Spawning.BulletSpawningController;
+import GameEngine.Spawning.EnemySpawningController;
+import GameEngine.StageController;
+import GameEngine.UI.UIController;
+import GameObject.Entity;
+import GameObject.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -22,20 +31,14 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     // Screen
     private final Camera camera;
     private final Viewport viewport;
+    private final int VIEWPORT_WIDTH = 576;
+    private final int VIEWPORT_HEIGHT = 1024;
 
     // Graphic
     private final SpriteBatch batch;
 
-    // World dimension
-    private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
-
     // Game objects
     private final Entity player = Player.instance();
-
-    // Commands
-    private Command playerIsHitCommand;
-    private Command enemyIsHitCommand;
-
 
     // Game controllers
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
@@ -44,23 +47,20 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final StageController stageController = StageController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final GameController gameController = GameController.instance();
-    private final UIController UIController;
-    private CommandController collisionController;
-
+    private final GameEngine.UI.UIController UIController;
+    private final CommandController collisionController = new CommandController();
     private final FPSLogger logger = new FPSLogger();
-
-    private MaskGame game;
+    private final MaskGame game;
 
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
     public GameScreen(MaskGame mainGame) {
         this.game = mainGame;
+
         // Initialize camera and view
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(576, 1024, camera);
-        collisionController = new CommandController();
-        playerIsHitCommand = new PlayerCommand(player);
+        viewport = new StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
         batch = new SpriteBatch();
         UIController = new UIController(batch);
         UIController.playMusic();
@@ -78,55 +78,64 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Get the game speed
         deltaTime *= gameController.getGameSpeed();
 
-        //update gameController time
+        // Update game time
         gameController.updateElapsedTime();
 
-        // Begin the Batch
         batch.begin();
 
         // Update scrolling background
         UIController.drawBackground(deltaTime);
 
-        // Draw game objects
+        // Draw all game objects
         UIController.drawGameObjects();
 
-        player.updateTimeSinceLastShot(deltaTime);  // Update player
-        ((Player) player).movePlayer(deltaTime);    // Move player
+        // TODO Move this out
+        player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
-        enemyIsHitCommand = new EnemyCommand();
-
-        collisionController.addCommand(playerIsHitCommand);
-        collisionController.addCommand(enemyIsHitCommand);
+        // Collision commands
+        collisionController.addCommand(new PlayerCollisionCommand(player));
+        collisionController.addCommand(new EnemyCollisionCommand());
         collisionController.executeCommand();
 
         gameController.checkInvulnerabilityTime();
 
-        bulletSpawningController.playerFire(player);
-        bulletSpawningController.enemyFire(deltaTime);      // Fire enemy bullets if they can fire
+        // Spawn enemies
+        stageController.makeStages();
 
-        // Process enemies
-        stageController.makeStages();               // Spawn game enemies
+        // Spawn bullets from player and enemies
+        bulletSpawningController.playerFire(player);
+        bulletSpawningController.enemyFire(deltaTime);
+
+        // Move player
+        ((Player) player).movePlayer(deltaTime);
+
+        // Move enemies and bullets
         bulletMovementController.update(deltaTime);
         enemyMoveController.update(deltaTime);
-        enemySpawningController.deleteEnemies();    // Delete enemies if they need deleted
+
+        // Clear used enemies and bullets
+        enemySpawningController.deleteEnemies();
         bulletSpawningController.deleteBullet("Player");
         bulletSpawningController.deleteBullet("Enemy");
 
-        // Draw white dor in slow mode
+        // Draw white dot in slow mode
         UIController.drawWhiteDotInSlowMode();
 
-        //hud rendering
-        UIController.updateAndRenderHUD();
+        // Draw and update Health Bar
+        UIController.updateAndRenderHealthBar();
 
         // Pause Option
+        this.pauseGame();
+
+        batch.end();
+    }
+
+    private void pauseGame() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             pause();
             game.setScreen(new MainMenuScreen(game));
             System.out.println("Switch to Menu Screen");
         }
-
-        // End the batch
-        batch.end();
     }
 
     @Override
