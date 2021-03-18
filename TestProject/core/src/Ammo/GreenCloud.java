@@ -17,7 +17,7 @@ public class GreenCloud extends Ammo {
     public GreenCloud(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
         this.name = "GreenCloud";
-        this.speed = 300;
+        this.speed = 400;
         this.acceptableTargets = new String[]{"Player"};
         this.texture = GameResources.getAssetsManager().get("GreenCloud.png", Texture.class);
         this.damage = 1;

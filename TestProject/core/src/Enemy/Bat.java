@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
  * The Bat class that extends from Enemy that can move and fire.
  */
 public class Bat extends Enemy {
-    private int maxLifespan = 10;
-    private int maxHealth = 1;
 
     /**
      * Create a new instance of an Enemy at the xPos and yPos.
@@ -24,28 +22,8 @@ public class Bat extends Enemy {
         this.bullet = "CovidGerm";
         this.texture = GameResources.getAssetsManager().get("Bat.png", Texture.class);
         this.timeBetweenShot = 0.6f;
-        setFormationPattern("FanFormation");
+        setFormationPattern("TargetDownwardLinearFormation");
+        this.maxLifespan = 10;
+        this.maxHealth = 1;
     }
-
-    /**
-     * Return maxLifeSpan
-     */
-    @Override
-    public int getMaxLifeSpan() {
-        return this.maxLifespan;
-    }
-
-    @Override
-    public void setHealth(int bulletDamage) {
-        this.maxHealth -= bulletDamage;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public int getHealth() {
-        return this.maxHealth;
-    }
-
 }
