@@ -33,9 +33,6 @@ public class TargetDownwardLinearFormation extends Formation {
         double newX = near;
         double newY = opposite;
 
-        System.out.println(near);
-        System.out.println(opposite);
-
         // Set up ammo
         List<Ammo> ammoList;
 
