@@ -3,8 +3,9 @@ package MaskGame;
 import com.badlogic.gdx.Game;
 
 public class MaskGame extends Game {
-    MainMenuScreen mainMenuScreen;
-    MaskGame game;
+    private MainMenuScreen mainMenuScreen;
+    private MaskGame game;
+
     @Override
     public void render() {
         super.render();

@@ -6,10 +6,17 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 
 public class GameResources {
+    public static AssetManager assetsManager = new AssetManager();
     // Implement Singleton
     private static GameResources uniqueInstance = null;
 
-    public static AssetManager assetsManager = new AssetManager();
+    private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
+    private final int WORLD_WIDTH = Gdx.graphics.getWidth();
+
+    private GameResources() {
+        this.initializeAssets();
+        assetsManager.finishLoading();
+    }
 
     public static GameResources instance() {
         if (uniqueInstance == null) {
@@ -17,11 +24,6 @@ public class GameResources {
         }
 
         return uniqueInstance;
-    }
-
-    private GameResources() {
-        this.initializeAssets();
-        assetsManager.finishLoading();
     }
 
     public static AssetManager getAssetsManager() {
@@ -50,16 +52,27 @@ public class GameResources {
         assetsManager.load("Syringe.png", Texture.class);
     }
 
-    public int getScreenOneStart(){return 0;}
-    public int getScreenOneEnd(){return Gdx.graphics.getWidth()/2;}
+    public int getScreenOneStart() {
+        return 0;
+    }
 
-    public int getScreenTwoStart(){return Gdx.graphics.getWidth()/2;}
-    public int getScreenTwoEnd(){return Gdx.graphics.getWidth();}
+    public int getScreenOneEnd() {
+        return WORLD_WIDTH / 2;
+    }
+
+    public int getScreenTwoStart() {
+        return WORLD_WIDTH / 2;
+    }
+
+    public int getScreenTwoEnd() {
+        return WORLD_WIDTH;
+    }
 
     // if you change this make sure you update the width in desktop launcher as well
     public int getScreenOneWidth() {
         return 576;
     }
+
     public int getScreenTwoWidth() {
         return 576;
     }
@@ -68,6 +81,13 @@ public class GameResources {
      * Return the world height.
      */
     public int getWorldHeight() {
-        return Gdx.graphics.getHeight();
+        return WORLD_HEIGHT;
+    }
+
+    /**
+     * Return the world width.
+     */
+    public int getWorldWidth() {
+        return WORLD_WIDTH;
     }
 }

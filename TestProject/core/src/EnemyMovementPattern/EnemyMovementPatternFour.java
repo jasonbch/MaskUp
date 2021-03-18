@@ -1,6 +1,6 @@
 package EnemyMovementPattern;
 
-import Enemy.Enemy;
+import GameObject.Enemy.Enemy;
 
 /**
  * The EnemyMovementPattern that move the enemy up and down. If the enemy touch
@@ -18,13 +18,13 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
 
         if (enemy.isAboveScreen()) {
             enemy.revertYMultiplier();
-            enemy.setyPosition(enemy.getYPosition() - 3);
+            enemy.setYPosition(enemy.getYPosition() - 3);
         } else if (enemy.isBelowScreen()) {
             enemy.revertYMultiplier();
-            enemy.setyPosition(enemy.getYPosition() + 3);
+            enemy.setYPosition(enemy.getYPosition() + 3);
         }
 
-            enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * enemy.getYMultiplier() * deltaTime);
-        }
+        enemy.setYPosition(enemy.getYPosition() + enemy.getSpeed() * enemy.getYMultiplier() * deltaTime);
     }
+}
 
