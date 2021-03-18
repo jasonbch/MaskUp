@@ -56,8 +56,7 @@ public class GameController {
     public void checkInvulnerabilityTime() {
         if (player.getInvulnerable()) {
             long elapsedTime = TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
-            System.out.println("Invulnerability time " + elapsedTime);
-            if (elapsedTime >= 10) {
+            if (elapsedTime >= 5) {
                 player.setInvulnerable(false);
             }
         }

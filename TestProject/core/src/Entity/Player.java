@@ -199,11 +199,13 @@ public class Player extends Entity {
                     && (Math.abs(ammo.getYPosition() - getYPosition()) <= 200)) {
 
                 // Check for intersect
-                if (intersects(ammo.getBoundingBox())) {
-                    setInvulnerable(true);
-                    ammo.setIsDone();
-                    setHealth(ammo.getBulletDamage());
-                    retval = true;
+                if(!getInvulnerable()) {
+                    if (intersects(ammo.getBoundingBox())) {
+                        setInvulnerable(true);
+                        ammo.setIsDone();
+                        setHealth(ammo.getBulletDamage());
+                        retval = true;
+                    }
                 }
             }
         }
