@@ -1,8 +1,8 @@
 package Ammo;
 
 import Entity.GameObject;
+import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -10,24 +10,28 @@ import com.badlogic.gdx.math.Rectangle;
  * or the enemies.
  */
 public abstract class Ammo extends GameObject {
-    protected final String[] acceptableTargets = {};
-    private PatternAttribute patternAttribute;
-    private boolean isDone = false;
-
-    public PatternAttribute getPatternAttribute() {
-        return this.patternAttribute;
-    }
+    protected String name = "Ammo";
+    protected float speed = 0;
+    protected String[] acceptableTargets = {};
+    protected Texture texture = GameResources.getAssetsManager().get("Bullet.png", Texture.class);
+    protected int damage = 0;
+    protected PatternAttribute patternAttribute;
+    protected boolean isDone = false;
 
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
      *
-     * @param  xPosition initial x position.
-     * @param  yPosition initial y position.
+     * @param xPosition initial x position.
+     * @param yPosition initial y position.
      */
     public Ammo(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.patternAttribute = patternAttribute;
+    }
+
+    public PatternAttribute getPatternAttribute() {
+        return this.patternAttribute;
     }
 
     public boolean isDone() {
@@ -38,94 +42,66 @@ public abstract class Ammo extends GameObject {
         this.isDone = true;
     }
 
-    public abstract int getBulletDamage();
-
     /**
      * Return the name.
      */
-    public abstract String getName();
+    public String getName() {
+        return this.name;
+    }
 
     /**
      * Return the array of acceptable targets.
      */
-    public abstract String[] getAcceptableTargets();
+    public String[] getAcceptableTargets() {
+        return this.acceptableTargets;
+    }
 
     /**
      * Return the speed.
      */
-    public abstract float getSpeed();
+    public float getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Return the speed.
+     */
+    public float setSpeed(float speed) {
+        return this.speed = speed;
+    }
 
     /**
      * Return the Texture image.
      */
-    public abstract Texture getImage();
-
-    /**
-     * Return True if the given name is an acceptable target, otherwise False.
-     */
-    public Boolean isAcceptableTarget(String name) {
-        for (String target: getAcceptableTargets()) {
-            if (target.equals(name)) {
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public Texture getImage() {
+        return this.texture;
     }
 
     /**
-     * Return True if the bullet is enemy's bullet, otherwise False.
+     * Return damage
      */
-    public boolean isEnemyBullet() {
-        boolean returnValue = true;
-        String currentBullet = this.getName();
-
-        if (currentBullet == "Mask"
-                || currentBullet == "Syringe"
-                || currentBullet == "Bullet" ) {
-            returnValue = false;
-        }
-
-        return returnValue;
+    public int getBulletDamage() {
+        return this.damage;
     }
 
     /**
-     * Return True if the bullet is boss's bullet, otherwise False.
+     * Return ammo bounding box
      */
-    public boolean isBossBullet() {
-        boolean returnValue = false;
-        String currentBullet = this.getName();
-
-        if (currentBullet == "BabyCovid"
-                || currentBullet == "GreenCloud") {
-            returnValue = true;
-        }
-
-        return returnValue;
-    }
-
-    /**
-     *
-     * Return ammo boundingbox
-     */
-    public Rectangle getBoundingBox()
-    {
-        return new Rectangle(xPosition,yPosition, getImageWidth(), getImageHeight() - 10);
-    }
-
-    /**
-     * Draw the object.
-     *
-     * @param batch the current batch.
-     */
-    public void draw(Batch batch) {
-        Texture image = getImage();
-        batch.draw(getImage(), getXPosition(), getYPosition(), image.getWidth(), image.getHeight());
+    public Rectangle getBoundingBox() {
+        return new Rectangle(xPosition, yPosition, getImageWidth(), getImageHeight() - 10);
     }
 
     public static class PatternAttribute {
-        private String name;
-        private float x;
-        private float y;
+        private final String name;
+        private final float x;
+        private final float y;
+
+        public PatternAttribute(String name, float x, float y) {
+            this.name = name;
+            this.x = x;
+            this.y = y;
+        }
 
         public String getName() {
             return this.name;
@@ -137,12 +113,6 @@ public abstract class Ammo extends GameObject {
 
         public float getYMultiplier() {
             return this.y;
-        }
-
-        public PatternAttribute(String name, float x, float y) {
-            this.name = name;
-            this.x = x;
-            this.y = y;
         }
     }
 }

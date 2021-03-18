@@ -1,7 +1,7 @@
 package GameEngine;
 
 import EnemyMovementPattern.EnemyMovementPattern;
-import Entity.Enemy;
+import Enemy.Enemy;
 import Factories.EnemyMovementFactory;
 
 import java.util.ListIterator;

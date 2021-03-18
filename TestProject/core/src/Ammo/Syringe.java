@@ -6,13 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Syringe class that extends Ammo.
  */
-public class Syringe extends Ammo{
-    private final String name = "Syringe";
-    private final String[] acceptableTargets = {"Covid"};
-    private final float speed = 700;
-    private final Texture texture = GameResources.getAssetsManager().get("Syringe.png",Texture.class);
-    private int damage = 1;
-
+public class Syringe extends Ammo {
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
      *
@@ -22,44 +16,10 @@ public class Syringe extends Ammo{
      */
     public Syringe(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
+        this.name = "Syringe";
+        this.speed = 700;
+        this.acceptableTargets = new String[]{"Covid"};
+        this.texture = GameResources.getAssetsManager().get("Syringe.png", Texture.class);
+        this.damage = 1;
     }
-
-    /**
-     * Return the name.
-     */
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Return the array of acceptable targets.
-     */
-    @Override
-    public String[] getAcceptableTargets() {
-        return this.acceptableTargets;
-    }
-
-    /**
-     * Return the speed.
-     */
-    @Override
-    public float getSpeed() {
-        return this.speed;
-    }
-
-    /**
-     * Return the Texture image.
-     */
-    @Override
-    public Texture getImage() {
-        return this.texture;
-    }
-
-    /**
-     *
-     * Return damage
-     */
-    @Override
-    public int getBulletDamage() { return this.damage; }
 }

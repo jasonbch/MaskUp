@@ -1,6 +1,5 @@
 package Enemy;
 
-import Entity.Enemy;
 import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -27,7 +26,7 @@ public class Covid extends Enemy {
         this.bullet = "BabyCovid";
         this.texture = GameResources.getAssetsManager().get("BigCovid.png", Texture.class);
         this.timeBetweenShot = 0.6f;
-        setFormationPattern("FanFormation");
+        setFormationPattern("CircularFormation");
     }
 
     /**

@@ -1,6 +1,7 @@
 package GameEngine;
 
 import Ammo.Ammo;
+import Enemy.Enemy;
 import Entity.*;
 import Factories.AmmoFactory;
 import com.badlogic.gdx.Gdx;
@@ -19,8 +20,6 @@ public class BulletSpawningController {
     private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
     private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
     private final ShootController shootController = new ShootController();
-
-
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
 
     // Implement Singleton
@@ -100,11 +99,11 @@ public class BulletSpawningController {
     public void deleteBullet(String type) {
         ListIterator<Ammo> iter;
         if (type == "Player") {
-
             iter = getPlayerAmmoList().listIterator();
         } else {
             iter = getEnemyAmmoList().listIterator();
         }
+
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
             if (ammo.isDone()) {
@@ -112,7 +111,6 @@ public class BulletSpawningController {
             }
         }
     }
-
 
     /**
      * Fire the bullet from player if the space bar is pressed.

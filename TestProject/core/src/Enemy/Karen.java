@@ -1,6 +1,5 @@
 package Enemy;
 
-import Entity.Enemy;
 import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -25,7 +24,7 @@ public class Karen extends Enemy {
         this.bullet = "GreenCloud";
         this.texture = GameResources.getAssetsManager().get("Karen.png", Texture.class);
         this.timeBetweenShot = 0.6f;
-        setFormationPattern("FanFormation");
+        setFormationPattern("CircularFormation");
     }
 
 
