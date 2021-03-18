@@ -13,6 +13,14 @@ public class EnemyMovementPatternExit extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
+        if (enemy.isLeftOfScreen()){
+            enemy.revertXMultiplier();
+            enemy.setxPosition(enemy.getXPosition()+3);
+        }
+        if(enemy.isRightOfScreen()){
+            enemy.revertXMultiplier();
+            enemy.setxPosition(enemy.getXPosition()-3);
+        }
         enemy.setyPosition(enemy.getYPosition() + enemy.getSpeed() * deltaTime);
     }
 }

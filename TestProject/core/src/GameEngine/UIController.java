@@ -69,18 +69,21 @@ public class UIController {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
+        batch.draw(backgrounds[0], gameResources.getScreenTwoStart(), 0, gameResources.getScreenTwoWidth(), gameResources.getWorldHeight());
+
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (layer == 0) {
-                batch.draw(backgrounds[layer], 0, 0, gameResources.getWorldWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, 0, gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             } else {
                 if (backgroundOffsets[layer] > gameResources.getWorldHeight()) {
                     backgroundOffsets[layer] = 0;
                 }
-                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], gameResources.getWorldWidth(), gameResources.getWorldHeight());
-                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getWorldWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             }
         }
     }
+
 
     private void drawPlayerAmmo() {
         List<GameObject> objectList = (List<GameObject>) (List<?>) bulletSpawningController.getPlayerAmmoList();

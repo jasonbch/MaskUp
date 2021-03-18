@@ -50,11 +50,18 @@ public class GameResources {
         assetsManager.load("Syringe.png", Texture.class);
     }
 
-    /**
-     * Return the world width.
-     */
-    public int getWorldWidth() {
-        return Gdx.graphics.getWidth();
+    public int getScreenOneStart(){return 0;}
+    public int getScreenOneEnd(){return Gdx.graphics.getWidth()/2;}
+
+    public int getScreenTwoStart(){return Gdx.graphics.getWidth()/2;}
+    public int getScreenTwoEnd(){return Gdx.graphics.getWidth();}
+
+    // if you change this make sure you update the width in desktop launcher as well
+    public int getScreenOneWidth() {
+        return 576;
+    }
+    public int getScreenTwoWidth() {
+        return 576;
     }
 
     /**

@@ -16,8 +16,9 @@ import java.util.Random;
  */
 public class EnemySpawningController {
     // TODO: Refactor words dimension
-    private final int WORLD_WIDTH = Gdx.graphics.getWidth();
+    //private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
+
 
     // Implement Singleton
     private static EnemySpawningController uniqueInstance = null;
@@ -28,6 +29,7 @@ public class EnemySpawningController {
     // Timing for spawning enemies
 
     private static final GameController gameController = GameController.instance();
+    private static final GameResources gameResources = GameResources.instance();
     private static final ScoreController scoreController = ScoreController.instance();
 
     private long lastBatSpawnTime = 0;
@@ -127,7 +129,7 @@ public class EnemySpawningController {
     }
 
     private void spawnBat(String pattern) {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
+        int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 300) + 100;
         if (gameController.getElapsedTime() % spawnGruntInterval == 0 && gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastBatSpawnTime > 1) {
             spawnEnemies("Bat", xPosition, WORLD_HEIGHT, pattern);
             lastBatSpawnTime = gameController.getElapsedTime();
@@ -135,7 +137,7 @@ public class EnemySpawningController {
     }
 
     private void spawnMurderHornet(String pattern) {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 300) + 100;
+        int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 300) + 100;
         if (gameController.getElapsedTime() % spawnGruntInterval == 0 && gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastMurderHornetSpawnTime > 1) {
             spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT, pattern);
             lastMurderHornetSpawnTime = gameController.getElapsedTime();
@@ -146,7 +148,7 @@ public class EnemySpawningController {
      * Spawn the mid boss at the given position.
      */
     private void spawnMidBoss(String pattern) {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 50;
+        int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 50;
         System.out.println("Karen x position: " + xPosition);
         if (gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastMidBossTime > 1) {
             spawnEnemies("Karen", xPosition, WORLD_HEIGHT, pattern);
@@ -158,7 +160,7 @@ public class EnemySpawningController {
      * Spawn the final boss at the given position.
      */
     private void spawnFinalBoss(String pattern) {
-        int xPosition = rand.nextInt(WORLD_WIDTH - 200) + 100;
+        int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
         if (gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastFinalBossTime > 1) {
             spawnEnemies("Covid", xPosition, WORLD_HEIGHT, pattern);
             lastFinalBossTime = gameController.getElapsedTime();
