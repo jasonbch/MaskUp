@@ -6,13 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Mask class that extends Ammo.
  */
-public class Mask extends Ammo{
-    private final String name = "Mask";
-    private final String[] acceptableTargets = {"Karen"};
-    private final float speed = 300;
-    private final Texture texture = GameResources.getAssetsManager().get("Mask.png",Texture.class);
-    private int damage = 1;
-
+public class Mask extends Ammo {
     /**
      * Create a new instance of a Ammo at the xPos and yPos.
      *
@@ -22,44 +16,10 @@ public class Mask extends Ammo{
      */
     public Mask(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
+        this.name = "Mask";
+        this.speed = 300;
+        this.acceptableTargets = new String[]{"Karen"};
+        this.texture = GameResources.getAssetsManager().get("Mask.png", Texture.class);
+        this.damage = 1;
     }
-
-    /**
-     * Return the name.
-     */
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Return the array of acceptable targets.
-     */
-    @Override
-    public String[] getAcceptableTargets() {
-        return this.acceptableTargets;
-    }
-
-    /**
-     * Return the speed.
-     */
-    @Override
-    public float getSpeed() {
-        return this.speed;
-    }
-
-    /**
-     * Return the Texture image.
-     */
-    @Override
-    public Texture getImage() {
-        return this.texture;
-    }
-
-    /**
-     *
-     * Return damage
-     */
-    @Override
-    public int getBulletDamage() { return this.damage; }
 }

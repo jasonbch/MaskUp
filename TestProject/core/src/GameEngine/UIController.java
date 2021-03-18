@@ -22,7 +22,6 @@ public class UIController {
     private final AssetManager assetManager = GameResources.getAssetsManager();
     // Background
     private float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
-    ;
     private Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class), assetManager.get("Clouds1.png", Texture.class),
             assetManager.get("Clouds2.png", Texture.class), assetManager.get("Cloud4.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
@@ -49,7 +48,6 @@ public class UIController {
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
     }
-
 
     public void drawGameObjects() {
         drawEnemies();
@@ -83,7 +81,6 @@ public class UIController {
             }
         }
     }
-
 
     private void drawPlayerAmmo() {
         List<GameObject> objectList = (List<GameObject>) (List<?>) bulletSpawningController.getPlayerAmmoList();
@@ -126,6 +123,4 @@ public class UIController {
         }
 
     }
-
-
 }

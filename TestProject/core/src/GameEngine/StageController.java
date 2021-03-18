@@ -1,6 +1,6 @@
 package GameEngine;
 
-import Entity.Enemy;
+import Enemy.Enemy;
 import Enemy.*;
 import Entity.Player;
 

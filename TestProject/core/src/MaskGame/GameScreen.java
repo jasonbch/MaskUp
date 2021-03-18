@@ -5,6 +5,7 @@ import Entity.Player;
 import GameEngine.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -48,10 +49,13 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
     private final FPSLogger logger = new FPSLogger();
 
+    private MaskGame game;
+
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
-    public GameScreen() {
+    public GameScreen(MaskGame mainGame) {
+        this.game = mainGame;
         // Initialize camera and view
         camera = new OrthographicCamera();
         viewport = new StretchViewport(576, 1024, camera);
@@ -61,7 +65,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         UIController = new UIController(batch);
         UIController.playMusic();
     }
-
 
     /**
      * Render the screen
@@ -114,6 +117,13 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         //hud rendering
         UIController.updateAndRenderHUD();
+
+        // Pause Option
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            pause();
+            game.setScreen(new MainMenuScreen(game));
+            System.out.println("Switch to Menu Screen");
+        }
 
         // End the batch
         batch.end();

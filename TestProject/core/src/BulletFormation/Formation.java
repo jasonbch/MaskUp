@@ -6,7 +6,7 @@ import Factories.AmmoFactory;
 
 import java.util.List;
 
-public abstract class FormationPattern {
+public abstract class Formation {
     protected AmmoFactory ammoFactory = new AmmoFactory();
 
     /**

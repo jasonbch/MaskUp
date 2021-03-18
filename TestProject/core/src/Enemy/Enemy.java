@@ -1,6 +1,7 @@
-package Entity;
+package Enemy;
 
 import Ammo.Ammo;
+import Entity.Entity;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ListIterator;
@@ -9,12 +10,14 @@ import java.util.ListIterator;
  * The Enemy abstract class that extends from Entity that can move and fire.
  */
 public abstract class Enemy extends Entity {
-    private float xMultiplier = 1;
-    private float yMultiplier = 1;
-    private boolean isSpawned = false;
-    private long spawnTime = TimeUtils.millis();
-    private long timeAlive;
-    private String movingPattern;
+    protected float xMultiplier = 1;
+    protected float yMultiplier = 1;
+    protected boolean isSpawned = false;
+    protected long spawnTime = TimeUtils.millis();
+    protected long timeAlive;
+    protected String movingPattern;
+    protected int maxLifespan = 0;
+    protected int maxHealth = 1;
 
     public boolean isSpawned() {
         return isSpawned;
@@ -23,11 +26,6 @@ public abstract class Enemy extends Entity {
     public void setIsSpawned(boolean value) {
         this.isSpawned = value;
     }
-
-    /**
-     * Return maxLifeSpan
-     */
-    public abstract int getMaxLifeSpan();
 
     public float getXMultiplier() {
         return xMultiplier;
@@ -59,6 +57,18 @@ public abstract class Enemy extends Entity {
 
     public void setMovingPattern(String movingPattern) {
         this.movingPattern = movingPattern;
+    }
+
+    public int getMaxLifeSpan() {
+        return this.maxLifespan;
+    }
+
+    public void setHealth(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
+
+    public int getHealth() {
+        return this.maxHealth;
     }
 
     /**
