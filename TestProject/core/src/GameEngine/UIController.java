@@ -18,10 +18,8 @@ public class UIController {
     private final GameResources gameResources = GameResources.instance();
     private final GameController gameController = GameController.instance();
     private Batch batch;
-
     //private Batch healthBatch = new SpriteBatch();
     private final AssetManager assetManager = GameResources.getAssetsManager();
-
     // Background
     private float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
     private Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class), assetManager.get("Clouds1.png", Texture.class),
@@ -52,10 +50,10 @@ public class UIController {
     }
 
     public void drawGameObjects() {
-        drawPlayerAmmo();
-        drawEnemyAmmo();
         drawEnemies();
         drawPlayer();
+        drawPlayerAmmo();
+        drawEnemyAmmo();
     }
 
     /**
@@ -69,15 +67,17 @@ public class UIController {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
+        batch.draw(backgrounds[0], gameResources.getScreenTwoStart(), 0, gameResources.getScreenTwoWidth(), gameResources.getWorldHeight());
+
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (layer == 0) {
-                batch.draw(backgrounds[layer], 0, 0, gameResources.getWorldWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, 0, gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             } else {
                 if (backgroundOffsets[layer] > gameResources.getWorldHeight()) {
                     backgroundOffsets[layer] = 0;
                 }
-                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], gameResources.getWorldWidth(), gameResources.getWorldHeight());
-                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getWorldWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             }
         }
     }
@@ -114,11 +114,11 @@ public class UIController {
 
 
     public void updateAndRenderHUD() {
-        int xOffset = 30;
+        int xoffset = 30;
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
                 Texture image = player.getImage();
-                batch.draw(image, xOffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
+                batch.draw(image, xoffset * i, 1000, image.getWidth() / 2, image.getHeight() / 2);
             }
         }
 
