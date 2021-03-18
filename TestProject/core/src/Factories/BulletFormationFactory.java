@@ -13,6 +13,8 @@ public class BulletFormationFactory {
                 return new FanFormation();
             case "CircularFormation":
                 return new CircularFormation();
+            case "TargetDownwardLinearFormation":
+                return new TargetDownwardLinearFormation();
             default:
                 return null;
         }
