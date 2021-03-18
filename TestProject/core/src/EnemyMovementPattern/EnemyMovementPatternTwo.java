@@ -16,9 +16,13 @@ public class EnemyMovementPatternTwo extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()) {
-            System.out.println("changing xMultiplier");
+        if (enemy.isLeftOfScreen()) {
             enemy.revertXMultiplier();
+            enemy.setxPosition(enemy.getXPosition() + 3);
+        }
+        else if(enemy.isRightOfScreen()){
+            enemy.revertXMultiplier();
+            enemy.setxPosition(enemy.getXPosition() - 3);
         }
 
         enemy.setxPosition(enemy.getXPosition() + enemy.getSpeed() * enemy.getXMultiplier() * deltaTime);

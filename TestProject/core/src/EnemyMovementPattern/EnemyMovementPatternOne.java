@@ -19,9 +19,13 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
         float val = 600 + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
         enemy.setyPosition(val);
 
-        if (enemy.isLeftOfScreen() || enemy.isRightOfScreen()){
-            System.out.println("changing x multiplier");
+        if (enemy.isLeftOfScreen()){
             enemy.revertXMultiplier();
+            enemy.setxPosition(enemy.getXPosition() + 3);
+        }
+        else if(enemy.isRightOfScreen()){
+            enemy.revertXMultiplier();
+            enemy.setxPosition(enemy.getXPosition() - 3);
         }
 
         enemy.setxPosition(enemy.getXPosition() + (enemy.getXMultiplier() * enemy.getSpeed() * deltaTime));
