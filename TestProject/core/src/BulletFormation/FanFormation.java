@@ -7,11 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import Ammo.Ammo.PatternAttribute;
 
-public class FanFormation extends FormationPattern{
-
+public class FanFormation extends Formation {
     @Override
     public String getName() {
-        return "FanPattern";
+        return "FanFormation";
     }
 
     @Override

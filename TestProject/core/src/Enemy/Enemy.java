@@ -1,6 +1,7 @@
-package Entity;
+package Enemy;
 
 import Ammo.Ammo;
+import Entity.Entity;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ListIterator;

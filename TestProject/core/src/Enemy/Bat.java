@@ -1,6 +1,5 @@
 package Enemy;
 
-import Entity.Enemy;
 import GameEngine.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 
