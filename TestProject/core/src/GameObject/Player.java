@@ -36,7 +36,7 @@ public class Player extends Entity {
         this.texture = new Texture("Player.png");
         this.timeBetweenShot = 0.3f;
         this.invulnerable = false;
-        setFormationPattern("UpwardLinearFormation");
+        setFormationPattern("UpwardLinearBulletFormation");
     }
 
     public static Player instance() {
