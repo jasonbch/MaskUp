@@ -134,7 +134,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             pause();
             game.setScreen(new MainMenuScreen(game));
-            System.out.println("Switch to Menu Screen");
         }
     }
 

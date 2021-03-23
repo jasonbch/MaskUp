@@ -60,7 +60,6 @@ public class MainMenuScreen extends InputAdapter implements Screen {
             batch.draw(playButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
             dispose();
             game.setScreen(new GameScreen(game));
-            System.out.println("Switch to Game Screen");
         } else {
             batch.draw(playButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
         }
