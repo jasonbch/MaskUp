@@ -56,7 +56,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
 
         batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             batch.draw(playButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
             dispose();
             game.setScreen(new GameScreen(game));
