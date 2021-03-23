@@ -5,7 +5,9 @@ import EnemyMovementPattern.EnemyMovementPattern;
 import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Enemy;
 
+import java.util.HashMap;
 import java.util.ListIterator;
+import java.util.Random;
 
 /**
  * EnemyMovementController class that controls the moving of enemies.
@@ -15,6 +17,10 @@ public class EnemyMovementController {
     private static EnemyMovementController uniqueInstance = null;
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final Random rand = new Random();
+
+    // hash map for random spawning y values
+    private final HashMap<Enemy, Integer> enemyRandomYMap =  new HashMap<>();
 
     private EnemyMovementController() {
     }
@@ -37,10 +43,15 @@ public class EnemyMovementController {
         ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
+
+            // check if enemy is in the list
+            if(!enemyRandomYMap.containsKey(currEnemy))
+            {
+                addRandomY(currEnemy);
+            }
             this.move(currEnemy, deltaTime);
         }
     }
-
 
     public void move(Enemy enemy, float deltaTime) {
         EnemyMovementPattern enemyMovementPattern;
@@ -56,5 +67,16 @@ public class EnemyMovementController {
         }
 
         enemyMovementPattern.move(enemy, deltaTime);
+    }
+
+    public HashMap<Enemy, Integer> getEnemyRandomYMap(){
+        return this.enemyRandomYMap;
+    }
+
+    public void addRandomY(Enemy enemy){
+        // game height is 1024
+        // random y value between 300 & 800
+        int randomY = rand.nextInt(500) + 300;
+        enemyRandomYMap.put(enemy, randomY);
     }
 }

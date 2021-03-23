@@ -1,5 +1,6 @@
 package EnemyMovementPattern;
 
+import GameEngine.Movement.EnemyMovementController;
 import GameObject.Enemy.Enemy;
 
 /**
@@ -8,6 +9,9 @@ import GameObject.Enemy.Enemy;
  * enemy changes direction and continue moving.
  */
 public class EnemyMovementPatternOne extends EnemyMovementPattern {
+    private final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
+
+
     @Override
     public String getName() {
         return "PatternOne";
@@ -15,7 +19,7 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        float val = 600 + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
+        float val = enemyMovementController.getEnemyRandomYMap().get(enemy) + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
         enemy.setYPosition(val);
 
         if (enemy.isLeftOfScreen()) {
