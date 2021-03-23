@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,22 +12,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class MainMenuScreen extends InputAdapter implements Screen {
+public class GameVictoryScreen extends InputAdapter implements Screen {
     private final Camera camera;
     private final Viewport viewport;
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private MaskGame game;
     private Batch batch;
-    private Texture exitButtonActive;
-    private Texture exitButtonInActive;
-    private Texture playButtonActive;
-    private Texture playButtonInActive;
     private Texture background;
+    private Texture replayButton;
+    private Texture replayButtonPressed;
+    private Texture quitButton;
+    private Texture quitButtonPressed;
     private int buttonWidth = 241;
     private int buttonHeight = 41;
 
-    public MainMenuScreen(MaskGame game) {
+    public GameVictoryScreen(MaskGame game) {
         this.game = game;
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
@@ -37,43 +36,37 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     }
 
     private void initializeTextures() {
-        background = new Texture("Background.png");
-        playButtonActive = new Texture("PlayButtonPressed.png");
-        playButtonInActive = new Texture("PlayButton.png");
-        exitButtonActive = new Texture("ExitButtonPressed.png");
-        exitButtonInActive = new Texture("ExitButton.png");
+        background = new Texture("gameVictoryScreen.png");
+        replayButton = new Texture("PlayButtonPressed.png");
+        replayButtonPressed = new Texture("PlayButton.png");
+        quitButton = new Texture("ExitButtonPressed.png");
+        quitButtonPressed = new Texture("ExitButton.png");
     }
 
     @Override
     public void show() {
+
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-
-        batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            batch.draw(playButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
+            batch.draw(replayButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
             dispose();
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen(new MaskGame()));
         } else {
-            batch.draw(playButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
+            batch.draw(replayButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            batch.draw(exitButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
+            batch.draw(quitButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
             dispose();
             Gdx.app.exit();
         } else {
-            batch.draw(exitButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
+            batch.draw(quitButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
         }
-
         batch.end();
-
     }
 
     @Override
@@ -84,17 +77,21 @@ public class MainMenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void pause() {
+
     }
 
     @Override
     public void resume() {
+
     }
 
     @Override
     public void hide() {
+
     }
 
     @Override
     public void dispose() {
+        batch.dispose();
     }
 }
