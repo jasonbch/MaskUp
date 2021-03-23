@@ -133,17 +133,14 @@ public class UIController {
                 object.getImage().getWidth(),
                 object.getImage().getHeight());
     }
-
+    
     public void updateAndRenderHealthBar() {
-        int xOffset = 30;
+        int xoffset = 70;
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
-                Texture image = player.getImage();
-                batch.draw(image,
-                        xOffset * i,
-                        1000,
-                        (float) image.getWidth() / 2,
-                        (float) image.getHeight() / 2);
+                Texture image = assetManager.get("toiletPaper.png", Texture.class);
+                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart(), 950, image.getWidth() , image.getHeight());
+
             }
         }
 
