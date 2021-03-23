@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class GameOverScreen extends InputAdapter implements Screen {
+public class GameVictoryScreen extends InputAdapter implements Screen {
     private final Camera camera;
     private final Viewport viewport;
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
@@ -27,7 +27,7 @@ public class GameOverScreen extends InputAdapter implements Screen {
     private int buttonWidth = 241;
     private int buttonHeight = 41;
 
-    public GameOverScreen(MaskGame game) {
+    public GameVictoryScreen(MaskGame game) {
         this.game = game;
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
@@ -36,7 +36,7 @@ public class GameOverScreen extends InputAdapter implements Screen {
     }
 
     private void initializeTextures() {
-        background = new Texture("gameOverScreen.png");
+        background = new Texture("gameVictoryScreen.png");
         replayButton = new Texture("PlayButtonPressed.png");
         replayButtonPressed = new Texture("PlayButton.png");
         quitButton = new Texture("ExitButtonPressed.png");
