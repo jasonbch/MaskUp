@@ -1,5 +1,6 @@
 package GameEngine;
 
+import GameObject.Enemy.Enemy;
 import MaskGame.GameOverScreen;
 import MaskGame.GameVictoryScreen;
 import MaskGame.MaskGame;
@@ -9,12 +10,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameController {
-
-
     private static int End = 1;
     private static int Victory = 2;
 
+    private static boolean isLost;
+    private static boolean isWon;
+
     private static Player player = Player.instance();
+    private final TimeController timeController = TimeController.instance();
+    private final StageController stageController = StageController.instance();
     private static GameController uniqueInstance = null;
 
     private boolean isSlowMode;
@@ -32,16 +36,36 @@ public class GameController {
         return uniqueInstance;
     }
 
-
-    public void setState(int state, MaskGame game) {
-        if (state == End) {
-            game.setScreen((new GameOverScreen(game)));
-        }
-        else if (state == Victory) {
-            game.setScreen((new GameVictoryScreen(game)));
+    public void checkGameOver(MaskGame game) {
+        if (player.getHealth() == 0) {
+            setLosingState(game);
         }
     }
 
+    public void checkVictoryGame(MaskGame game) {
+        if (timeController.getElapsedTime() == stageController.getStageFourEnd()
+                || this.isFinalBossDead()) {
+            setWiningState(game);
+        }
+    }
+
+    public void setWiningState(MaskGame game) {
+        game.setScreen((new GameVictoryScreen(game)));
+    }
+
+    public boolean isFinalBossDead() {
+        Enemy covid = stageController.getCovid();
+
+        if (covid != null) {
+            return covid.IsDone();
+        }
+
+        return false;
+    }
+
+    public void setLosingState(MaskGame game) {
+        game.setScreen((new GameOverScreen(game)));
+    }
 
     public boolean getIsSlowMode() {
         return this.isSlowMode;
