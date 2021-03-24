@@ -1,13 +1,18 @@
 package MaskGame;
 
+import GameEngine.GameResources;
+import GameEngine.Score.ScoreController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -18,6 +23,7 @@ public class GameVictoryScreen extends InputAdapter implements Screen {
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private MaskGame game;
+    private BitmapFont font;
     private Batch batch;
     private Texture background;
     private Texture replayButton;
@@ -32,6 +38,7 @@ public class GameVictoryScreen extends InputAdapter implements Screen {
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
+        font = new BitmapFont();
         initializeTextures();
     }
 
@@ -51,13 +58,17 @@ public class GameVictoryScreen extends InputAdapter implements Screen {
     @Override
     public void render(float delta) {
         batch.begin();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+        batch.draw(background, 0,0,(WORLD_WIDTH), (WORLD_HEIGHT));
+        /*font.getData().setScale(3,3);
+        font.draw(batch, String.valueOf(scoreController.getScore()), (WORLD_WIDTH/ 2), (WORLD_HEIGHT / 2));
+        batch.draw(Score, (WORLD_WIDTH / 4), (WORLD_HEIGHT / 2));*/
+       /* if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             batch.draw(replayButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
             dispose();
             game.setScreen(new GameScreen(new MaskGame()));
         } else {
             batch.draw(replayButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
-        }
+        }*/
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             batch.draw(quitButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
