@@ -21,7 +21,7 @@ public class EnemyMovementController {
     private final Random rand = new Random();
 
     // hash map for random spawning y values & corner tracking for pattern 4
-    private final HashMap<Enemy, Integer> enemyRandomYMap =  new HashMap<>();
+    private final HashMap<Enemy, Integer> enemyRandomYMap = new HashMap<>();
     private final HashMap<Enemy, GridPoint2> enemyPositionMap = new HashMap<>();
 
     private EnemyMovementController() {
@@ -47,8 +47,7 @@ public class EnemyMovementController {
             Enemy currEnemy = iter2.next();
 
             // check if enemy is in the list
-            if(!enemyRandomYMap.containsKey(currEnemy))
-            {
+            if (!enemyRandomYMap.containsKey(currEnemy)) {
                 addRandomY(currEnemy);
             }
             this.move(currEnemy, deltaTime);
@@ -71,21 +70,21 @@ public class EnemyMovementController {
         enemyMovementPattern.move(enemy, deltaTime);
     }
 
-    public HashMap<Enemy, Integer> getEnemyRandomYMap(){
+    public HashMap<Enemy, Integer> getEnemyRandomYMap() {
         return this.enemyRandomYMap;
     }
 
-    public HashMap<Enemy, GridPoint2> getEnemyPositionMap(){
+    public HashMap<Enemy, GridPoint2> getEnemyPositionMap() {
         return this.enemyPositionMap;
     }
 
-    public void setNewEnemyPosition(Enemy enemy, int newX, int newY){
-        GridPoint2 newPoint =  new GridPoint2(newX, newY);
+    public void setNewEnemyPosition(Enemy enemy, int newX, int newY) {
+        GridPoint2 newPoint = new GridPoint2(newX, newY);
         enemyPositionMap.put(enemy, newPoint);
     }
 
 
-    public void addRandomY(Enemy enemy){
+    public void addRandomY(Enemy enemy) {
         // game height is 1024
         // random y value between 300 & 800
         int randomY = rand.nextInt(500) + 300;

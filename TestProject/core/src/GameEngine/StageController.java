@@ -1,7 +1,6 @@
 package GameEngine;
 
 import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.UI.UIController;
 import GameObject.Enemy.Covid;
 import GameObject.Enemy.Enemy;
 import GameObject.Enemy.Karen;
@@ -21,11 +20,11 @@ public class StageController {
 
     // Stages duration
     public final int stageBuffer = 5;
+    public final int stageOneStart = 10;
     private final int stageOneDuration = 30;
     private final int stageTwoDuration = 45;
     private final int stageThreeDuration = 30;
     private final int stageFourDuration = 60;
-    public final int stageOneStart = 10;
     private final int stageOneEnd = stageOneStart + stageOneDuration;
     public final int stageTwoStart = stageOneEnd + stageBuffer;
     private final int stageTwoEnd = stageTwoStart + stageTwoDuration;
