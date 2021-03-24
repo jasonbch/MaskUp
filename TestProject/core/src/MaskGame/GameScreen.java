@@ -30,6 +30,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class GameScreen extends ApplicationAdapter implements Screen {
     // Screen
     private final Camera camera;
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
     private final Viewport viewport;
     private final int VIEWPORT_WIDTH = 576;
     private final int VIEWPORT_HEIGHT = 1024;
@@ -113,6 +118,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Move player
         ((Player) player).movePlayer(deltaTime);
+        /*if (player.getHealth() == 0)
+        {
+            gameController.setState(End, game);
+        }*/
 
         // Move enemies and bullets
         bulletMovementController.update(deltaTime);

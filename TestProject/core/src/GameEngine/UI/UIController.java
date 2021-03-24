@@ -27,7 +27,8 @@ public class UIController {
     private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class),
             assetManager.get("Clouds1.png", Texture.class),
             assetManager.get("Clouds2.png", Texture.class),
-            assetManager.get("Cloud4.png", Texture.class)};
+            assetManager.get("Cloud4.png", Texture.class),
+            assetManager.get("GreenBackground.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
 
@@ -69,7 +70,7 @@ public class UIController {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
-        batch.draw(backgrounds[0],
+        batch.draw(backgrounds[4],
                 gameResources.getScreenTwoStart(),
                 0,
                 gameResources.getScreenTwoWidth(),
@@ -136,6 +137,8 @@ public class UIController {
     
     public void updateAndRenderHealthBar() {
         int xoffset = 70;
+        Texture LivesFont = assetManager.get("Lives.png", Texture.class);
+        batch.draw(LivesFont, gameResources.getScreenTwoStart()-20,gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
@@ -144,5 +147,12 @@ public class UIController {
             }
         }
 
+
+    public void updateScore() {
+        Texture PlayerScore = assetManager.get("Score.png", Texture.class);
+        batch.draw(PlayerScore, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 250, PlayerScore.getWidth(), PlayerScore.getHeight());
+        font.setColor(Color.WHITE);
+        font.getData().setScale(3,3);
+        font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + 180, gameResources.getWorldHeight()-140);
     }
 }
