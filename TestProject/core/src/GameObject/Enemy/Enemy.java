@@ -16,7 +16,7 @@ public abstract class Enemy extends Entity {
     protected long spawnTime = TimeUtils.millis();
     protected long timeAlive;
     protected String movingPattern;
-    protected int maxLifespan = 0;
+    protected int maxTimeAlive = 0;
     protected int maxHealth = 1;
 
     /**
@@ -71,7 +71,7 @@ public abstract class Enemy extends Entity {
     }
 
     public int getMaxLifeSpan() {
-        return this.maxLifespan;
+        return this.maxTimeAlive;
     }
 
     public int getHealth() {
