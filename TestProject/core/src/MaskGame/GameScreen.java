@@ -124,6 +124,9 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Draw and update Health Bar
         UIController.updateAndRenderHealthBar();
 
+        // Draw stage message
+        UIController.drawStageMessage();
+
         // Pause Option
         this.pauseGame();
 

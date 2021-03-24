@@ -4,8 +4,10 @@ import GameEngine.GameController;
 import GameEngine.GameResources;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
+import GameEngine.StageController;
 import GameObject.GameObject;
 import GameObject.Player;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,6 +32,17 @@ public class UIController {
             assetManager.get("Cloud4.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
+    Texture stage1 = new Texture("stage1.png");
+    Texture stage2 = new Texture("stage2.png");
+    Texture stage3 = new Texture("stage3.png");
+    Texture stage4 = new Texture("stage4.png");
+    // Stage Message
+    private int stageMessageWidth = 421;
+    private int stageMessageHeight = 122;
+    private int WORLD_WIDTH = Gdx.graphics.getWidth();
+    private int WORLD_HEIGHT = Gdx.graphics.getHeight();
+    private StageController stageController = StageController.instance();
+
 
     public UIController(Batch batch) {
         this.batch = batch;
@@ -133,16 +146,27 @@ public class UIController {
                 object.getImage().getWidth(),
                 object.getImage().getHeight());
     }
-    
+
     public void updateAndRenderHealthBar() {
         int xoffset = 70;
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
-                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart(), 950, image.getWidth() , image.getHeight());
-
+                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart(), 950, image.getWidth(), image.getHeight());
             }
         }
+    }
 
+    public void drawStageMessage() {
+        drawStageMessageTexture(stage1, stageController.stageOneStart - stageController.stageBuffer, stageController.stageBuffer);
+        drawStageMessageTexture(stage2, stageController.stageTwoStart - stageController.stageBuffer, stageController.stageBuffer);
+        drawStageMessageTexture(stage3, stageController.stageThreeStart - stageController.stageBuffer, stageController.stageBuffer);
+        drawStageMessageTexture(stage4, stageController.stageFourStart - stageController.stageBuffer, stageController.stageBuffer);
+    }
+
+    public void drawStageMessageTexture(Texture stage, long start, long duration) {
+        if (gameController.getElapsedTime() >= start && gameController.getElapsedTime() != 0 && gameController.getElapsedTime() < start + duration) {
+            batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight * 2, stageMessageWidth, stageMessageHeight);
+        }
     }
 }
