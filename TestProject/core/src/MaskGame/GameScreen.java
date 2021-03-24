@@ -1,440 +1,151 @@
 package MaskGame;
 
-import Ammo.Ammo;
-import Enemy.Enemy;
-import Enemy.EnemyFactory;
-import Entity.Entity;
-import Entity.Player;
-
-import GameEngine.ShootController;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Gdx;
-
+import GameEngine.Collision.CommandController;
+import GameEngine.Collision.EnemyCollisionCommand;
+import GameEngine.Collision.PlayerCollisionCommand;
+import GameEngine.GameController;
+import GameEngine.Movement.BulletMovementController;
+import GameEngine.Movement.EnemyMovementController;
+import GameEngine.Spawning.BulletSpawningController;
+import GameEngine.Spawning.EnemySpawningController;
+import GameEngine.StageController;
+import GameEngine.UI.UIController;
+import GameObject.Entity;
+import GameObject.Player;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.LinkedList;
-import java.util.ListIterator;
 
 /**
  * GameScreen class that implements from Screen that let the user play
  * the game.
  */
-public class GameScreen extends ApplicationAdapter implements Screen  {
+public class GameScreen extends ApplicationAdapter implements Screen {
     // Screen
-    private Camera camera;
-    private Viewport viewport;
+    private final Camera camera;
+    private final Viewport viewport;
+    private final int VIEWPORT_WIDTH = 576;
+    private final int VIEWPORT_HEIGHT = 1024;
 
     // Graphic
-    private SpriteBatch batch;
-    private Texture[] backgrounds;
 
-    private long recentSpawnTime = 0;
+    private final SpriteBatch batch;
 
-    // Timing Variables
-    private float[] backgroundOffsets = {0,0,0,0};
-    private float maxScrollingSpeed;
+    // Game objects
+    private final Entity player = Player.instance();
 
-    private int backgroundOffset;
-    private long elapsedTime;
-    private long startTime;
-    private long lastSpawnTime = 0;
-    private long lastMidBossTime = 0;
-    private long lastFinalBossTime = 0;
-
-    // World dimension
-    private final int WORLD_WIDTH = Gdx.graphics.getWidth();
-    private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
-    //private final int QUARTER_WORLD_HEIGHT = WORLD_HEIGHT/4;
-    //private final int HALF_WORLD_HEIGHT = WORLD_HEIGHT/2;
-    //private final int THREE_QUARTER__WORLD_HEIGHT = WORLD_HEIGHT*3/4;
-
-    // Game Objects
-    private Entity player;
-
-    private EnemyFactory enemyFactory = new EnemyFactory();
-    private ShootController shootController = new ShootController();
-    private LinkedList<Ammo> enemyAmmoList;
-    private LinkedList<Ammo> playerAmmoList;
-
-    private LinkedList<Enemy> enemyList;
-    // Slow mode variables
-    private boolean isSlowMode;
-    private float gameSpeed;    // Current game speed
-
-    // Music
-    private Music backgroundMusic;
+    // Game controllers
+    private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
+    private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final StageController stageController = StageController.instance();
+    private final BulletMovementController bulletMovementController = BulletMovementController.instance();
+    private final GameController gameController = GameController.instance();
+    private final GameEngine.UI.UIController UIController;
+    private final CommandController collisionController = new CommandController();
+    private final FPSLogger logger = new FPSLogger();
+    private final MaskGame game;
 
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
-    public GameScreen() {
+    public GameScreen(MaskGame mainGame) {
+        this.game = mainGame;
+
         // Initialize camera and view
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
-
-        // Initialize background objects
-        // backgroundOffset = 0;
-
-        backgrounds = new Texture[4];
-        backgrounds[0] = new Texture("BlueBackground.png");
-        backgrounds[1] = new Texture("Clouds1.png");
-        backgrounds[2] = new Texture("Clouds2.png");
-        backgrounds[3] = new Texture("Cloud4.png");
-        maxScrollingSpeed = (float) (WORLD_HEIGHT) / 4;
-
-        // Initialize player object
-        player = new Player(WORLD_WIDTH/2, WORLD_HEIGHT/4);
-
-
-
-        // Initialize slow mode
-        this.isSlowMode = false;
-        this.gameSpeed = 1; // Set current game speed to normal speed
-
-        // Initialize ammo and enemy lists
-        playerAmmoList = new LinkedList<>();
-        enemyAmmoList = new LinkedList<>();
-        enemyList = new LinkedList<>();
-
-        // Initialize start time
-        startTime = TimeUtils.millis();
-
+        viewport = new StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
         batch = new SpriteBatch();
-
-        // Music
-        //backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("BackgroundMusic.mp3"));
-        // start the playback of the background music immediately
-        //backgroundMusic.setLooping(true);
-        //backgroundMusic.play();
+        UIController = new UIController(batch);
+        UIController.playMusic();
     }
 
     /**
-     * Render the screen.
+     * Render the screen
      *
      * @param deltaTime the delta time
      */
     @Override
     public void render(float deltaTime) {
-        // Get the game speed
-        gameSpeed = getGameSpeed();
-        deltaTime *= gameSpeed;
+        logger.log();
 
-        // Begin the Batch
+        // Get the game speed
+        deltaTime *= gameController.getGameSpeed();
+
+        // Update game time
+        gameController.updateElapsedTime();
+
         batch.begin();
 
-        //scrolling background
-        renderBackground(deltaTime);
 
 
         // Update scrolling background
-        renderBackground(deltaTime);
-
-        // Process player
-        player.draw(batch);         // Draw player
-        player.updateTimeSinceLastShot(deltaTime);   // Update player
-        movePlayer(deltaTime);      // Move player
-        playerFire();               // Check player shooting input
-        //detectCollision();
-        // Process enemies
-        spawnEnemies();         // Spawn game enemies
-        enemyFire(deltaTime);   // Fire enemy bullets if they can fire
-        drawAndUpdateBulletsAndEnemies(deltaTime);  // Draw and update all bullets(enemy and player) and enemies
-        deleteEnemies();        // Delete enemies if they need deleted
+        UIController.drawBackground(deltaTime);
 
 
+        // Draw all game objects
+        UIController.drawGameObjects();
 
+        // TODO Move this out
+        player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
-        // TODO: extract bullet processing
+        // Collision commands
+        collisionController.addCommand(new PlayerCollisionCommand(player));
+        collisionController.addCommand(new EnemyCollisionCommand());
+        collisionController.executeCommand();
 
-        // Draw white dor in slow mode
-        drawWhiteDotInSlowMode();
+        gameController.checkInvulnerabilityTime();
 
-        // End the batch
-        batch.end();
-
-    }
-
-
-    /**
-     * Draw the white dot at the center of the player is the game
-     * is in slow mode.
-     */
-    public void drawWhiteDotInSlowMode() {
-        if (isSlowMode) {
-            batch.draw(new Texture("CircleHitBox.png"),
-                    player.getXPosition() + (player.getImageWidth() / 2) - (player.getImageWidth() / 4),
-                    player.getYPosition() + (player.getImageHeight() / 2) - (player.getImageWidth() / 4),
-                    player.getImageWidth() / 2,
-                    player.getImageWidth() / 2);
-        }
-    }
-
-    /**
-     * Return the speed of the game. If the game is in slow speed, the
-     * speed of the game is reduced by 60%.
-     *
-     * @return  the speed of the game
-     */
-    public float getGameSpeed() {
-        // If the L key is just press and it is not slow down mode
-        if (Gdx.input.isKeyJustPressed(Input.Keys.L)
-                && !isSlowMode) {
-            isSlowMode = true;  // Change the slow mode to true
-            gameSpeed = 0.4f;   // Change the game speed to slow speed
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.L)
-                && isSlowMode) {
-            // If the L key is just press and it is slow down mode
-            isSlowMode = false; // Change slow mode to false
-            gameSpeed = 1;      // Change the game speed to normal speed
-        }
-
-        return gameSpeed;
-    }
-
-    /**
-     * Fire the bullet from player if the space bar is pressed.
-     */
-    public void playerFire() {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            if (player.canFire()) {
-                Ammo ammo = shootController.fire(player, "Mask");
-                playerAmmoList.add(ammo);
-            }
-        }
-    }
-
-    /**
-     * TODO: Introduce interval variables.
-     * Spawn enemies, mid boss, and final boss on the screen in different intervals.
-     */
-    public void spawnEnemies() {
         // Spawn enemies
-        elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
+        stageController.makeStages();
 
-        if (elapsedTime % 5 == 0
-                && elapsedTime != 1
-                && elapsedTime != 0
-                && elapsedTime - lastSpawnTime > 3) {
-            //System.out.println("spawning enemies");
-            spawnEnemies("MurderHornet", WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-            spawnEnemies("Bat", WORLD_WIDTH/2 - 5, WORLD_HEIGHT*3/5);
-            lastSpawnTime = elapsedTime;
-        }
+        // Spawn bullets from player and enemies
+        bulletSpawningController.playerFire(player);
+        bulletSpawningController.enemyFire(deltaTime);
 
-        // Spawn mid boss
-        if (elapsedTime % 20 == 0
-                && elapsedTime != 1
-                && elapsedTime != 0
-                && elapsedTime - lastMidBossTime > 3) {
-           // System.out.println("spawning mid boss");
-            spawnMidBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-            lastMidBossTime = elapsedTime;
-        }
+        // Move player
+        ((Player) player).movePlayer(deltaTime);
 
-        // Spawn final boss
-        if (elapsedTime % 40 == 0
-                && elapsedTime != 1
-                && elapsedTime != 0
-                && elapsedTime - lastFinalBossTime > 3) {
-            //  System.out.println("spawning final boss");
-            spawnFinalBoss(WORLD_WIDTH/2, WORLD_HEIGHT*3/4);
-            lastFinalBossTime = elapsedTime;
+        // Move enemies and bullets
+        bulletMovementController.update(deltaTime);
+        enemyMoveController.update(deltaTime);
+
+        // Clear used enemies and bullets
+        enemySpawningController.deleteEnemies();
+        bulletSpawningController.deleteBullet("Player");
+        bulletSpawningController.deleteBullet("Enemy");
+
+        // Draw white dot in slow mode
+        UIController.drawWhiteDotInSlowMode();
+
+        // Draw and update Health Bar
+        UIController.updateAndRenderHealthBar();
+
+        // Pause Option
+        this.pauseGame();
+
+        batch.end();
+    }
+
+    private void pauseGame() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            pause();
+            game.setScreen(new MainMenuScreen(game));
         }
     }
 
-    /**
-     * Render the background.
-     *
-     * @param deltaTime the delta time
-     */
-    private void renderBackground(float deltaTime) {
-        backgroundOffsets[0] += deltaTime * maxScrollingSpeed / 8;
-        backgroundOffsets[1] += deltaTime * maxScrollingSpeed / 4;
-        backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
-        backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
-        for (int layer = 0; layer < backgroundOffsets.length; layer ++) {
-            if (backgroundOffsets[layer] > WORLD_HEIGHT) {
-                backgroundOffsets[layer] = 0;
-            }
-
-            batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], WORLD_WIDTH, WORLD_HEIGHT);
-            batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
-        }
-    }
-
-    /**
-     * Delete the enemies if they got out of the screen.
-     */
-    private void deleteEnemies() {
-        ListIterator<Enemy> iter2 = enemyList.listIterator();
-        while (iter2.hasNext()) {
-            Enemy currEnemy = iter2.next();
-
-            if (currEnemy.getYPosition() > WORLD_HEIGHT) {
-                iter2.remove();
-            }
-        }
-    }
-
-    /**
-     * Spawn a given enemy at the given position.
-     *
-     * @param enemy the enemy's name
-     * @param xPos  the x position
-     * @param yPos  the y position
-     */
-    private void spawnEnemies(String enemy, int xPos, int yPos) {
-        enemyList.add(enemyFactory.create(enemy, xPos, yPos));
-    }
-
-    /**
-     * Spawn the mid boss at the given position.
-     *
-     * @param xPos  the x position
-     * @param yPos  the y position
-     */
-    private void spawnMidBoss(int xPos, int yPos) {
-        spawnEnemies("Karen", xPos, yPos);
-    }
-
-    /**
-     * Spawn the final boss at the given position.
-     *
-     * @param xPos  the x position
-     * @param yPos  the y position
-     */
-    private void spawnFinalBoss(int xPos, int yPos) {
-        spawnEnemies("Covid", xPos, yPos);
-    }
-
-    /** TODO: Move update method for enemies out of firing bullet.
-     * Update the enemy position and fire their bullets if they can fire.
-     *
-     * @param deltaTime the delta time
-     */
-    private void enemyFire(float deltaTime) {
-        ListIterator<Enemy> iterator = enemyList.listIterator();
-        while (iterator.hasNext()) {
-            Enemy currEnemy = iterator.next();
-            currEnemy.updateTimeSinceLastShot(deltaTime);
-
-            if (currEnemy.canFire()) {
-                Ammo ammo = shootController.fire(currEnemy);
-                enemyAmmoList.add(ammo);
-            }
-        }
-    }
-
-    /**
-     * TODO: Move player bullet out of the method or
-     *  move the draw enemy out of the method.
-     *
-     * Draw and update enemies and all bullets on the screen.
-     *
-     * @param deltaTime the delta time
-     */
-    private void drawAndUpdateBulletsAndEnemies(float deltaTime) {
-        // Player bullets
-        ListIterator<Ammo> iterator = playerAmmoList.listIterator();
-        while (iterator.hasNext()) {
-            Ammo ammo = iterator.next();
-            ammo.draw(batch);
-            ammo.yPos += ammo.getSpeed()*deltaTime;
-
-            if (ammo.yPos > WORLD_HEIGHT) {
-                iterator.remove();
-            }
-        }
-
-        // Enemy bullets
-        ListIterator<Ammo> iter = enemyAmmoList.listIterator();
-        while (iter.hasNext()) {
-            Ammo ammo = iter.next();
-            ammo.draw(batch);
-            ammo.yPos -= ammo.getSpeed()*deltaTime;
-
-            if (ammo.yPos < 0) {
-                iter.remove();
-            }
-        }
-
-        // Draw Enemies
-        ListIterator<Enemy> iter2 = enemyList.listIterator();
-        while (iter2.hasNext()) {
-            Enemy currEnemy = iter2.next();
-            currEnemy.updateMovement(deltaTime);
-            currEnemy.draw(batch);
-        }
-    }
-
-    /**
-     * Restrict the player position inside the screen.
-     * Move the player accordingly to the key presses.
-     *
-     * @param deltaTime the delta time
-     */
-    public void movePlayer(float deltaTime) {
-        // Check player movement
-        // Restrict player movement in the screen
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getXPosition() > 0) {
-            // Move left
-            ((Player)player).moveLeft(deltaTime);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getXPosition() < WORLD_WIDTH - player.getImageWidth()) {
-            // Move right
-            ((Player)player).moveRight(deltaTime);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.getYPosition() < WORLD_HEIGHT - player.getImageHeight()) {
-            // Move up
-            ((Player)player).moveUp(deltaTime);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.getYPosition() > 0) {
-            // Move down
-            ((Player)player).moveDown(deltaTime);
-        }
-    }
-
-    /**
-     * Checks the collision between enemy ammo to player
-     * Checks the collision between player ammo to enemy
-     */
-    /*private void detectCollision() {
-        ListIterator<Ammo> iterator = enemyAmmoList.listIterator();
-        while (iterator.hasNext()) {
-            Ammo ammo = iterator.next();
-            if (player.intersects(ammo.getBoundingBox())) {
-                iterator.remove();
-            }
-        }
-
-        ListIterator<Enemy> iter2 = enemyList.listIterator();
-        iterator = playerAmmoList.listIterator();
-
-        while(iterator.hasNext() && iter2.hasNext())
-        {
-            Ammo ammo = iterator.next();
-            Enemy currenemy = iter2.next();
-            if(currenemy.intersects(ammo.getBoundingBox())) {
-                iterator.remove();
-            }
-        }
-    }*/
-    
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height, true);
-        batch.setProjectionMatrix(camera.combined);
+
     }
 
     @Override
