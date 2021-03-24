@@ -1,10 +1,10 @@
 package GameEngine;
 
 import GameEngine.Spawning.EnemySpawningController;
+import GameEngine.UI.UIController;
 import GameObject.Enemy.Covid;
 import GameObject.Enemy.Enemy;
 import GameObject.Enemy.Karen;
-import GameObject.Player;
 
 import java.util.ListIterator;
 
@@ -20,18 +20,18 @@ public class StageController {
     private static StageController uniqueInstance = null;
 
     // Stages duration
-    private final int stageBuffer = 5;
+    public final int stageBuffer = 5;
     private final int stageOneDuration = 30;
     private final int stageTwoDuration = 45;
     private final int stageThreeDuration = 30;
     private final int stageFourDuration = 60;
-    private final int stageOneStart = 10;
+    public final int stageOneStart = 10;
     private final int stageOneEnd = stageOneStart + stageOneDuration;
-    private final int stageTwoStart = stageOneEnd + stageBuffer;
+    public final int stageTwoStart = stageOneEnd + stageBuffer;
     private final int stageTwoEnd = stageTwoStart + stageTwoDuration;
-    private final int stageThreeStart = stageTwoEnd + stageBuffer;
+    public final int stageThreeStart = stageTwoEnd + stageBuffer;
     private final int stageThreeEnd = stageThreeStart + stageThreeDuration;
-    private final int stageFourStart = stageThreeEnd + stageBuffer;
+    public final int stageFourStart = stageThreeEnd + stageBuffer;
     private final int stageFourEnd = stageFourStart + stageFourDuration;
 
     private StageController() {
@@ -106,7 +106,6 @@ public class StageController {
             }
         }
     }
-
 
     private void changeBulletFormationOfEnemy(int time, String pattern, String type) {
         if (gameController.getElapsedTime() == time) {
