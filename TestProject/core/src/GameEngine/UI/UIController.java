@@ -44,15 +44,13 @@ public class UIController {
     Texture stage2 = new Texture("stage2.png");
     Texture stage3 = new Texture("stage3.png");
     Texture stage4 = new Texture("stage4.png");
+    BitmapFont font = new BitmapFont();
     // Stage Message
     private int stageMessageWidth = 421;
-    private int stageMessageHeight = 122;
+    private int stageMessageHeight = 132;
     private int WORLD_WIDTH = Gdx.graphics.getWidth();
     private int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private StageController stageController = StageController.instance();
-
-
-    BitmapFont font = new BitmapFont();
 
     public UIController(Batch batch) {
         this.batch = batch;
@@ -165,11 +163,9 @@ public class UIController {
             if (((Player) player).getHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
                 batch.draw(image, xoffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
-
             }
         }
     }
-
 
     public void updateScore() {
         Texture PlayerScore = assetManager.get("Score.png", Texture.class);
@@ -177,16 +173,17 @@ public class UIController {
         font.getData().setScale(3, 3);
         font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 145);
     }
+
     public void drawStageMessage() {
         drawStageMessageTexture(stage1, stageController.stageOneStart - stageController.stageBuffer, stageController.stageBuffer);
         drawStageMessageTexture(stage2, stageController.stageTwoStart - stageController.stageBuffer, stageController.stageBuffer);
-        drawStageMessageTexture(stage3, stageController.stageThreeStart - stageController.stageBuffer, stageController.stageBuffer);
+        drawStageMessageTexture(stage3, stageController.stageThreeStart, stageController.stageBuffer);
         drawStageMessageTexture(stage4, stageController.stageFourStart - stageController.stageBuffer, stageController.stageBuffer);
     }
 
     public void drawStageMessageTexture(Texture stage, long start, long duration) {
         if (timeController.getElapsedTime() >= start && timeController.getElapsedTime() != 0 && timeController.getElapsedTime() < start + duration) {
-            batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight * 2, stageMessageWidth, stageMessageHeight);
+            batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight - 50, stageMessageWidth, stageMessageHeight);
         }
     }
 }

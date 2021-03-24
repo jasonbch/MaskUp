@@ -19,12 +19,11 @@ public class EnemyMovementController {
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final Random rand = new Random();
-    
+
     // hash map for random spawning y values & position tracking for pattern 4
     private final HashMap<Enemy, Integer> enemyRandomYMap =  new HashMap<>();
 
     private final HashMap<Enemy, GridPoint2> enemyPositionMap = new HashMap<>();
-
 
     private EnemyMovementController() {
     }
