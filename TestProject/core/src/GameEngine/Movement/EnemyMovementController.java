@@ -5,7 +5,6 @@ import EnemyMovementPattern.EnemyMovementPattern;
 import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Enemy;
 import com.badlogic.gdx.math.GridPoint2;
-import com.sun.org.apache.xml.internal.utils.Hashtree2Node;
 
 import java.util.HashMap;
 import java.util.ListIterator;
