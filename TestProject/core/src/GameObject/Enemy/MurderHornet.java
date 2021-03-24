@@ -24,7 +24,7 @@ public class MurderHornet extends Enemy {
         this.bullet = "Stinger";
         this.texture = GameResources.getAssetsManager().get("MurderHornet.png", Texture.class);
         this.timeBetweenShot = 0.6f;
-        setFormationPattern("FanBulletFormation");
+        setFormationPattern("DownwardLinearBulletFormation");
     }
 
     /**
