@@ -2,6 +2,7 @@ package GameEngine.UI;
 
 import GameEngine.GameController;
 import GameEngine.GameResources;
+import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameObject.GameObject;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -22,15 +24,18 @@ public class UIController {
     private final GameController gameController = GameController.instance();
     private final Batch batch;
     private final AssetManager assetManager = GameResources.getAssetsManager();
+    private final ScoreController scoreController = ScoreController.instance();
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
     private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class),
             assetManager.get("Clouds1.png", Texture.class),
             assetManager.get("Clouds2.png", Texture.class),
             assetManager.get("Cloud4.png", Texture.class),
-            assetManager.get("GreenBackground.png", Texture.class)};
+            assetManager.get("PlayerHudBackground.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
+
+    BitmapFont font = new BitmapFont();
 
     public UIController(Batch batch) {
         this.batch = batch;
@@ -138,21 +143,21 @@ public class UIController {
     public void updateAndRenderHealthBar() {
         int xoffset = 70;
         Texture LivesFont = assetManager.get("Lives.png", Texture.class);
-        batch.draw(LivesFont, gameResources.getScreenTwoStart()-20,gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
+        batch.draw(LivesFont, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
-                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart(), 950, image.getWidth() , image.getHeight());
+                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
 
             }
         }
+    }
 
 
     public void updateScore() {
         Texture PlayerScore = assetManager.get("Score.png", Texture.class);
         batch.draw(PlayerScore, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 250, PlayerScore.getWidth(), PlayerScore.getHeight());
-        font.setColor(Color.WHITE);
         font.getData().setScale(3,3);
-        font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + 180, gameResources.getWorldHeight()-140);
+        font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 145);
     }
 }

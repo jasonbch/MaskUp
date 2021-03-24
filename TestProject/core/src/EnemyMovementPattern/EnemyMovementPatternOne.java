@@ -23,11 +23,9 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
         enemy.setYPosition(val);
 
         if (enemy.isLeftOfScreen()) {
-            System.out.print("changing xmultiplier");
             enemy.revertXMultiplier();
             enemy.setXPosition(enemy.getXPosition() + 3);
         } else if (enemy.isRightOfScreen()) {
-            System.out.println("changing xmultiplier");
             enemy.revertXMultiplier();
             enemy.setXPosition(enemy.getXPosition() - 3);
         }

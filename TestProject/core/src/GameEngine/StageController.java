@@ -37,6 +37,13 @@ public class StageController {
     private StageController() {
     }
 
+    public int getStageOneEnd() {
+        return stageOneEnd;
+    }
+    public int getStageFourEnd() {
+        return stageFourEnd;
+    }
+
     /**
      * Return the instance of StageController.
      * Create the instance if the instance has not been initialized.

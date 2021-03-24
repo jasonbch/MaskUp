@@ -28,19 +28,18 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * the game.
  */
 public class GameScreen extends ApplicationAdapter implements Screen {
+
+    int End = 1;
+    int Victory = 2;
+
     // Screen
     private final Camera camera;
-<<<<<<< Updated upstream
-=======
 
-
->>>>>>> Stashed changes
     private final Viewport viewport;
     private final int VIEWPORT_WIDTH = 576;
     private final int VIEWPORT_HEIGHT = 1024;
 
     // Graphic
-
     private final SpriteBatch batch;
 
     // Game objects
@@ -90,8 +89,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         batch.begin();
 
-
-
         // Update scrolling background
         UIController.drawBackground(deltaTime);
 
@@ -138,8 +135,16 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Draw and update Health Bar
         UIController.updateAndRenderHealthBar();
 
+        UIController.updateScore();
+
         // Pause Option
         this.pauseGame();
+
+        // Check if the game is over
+        this.gameOver();
+
+        // Check if the player won
+        this.victoryGame();
 
         batch.end();
     }
@@ -151,6 +156,17 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         }
     }
 
+    private void gameOver() {
+        if (player.getHealth() == 0) {
+            gameController.setState(End, game);
+        }
+    }
+
+    private void victoryGame() {
+        if (gameController.getElapsedTime() == stageController.getStageOneEnd()) {
+            gameController.setState(Victory, game);
+        }
+    }
 
     @Override
     public void resize(int width, int height) {

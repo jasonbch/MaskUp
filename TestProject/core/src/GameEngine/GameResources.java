@@ -53,7 +53,7 @@ public class GameResources {
         assetsManager.load("toiletPaper.png", Texture.class);
         assetsManager.load("Lives.png", Texture.class);
         assetsManager.load("Score.png", Texture.class);
-        assetsManager.load("GreenBackground.png", Texture.class);
+        assetsManager.load("PlayerHudBackground.png", Texture.class);
     }
 
     public int getScreenOneStart() {

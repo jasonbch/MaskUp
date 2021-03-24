@@ -144,7 +144,6 @@ public class EnemySpawningController {
      */
     private void spawnMidBoss(String pattern) {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 50;
-        System.out.println("Karen x position: " + xPosition);
         if (gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastMidBossTime > 1) {
             spawnEnemies("Karen", xPosition, WORLD_HEIGHT, pattern);
             lastMidBossTime = gameController.getElapsedTime();
@@ -174,7 +173,6 @@ public class EnemySpawningController {
                 iter2.remove();
             } else if (currEnemy.IsDone()) {
                 scoreController.addScore(currEnemy);
-                System.out.println("The current score is: " + scoreController.getScore());
                 iter2.remove();
             } else if (currEnemy.getHealth() <= 0) {
                 currEnemy.setIsDone();
