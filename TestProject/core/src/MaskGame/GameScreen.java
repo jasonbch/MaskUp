@@ -168,7 +168,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     }
 
     private void victoryGame() {
-        if (timeController.getElapsedTime() == stageController.getStageOneEnd()) {
+        if (timeController.getElapsedTime() == stageController.getStageFourEnd()) {
             gameController.setState(Victory, game);
         }
     }
