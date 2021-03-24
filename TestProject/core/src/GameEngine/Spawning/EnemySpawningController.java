@@ -1,6 +1,5 @@
 package GameEngine.Spawning;
 
-import GameEngine.GameController;
 import GameEngine.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.TimeController;
@@ -175,7 +174,6 @@ public class EnemySpawningController {
                 iter2.remove();
             } else if (currEnemy.IsDone()) {
                 scoreController.addScore(currEnemy);
-                System.out.println("The current score is: " + scoreController.getScore());
                 iter2.remove();
             } else if (currEnemy.getHealth() <= 0) {
                 currEnemy.setIsDone();

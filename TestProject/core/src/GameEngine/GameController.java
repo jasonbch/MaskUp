@@ -1,11 +1,19 @@
 package GameEngine;
 
+import MaskGame.GameOverScreen;
+import MaskGame.GameVictoryScreen;
+import MaskGame.MaskGame;
 import GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameController {
+
+
+    private static int End = 1;
+    private static int Victory = 2;
+
     private static Player player = Player.instance();
     private static GameController uniqueInstance = null;
 
@@ -23,6 +31,17 @@ public class GameController {
         }
         return uniqueInstance;
     }
+
+
+    public void setState(int state, MaskGame game) {
+        if (state == End) {
+            game.setScreen((new GameOverScreen(game)));
+        }
+        else if (state == Victory) {
+            game.setScreen((new GameVictoryScreen(game)));
+        }
+    }
+
 
     public boolean getIsSlowMode() {
         return this.isSlowMode;

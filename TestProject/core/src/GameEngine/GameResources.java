@@ -51,6 +51,9 @@ public class GameResources {
         assetsManager.load("Stinger.png", Texture.class);
         assetsManager.load("Syringe.png", Texture.class);
         assetsManager.load("toiletPaper.png", Texture.class);
+        assetsManager.load("Lives.png", Texture.class);
+        assetsManager.load("Score.png", Texture.class);
+        assetsManager.load("PlayerHudBackground.png", Texture.class);
     }
 
     public int getScreenOneStart() {
