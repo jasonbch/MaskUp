@@ -5,7 +5,6 @@ import EnemyMovementPattern.EnemyMovementPattern;
 import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Enemy;
 import com.badlogic.gdx.math.GridPoint2;
-import com.sun.org.apache.xml.internal.utils.Hashtree2Node;
 
 import java.util.HashMap;
 import java.util.ListIterator;
@@ -21,7 +20,7 @@ public class EnemyMovementController {
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final Random rand = new Random();
 
-    // hash map for random spawning y values & corner tracking for pattern 4
+    // hash map for random spawning y values & position tracking for pattern 4
     private final HashMap<Enemy, Integer> enemyRandomYMap =  new HashMap<>();
     private final HashMap<Enemy, GridPoint2> enemyPositionMap = new HashMap<>();
 

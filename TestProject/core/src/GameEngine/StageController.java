@@ -14,7 +14,7 @@ import java.util.ListIterator;
  */
 public class StageController {
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-    private static final GameController gameController = GameController.instance();
+    private static final TimeController timeController = TimeController.instance();
 
     // Implement Singleton
     private static StageController uniqueInstance = null;
@@ -80,7 +80,7 @@ public class StageController {
     }
 
     private void changeMovementPatternOfMidBoss(int time, String pattern) {
-        if (gameController.getElapsedTime() == time) {
+        if (timeController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
 
             while (iterator.hasNext()) {
@@ -94,7 +94,7 @@ public class StageController {
     }
 
     private void changeMovementPatternOfFinalBoss(int time, String pattern) {
-        if (gameController.getElapsedTime() == time) {
+        if (timeController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
 
             while (iterator.hasNext()) {
@@ -108,7 +108,7 @@ public class StageController {
     }
 
     private void changeBulletFormationOfEnemy(int time, String pattern, String type) {
-        if (gameController.getElapsedTime() == time) {
+        if (timeController.getElapsedTime() == time) {
             ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
             while (iterator.hasNext()) {
                 Enemy currentEnemy = iterator.next();

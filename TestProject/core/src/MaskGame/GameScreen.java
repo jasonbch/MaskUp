@@ -9,6 +9,7 @@ import GameEngine.Movement.EnemyMovementController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.StageController;
+import GameEngine.TimeController;
 import GameEngine.UI.UIController;
 import GameObject.Entity;
 import GameObject.Player;
@@ -47,6 +48,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final StageController stageController = StageController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final GameController gameController = GameController.instance();
+    private final TimeController timeController = TimeController.instance();
     private final GameEngine.UI.UIController UIController;
     private final CommandController collisionController = new CommandController();
     private final FPSLogger logger = new FPSLogger();
@@ -79,7 +81,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         deltaTime *= gameController.getGameSpeed();
 
         // Update game time
-        gameController.updateElapsedTime();
+        timeController.updateElapsedTime();
 
         batch.begin();
 

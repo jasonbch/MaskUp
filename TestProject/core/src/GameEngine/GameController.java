@@ -11,11 +11,8 @@ public class GameController {
 
     private boolean isSlowMode;
     private float gameSpeed;
-    private long startTime;
-    private long elapsedTime = 0;
 
     private GameController() {
-        this.startTime = TimeUtils.millis();
         this.isSlowMode = false;
         this.gameSpeed = 1;
     }
@@ -27,28 +24,12 @@ public class GameController {
         return uniqueInstance;
     }
 
-    public void updateElapsedTime() {
-        elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
-    }
-
-    public long getElapsedTime() {
-        return this.elapsedTime;
-    }
-
-    public long getStartTime() {
-        return this.startTime;
-    }
-
     public boolean getIsSlowMode() {
         return this.isSlowMode;
     }
 
     public void setIsSlowMode(Boolean val) {
         this.isSlowMode = val;
-    }
-
-    public void reinitializeStartTime() {
-        this.startTime = TimeUtils.millis();
     }
 
     public void checkInvulnerabilityTime() {
