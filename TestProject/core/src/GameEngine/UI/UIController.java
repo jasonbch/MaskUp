@@ -2,9 +2,11 @@ package GameEngine.UI;
 
 import GameEngine.GameController;
 import GameEngine.GameResources;
+import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.StageController;
+import GameEngine.TimeController;
 import GameObject.GameObject;
 import GameObject.Player;
 import com.badlogic.gdx.Gdx;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -21,15 +24,20 @@ public class UIController {
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final GameObject player = Player.instance();
     private final GameResources gameResources = GameResources.instance();
+    private final TimeController timeController = TimeController.instance();
     private final GameController gameController = GameController.instance();
+
+
     private final Batch batch;
     private final AssetManager assetManager = GameResources.getAssetsManager();
+    private final ScoreController scoreController = ScoreController.instance();
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
     private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class),
             assetManager.get("Clouds1.png", Texture.class),
             assetManager.get("Clouds2.png", Texture.class),
-            assetManager.get("Cloud4.png", Texture.class)};
+            assetManager.get("Cloud4.png", Texture.class),
+            assetManager.get("PlayerHudBackground.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
     Texture stage1 = new Texture("stage1.png");
@@ -43,6 +51,7 @@ public class UIController {
     private int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private StageController stageController = StageController.instance();
 
+    BitmapFont font = new BitmapFont();
 
     public UIController(Batch batch) {
         this.batch = batch;
@@ -82,7 +91,7 @@ public class UIController {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
-        batch.draw(backgrounds[0],
+        batch.draw(backgrounds[4],
                 gameResources.getScreenTwoStart(),
                 0,
                 gameResources.getScreenTwoWidth(),
@@ -149,12 +158,21 @@ public class UIController {
 
     public void updateAndRenderHealthBar() {
         int xoffset = 70;
+        Texture LivesFont = assetManager.get("Lives.png", Texture.class);
+        batch.draw(LivesFont, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
         for (int i = 0; i < ((Player) player).getHealth(); i++) {
             if (((Player) player).getHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
-                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart(), 950, image.getWidth(), image.getHeight());
+                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
             }
         }
+    }
+
+    public void updateScore() {
+        Texture PlayerScore = assetManager.get("Score.png", Texture.class);
+        batch.draw(PlayerScore, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 250, PlayerScore.getWidth(), PlayerScore.getHeight());
+        font.getData().setScale(3, 3);
+        font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 145);
     }
 
     public void drawStageMessage() {
@@ -165,7 +183,7 @@ public class UIController {
     }
 
     public void drawStageMessageTexture(Texture stage, long start, long duration) {
-        if (gameController.getElapsedTime() >= start && gameController.getElapsedTime() != 0 && gameController.getElapsedTime() < start + duration) {
+        if (timeController.getElapsedTime() >= start && timeController.getElapsedTime() != 0 && timeController.getElapsedTime() < start + duration) {
             batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight * 2, stageMessageWidth, stageMessageHeight);
         }
     }

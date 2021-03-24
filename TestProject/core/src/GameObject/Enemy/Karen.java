@@ -23,7 +23,7 @@ public class Karen extends Enemy {
         this.texture = GameResources.getAssetsManager().get("Karen.png", Texture.class);
         this.timeBetweenShot = 0.8f;
         setFormationPattern("CircularBulletFormation");
-        this.maxLifespan = 45;
+        this.maxTimeAlive = 45;
         this.maxHealth = 10;
     }
 }

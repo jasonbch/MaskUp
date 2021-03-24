@@ -9,6 +9,7 @@ import GameEngine.Movement.EnemyMovementController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.StageController;
+import GameEngine.TimeController;
 import GameEngine.UI.UIController;
 import GameObject.Entity;
 import GameObject.Player;
@@ -28,8 +29,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * the game.
  */
 public class GameScreen extends ApplicationAdapter implements Screen {
+
+    int End = 1;
+    int Victory = 2;
+
     // Screen
     private final Camera camera;
+
     private final Viewport viewport;
     private final int VIEWPORT_WIDTH = 576;
     private final int VIEWPORT_HEIGHT = 1024;
@@ -47,6 +53,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final StageController stageController = StageController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final GameController gameController = GameController.instance();
+    private final TimeController timeController = TimeController.instance();
     private final GameEngine.UI.UIController UIController;
     private final CommandController collisionController = new CommandController();
     private final FPSLogger logger = new FPSLogger();
@@ -60,6 +67,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Initialize camera and view
         camera = new OrthographicCamera();
+
         viewport = new StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
         batch = new SpriteBatch();
         UIController = new UIController(batch);
@@ -79,12 +87,13 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         deltaTime *= gameController.getGameSpeed();
 
         // Update game time
-        gameController.updateElapsedTime();
+        timeController.updateElapsedTime();
 
         batch.begin();
 
         // Update scrolling background
         UIController.drawBackground(deltaTime);
+
 
         // Draw all game objects
         UIController.drawGameObjects();
@@ -108,6 +117,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Move player
         ((Player) player).movePlayer(deltaTime);
+        /*if (player.getHealth() == 0)
+        {
+            gameController.setState(End, game);
+        }*/
 
         // Move enemies and bullets
         bulletMovementController.update(deltaTime);
@@ -123,12 +136,19 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Draw and update Health Bar
         UIController.updateAndRenderHealthBar();
-
+        UIController.updateScore();
+        
         // Draw stage message
         UIController.drawStageMessage();
 
         // Pause Option
         this.pauseGame();
+
+        // Check if the game is over
+        this.gameOver();
+
+        // Check if the player won
+        this.victoryGame();
 
         batch.end();
     }
@@ -137,6 +157,18 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             pause();
             game.setScreen(new MainMenuScreen(game));
+        }
+    }
+
+    private void gameOver() {
+        if (player.getHealth() == 0) {
+            gameController.setState(End, game);
+        }
+    }
+
+    private void victoryGame() {
+        if (timeController.getElapsedTime() == stageController.getStageFourEnd()) {
+            gameController.setState(Victory, game);
         }
     }
 

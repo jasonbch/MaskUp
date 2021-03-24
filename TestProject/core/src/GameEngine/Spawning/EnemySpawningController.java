@@ -1,8 +1,8 @@
 package GameEngine.Spawning;
 
-import GameEngine.GameController;
 import GameEngine.GameResources;
 import GameEngine.Score.ScoreController;
+import GameEngine.TimeController;
 import GameObject.Enemy.Enemy;
 import GameObject.Enemy.EnemyFactory;
 import com.badlogic.gdx.Gdx;
@@ -17,7 +17,7 @@ import java.util.Random;
  * also create different type of enemies.
  */
 public class EnemySpawningController {
-    private static final GameController gameController = GameController.instance();
+    private static final TimeController timeController = TimeController.instance();
     private static final GameResources gameResources = GameResources.instance();
     private static final ScoreController scoreController = ScoreController.instance();
     // Implement Singleton
@@ -70,7 +70,7 @@ public class EnemySpawningController {
      * @param endTime   the end time
      */
     public void spawnBatWave(long startTime, long endTime, String pattern) {
-        if (gameController.getElapsedTime() >= startTime && gameController.getElapsedTime() < endTime) {
+        if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
             spawnBat(pattern);
         }
     }
@@ -84,7 +84,7 @@ public class EnemySpawningController {
      * @param endTime   the end time
      */
     public void spawnMurderHornetWave(long startTime, long endTime, String pattern) {
-        if (gameController.getElapsedTime() >= startTime && gameController.getElapsedTime() < endTime) {
+        if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
             spawnMurderHornet(pattern);
         }
     }
@@ -98,7 +98,7 @@ public class EnemySpawningController {
      * @param endTime   the end time
      */
     public void spawnMidBossWave(long startTime, long endTime, String pattern) {
-        if (gameController.getElapsedTime() >= startTime && gameController.getElapsedTime() < endTime) {
+        if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
             if (!isJustSpawnMidBoss) {
                 spawnMidBoss(pattern);
                 isJustSpawnMidBoss = true;
@@ -115,7 +115,7 @@ public class EnemySpawningController {
      * @param endTime   the end time
      */
     public void spawnFinalBossWave(long startTime, long endTime, String pattern) {
-        if (gameController.getElapsedTime() >= startTime && gameController.getElapsedTime() < endTime) {
+        if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
             if (!isJustSpawnFinalBoss) {
                 spawnFinalBoss(pattern);
                 isJustSpawnFinalBoss = true;
@@ -125,17 +125,17 @@ public class EnemySpawningController {
 
     private void spawnBat(String pattern) {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 300) + 100;
-        if (gameController.getElapsedTime() % spawnGruntInterval == 0 && gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastBatSpawnTime > 1) {
+        if (timeController.getElapsedTime() % spawnGruntInterval == 0 && timeController.getElapsedTime() != 0 && timeController.getElapsedTime() - lastBatSpawnTime > 1) {
             spawnEnemies("Bat", xPosition, WORLD_HEIGHT, pattern);
-            lastBatSpawnTime = gameController.getElapsedTime();
+            lastBatSpawnTime = timeController.getElapsedTime();
         }
     }
 
     private void spawnMurderHornet(String pattern) {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 300) + 100;
-        if (gameController.getElapsedTime() % spawnGruntInterval == 0 && gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastMurderHornetSpawnTime > 1) {
+        if (timeController.getElapsedTime() % spawnGruntInterval == 0 && timeController.getElapsedTime() != 0 && timeController.getElapsedTime() - lastMurderHornetSpawnTime > 1) {
             spawnEnemies("MurderHornet", xPosition, WORLD_HEIGHT, pattern);
-            lastMurderHornetSpawnTime = gameController.getElapsedTime();
+            lastMurderHornetSpawnTime = timeController.getElapsedTime();
         }
     }
 
@@ -145,9 +145,9 @@ public class EnemySpawningController {
     private void spawnMidBoss(String pattern) {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 50;
         System.out.println("Karen x position: " + xPosition);
-        if (gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastMidBossTime > 1) {
+        if (timeController.getElapsedTime() != 0 && timeController.getElapsedTime() - lastMidBossTime > 1) {
             spawnEnemies("Karen", xPosition, WORLD_HEIGHT, pattern);
-            lastMidBossTime = gameController.getElapsedTime();
+            lastMidBossTime = timeController.getElapsedTime();
         }
     }
 
@@ -156,9 +156,9 @@ public class EnemySpawningController {
      */
     private void spawnFinalBoss(String pattern) {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
-        if (gameController.getElapsedTime() != 0 && gameController.getElapsedTime() - lastFinalBossTime > 1) {
+        if (timeController.getElapsedTime() != 0 && timeController.getElapsedTime() - lastFinalBossTime > 1) {
             spawnEnemies("Covid", xPosition, WORLD_HEIGHT, pattern);
-            lastFinalBossTime = gameController.getElapsedTime();
+            lastFinalBossTime = timeController.getElapsedTime();
         }
     }
 
@@ -174,7 +174,6 @@ public class EnemySpawningController {
                 iter2.remove();
             } else if (currEnemy.IsDone()) {
                 scoreController.addScore(currEnemy);
-                System.out.println("The current score is: " + scoreController.getScore());
                 iter2.remove();
             } else if (currEnemy.getHealth() <= 0) {
                 currEnemy.setIsDone();

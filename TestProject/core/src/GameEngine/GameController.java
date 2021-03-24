@@ -1,21 +1,26 @@
 package GameEngine;
 
+import MaskGame.GameOverScreen;
+import MaskGame.GameVictoryScreen;
+import MaskGame.MaskGame;
 import GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameController {
+
+
+    private static int End = 1;
+    private static int Victory = 2;
+
     private static Player player = Player.instance();
     private static GameController uniqueInstance = null;
 
     private boolean isSlowMode;
     private float gameSpeed;
-    private long startTime;
-    private long elapsedTime = 0;
 
     private GameController() {
-        this.startTime = TimeUtils.millis();
         this.isSlowMode = false;
         this.gameSpeed = 1;
     }
@@ -27,17 +32,16 @@ public class GameController {
         return uniqueInstance;
     }
 
-    public void updateElapsedTime() {
-        elapsedTime = TimeUtils.timeSinceMillis(startTime) / 1000;
+
+    public void setState(int state, MaskGame game) {
+        if (state == End) {
+            game.setScreen((new GameOverScreen(game)));
+        }
+        else if (state == Victory) {
+            game.setScreen((new GameVictoryScreen(game)));
+        }
     }
 
-    public long getElapsedTime() {
-        return this.elapsedTime;
-    }
-
-    public long getStartTime() {
-        return this.startTime;
-    }
 
     public boolean getIsSlowMode() {
         return this.isSlowMode;
@@ -45,10 +49,6 @@ public class GameController {
 
     public void setIsSlowMode(Boolean val) {
         this.isSlowMode = val;
-    }
-
-    public void reinitializeStartTime() {
-        this.startTime = TimeUtils.millis();
     }
 
     public void checkInvulnerabilityTime() {
