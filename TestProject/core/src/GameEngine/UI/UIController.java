@@ -38,7 +38,7 @@ public class UIController {
     Texture stage4 = new Texture("stage4.png");
     // Stage Message
     private int stageMessageWidth = 421;
-    private int stageMessageHeight = 122;
+    private int stageMessageHeight = 132;
     private int WORLD_WIDTH = Gdx.graphics.getWidth();
     private int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private StageController stageController = StageController.instance();
