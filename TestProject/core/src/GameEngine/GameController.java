@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameController {
+
     private static int End = 1;
     private static int Victory = 2;
 
