@@ -19,19 +19,19 @@ public class StageController {
     private static StageController uniqueInstance = null;
 
     // Stages duration
-    public final int stageBuffer = 5;
-    public final int stageOneStart = 10;
-    private final int stageOneDuration = 30;
-    private final int stageTwoDuration = 45;
-    private final int stageThreeDuration = 30;
-    private final int stageFourDuration = 60;
-    private final int stageOneEnd = stageOneStart + stageOneDuration;
-    public final int stageTwoStart = stageOneEnd + stageBuffer;
-    private final int stageTwoEnd = stageTwoStart + stageTwoDuration;
-    public final int stageThreeStart = stageTwoEnd + stageBuffer;
-    private final int stageThreeEnd = stageThreeStart + stageThreeDuration;
-    public final int stageFourStart = stageThreeEnd + stageBuffer;
-    private final int stageFourEnd = stageFourStart + stageFourDuration;
+    public int stageBuffer = 5;
+    public int stageOneStart = 10;
+    private int stageOneDuration = 30;
+    private int stageTwoDuration = 45;
+    private int stageThreeDuration = 30;
+    private int stageFourDuration = 60;
+    private int stageOneEnd = stageOneStart + stageOneDuration;
+    public int stageTwoStart = stageOneEnd + stageBuffer;
+    private int stageTwoEnd = stageTwoStart + stageTwoDuration;
+    public int stageThreeStart = stageTwoEnd + stageBuffer;
+    private int stageThreeEnd = stageThreeStart + stageThreeDuration;
+    public int stageFourStart = stageThreeEnd + stageBuffer;
+    private int stageFourEnd = stageFourStart + stageFourDuration;
 
     // Mid Boss
     private Enemy karen;
@@ -77,6 +77,7 @@ public class StageController {
         // Stage 2
         enemySpawningController.spawnMidBossWave(stageTwoStart, stageTwoEnd, "PatternTwo");
         this.karen = findEnemy("Karen");
+        this.fastForwardToStageThree();
 
         // Stage 3
         enemySpawningController.spawnBatWave(stageThreeStart, stageThreeEnd, "PatternOne");
@@ -124,16 +125,17 @@ public class StageController {
 
         createRound(karen, new Float[]{(float).2, (float).2, (float).2},
                 new String[]{"TargetDownwardLinearBulletFormation", "FanBulletFormation", "CircularBulletFormation"},
-                        new String[]{"PatternTwo", "PatternTwo", "PatternTwo"},
-                        "Karen", 5);
+                new String[]{"PatternTwo", "PatternTwo", "PatternTwo"},
+                "Karen", 5);
 
 
     }
 
     private void createRound(Enemy enemy, Float[] speeds, String[] bulletPatterns, String[] movePatterns, String type, int round){
-        int[] roundTimes;
-        if(type.equals("Karen")) {roundTimes = getMidBossRounds(round);}
-        else {roundTimes = getMidBossRounds(round);}
+        if (enemy != null) {
+            int[] roundTimes;
+            if(type.equals("Karen")) {roundTimes = getMidBossRounds(round);}
+            else {roundTimes = getMidBossRounds(round);}
 
             if(timeController.getElapsedTime() >= roundTimes[1] && timeController.getElapsedTime() <= roundTimes[2])
             {
@@ -157,6 +159,7 @@ public class StageController {
                 }
             }
         }
+    }
 
 
     private int[] getMidBossRounds(int round){
@@ -237,6 +240,18 @@ public class StageController {
                 if (currentEnemy.getName() == type) {
                     currentEnemy.setFormationPattern(pattern);
                 }
+            }
+        }
+    }
+
+    /**
+     * Fast forward the game to the start of stage three if the player
+     * kills the mid boss before the stage two end.
+     */
+    private void fastForwardToStageThree() {
+        if (this.karen != null) {
+            if (this.stageThreeStart > (int) timeController.getElapsedTime() && this.karen.IsDone()) {
+                this.stageThreeStart = (int) timeController.getElapsedTime();
             }
         }
     }
