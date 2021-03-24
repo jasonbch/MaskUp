@@ -55,9 +55,6 @@ public class TriangleTargetBulletFormation extends BulletFormation {
         double xDistance = newY * 30;
         double yDistance = newX * 30;
 
-        System.out.println(xDistance);
-        System.out.println(yDistance);
-
         Ammo ammo1 = ammoFactory.create(entity.getBullet(), (float) xShootPosition, yShootPosition - (float) (2 * yDistance), patternAttribute1);
         Ammo ammo2 = ammoFactory.create(entity.getBullet(), xShootPosition - (float) yDistance, yShootPosition, patternAttribute2);
         Ammo ammo3 = ammoFactory.create(entity.getBullet(), xShootPosition + (float) yDistance, yShootPosition, patternAttribute3);
