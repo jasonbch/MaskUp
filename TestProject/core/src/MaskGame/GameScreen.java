@@ -117,6 +117,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Move player
         ((Player) player).movePlayer(deltaTime);
+        /*if (player.getHealth() == 0)
+        {
+            gameController.setState(End, game);
+        }*/
 
         // Move enemies and bullets
         bulletMovementController.update(deltaTime);
@@ -132,6 +136,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Draw and update Health Bar
         UIController.updateAndRenderHealthBar();
+        UIController.updateScore();
 
         UIController.updateScore();
         // Draw stage message
