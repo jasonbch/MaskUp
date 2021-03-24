@@ -13,6 +13,8 @@ public class BulletFormationFactory {
                 return new CircularBulletFormation();
             case "TargetDownwardLinearBulletFormation":
                 return new TargetDownwardLinearBulletFormation();
+            case "TriangleTargetBulletFormation":
+                return new TriangleTargetBulletFormation();
             default:
                 return null;
         }
