@@ -13,6 +13,7 @@ import GameEngine.TimeController;
 import GameEngine.UI.UIController;
 import GameObject.Entity;
 import GameObject.Player;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -29,10 +30,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * the game.
  */
 public class GameScreen extends ApplicationAdapter implements Screen {
-
-    int End = 1;
-    int Victory = 2;
-
     // Screen
     private final Camera camera;
 
@@ -53,9 +50,12 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final StageController stageController = StageController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final GameController gameController = GameController.instance();
+
     private final TimeController timeController = TimeController.instance();
     private final GameEngine.UI.UIController UIController;
+
     private final CommandController collisionController = new CommandController();
+
     private final FPSLogger logger = new FPSLogger();
     private final MaskGame game;
 
@@ -147,10 +147,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         this.pauseGame();
 
         // Check if the game is over
-        this.gameOver();
+        gameController.checkGameOver(game);
 
         // Check if the player won
-        this.victoryGame();
+        gameController.checkVictoryGame(game);
 
         batch.end();
     }
@@ -159,18 +159,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             pause();
             game.setScreen(new MainMenuScreen(game));
-        }
-    }
-
-    private void gameOver() {
-        if (player.getHealth() == 0) {
-            gameController.setState(End, game);
-        }
-    }
-
-    private void victoryGame() {
-        if (timeController.getElapsedTime() == stageController.getStageFourEnd()) {
-            gameController.setState(Victory, game);
         }
     }
 

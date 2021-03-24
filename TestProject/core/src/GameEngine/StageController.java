@@ -40,7 +40,14 @@ public class StageController {
     private Enemy covid;
 
     private StageController() {
+    }
 
+    public Enemy getKaren() {
+        return this.karen;
+    }
+
+    public Enemy getCovid() {
+        return this.covid;
     }
 
     public int getStageOneEnd() {
