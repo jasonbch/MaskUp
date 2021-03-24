@@ -22,7 +22,7 @@ public class Bat extends Enemy {
         this.bullet = "CovidGerm";
         this.texture = GameResources.getAssetsManager().get("Bat.png", Texture.class);
         this.timeBetweenShot = 0.6f;
-        setFormationPattern("DownwardLinearBulletFormation");
+        setFormationPattern("TriangleTargetBulletFormation");
         this.maxLifespan = 10;
         this.maxHealth = 1;
     }
