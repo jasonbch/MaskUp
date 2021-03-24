@@ -91,7 +91,7 @@ public class StageController {
         enemySpawningController.spawnMurderHornetWave(stageThreeStart, stageThreeEnd, "PatternOne");
 
         // Stage 4
-        enemySpawningController.spawnFinalBossWave(stageFourStart, stageFourEnd, "PatternThree");
+        enemySpawningController.spawnFinalBossWave(stageFourStart, stageFourEnd, "PatternOne");
         this.covid = findEnemy("Covid");
 
         // Change pattern of Karen into PatternOne in the middle of stage 2

@@ -1,10 +1,12 @@
 package GameEngine;
 
+import GameEngine.Spawning.BulletSpawningController;
 import GameObject.Enemy.Enemy;
 import MaskGame.GameOverScreen;
 import MaskGame.GameVictoryScreen;
 import MaskGame.MaskGame;
 import GameObject.Player;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -20,6 +22,8 @@ public class GameController {
     private static Player player = Player.instance();
     private final TimeController timeController = TimeController.instance();
     private final StageController stageController = StageController.instance();
+    private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
+
     private static GameController uniqueInstance = null;
 
     private boolean isSlowMode;
@@ -37,6 +41,18 @@ public class GameController {
         return uniqueInstance;
     }
 
+    public void updateGame(float deltaTime) {
+        // Spawn bullets from player and enemies
+        if (!player.getInvulnerable()) {
+            bulletSpawningController.playerFire(player);
+            bulletSpawningController.enemyFire(deltaTime);
+        }
+
+        // Clear used enemies and bullets
+        bulletSpawningController.deleteBullet("Player");
+        bulletSpawningController.deleteBullet("Enemy");
+    }
+
     public void checkGameOver(MaskGame game) {
         if (player.getHealth() == 0) {
             setLosingState(game);
@@ -50,11 +66,11 @@ public class GameController {
         }
     }
 
-    public void setWiningState(MaskGame game) {
+    private void setWiningState(MaskGame game) {
         game.setScreen((new GameVictoryScreen(game)));
     }
 
-    public boolean isFinalBossDead() {
+    private boolean isFinalBossDead() {
         Enemy covid = stageController.getCovid();
 
         if (covid != null) {
@@ -64,7 +80,7 @@ public class GameController {
         return false;
     }
 
-    public void setLosingState(MaskGame game) {
+    private void setLosingState(MaskGame game) {
         game.setScreen((new GameOverScreen(game)));
     }
 
@@ -82,6 +98,12 @@ public class GameController {
             if (elapsedTime >= 5) {
                 player.setInvulnerable(false);
             }
+        }
+    }
+
+    public void preventBulletFromBeingShot() {
+        if (player.getInvulnerable()) {
+
         }
     }
 
