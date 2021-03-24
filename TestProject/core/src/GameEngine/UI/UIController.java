@@ -5,6 +5,7 @@ import GameEngine.GameResources;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.StageController;
+import GameEngine.TimeController;
 import GameObject.GameObject;
 import GameObject.Player;
 import com.badlogic.gdx.Gdx;
@@ -21,7 +22,10 @@ public class UIController {
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final GameObject player = Player.instance();
     private final GameResources gameResources = GameResources.instance();
+    private final TimeController timeController = TimeController.instance();
     private final GameController gameController = GameController.instance();
+
+
     private final Batch batch;
     private final AssetManager assetManager = GameResources.getAssetsManager();
     // Background
@@ -165,7 +169,7 @@ public class UIController {
     }
 
     public void drawStageMessageTexture(Texture stage, long start, long duration) {
-        if (gameController.getElapsedTime() >= start && gameController.getElapsedTime() != 0 && gameController.getElapsedTime() < start + duration) {
+        if (timeController.getElapsedTime() >= start && timeController.getElapsedTime() != 0 && timeController.getElapsedTime() < start + duration) {
             batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight * 2, stageMessageWidth, stageMessageHeight);
         }
     }

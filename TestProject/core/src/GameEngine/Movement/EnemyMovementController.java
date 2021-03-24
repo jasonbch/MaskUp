@@ -25,6 +25,7 @@ public class EnemyMovementController {
 
     private final HashMap<Enemy, GridPoint2> enemyPositionMap = new HashMap<>();
 
+
     private EnemyMovementController() {
     }
 

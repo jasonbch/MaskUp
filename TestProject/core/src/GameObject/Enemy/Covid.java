@@ -24,7 +24,7 @@ public class Covid extends Enemy {
         this.texture = GameResources.getAssetsManager().get("BigCovid.png", Texture.class);
         this.timeBetweenShot = 0.6f;
         setFormationPattern("TargetDownwardLinearBulletFormation");
-        this.maxLifespan = 60;
+        this.maxTimeAlive = 60;
         this.maxHealth = 20;
     }
 }
