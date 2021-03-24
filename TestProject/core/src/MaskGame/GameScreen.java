@@ -117,10 +117,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Move player
         ((Player) player).movePlayer(deltaTime);
-        /*if (player.getHealth() == 0)
-        {
-            gameController.setState(End, game);
-        }*/
 
         // Move enemies and bullets
         bulletMovementController.update(deltaTime);
