@@ -44,7 +44,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final Entity player = Player.instance();
 
     // Game controllers
-    private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final StageController stageController = StageController.instance();
@@ -94,12 +93,14 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Update scrolling background
         UIController.drawBackground(deltaTime);
 
-
         // Draw all game objects
         UIController.drawGameObjects();
 
         // TODO Move this out
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
+
+        // GameController
+        gameController.updateGame(deltaTime);
 
         // Collision commands
         collisionController.addCommand(new PlayerCollisionCommand(player));
@@ -111,12 +112,9 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Spawn enemies
         stageController.makeStages();
 
-        // Spawn bullets from player and enemies
-        bulletSpawningController.playerFire(player);
-        bulletSpawningController.enemyFire(deltaTime);
-
         // Move player
         ((Player) player).movePlayer(deltaTime);
+
         /*if (player.getHealth() == 0)
         {
             gameController.setState(End, game);
@@ -128,8 +126,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Clear used enemies and bullets
         enemySpawningController.deleteEnemies();
-        bulletSpawningController.deleteBullet("Player");
-        bulletSpawningController.deleteBullet("Enemy");
 
         // Draw white dot in slow mode
         UIController.drawWhiteDotInSlowMode();

@@ -22,7 +22,6 @@ public class Player extends Entity {
     private boolean invulnerable;
     private long startInvulnerabilityTime;
 
-
     /**
      * Constructor for player
      */
