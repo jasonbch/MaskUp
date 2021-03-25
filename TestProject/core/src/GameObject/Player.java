@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
-
+import java.util.Arrays;
 import java.util.ListIterator;
 // Flicker the player for a couple of seconds
 // Possibly delete enemy bullets
@@ -21,7 +21,9 @@ public class Player extends Entity {
     private int maxHealth = 3;
     private boolean invulnerable;
     private long startInvulnerabilityTime;
-
+    private int defaultKeySet[] = {Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.DOWN};
+    private int arrowKeySet[] = {Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.DOWN};
+    private int wasdKeySet[] = {Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S};
 
     /**
      * Constructor for player
@@ -151,21 +153,37 @@ public class Player extends Entity {
     public void movePlayer(float deltaTime) {
         // Check player movement
         // Restrict player movement in the screen
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && getXPosition() > 0) {
+        if (Gdx.input.isKeyPressed(defaultKeySet[0]) && getXPosition() > 0) {
             // Move left
             moveLeft(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && getXPosition() < gameResources.getScreenOneEnd() - getImageWidth()) {
+        if (Gdx.input.isKeyPressed(defaultKeySet[1]) && getXPosition() < gameResources.getScreenOneEnd() - getImageWidth()) {
             // Move right
             moveRight(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && getYPosition() < gameResources.getWorldHeight() - getImageHeight()) {
+        if (Gdx.input.isKeyPressed(defaultKeySet[2]) && getYPosition() < gameResources.getWorldHeight() - getImageHeight()) {
             // Move up
             moveUp(deltaTime);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && getYPosition() > 0) {
+        if (Gdx.input.isKeyPressed(defaultKeySet[3]) && getYPosition() > 0) {
             // Move down
             moveDown(deltaTime);
+        }
+    }
+
+    public void changeDefaultKeySet(){
+        if (isDefaultKeySet()){
+            this.defaultKeySet = wasdKeySet;
+        } else {
+            this.defaultKeySet = arrowKeySet;
+        }
+    }
+
+    public boolean isDefaultKeySet(){
+        if (this.defaultKeySet == arrowKeySet){
+            return true;
+        } else{
+            return false;
         }
     }
 
