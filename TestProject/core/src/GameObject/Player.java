@@ -31,7 +31,7 @@ public class Player extends Entity {
         this.yPosition = gameResources.getWorldHeight() / 6;
         this.name = "Player";
         this.speed = 330;
-        this.bullet = "Syringe";
+        this.bullet = "Bullet";
         this.texture = new Texture("Player.png");
         this.timeBetweenShot = 0.3f;
         this.invulnerable = false;
@@ -43,6 +43,12 @@ public class Player extends Entity {
             uniqueInstance = new Player();
         }
         return uniqueInstance;
+    }
+
+
+    public void setBullet(String name)
+    {
+        this.bullet = name;
     }
 
     public boolean getInvulnerable() {
@@ -207,6 +213,7 @@ public class Player extends Entity {
                 }
             }
         }
+
         return returnValue;
     }
 }

@@ -82,6 +82,8 @@ public class EnemyMovementController {
     public void setNewEnemyPosition(Enemy enemy, int newX, int newY) {
         GridPoint2 newPoint = new GridPoint2(newX, newY);
         enemyPositionMap.put(enemy, newPoint);
+        enemyRandomYMap.put(enemy, newY);
+        System.out.println(enemyRandomYMap.get(enemy));
     }
 
 

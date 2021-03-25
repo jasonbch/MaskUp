@@ -17,7 +17,7 @@ public class BabyCovid extends Ammo {
     public BabyCovid(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
         this.name = "BabyCovid";
-        this.speed = 300;
+        this.speed = 550;
         this.acceptableTargets = new String[]{"Player"};
         this.texture = GameResources.getAssetsManager().get("BabyCovid.png", Texture.class);
         this.damage = 1;
