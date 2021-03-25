@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+import java.awt.*;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -44,13 +45,16 @@ public class UIController {
     Texture stage2 = new Texture("stage2.png");
     Texture stage3 = new Texture("stage3.png");
     Texture stage4 = new Texture("stage4.png");
-    BitmapFont font = new BitmapFont();
+    BitmapFont font = new BitmapFont(Gdx.files.internal("arial.fnt"));
+
     // Stage Message
     private int stageMessageWidth = 421;
     private int stageMessageHeight = 132;
     private int WORLD_WIDTH = Gdx.graphics.getWidth();
     private int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private StageController stageController = StageController.instance();
+
+    //BitmapFont font = new BitmapFont();
 
     public UIController(Batch batch) {
         this.batch = batch;
@@ -170,8 +174,7 @@ public class UIController {
     public void updateScore() {
         Texture PlayerScore = assetManager.get("Score.png", Texture.class);
         batch.draw(PlayerScore, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 250, PlayerScore.getWidth(), PlayerScore.getHeight());
-        font.getData().setScale(3, 3);
-        font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 145);
+        font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 133);
     }
 
     public void drawStageMessage() {
