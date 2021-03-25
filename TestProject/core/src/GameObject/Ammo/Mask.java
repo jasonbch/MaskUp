@@ -17,7 +17,7 @@ public class Mask extends Ammo {
     public Mask(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
         this.name = "Mask";
-        this.speed = 300;
+        this.speed = 700;
         this.acceptableTargets = new String[]{"Karen"};
         this.texture = GameResources.getAssetsManager().get("Mask.png", Texture.class);
         this.damage = 1;
