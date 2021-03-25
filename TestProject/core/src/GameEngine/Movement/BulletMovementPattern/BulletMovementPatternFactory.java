@@ -1,4 +1,4 @@
-package BulletMovementPattern;
+package GameEngine.Movement.BulletMovementPattern;
 
 public class BulletMovementPatternFactory {
 

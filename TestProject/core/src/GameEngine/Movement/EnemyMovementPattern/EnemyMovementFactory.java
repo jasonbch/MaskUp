@@ -1,4 +1,4 @@
-package EnemyMovementPattern;
+package GameEngine.Movement.EnemyMovementPattern;
 
 public class EnemyMovementFactory {
     public EnemyMovementPattern create(String pattern) {

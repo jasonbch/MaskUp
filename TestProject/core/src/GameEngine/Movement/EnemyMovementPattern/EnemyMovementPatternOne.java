@@ -1,10 +1,10 @@
-package EnemyMovementPattern;
+package GameEngine.Movement.EnemyMovementPattern;
 
 import GameEngine.Movement.EnemyMovementController;
 import GameObject.Enemy.Enemy;
 
 /**
- * The EnemyMovementPattern that move the enemy left and right on the screen
+ * The GameEngine.Movement.EnemyMovementPattern that move the enemy left and right on the screen
  * in a sine wave pattern. If the enemy touches the side of the screen, the
  * enemy changes direction and continue moving.
  */

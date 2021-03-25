@@ -1,4 +1,4 @@
-package BulletFormation;
+package GameEngine.Spawning.BulletFormation;
 
 public class BulletFormationFactory {
     public BulletFormation create(String pattern) {

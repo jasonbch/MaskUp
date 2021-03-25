@@ -1,9 +1,9 @@
-package EnemyMovementPattern;
+package GameEngine.Movement.EnemyMovementPattern;
 
 import GameObject.Enemy.Enemy;
 
 /**
- * The EnemyMovementPattern class that move the enemy in a specific order.
+ * The GameEngine.Movement.EnemyMovementPattern class that move the enemy in a specific order.
  */
 public abstract class EnemyMovementPattern {
     /**

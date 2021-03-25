@@ -24,6 +24,6 @@ public class Karen extends Enemy {
         this.timeBetweenShot = 0.8f;
         setFormationPattern("CircularBulletFormation");
         this.maxTimeAlive = 45;
-        this.maxHealth = 10;
+        this.maxHealth = 35;
     }
 }

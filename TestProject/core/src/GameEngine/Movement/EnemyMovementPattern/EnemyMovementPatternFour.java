@@ -1,13 +1,11 @@
-package EnemyMovementPattern;
+package GameEngine.Movement.EnemyMovementPattern;
 
 import GameEngine.Movement.EnemyMovementController;
 import GameObject.Enemy.Enemy;
 import com.badlogic.gdx.math.GridPoint2;
 
-import javax.swing.*;
-
 /**
- * The EnemyMovementPattern that move the enemy up and down. If the enemy touch
+ * The GameEngine.Movement.EnemyMovementPattern that move the enemy up and down. If the enemy touch
  * the top of the screen, the enemy changes direction and move down to the bottom
  * of the screen and vice versa.
  */
@@ -24,11 +22,10 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     public void move(Enemy enemy, float deltaTime) {
 
         //// UPDATED PATTERN
-        if(!enemyMovementController.getEnemyPositionMap().containsKey(enemy)){
+        if (!enemyMovementController.getEnemyPositionMap().containsKey(enemy)) {
             GridPoint2 position = new GridPoint2(20, 900);
             enemyMovementController.getEnemyPositionMap().put(enemy, position);
-        }
-        else{
+        } else {
             moveToPosition(enemy, deltaTime);
         }
     }
@@ -38,22 +35,22 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
         int goalY = enemyMovementController.getEnemyPositionMap().get(enemy).y;
 
         // checks for moving up or left
-        if(enemy.getYPosition() < goalY || enemy.getXPosition() > goalX){
-            if(enemy.getYPosition() < goalY) {
+        if (enemy.getYPosition() < goalY || enemy.getXPosition() > goalX) {
+            if (enemy.getYPosition() < goalY) {
                 enemy.moveUp(deltaTime);
             }
-            if(enemy.getXPosition() > goalX){
+            if (enemy.getXPosition() > goalX) {
                 enemy.moveLeft(deltaTime);
             }
 
         }
 
         // checks for moving down or right
-        if(enemy.getYPosition() > goalY || enemy.getXPosition() < goalX){
-            if(enemy.getYPosition() > goalY){
+        if (enemy.getYPosition() > goalY || enemy.getXPosition() < goalX) {
+            if (enemy.getYPosition() > goalY) {
                 enemy.moveDown(deltaTime);
             }
-            if(enemy.getXPosition() < goalX){
+            if (enemy.getXPosition() < goalX) {
                 enemy.moveRight(deltaTime);
             }
         }

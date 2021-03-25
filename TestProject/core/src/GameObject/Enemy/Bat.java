@@ -18,12 +18,12 @@ public class Bat extends Enemy {
     public Bat(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
         this.name = "Bat";
-        this.speed = 300;
+        this.speed = 350;
         this.bullet = "CovidGerm";
         this.texture = GameResources.getAssetsManager().get("Bat.png", Texture.class);
-        this.timeBetweenShot = 0.6f;
-        this.maxTimeAlive = 10;
+        this.timeBetweenShot = 0.9f;
+        this.maxTimeAlive = 5;
         setFormationPattern("TriangleTargetBulletFormation");
-        this.maxHealth = 1;
+        this.maxHealth = 3;
     }
 }

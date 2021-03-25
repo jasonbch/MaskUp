@@ -17,7 +17,7 @@ public class Stinger extends Ammo {
     public Stinger(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
         this.name = "Stinger";
-        this.speed = 300;
+        this.speed = 450;
         this.acceptableTargets = new String[]{"Player"};
         this.texture = GameResources.getAssetsManager().get("Stinger.png", Texture.class);
         this.damage = 1;

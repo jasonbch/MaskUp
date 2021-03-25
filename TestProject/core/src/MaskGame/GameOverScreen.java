@@ -51,7 +51,7 @@ public class GameOverScreen extends InputAdapter implements Screen {
     @Override
     public void render(float delta) {
         batch.begin();
-        batch.draw(background, 0,0,(WORLD_WIDTH) , (WORLD_HEIGHT));
+        batch.draw(background, 0, 0, (WORLD_WIDTH), (WORLD_HEIGHT));
         /*if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             batch.draw(replayButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
             dispose();

@@ -1,9 +1,9 @@
-package EnemyMovementPattern;
+package GameEngine.Movement.EnemyMovementPattern;
 
 import GameObject.Enemy.Enemy;
 
 /**
- * The EnemyMovementPattern that move the enemy to the top of the screen.
+ * The GameEngine.Movement.EnemyMovementPattern that move the enemy to the top of the screen.
  */
 public class EnemyMovementPatternExit extends EnemyMovementPattern {
     @Override

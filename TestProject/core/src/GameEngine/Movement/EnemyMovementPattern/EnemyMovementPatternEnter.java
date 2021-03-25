@@ -1,10 +1,10 @@
-package EnemyMovementPattern;
+package GameEngine.Movement.EnemyMovementPattern;
 
 import GameEngine.Movement.EnemyMovementController;
 import GameObject.Enemy.Enemy;
 
 /**
- * The EnemyMovementPattern that move the enemy to the top of the screen.
+ * The GameEngine.Movement.EnemyMovementPattern that move the enemy to the top of the screen.
  */
 
 public class EnemyMovementPatternEnter extends EnemyMovementPattern {
