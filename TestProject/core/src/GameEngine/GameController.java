@@ -1,6 +1,12 @@
 package GameEngine;
 
+import GameEngine.Collision.CommandController;
+import GameEngine.Collision.EnemyCollisionCommand;
+import GameEngine.Collision.PlayerCollisionCommand;
+import GameEngine.Movement.BulletMovementController;
+import GameEngine.Movement.EnemyMovementController;
 import GameEngine.Spawning.BulletSpawningController;
+import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Enemy;
 import MaskGame.GameOverScreen;
 import MaskGame.GameVictoryScreen;
@@ -15,10 +21,17 @@ public class GameController {
     private static boolean isLost;
     private static boolean isWon;
 
+    // player instance
     private static Player player = Player.instance();
+
+    // game controllers
     private final TimeController timeController = TimeController.instance();
     private final StageController stageController = StageController.instance();
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
+    private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
+    private final BulletMovementController bulletMovementController = BulletMovementController.instance();
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final CommandController collisionController = new CommandController();
 
     private static GameController uniqueInstance = null;
 
@@ -37,7 +50,7 @@ public class GameController {
         return uniqueInstance;
     }
 
-    public void updateGame(float deltaTime) {
+    public void updateGame(float deltaTime,MaskGame game) {
         // Spawn bullets from player and enemies
         if (!player.getInvulnerable()) {
             bulletSpawningController.playerFire(player);
@@ -47,6 +60,34 @@ public class GameController {
         // Clear used enemies and bullets
         bulletSpawningController.deleteBullet("Player");
         bulletSpawningController.deleteBullet("Enemy");
+
+        player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
+
+        // check players invulnerability time
+        checkInvulnerabilityTime();
+
+        // update the collision commands
+        collisionController.addCommand(new PlayerCollisionCommand(player));
+        collisionController.addCommand(new EnemyCollisionCommand());
+        collisionController.executeCommand();
+
+        ((Player) player).movePlayer(deltaTime);
+
+        // update movement controllers
+        bulletMovementController.update(deltaTime);
+        enemyMoveController.update(deltaTime);
+
+        // delete enemies if they need deleted
+        enemySpawningController.deleteEnemies();
+
+        // make stages
+        stageController.makeStages();
+
+        // Check if the game is over
+        checkGameOver(game);
+
+        // Check if the player won
+        checkVictoryGame(game);
     }
 
     public void checkGameOver(MaskGame game) {
@@ -94,12 +135,6 @@ public class GameController {
             if (elapsedTime >= 5) {
                 player.setInvulnerable(false);
             }
-        }
-    }
-
-    public void preventBulletFromBeingShot() {
-        if (player.getInvulnerable()) {
-
         }
     }
 

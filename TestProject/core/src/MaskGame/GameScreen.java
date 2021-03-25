@@ -1,14 +1,6 @@
 package MaskGame;
 
-import GameEngine.Collision.CommandController;
-import GameEngine.Collision.EnemyCollisionCommand;
-import GameEngine.Collision.PlayerCollisionCommand;
 import GameEngine.GameController;
-import GameEngine.Movement.BulletMovementController;
-import GameEngine.Movement.EnemyMovementController;
-import GameEngine.Spawning.BulletSpawningController;
-import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.StageController;
 import GameEngine.TimeController;
 import GameEngine.UI.UIController;
 import GameObject.Entity;
@@ -44,16 +36,9 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final Entity player = Player.instance();
 
     // Game controllers
-    private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
-    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-    private final StageController stageController = StageController.instance();
-    private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final GameController gameController = GameController.instance();
-
     private final TimeController timeController = TimeController.instance();
     private final GameEngine.UI.UIController UIController;
-
-    private final CommandController collisionController = new CommandController();
 
     private final FPSLogger logger = new FPSLogger();
     private final MaskGame game;
@@ -96,36 +81,8 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Draw all game objects
         UIController.drawGameObjects();
 
-        // TODO Move this out
-        player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
-
         // GameController
-        gameController.updateGame(deltaTime);
-
-        // Collision commands
-        collisionController.addCommand(new PlayerCollisionCommand(player));
-        collisionController.addCommand(new EnemyCollisionCommand());
-        collisionController.executeCommand();
-
-        gameController.checkInvulnerabilityTime();
-
-        // Spawn enemies
-        stageController.makeStages();
-
-        // Move player
-        ((Player) player).movePlayer(deltaTime);
-
-        /*if (player.getHealth() == 0)
-        {
-            gameController.setState(End, game);
-        }*/
-
-        // Move enemies and bullets
-        bulletMovementController.update(deltaTime);
-        enemyMoveController.update(deltaTime);
-
-        // Clear used enemies and bullets
-        enemySpawningController.deleteEnemies();
+        gameController.updateGame(deltaTime, game);
 
         // Draw white dot in slow mode
         UIController.drawWhiteDotInSlowMode();
@@ -139,12 +96,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Pause Option
         this.pauseGame();
-
-        // Check if the game is over
-        gameController.checkGameOver(game);
-
-        // Check if the player won
-        gameController.checkVictoryGame(game);
 
         batch.end();
     }

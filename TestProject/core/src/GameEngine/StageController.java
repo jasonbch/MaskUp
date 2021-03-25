@@ -78,7 +78,7 @@ public class StageController {
         //enemySpawningController.setElapsedTime(TimeUtils.timeSinceMillis(newStartTime) / 1000);
 
         // Stage 1
-        enemySpawningController.spawnBatWave(stageOneStart, stageOneEnd, "PatternFour");
+        enemySpawningController.spawnBatWave(stageOneStart, stageOneEnd, "PatternOne");
         enemySpawningController.spawnMurderHornetWave(stageOneStart, stageOneEnd, "PatternOne");
 
         // Stage 2
