@@ -142,17 +142,17 @@ public class BulletSpawningController {
         }
     }
 
-    private void changePlayerBulletType(){
-        if(timeController.getElapsedTime() >= stageController.stageOneStart && timeController.getElapsedTime() <= stageController.getStageOneEnd()){
+    private void changePlayerBulletType() {
+        if (timeController.getElapsedTime() >= stageController.stageOneStart && timeController.getElapsedTime() <= stageController.getStageOneEnd()) {
             player.setBullet("Bullet");
         }
-        if(timeController.getElapsedTime() >= stageController.stageTwoStart && timeController.getElapsedTime() <= stageController.getStageTwoEnd()){
+        if (timeController.getElapsedTime() >= stageController.stageTwoStart && timeController.getElapsedTime() <= stageController.getStageTwoEnd()) {
             player.setBullet("Mask");
         }
-        if(timeController.getElapsedTime() >= stageController.stageThreeStart && timeController.getElapsedTime() <= stageController.getStageThreeEnd()){
+        if (timeController.getElapsedTime() >= stageController.stageThreeStart && timeController.getElapsedTime() <= stageController.getStageThreeEnd()) {
             player.setBullet("Bullet");
         }
-        if(timeController.getElapsedTime() >= stageController.stageFourStart && timeController.getElapsedTime() <= stageController.getStageFourEnd()){
+        if (timeController.getElapsedTime() >= stageController.stageFourStart && timeController.getElapsedTime() <= stageController.getStageFourEnd()) {
             player.setBullet("Syringe");
         }
     }

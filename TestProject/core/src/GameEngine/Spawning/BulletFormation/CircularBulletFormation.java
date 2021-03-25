@@ -1,4 +1,4 @@
-package BulletFormation;
+package GameEngine.Spawning.BulletFormation;
 
 import GameObject.Ammo.Ammo;
 import GameObject.Ammo.Ammo.PatternAttribute;

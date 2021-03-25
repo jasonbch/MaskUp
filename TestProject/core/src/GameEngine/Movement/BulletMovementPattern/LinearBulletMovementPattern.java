@@ -1,4 +1,4 @@
-package BulletMovementPattern;
+package GameEngine.Movement.BulletMovementPattern;
 
 import GameObject.Ammo.Ammo;
 

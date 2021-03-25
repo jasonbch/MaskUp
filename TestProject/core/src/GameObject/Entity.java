@@ -81,7 +81,9 @@ public abstract class Entity extends GameObject {
     /**
      * Set time between shots.
      */
-    public void setTimeBetweenShot(float time ) {this.timeBetweenShot = time;}
+    public void setTimeBetweenShot(float time) {
+        this.timeBetweenShot = time;
+    }
 
     /**
      * Return True if the entity can fire, otherwise false.

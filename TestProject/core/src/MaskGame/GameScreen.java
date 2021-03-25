@@ -3,9 +3,6 @@ package MaskGame;
 import GameEngine.GameController;
 import GameEngine.TimeController;
 import GameEngine.UI.UIController;
-import GameObject.Entity;
-import GameObject.Player;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -31,9 +28,6 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
     // Graphic
     private final SpriteBatch batch;
-
-    // Game objects
-    private final Entity player = Player.instance();
 
     // Game controllers
     private final GameController gameController = GameController.instance();

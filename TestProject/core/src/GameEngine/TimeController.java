@@ -4,12 +4,11 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 
 public class TimeController {
+    private static TimeController uniqueInstance = null;
     private long startTime;
     private long elapsedTime = 0;
 
-    private static TimeController uniqueInstance = null;
-
-    private TimeController(){
+    private TimeController() {
         this.startTime = TimeUtils.millis();
     }
 

@@ -1,9 +1,9 @@
-package EnemyMovementPattern;
+package GameEngine.Movement.EnemyMovementPattern;
 
 import GameObject.Enemy.Enemy;
 
 /**
- * The EnemyMovementPattern that move the enemy diagonally in the screen.
+ * The GameEngine.Movement.EnemyMovementPattern that move the enemy diagonally in the screen.
  * If the enemy touches the side of the screen, the enemy switch direction
  * to the opposite side but still maintain vertical direction. If the
  * enemy touches the top or bottom of the screen, the enemy switches
@@ -29,7 +29,7 @@ public class EnemyMovementPatternThree extends EnemyMovementPattern {
         if (enemy.isAboveScreen()) {
             enemy.revertYMultiplier();
             enemy.setYPosition(enemy.getYPosition() - 3);
-        } else if (enemy.isBelowScreen()) {
+        } else if (enemy.getYPosition() <= 400) {
             enemy.revertYMultiplier();
             enemy.setYPosition(enemy.getYPosition() + 3);
         }

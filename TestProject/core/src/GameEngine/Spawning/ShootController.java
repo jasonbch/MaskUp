@@ -1,6 +1,6 @@
 package GameEngine.Spawning;
 
-import BulletFormation.BulletFormationFactory;
+import GameEngine.Spawning.BulletFormation.BulletFormationFactory;
 import GameObject.Ammo.Ammo;
 import GameObject.Ammo.AmmoFactory;
 import GameObject.Entity;

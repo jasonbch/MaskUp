@@ -1,4 +1,4 @@
-package BulletFormation;
+package GameEngine.Spawning.BulletFormation;
 
 import GameObject.Ammo.Ammo;
 import GameObject.Ammo.Ammo.PatternAttribute;
@@ -8,12 +8,12 @@ import GameObject.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class TargetDownwardLinearBulletFormation extends BulletFormation {
+public class TriangleTargetBulletFormation extends BulletFormation {
     private Player player = Player.instance();
 
     @Override
     public String getName() {
-        return "TargetDownwardLinearBulletFormation";
+        return "TriangleTargetBulletFormation";
     }
 
     @Override
@@ -37,13 +37,29 @@ public class TargetDownwardLinearBulletFormation extends BulletFormation {
         // Set up ammo
         List<Ammo> ammoList;
 
-        PatternAttribute patternAttribute = new PatternAttribute(
+        PatternAttribute patternAttribute1 = new PatternAttribute(
                 "LinearBulletMovementPattern",
                 (float) -newY,
                 (float) -newX);
 
-        Ammo ammo = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute);
-        ammoList = Arrays.asList(ammo);
+        PatternAttribute patternAttribute2 = new PatternAttribute(
+                "LinearBulletMovementPattern",
+                (float) -newY,
+                (float) -newX);
+
+        PatternAttribute patternAttribute3 = new PatternAttribute(
+                "LinearBulletMovementPattern",
+                (float) -newY,
+                (float) -newX);
+
+        double xDistance = newY * 30;
+        double yDistance = newX * 30;
+
+        Ammo ammo1 = ammoFactory.create(entity.getBullet(), (float) xShootPosition, yShootPosition - (float) (2 * yDistance), patternAttribute1);
+        Ammo ammo2 = ammoFactory.create(entity.getBullet(), xShootPosition - (float) yDistance, yShootPosition, patternAttribute2);
+        Ammo ammo3 = ammoFactory.create(entity.getBullet(), xShootPosition + (float) yDistance, yShootPosition, patternAttribute3);
+
+        ammoList = Arrays.asList(ammo1, ammo2, ammo3);
 
         return ammoList;
     }

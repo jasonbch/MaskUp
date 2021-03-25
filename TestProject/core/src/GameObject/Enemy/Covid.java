@@ -25,6 +25,6 @@ public class Covid extends Enemy {
         this.timeBetweenShot = 0.6f;
         setFormationPattern("TargetDownwardLinearBulletFormation");
         this.maxTimeAlive = 60;
-        this.maxHealth = 20;
+        this.maxHealth = 70;
     }
 }

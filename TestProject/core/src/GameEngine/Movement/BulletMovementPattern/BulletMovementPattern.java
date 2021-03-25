@@ -1,9 +1,9 @@
-package BulletMovementPattern;
+package GameEngine.Movement.BulletMovementPattern;
 
 import GameObject.Ammo.Ammo;
 
 /**
- * The BulletMovementPattern class that move the bullet in a specific order.
+ * The GameEngine.Movement.BulletMovementPattern class that move the bullet in a specific order.
  */
 public abstract class BulletMovementPattern {
     /**

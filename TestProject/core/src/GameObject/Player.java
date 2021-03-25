@@ -18,7 +18,7 @@ import java.util.ListIterator;
 public class Player extends Entity {
     // Implement Singleton
     private static Player uniqueInstance = null;
-    private int maxHealth = 3;
+    private int maxHealth = 5;
     private boolean invulnerable;
     private long startInvulnerabilityTime;
 
@@ -43,12 +43,6 @@ public class Player extends Entity {
             uniqueInstance = new Player();
         }
         return uniqueInstance;
-    }
-
-
-    public void setBullet(String name)
-    {
-        this.bullet = name;
     }
 
     public boolean getInvulnerable() {
@@ -97,6 +91,10 @@ public class Player extends Entity {
     @Override
     public String getBullet() {
         return this.bullet;
+    }
+
+    public void setBullet(String name) {
+        this.bullet = name;
     }
 
     @Override

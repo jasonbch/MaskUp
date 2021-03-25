@@ -1,15 +1,11 @@
 package MaskGame;
 
-import GameEngine.GameResources;
-import GameEngine.Score.ScoreController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -58,7 +54,7 @@ public class GameVictoryScreen extends InputAdapter implements Screen {
     @Override
     public void render(float delta) {
         batch.begin();
-        batch.draw(background, 0,0,(WORLD_WIDTH), (WORLD_HEIGHT));
+        batch.draw(background, 0, 0, (WORLD_WIDTH), (WORLD_HEIGHT));
         /*font.getData().setScale(3,3);
         font.draw(batch, String.valueOf(scoreController.getScore()), (WORLD_WIDTH/ 2), (WORLD_HEIGHT / 2));
         batch.draw(Score, (WORLD_WIDTH / 4), (WORLD_HEIGHT / 2));*/

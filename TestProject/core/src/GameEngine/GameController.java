@@ -8,11 +8,10 @@ import GameEngine.Movement.EnemyMovementController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Enemy;
+import GameObject.Player;
 import MaskGame.GameOverScreen;
 import MaskGame.GameVictoryScreen;
 import MaskGame.MaskGame;
-import GameObject.Player;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -27,7 +26,7 @@ public class GameController {
 
     // player instance
     private static Player player = Player.instance();
-
+    private static GameController uniqueInstance = null;
     // game controllers
     private final TimeController timeController = TimeController.instance();
     private final StageController stageController = StageController.instance();
@@ -36,9 +35,6 @@ public class GameController {
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final CommandController collisionController = new CommandController();
-
-    private static GameController uniqueInstance = null;
-
     private boolean isSlowMode;
     private float gameSpeed;
 
@@ -54,7 +50,7 @@ public class GameController {
         return uniqueInstance;
     }
 
-    public void updateGame(float deltaTime,MaskGame game) {
+    public void updateGame(float deltaTime, MaskGame game) {
         // Spawn bullets from player and enemies
         if (!player.getInvulnerable()) {
             bulletSpawningController.playerFire(player);

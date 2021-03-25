@@ -1,7 +1,7 @@
 package GameEngine.Movement;
 
-import EnemyMovementPattern.EnemyMovementFactory;
-import EnemyMovementPattern.EnemyMovementPattern;
+import GameEngine.Movement.EnemyMovementPattern.EnemyMovementFactory;
+import GameEngine.Movement.EnemyMovementPattern.EnemyMovementPattern;
 import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Enemy;
 import com.badlogic.gdx.math.GridPoint2;
@@ -21,7 +21,7 @@ public class EnemyMovementController {
     private final Random rand = new Random();
 
     // hash map for random spawning y values & position tracking for pattern 4
-    private final HashMap<Enemy, Integer> enemyRandomYMap =  new HashMap<>();
+    private final HashMap<Enemy, Integer> enemyRandomYMap = new HashMap<>();
 
     private final HashMap<Enemy, GridPoint2> enemyPositionMap = new HashMap<>();
 
@@ -88,9 +88,8 @@ public class EnemyMovementController {
 
 
     public void addRandomY(Enemy enemy) {
-        // game height is 1024
         // random y value between 300 & 800
-        int randomY = rand.nextInt(500) + 300;
+        int randomY = rand.nextInt(300) + 500;
         enemyRandomYMap.put(enemy, randomY);
     }
 }
