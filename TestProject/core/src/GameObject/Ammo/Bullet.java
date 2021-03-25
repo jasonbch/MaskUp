@@ -17,7 +17,7 @@ public class Bullet extends Ammo {
     public Bullet(float xPosition, float yPosition, PatternAttribute patternAttribute) {
         super(xPosition, yPosition, patternAttribute);
         this.name = "Bullet";
-        this.speed = 300;
+        this.speed = 700;
         this.acceptableTargets = new String[]{"Bat", "Hornet"};
         this.texture = GameResources.getAssetsManager().get("Bullet.png", Texture.class);
         this.damage = 1;

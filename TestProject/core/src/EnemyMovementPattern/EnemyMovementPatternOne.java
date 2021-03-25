@@ -20,6 +20,7 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
     @Override
     public void move(Enemy enemy, float deltaTime) {
         float val = enemyMovementController.getEnemyRandomYMap().get(enemy) + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
+
         enemy.setYPosition(val);
 
         if (enemy.isLeftOfScreen()) {

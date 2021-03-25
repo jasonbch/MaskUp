@@ -1,10 +1,13 @@
 package GameEngine.Spawning;
 
 import GameEngine.GameResources;
+import GameEngine.StageController;
+import GameEngine.TimeController;
 import GameObject.Ammo.Ammo;
 import GameObject.Ammo.AmmoFactory;
 import GameObject.Enemy.Enemy;
 import GameObject.Entity;
+import GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
@@ -23,6 +26,9 @@ public class BulletSpawningController {
     private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
     private final ShootController shootController = new ShootController();
     private final GameResources gameResources = GameResources.instance();
+    private final TimeController timeController = TimeController.instance();
+    private final StageController stageController = StageController.instance();
+    private final Player player = Player.instance();
 
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private AmmoFactory factory = new AmmoFactory();
@@ -123,6 +129,7 @@ public class BulletSpawningController {
      * Fire the bullet from player if the space bar is pressed.
      */
     public void playerFire(Entity player) {
+        changePlayerBulletType();
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (player.canFire()) {
                 List<Ammo> ammoList;
@@ -134,4 +141,20 @@ public class BulletSpawningController {
             }
         }
     }
+
+    private void changePlayerBulletType(){
+        if(timeController.getElapsedTime() >= stageController.stageOneStart && timeController.getElapsedTime() <= stageController.getStageOneEnd()){
+            player.setBullet("Bullet");
+        }
+        if(timeController.getElapsedTime() >= stageController.stageTwoStart && timeController.getElapsedTime() <= stageController.getStageTwoEnd()){
+            player.setBullet("Mask");
+        }
+        if(timeController.getElapsedTime() >= stageController.stageThreeStart && timeController.getElapsedTime() <= stageController.getStageThreeEnd()){
+            player.setBullet("Bullet");
+        }
+        if(timeController.getElapsedTime() >= stageController.stageFourStart && timeController.getElapsedTime() <= stageController.getStageFourEnd()){
+            player.setBullet("Syringe");
+        }
+    }
+
 }
