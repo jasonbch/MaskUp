@@ -45,6 +45,8 @@ public class UIController {
     Texture stage2 = new Texture("stage2.png");
     Texture stage3 = new Texture("stage3.png");
     Texture stage4 = new Texture("stage4.png");
+
+    // Drawing the players score font
     BitmapFont font = new BitmapFont(Gdx.files.internal("arial.fnt"));
 
     // Stage Message
