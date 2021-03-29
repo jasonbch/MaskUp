@@ -38,13 +38,13 @@ public class ScoreController {
         int score = 0;
 
         if (enemy instanceof Bat) {
-            score = 10;
+            score = 100;
         } else if (enemy instanceof MurderHornet) {
-            score = 20;
+            score = 200;
         } else if (enemy instanceof Karen) {
-            score = 1000;
+            score = 1500;
         } else if (enemy instanceof Covid) {
-            score = 2000;
+            score = 3000;
         }
         this.addScore(score);
     }
