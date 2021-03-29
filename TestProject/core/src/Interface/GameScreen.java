@@ -1,7 +1,7 @@
 package Interface;
 
 import GameEngine.GameController;
-import GameEngine.TimeController;
+import GameEngine.Time.TimeController;
 import GameEngine.UI.UIController;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

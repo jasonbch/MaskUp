@@ -1,10 +1,10 @@
 package GameEngine.Spawning;
 
-import GameEngine.GameResources;
+import GameEngine.Factory.EnemyFactory;
+import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
-import GameEngine.TimeController;
-import GameObject.Enemy.Enemy;
-import GameEngine.EnemyFactory;
+import GameEngine.Time.TimeController;
+import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.Gdx;
 
 import java.util.LinkedList;

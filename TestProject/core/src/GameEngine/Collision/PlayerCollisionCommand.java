@@ -1,7 +1,7 @@
 package GameEngine.Collision;
 
 import GameEngine.Spawning.BulletSpawningController;
-import GameObject.Entity;
+import Objects.GameObject.Entity;
 
 public class PlayerCollisionCommand implements Command {
     private static final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();

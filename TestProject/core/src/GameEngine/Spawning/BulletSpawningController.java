@@ -1,12 +1,9 @@
 package GameEngine.Spawning;
 
-import GameEngine.GameResources;
-import GameEngine.StageController;
-import GameEngine.TimeController;
-import GameObject.Ammo.Ammo;
-import GameObject.Enemy.Enemy;
-import GameObject.Entity;
-import GameObject.Player;
+import GameEngine.Resource.GameResources;
+import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 

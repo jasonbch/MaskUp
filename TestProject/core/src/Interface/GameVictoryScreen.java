@@ -55,16 +55,6 @@ public class GameVictoryScreen extends InputAdapter implements Screen {
     public void render(float delta) {
         batch.begin();
         batch.draw(background, 0, 0, (WORLD_WIDTH), (WORLD_HEIGHT));
-        /*font.getData().setScale(3,3);
-        font.draw(batch, String.valueOf(scoreController.getScore()), (WORLD_WIDTH/ 2), (WORLD_HEIGHT / 2));
-        batch.draw(Score, (WORLD_WIDTH / 4), (WORLD_HEIGHT / 2));*/
-       /* if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            batch.draw(replayButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
-            dispose();
-            game.setScreen(new GameScreen(new MaskGame()));
-        } else {
-            batch.draw(replayButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
-        }*/
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             batch.draw(quitButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
