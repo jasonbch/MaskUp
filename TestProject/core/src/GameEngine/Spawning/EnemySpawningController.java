@@ -4,7 +4,7 @@ import GameEngine.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.TimeController;
 import GameObject.Enemy.Enemy;
-import GameObject.Enemy.EnemyFactory;
+import GameEngine.EnemyFactory;
 import com.badlogic.gdx.Gdx;
 
 import java.util.LinkedList;
@@ -36,8 +36,8 @@ public class EnemySpawningController {
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
     // Checks to spawn only one boss
-    private boolean isJustSpawnMidBoss = false;
-    private boolean isJustSpawnFinalBoss = false;
+    private boolean isMidBossSpawned = false;
+    private boolean isFinalBossSpawned = false;
 
     private EnemySpawningController() {
     }
@@ -99,9 +99,9 @@ public class EnemySpawningController {
      */
     public void spawnMidBossWave(long startTime, long endTime, String pattern) {
         if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
-            if (!isJustSpawnMidBoss) {
+            if (!isMidBossSpawned) {
                 spawnMidBoss(pattern);
-                isJustSpawnMidBoss = true;
+                isMidBossSpawned = true;
             }
         }
     }
@@ -116,9 +116,9 @@ public class EnemySpawningController {
      */
     public void spawnFinalBossWave(long startTime, long endTime, String pattern) {
         if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
-            if (!isJustSpawnFinalBoss) {
+            if (!isFinalBossSpawned) {
                 spawnFinalBoss(pattern);
-                isJustSpawnFinalBoss = true;
+                isFinalBossSpawned = true;
             }
         }
     }

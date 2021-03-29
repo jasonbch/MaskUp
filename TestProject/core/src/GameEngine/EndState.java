@@ -1,6 +1,6 @@
 package GameEngine;
 
-import MaskGame.GameOverScreen;
+import Interface.GameOverScreen;
 
 public class EndState {
 

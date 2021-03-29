@@ -9,34 +9,32 @@ import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Enemy;
 import GameObject.Player;
-import MaskGame.GameOverScreen;
-import MaskGame.GameVictoryScreen;
-import MaskGame.MaskGame;
+import Interface.GameOverScreen;
+import Interface.GameVictoryScreen;
+import Interface.MaskGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameController {
-
-    private static int End = 1;
-    private static int Victory = 2;
-
     private static boolean isLost;
     private static boolean isWon;
 
     // player instance
     private static Player player = Player.instance();
     private static GameController uniqueInstance = null;
+
     // game controllers
     private final TimeController timeController = TimeController.instance();
     private final StageController stageController = StageController.instance();
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
-    private final EnemyMovementController enemyMoveController = EnemyMovementController.instance();
+    private final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-    private final CommandController collisionController = new CommandController();
+    private final CommandController commandController = new CommandController();
     private boolean isSlowMode;
     private float gameSpeed;
+    private float playerInvulnerableTime = 3;
 
     private GameController() {
         this.isSlowMode = false;
@@ -52,9 +50,9 @@ public class GameController {
 
     public void updateGame(float deltaTime, MaskGame game) {
         // Spawn bullets from player and enemies
-        if (!player.getInvulnerable()) {
+        if (!player.isInvulnerable()) {
             bulletSpawningController.playerFire(player);
-            bulletSpawningController.enemyFire(deltaTime);
+            bulletSpawningController.enemyFire(deltaTime, enemySpawningController.getEnemyList());
         }
 
         // Clear used enemies and bullets
@@ -64,18 +62,18 @@ public class GameController {
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
         // check players invulnerability time
-        checkInvulnerabilityTime();
+        resetPlayerInvulnerableTime();
 
         // update the collision commands
-        collisionController.addCommand(new PlayerCollisionCommand(player));
-        collisionController.addCommand(new EnemyCollisionCommand());
-        collisionController.executeCommand();
+        commandController.addCommand(new PlayerCollisionCommand(player));
+        commandController.addCommand(new EnemyCollisionCommand());
+        commandController.executeCommand();
 
-        ((Player) player).movePlayer(deltaTime);
+        player.movePlayer(deltaTime);
 
         // update movement controllers
-        bulletMovementController.update(deltaTime);
-        enemyMoveController.update(deltaTime);
+        bulletMovementController.update(deltaTime, bulletSpawningController);
+        enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
 
         // delete enemies if they need deleted
         enemySpawningController.deleteEnemies();
@@ -91,7 +89,7 @@ public class GameController {
     }
 
     public void checkGameOver(MaskGame game) {
-        if (player.getHealth() == 0) {
+        if (player.getHealth() <= 0) {
             setLosingState(game);
         }
     }
@@ -129,13 +127,18 @@ public class GameController {
         this.isSlowMode = val;
     }
 
-    public void checkInvulnerabilityTime() {
-        if (player.getInvulnerable()) {
-            long elapsedTime = TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
-            if (elapsedTime >= 5) {
+    public void resetPlayerInvulnerableTime() {
+        if (player.isInvulnerable()) {
+            long elapsedTime = getPlayerInvulnerableTime();
+            if (elapsedTime >= this.playerInvulnerableTime) {
+                // Reset the player invulnerable if it is more than 5 seconds
                 player.setInvulnerable(false);
             }
         }
+    }
+
+    public long getPlayerInvulnerableTime() {
+        return TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
     }
 
     /**
@@ -148,12 +151,12 @@ public class GameController {
         // If the L key is just press and it is not slow down mode
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)
                 && !isSlowMode) {
-            isSlowMode = true;  // Change the slow mode to true
+            setIsSlowMode(true);  // Change the slow mode to true
             gameSpeed = 0.4f;   // Change the game speed to slow speed
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.L)
                 && isSlowMode) {
             // If the L key is just press and it is slow down mode
-            isSlowMode = false; // Change slow mode to false
+            setIsSlowMode(false); // Change slow mode to false
             gameSpeed = 1;      // Change the game speed to normal speed
         }
 

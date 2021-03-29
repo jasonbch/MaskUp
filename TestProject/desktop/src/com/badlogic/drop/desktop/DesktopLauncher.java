@@ -1,7 +1,6 @@
 package com.badlogic.drop.desktop;
 
-import MaskGame.GameScreen;
-import MaskGame.MaskGame;
+import Interface.MaskGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 

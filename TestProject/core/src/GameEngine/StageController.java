@@ -5,6 +5,7 @@ import GameEngine.Spawning.EnemySpawningController;
 import GameObject.Enemy.Covid;
 import GameObject.Enemy.Enemy;
 import GameObject.Enemy.Karen;
+import GameObject.Player;
 
 import java.util.ListIterator;
 
@@ -36,13 +37,13 @@ public class StageController {
     public int stageFourStart = stageThreeEnd + stageBuffer;
     private int stageFourEnd = stageFourStart + stageFourDuration;
 
-
     // Final Boss
     private Enemy covid;
 
     // Mid Boss
     private Enemy karen;
 
+    private final Player player = Player.instance();
 
     private StageController() {
     }
@@ -113,8 +114,24 @@ public class StageController {
         changeMovementPatternOfMidBoss();
 
         changeMovementPatternOfFinalBoss();
+
+        changePlayerBulletType();
     }
 
+    private void changePlayerBulletType() {
+        if (timeController.getElapsedTime() >= stageOneStart && timeController.getElapsedTime() <= getStageOneEnd()) {
+            player.setBullet("Bullet");
+        }
+        if (timeController.getElapsedTime() >= stageTwoStart && timeController.getElapsedTime() <= getStageTwoEnd()) {
+            player.setBullet("Mask");
+        }
+        if (timeController.getElapsedTime() >= stageThreeStart && timeController.getElapsedTime() <= getStageThreeEnd()) {
+            player.setBullet("Bullet");
+        }
+        if (timeController.getElapsedTime() >= stageFourStart && timeController.getElapsedTime() <= getStageFourEnd()) {
+            player.setBullet("Syringe");
+        }
+    }
 
     private void changeMovementPatternOfMidBoss() {
 
