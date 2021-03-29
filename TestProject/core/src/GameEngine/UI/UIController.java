@@ -1,14 +1,14 @@
 package GameEngine.UI;
 
 import GameEngine.GameController;
-import GameEngine.GameResources;
+import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.StageController;
-import GameEngine.TimeController;
-import GameObject.GameObject;
-import GameObject.Player;
+import GameEngine.Spawning.StageController;
+import GameEngine.Time.TimeController;
+import Objects.GameObject.GameObject;
+import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;

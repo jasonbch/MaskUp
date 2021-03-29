@@ -2,7 +2,7 @@ package GameEngine.Collision;
 
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
-import GameObject.Enemy.Enemy;
+import Objects.GameObject.Enemy.Enemy;
 
 import java.util.ListIterator;
 

@@ -1,7 +1,8 @@
 package GameEngine.Movement;
 
-import GameObject.EnemyMovementPattern.EnemyMovementPattern;
-import GameObject.Enemy.Enemy;
+import GameEngine.Factory.EnemyMovementFactory;
+import Objects.EnemyMovementPattern.EnemyMovementPattern;
+import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.math.GridPoint2;
 
 import java.util.HashMap;
@@ -81,9 +82,8 @@ public class EnemyMovementController {
         GridPoint2 newPoint = new GridPoint2(newX, newY);
         enemyPositionMap.put(enemy, newPoint);
         enemyRandomYMap.put(enemy, newY);
-        System.out.println(enemyRandomYMap.get(enemy));
+        //System.out.println(enemyRandomYMap.get(enemy));
     }
-
 
     public void addRandomY(Enemy enemy) {
         // random y value between 300 & 800

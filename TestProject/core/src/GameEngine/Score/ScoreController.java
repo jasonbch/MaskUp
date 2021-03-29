@@ -1,6 +1,6 @@
 package GameEngine.Score;
 
-import GameObject.Enemy.*;
+import Objects.GameObject.Enemy.*;
 
 public class ScoreController {
     // Implement Singleton
