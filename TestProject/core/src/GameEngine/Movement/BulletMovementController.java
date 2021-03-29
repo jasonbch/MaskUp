@@ -15,7 +15,6 @@ import java.util.ListIterator;
 public class BulletMovementController {
     // Implement Singleton
     private static BulletMovementController uniqueInstance = null;
-    private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final BulletMovementPatternFactory bulletMovementPatternFactory = new BulletMovementPatternFactory();
     private final GameResources gameResources = GameResources.instance();
 
@@ -36,7 +35,7 @@ public class BulletMovementController {
         return uniqueInstance;
     }
 
-    public void update(float deltaTime) {
+    public void update(float deltaTime, BulletSpawningController bulletSpawningController) {
         ListIterator<Ammo> iterator = bulletSpawningController.getPlayerAmmoList().listIterator();
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();

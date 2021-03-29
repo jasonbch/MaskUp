@@ -8,11 +8,10 @@ import com.badlogic.gdx.math.GridPoint2;
 
 import java.util.List;
 
-public class ShootController {
-    private AmmoFactory ammoFactory = new AmmoFactory();
+public class FormationController {
     private BulletFormationFactory bulletFormationFactory = new BulletFormationFactory();
 
-    public ShootController() {
+    public FormationController() {
     }
 
     public List<Ammo> create(Entity entity, String pattern) {

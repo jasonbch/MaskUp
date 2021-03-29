@@ -45,7 +45,7 @@ public class Player extends Entity {
         return uniqueInstance;
     }
 
-    public boolean getInvulnerable() {
+    public boolean isInvulnerable() {
         return this.invulnerable;
     }
 
@@ -201,7 +201,7 @@ public class Player extends Entity {
                     && (Math.abs(ammo.getYPosition() - getYPosition()) <= 200)) {
 
                 // Check for intersect
-                if (!getInvulnerable()) {
+                if (!isInvulnerable()) {
                     if (intersects(ammo.getBoundingBox())) {
                         setInvulnerable(true);
                         ammo.setIsDone();
