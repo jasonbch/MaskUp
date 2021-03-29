@@ -4,7 +4,7 @@ import GameEngine.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.TimeController;
 import GameObject.Enemy.Enemy;
-import GameObject.Enemy.EnemyFactory;
+import GameEngine.EnemyFactory;
 import com.badlogic.gdx.Gdx;
 
 import java.util.LinkedList;

@@ -1,8 +1,6 @@
 package GameEngine.Spawning;
 
-import GameEngine.Spawning.BulletFormation.BulletFormationFactory;
 import GameObject.Ammo.Ammo;
-import GameObject.Ammo.AmmoFactory;
 import GameObject.Entity;
 import com.badlogic.gdx.math.GridPoint2;
 

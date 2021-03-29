@@ -1,8 +1,6 @@
 package GameEngine.Movement;
 
-import GameEngine.Movement.EnemyMovementPattern.EnemyMovementFactory;
-import GameEngine.Movement.EnemyMovementPattern.EnemyMovementPattern;
-import GameEngine.Spawning.EnemySpawningController;
+import GameObject.EnemyMovementPattern.EnemyMovementPattern;
 import GameObject.Enemy.Enemy;
 import com.badlogic.gdx.math.GridPoint2;
 

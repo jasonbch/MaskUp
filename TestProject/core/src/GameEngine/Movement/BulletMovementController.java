@@ -1,7 +1,6 @@
 package GameEngine.Movement;
 
-import GameEngine.Movement.BulletMovementPattern.BulletMovementPattern;
-import GameEngine.Movement.BulletMovementPattern.BulletMovementPatternFactory;
+import GameObject.BulletMovementPattern.BulletMovementPattern;
 import GameEngine.GameResources;
 import GameEngine.Spawning.BulletSpawningController;
 import GameObject.Ammo.Ammo;
