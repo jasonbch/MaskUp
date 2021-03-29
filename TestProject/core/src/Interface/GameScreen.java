@@ -59,7 +59,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
      */
     @Override
     public void render(float deltaTime) {
-        logger.log();
+        //logger.log();
 
         // Get the game speed
         deltaTime *= gameController.getGameSpeed();
