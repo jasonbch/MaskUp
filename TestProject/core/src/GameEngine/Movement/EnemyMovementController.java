@@ -1,12 +1,12 @@
 package GameEngine.Movement;
 
-import EnemyMovementPattern.EnemyMovementFactory;
-import EnemyMovementPattern.EnemyMovementPattern;
-import GameEngine.Spawning.EnemySpawningController;
-import GameObject.Enemy.Enemy;
+import GameEngine.Factory.EnemyMovementFactory;
+import Objects.EnemyMovementPattern.EnemyMovementPattern;
+import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.math.GridPoint2;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
@@ -17,11 +17,10 @@ public class EnemyMovementController {
     // Implement Singleton
     private static EnemyMovementController uniqueInstance = null;
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
-    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final Random rand = new Random();
 
     // hash map for random spawning y values & position tracking for pattern 4
-    private final HashMap<Enemy, Integer> enemyRandomYMap =  new HashMap<>();
+    private final HashMap<Enemy, Integer> enemyRandomYMap = new HashMap<>();
 
     private final HashMap<Enemy, GridPoint2> enemyPositionMap = new HashMap<>();
 
@@ -42,8 +41,8 @@ public class EnemyMovementController {
         return uniqueInstance;
     }
 
-    public void update(float deltaTime) {
-        ListIterator<Enemy> iter2 = enemySpawningController.getEnemyList().listIterator();
+    public void update(float deltaTime, List<Enemy> enemyList) {
+        ListIterator<Enemy> iter2 = enemyList.listIterator();
         while (iter2.hasNext()) {
             Enemy currEnemy = iter2.next();
 
@@ -82,13 +81,13 @@ public class EnemyMovementController {
     public void setNewEnemyPosition(Enemy enemy, int newX, int newY) {
         GridPoint2 newPoint = new GridPoint2(newX, newY);
         enemyPositionMap.put(enemy, newPoint);
+        enemyRandomYMap.put(enemy, newY);
+        //System.out.println(enemyRandomYMap.get(enemy));
     }
 
-
     public void addRandomY(Enemy enemy) {
-        // game height is 1024
         // random y value between 300 & 800
-        int randomY = rand.nextInt(500) + 300;
+        int randomY = rand.nextInt(300) + 500;
         enemyRandomYMap.put(enemy, randomY);
     }
 }

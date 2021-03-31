@@ -1,10 +1,10 @@
 package GameEngine.Spawning;
 
-import GameEngine.GameResources;
+import GameEngine.Factory.EnemyFactory;
+import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
-import GameEngine.TimeController;
-import GameObject.Enemy.Enemy;
-import GameObject.Enemy.EnemyFactory;
+import GameEngine.Time.TimeController;
+import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.Gdx;
 
 import java.util.LinkedList;
@@ -36,8 +36,8 @@ public class EnemySpawningController {
     private long lastMidBossTime = 0;
     private long lastFinalBossTime = 0;
     // Checks to spawn only one boss
-    private boolean isJustSpawnMidBoss = false;
-    private boolean isJustSpawnFinalBoss = false;
+    private boolean isMidBossSpawned = false;
+    private boolean isFinalBossSpawned = false;
 
     private EnemySpawningController() {
     }
@@ -99,9 +99,9 @@ public class EnemySpawningController {
      */
     public void spawnMidBossWave(long startTime, long endTime, String pattern) {
         if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
-            if (!isJustSpawnMidBoss) {
+            if (!isMidBossSpawned) {
                 spawnMidBoss(pattern);
-                isJustSpawnMidBoss = true;
+                isMidBossSpawned = true;
             }
         }
     }
@@ -116,9 +116,9 @@ public class EnemySpawningController {
      */
     public void spawnFinalBossWave(long startTime, long endTime, String pattern) {
         if (timeController.getElapsedTime() >= startTime && timeController.getElapsedTime() < endTime) {
-            if (!isJustSpawnFinalBoss) {
+            if (!isFinalBossSpawned) {
                 spawnFinalBoss(pattern);
-                isJustSpawnFinalBoss = true;
+                isFinalBossSpawned = true;
             }
         }
     }
@@ -144,7 +144,6 @@ public class EnemySpawningController {
      */
     private void spawnMidBoss(String pattern) {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 50;
-        System.out.println("Karen x position: " + xPosition);
         if (timeController.getElapsedTime() != 0 && timeController.getElapsedTime() - lastMidBossTime > 1) {
             spawnEnemies("Karen", xPosition, WORLD_HEIGHT, pattern);
             lastMidBossTime = timeController.getElapsedTime();

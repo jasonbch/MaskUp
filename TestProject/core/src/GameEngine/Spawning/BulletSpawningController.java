@@ -1,10 +1,9 @@
 package GameEngine.Spawning;
 
-import GameEngine.GameResources;
-import GameObject.Ammo.Ammo;
-import GameObject.Ammo.AmmoFactory;
-import GameObject.Enemy.Enemy;
-import GameObject.Entity;
+import GameEngine.Resource.GameResources;
+import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
@@ -21,11 +20,8 @@ public class BulletSpawningController {
     private static BulletSpawningController uniqueInstance = null;
     private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
     private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
-    private final ShootController shootController = new ShootController();
+    private final FormationController formationController = new FormationController();
     private final GameResources gameResources = GameResources.instance();
-
-    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-    private AmmoFactory factory = new AmmoFactory();
 
     /**
      * Create a new instance of the ShootController.
@@ -67,7 +63,7 @@ public class BulletSpawningController {
     private List<Ammo> fire(Entity entity) {
         List<Ammo> ammoList;
 
-        ammoList = shootController.create(entity, entity.getFormationPattern());
+        ammoList = formationController.create(entity, entity.getFormationPattern());
 
         entity.resetTimeSinceLastShot();
 
@@ -78,9 +74,10 @@ public class BulletSpawningController {
      * Update the enemy position and fire their bullets if they can fire.
      *
      * @param deltaTime the delta time
+     * @param enemyList
      */
-    public void enemyFire(float deltaTime) {
-        ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
+    public void enemyFire(float deltaTime, List<Enemy> enemyList) {
+        ListIterator<Enemy> iterator = enemyList.listIterator();
         while (iterator.hasNext()) {
             Enemy currEnemy = iterator.next();
             currEnemy.updateTimeSinceLastShot(deltaTime);
