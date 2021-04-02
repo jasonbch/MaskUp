@@ -1,0 +1,90 @@
+{
+    "player":
+    {
+        "health": 5,
+        "speed": 330,
+        "timeBetweenShot": 0.3
+    },
+    "enemies":
+    {
+        "bat":
+        {
+            "speed": 350,
+            "bullet": "CovidGerm",
+            "texture": "Bat.png",
+            "timeBetweenShot": 0.9,
+            "maxTimeAlive": 5,
+            "formationPattern": "TriangleTargetBulletFormation",
+            "maxHealth": 3
+        },
+        "murderHornet":
+        {
+            "speed": 300,
+            "bullet": "Stinger",
+            "texture": "MurderHornet.png",
+            "timeBetweenShot": 0.6,
+            "maxTimeAlive": 6,
+            "formationPattern": "DownwardLinearBulletFormation",
+            "maxHealth": 5
+        },
+        "karen":
+        {
+            "speed": 150,
+            "bullet": "GreenCloud",
+            "texture": "Karen.png",
+            "timeBetweenShot": 0.8,
+            "maxTimeAlive": 45,
+            "formationPattern": "CircularBulletFormation",
+            "maxHealth": 35
+        },
+        "covid":
+        {
+            "speed": 150,
+            "bullet": "BabyCovid",
+            "texture": "BigCovid.png",
+            "timeBetweenShot": 0.6,
+            "maxTimeAlive": 60,
+            "formationPattern": "TargetDownwardLinearBulletFormation",
+            "maxHealth": 70
+        }
+    },
+    "waves":
+    {
+        "1":
+        {
+            "duration": 15,
+            "enemyType": "MurderHornet",
+            "enemyAmount": 3,
+            "enemyMovementPattern": "PATTERN NAME TBD"
+        },
+        "2":
+        {
+            "duration": "15",
+            "enemyType": "MurderHornet",
+            "enemyAmount": 3,
+            "enemyMovementPattern": "PATTERN NAME TBD"
+        },
+        "3":
+        {
+            "duration": "15",
+            "enemyType": "Bat",
+            "enemyAmount": 3,
+            "enemyMovementPattern": "PATTERN NAME TBD",
+            "formationPattern": "CircularBulletFormation"
+        },
+        "4":
+        {
+            "time": "23",
+            "enemyType": "Karen",
+            "enemyMovementPattern": "PATTERN 1",
+            "formationPattern": "CircularBulletFormation"
+        },
+        "5":
+        {
+            "time": "22",
+            "enemyType": "Karen",
+            "enemyMovementPattern": "PATTERN 2",
+            "formationPattern": "CircularBulletFormation"
+        }
+    }
+}
