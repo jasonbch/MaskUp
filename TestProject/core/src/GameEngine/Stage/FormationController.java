@@ -1,4 +1,4 @@
-package GameEngine.Spawning;
+package GameEngine.Stage;
 
 import GameEngine.Factory.BulletFormationFactory;
 import Objects.GameObject.Ammo.Ammo;

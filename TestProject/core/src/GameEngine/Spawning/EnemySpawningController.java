@@ -181,13 +181,20 @@ public class EnemySpawningController {
     }
 
     /**
-     * Spawn a given enemy at the given position.
+     * Spawn a given enemy with the given pattern
      *
      * @param enemy     the enemy's name
-     * @param xPosition the x position
-     * @param yPosition the y position
      * @param pattern   the movement pattern of the enemy
      */
+    public Enemy spawnEnemies(String enemy, String pattern) {
+        int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
+        int yPosition = gameResources.getWorldHeight();
+        Enemy concreteEnemy = enemyFactory.create(enemy, xPosition, yPosition, pattern);
+        enemyList.add(concreteEnemy);
+        return concreteEnemy;
+    }
+
+    // TODO: Obsolete
     private void spawnEnemies(String enemy, int xPosition, int yPosition, String pattern) {
         enemyList.add(enemyFactory.create(enemy, xPosition, yPosition, pattern));
     }

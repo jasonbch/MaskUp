@@ -5,7 +5,7 @@ import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.Spawning.StageController;
+import GameEngine.Stage.StageController;
 import GameEngine.Time.TimeController;
 import Objects.GameObject.GameObject;
 import Objects.GameObject.Player;

@@ -1,6 +1,7 @@
 package GameEngine.Spawning;
 
 import GameEngine.Resource.GameResources;
+import GameEngine.Stage.FormationController;
 import Objects.GameObject.Ammo.Ammo;
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.Entity;
