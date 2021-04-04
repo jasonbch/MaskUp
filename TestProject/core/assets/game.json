@@ -104,7 +104,7 @@
             "enemyAmount": 1,
             "startTime": 40,
             "enemyMovementPattern": "PatternTwo",
-            "formationPattern": "TriangleTargetBulletFormation"
+            "bulletFormation": "TriangleTargetBulletFormation"
         },
         "Boss":
         {
@@ -112,7 +112,7 @@
             "enemyAmount": 1,
             "startTime": 120,
             "enemyMovementPattern": "PatternOne",
-            "formationPattern": "TriangleTargetBulletFormation"
+            "bulletFormation": "TriangleTargetBulletFormation"
         }
     },
     "behaviors":

@@ -1,18 +1,16 @@
 package GameEngine.Stage;
 
-import GameEngine.Movement.EnemyMovementController;
 import GameEngine.Resource.GameResources;
-import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Time.TimeController;
-import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Enemy;
-import Objects.GameObject.Enemy.Karen;
 import Objects.GameObject.Player;
 
-import java.lang.reflect.Array;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * StageController class that implements Singleton.
@@ -25,13 +23,16 @@ public class StageController {
     // Implement Singleton
     private static StageController uniqueInstance = null;
     private final Player player = Player.instance();
+
     // Stages duration
     public int stageBuffer = 5;
     public int stageOneStart = 10;
+
     private int stageOneDuration = 30;
     private int stageTwoDuration = 45;
     private int stageThreeDuration = 30;
     private int stageFourDuration = 60;
+
     private int stageOneEnd = stageOneStart + stageOneDuration;
     public int stageTwoStart = stageOneEnd + stageBuffer;
     private int stageTwoEnd = stageTwoStart + stageTwoDuration;
@@ -45,6 +46,9 @@ public class StageController {
 
     // Mid Boss
     private Enemy karen;
+
+    private List<Wave> waves = new ArrayList<>();
+    private List<Behavior> behaviors = new ArrayList<>();
 
     private StageController() {
         this.initialize();
@@ -75,59 +79,52 @@ public class StageController {
         return stageOneEnd;
     }
 
-    public int getStageFourEnd() {
-        return stageFourEnd;
+    public int getStageTwoEnd() {
+        return stageTwoEnd;
     }
 
     public int getStageThreeEnd() {
         return stageThreeEnd;
     }
 
-    public int getStageTwoEnd() {
-        return stageTwoEnd;
+    public int getStageFourEnd() {
+        return stageFourEnd;
     }
 
-    private List<Wave> waves = new ArrayList<>();
-    private List<Behavior> behaviors = new ArrayList<>();
-
     private void initialize() {
-        // Wave
-        // Grunts
-        Wave wave1 = new Wave("Bat", 3, 5, "PatternOne", "TriangleTargetBulletFormation");
-        Wave wave2 = new Wave("Bat", 3, 15, "PatternOne", "TriangleTargetBulletFormation");
-        Wave wave3 = new Wave("Bat", 3, 25, "PatternOne", "TriangleTargetBulletFormation");
-        Wave wave4 = new Wave("MurderHornet", 3, 10, "PatternThree", "DownwardLinearBulletFormation");
-        Wave wave5 = new Wave("MurderHornet", 3, 20, "PatternThree", "DownwardLinearBulletFormation");
-        Wave wave6 = new Wave("MurderHornet", 3, 30, "PatternThree", "DownwardLinearBulletFormation");
+        this.initializeHelper();
+    }
 
-        waves.add(wave1);
-        waves.add(wave2);
-        waves.add(wave3);
-        waves.add(wave4);
-        waves.add(wave5);
-        waves.add(wave6);
+    private void initializeHelper() {
+        JsonReader json = new JsonReader();
+        JsonValue base = json.parse(Gdx.files.internal("game.json"));
 
-        // Boss
-        Wave waveMidBoss = new Wave("Karen", 1, 40, "PatternTwo", "TriangleTargetBulletFormation");
-        Wave waveBoss = new Wave("Covid", 1, 120, "PatternOne", "TriangleTargetBulletFormation");
+        for (JsonValue wave : base.get("waves")) {
+            String enemyType = wave.getString("enemyType");
+            int enemyAmount = wave.getInt("enemyAmount");
+            int startTime = wave.getInt("startTime");
+            String enemyMovementPattern = wave.getString("enemyMovementPattern");
+            String bulletFormation = wave.getString("bulletFormation");
 
-        waves.add(waveMidBoss);
-        waves.add(waveBoss);
+            Wave newWave = new Wave(enemyType, enemyAmount, startTime, enemyMovementPattern, bulletFormation);
+            this.waves.add(newWave);
+        }
 
-        //Behavior
-        Behavior behavior1 = new Behavior("Karen", 50, 150, 0.8, "PatternOne", "FanBulletFormation");
-        Behavior behavior2 = new Behavior("Karen", 55, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
-        Behavior behavior3 = new Behavior("Karen", 60, 150, 0.8, "PatternOne", "FanBulletFormation");
-        Behavior behavior4 = new Behavior("Karen", 65, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
+        for (JsonValue behavior : base.get("behaviors")) {
+            String enemyName = behavior.getString("enemyName");
+            int startTime = behavior.getInt("startTime");
+            int speed = behavior.getInt("speed");
+            int timeBetweenShot = behavior.getInt("timeBetweenShot");
+            String enemyMovementPattern = behavior.getString("enemyMovementPattern");
+            String bulletFormation = behavior.getString("bulletFormation");
 
-        behaviors.add(behavior1);
-        behaviors.add(behavior2);
-        behaviors.add(behavior3);
-        behaviors.add(behavior4);
+            Behavior newBehavior = new Behavior(enemyName, startTime, speed, timeBetweenShot, enemyMovementPattern, bulletFormation);
+            this.behaviors.add(newBehavior);
+        }
     }
 
     public void makeStages() {
-        changePlayerBulletType();
+        this.changePlayerBulletType();
 
         for (Wave wave : this.waves) {
             if (timeController.getElapsedTime() == wave.getStartTime()) {
@@ -141,7 +138,7 @@ public class StageController {
             }
         }
 
-        fastForwardToStageThree();
+        this.fastForwardToStageThree();
     }
 
     private void changePlayerBulletType() {
