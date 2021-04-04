@@ -7,7 +7,7 @@ import GameEngine.Movement.BulletMovementController;
 import GameEngine.Movement.EnemyMovementController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.Spawning.StageController;
+import GameEngine.Stage.StageController;
 import GameEngine.Time.TimeController;
 import Interface.GameOverScreen;
 import Interface.GameVictoryScreen;
@@ -80,7 +80,7 @@ public class GameController {
         // delete enemies if they need deleted
         enemySpawningController.deleteEnemies();
 
-        // make stages
+        // TODO: make stages
         stageController.makeStages();
 
         // Check if the game is over
