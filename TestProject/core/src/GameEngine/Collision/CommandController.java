@@ -5,7 +5,6 @@ import java.util.Queue;
 
 public class CommandController {
     private Queue<Command> commands = new LinkedList<>();
-    private Command command;
 
     public void addCommand(Command command) {
         this.commands.add(command);
@@ -13,7 +12,7 @@ public class CommandController {
 
     public void executeCommand() {
         while (commands.size() > 0) {
-            command = commands.poll();
+            Command command = commands.poll();
             command.execute();
         }
     }

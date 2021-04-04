@@ -99,6 +99,7 @@ public class StageController {
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal("game.json"));
 
+        // Initialize all the waves
         for (JsonValue wave : base.get("waves")) {
             String enemyType = wave.getString("enemyType");
             int enemyAmount = wave.getInt("enemyAmount");
@@ -110,6 +111,7 @@ public class StageController {
             this.waves.add(newWave);
         }
 
+        // Initialize all the behaviors
         for (JsonValue behavior : base.get("behaviors")) {
             String enemyName = behavior.getString("enemyName");
             int startTime = behavior.getInt("startTime");
@@ -157,6 +159,7 @@ public class StageController {
     }
 
     /**
+     * TODO: Does not work
      * Fast forward the game to the start of stage three if the player
      * kills the mid boss before the stage two end.
      */

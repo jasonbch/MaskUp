@@ -1,11 +1,14 @@
 package Objects.GameObject;
 
+import GameEngine.Stage.Wave;
 import Objects.GameObject.Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import java.util.Arrays;
 import java.util.ListIterator;
@@ -18,7 +21,7 @@ import java.util.ListIterator;
 public class Player extends Entity {
     // Implement Singleton
     private static Player uniqueInstance = null;
-    private int maxHealth = 5;
+    private int maxHealth;
     private boolean invulnerable;
     private long startInvulnerabilityTime;
     private int defaultKeySet[] = {Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.DOWN};
@@ -32,13 +35,27 @@ public class Player extends Entity {
         super();
         this.xPosition = (gameResources.getScreenOneEnd()) / 2 - (getImageWidth());
         this.yPosition = gameResources.getWorldHeight() / 6;
+
+        // Pre-defined attributes
         this.name = "Player";
-        this.speed = 330;
         this.bullet = "Bullet";
         this.texture = new Texture("Player.png");
-        this.timeBetweenShot = 0.3f;
         this.invulnerable = false;
-        setFormationPattern("UpwardLinearBulletFormation");
+
+        // Customizable attributes
+        initialize();
+    }
+
+    private void initialize() {
+        JsonReader json = new JsonReader();
+        JsonValue base = json.parse(Gdx.files.internal("game.json"));
+
+        // Initialize all the waves
+        JsonValue element = base.get("player");
+        this.maxHealth = element.getInt("health");
+        this.speed = element.getInt("speed");
+        this.timeBetweenShot = element.getInt("timeBetweenShot");
+        setFormationPattern(element.getString("bulletFormation"));
     }
 
     public static Player instance() {
