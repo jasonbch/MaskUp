@@ -3,7 +3,9 @@
     {
         "health": 5,
         "speed": 330,
-        "timeBetweenShot": 0.3
+        "texture": "MurderHornet.png",
+        "timeBetweenShot": 0.3,
+        "bulletFormation": "UpwardLinearBulletFormation"
     },
     "enemies":
     {

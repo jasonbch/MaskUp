@@ -37,6 +37,7 @@ public class GameController {
     private boolean isSlowMode;
     private float gameSpeed;
     private float playerInvulnerableTime = 3;
+    private boolean godMode = false;
 
     private GameController() {
         this.isSlowMode = false;
@@ -51,6 +52,9 @@ public class GameController {
     }
 
     public void updateGame(float deltaTime, MaskGame game) {
+        // God Mode
+        startGodMode();
+
         // Spawn bullets from player and enemies
         if (!player.isInvulnerable()) {
             bulletSpawningController.playerFire(player);
@@ -63,21 +67,25 @@ public class GameController {
 
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
-        // check players invulnerability time
-        resetPlayerInvulnerableTime();
+        // Check players invulnerability time
+        if (!this.godMode) {
+            resetPlayerInvulnerableTime();
+        }
 
-        // update the collision commands
-        commandController.addCommand(new PlayerCollisionCommand(player));
+        // Update the collision commands
+        if (!player.isInvulnerable()) {
+            commandController.addCommand(new PlayerCollisionCommand(player));
+        }
         commandController.addCommand(new EnemyCollisionCommand());
         commandController.executeCommand();
 
         player.movePlayer(deltaTime);
 
-        // update movement controllers
+        // Update movement controllers
         bulletMovementController.update(deltaTime, bulletSpawningController);
         enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
 
-        // delete enemies if they need deleted
+        // Delete enemies if they need deleted
         enemySpawningController.deleteEnemies();
 
         // TODO: make stages
@@ -141,6 +149,19 @@ public class GameController {
 
     public long getPlayerInvulnerableTime() {
         return TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
+    }
+
+    public void startGodMode() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            player.setInvulnerable(!player.isInvulnerable());
+            if (player.isInvulnerable()) {
+                System.out.println("God Mode: Activated");
+                godMode = true;
+            } else {
+                System.out.println("God Mode: Deactivated");
+                godMode = false;
+            }
+        }
     }
 
     /**
