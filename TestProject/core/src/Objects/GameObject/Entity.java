@@ -48,7 +48,7 @@ public abstract class Entity extends GameObject {
     /**
      * Returns the state
      */
-    public boolean IsDone() {
+    public boolean isDone() {
         return this.isDone;
     }
 

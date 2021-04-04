@@ -3,9 +3,7 @@ package GameEngine.Spawning;
 import GameEngine.Factory.EnemyFactory;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
-import Objects.GameObject.Enemy.Covid;
-import Objects.GameObject.Enemy.Enemy;
-import Objects.GameObject.Enemy.Karen;
+import Objects.GameObject.Enemy.*;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -57,7 +55,7 @@ public class EnemySpawningController {
 
             if (currEnemy.getYPosition() > gameResources.getWorldHeight()) {
                 iter2.remove();
-            } else if (currEnemy.IsDone()) {
+            } else if (currEnemy.isDone()) {
                 scoreController.addScore(currEnemy);
                 iter2.remove();
             } else if (currEnemy.getHealth() <= 0) {
@@ -90,6 +88,16 @@ public class EnemySpawningController {
                 }
             } else if (enemyName.equals("Covid")) {
                 if (currentEnemy instanceof Covid) {
+                    return currentEnemy;
+                }
+            }
+            else if (enemyName.equals("Bat")) {
+                if (currentEnemy instanceof Bat) {
+                    return currentEnemy;
+                }
+            }
+            else if (enemyName.equals("MurderHornet")) {
+                if (currentEnemy instanceof MurderHornet) {
                     return currentEnemy;
                 }
             }

@@ -142,16 +142,16 @@ public class StageController {
     }
 
     private void changePlayerBulletType() {
-        if (timeController.getElapsedTime() >= stageOneStart && timeController.getElapsedTime() <= getStageOneEnd()) {
+        if (timeController.getElapsedTime() == stageOneStart) {
             player.setBullet("Bullet");
         }
-        if (timeController.getElapsedTime() >= stageTwoStart && timeController.getElapsedTime() <= getStageTwoEnd()) {
+        if (timeController.getElapsedTime() == stageTwoStart) {
             player.setBullet("Mask");
         }
-        if (timeController.getElapsedTime() >= stageThreeStart && timeController.getElapsedTime() <= getStageThreeEnd()) {
+        if (timeController.getElapsedTime() == stageThreeStart) {
             player.setBullet("Bullet");
         }
-        if (timeController.getElapsedTime() >= stageFourStart && timeController.getElapsedTime() <= getStageFourEnd()) {
+        if (timeController.getElapsedTime() == stageFourStart) {
             player.setBullet("Syringe");
         }
     }
@@ -162,7 +162,7 @@ public class StageController {
      */
     private void fastForwardToStageThree() {
         if (this.karen != null) {
-            if (this.stageThreeStart > (int) timeController.getElapsedTime() && this.karen.IsDone()) {
+            if (this.stageThreeStart > (int) timeController.getElapsedTime() && this.karen.isDone()) {
                 this.stageThreeStart = (int) timeController.getElapsedTime();
             }
         }
