@@ -113,6 +113,10 @@ public class StageController {
     }
 
     public void makeStages() {
+        this.karen = findEnemy("Karen");
+        this.covid = findEnemy("Covid");
+        changePlayerBulletType();
+
         for (Wave wave : waves) {
             if (timeController.getElapsedTime() == wave.getStartTime()) {
                 wave.run();
