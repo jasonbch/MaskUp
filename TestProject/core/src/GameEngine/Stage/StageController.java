@@ -19,10 +19,8 @@ import java.util.ListIterator;
  * The class can create stages for a game.
  */
 public class StageController {
-    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private static final TimeController timeController = TimeController.instance();
     private static final GameResources gameResources = GameResources.instance();
-    private static final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
 
     // Implement Singleton
     private static StageController uniqueInstance = null;
@@ -41,8 +39,10 @@ public class StageController {
     private int stageThreeEnd = stageThreeStart + stageThreeDuration;
     public int stageFourStart = stageThreeEnd + stageBuffer;
     private int stageFourEnd = stageFourStart + stageFourDuration;
+
     // Final Boss
     private Enemy covid;
+
     // Mid Boss
     private Enemy karen;
 
@@ -88,12 +88,14 @@ public class StageController {
     }
 
     private List<Wave> waves = new ArrayList<>();
+    private List<Behavior> behaviors = new ArrayList<>();
 
     private void initialize() {
+        // Wave
+        // Grunts
         Wave wave1 = new Wave("Bat", 3, 5, "PatternOne", "TriangleTargetBulletFormation");
         Wave wave2 = new Wave("Bat", 3, 15, "PatternOne", "TriangleTargetBulletFormation");
         Wave wave3 = new Wave("Bat", 3, 25, "PatternOne", "TriangleTargetBulletFormation");
-
         Wave wave4 = new Wave("MurderHornet", 3, 10, "PatternThree", "DownwardLinearBulletFormation");
         Wave wave5 = new Wave("MurderHornet", 3, 20, "PatternThree", "DownwardLinearBulletFormation");
         Wave wave6 = new Wave("MurderHornet", 3, 30, "PatternThree", "DownwardLinearBulletFormation");
@@ -105,23 +107,41 @@ public class StageController {
         waves.add(wave5);
         waves.add(wave6);
 
-        Wave waveMidBoss = new Wave("Karen", 1, 35, "PatternTwo", "TriangleTargetBulletFormation");
+        // Boss
+        Wave waveMidBoss = new Wave("Karen", 1, 40, "PatternTwo", "TriangleTargetBulletFormation");
         Wave waveBoss = new Wave("Covid", 1, 120, "PatternOne", "TriangleTargetBulletFormation");
 
         waves.add(waveMidBoss);
         waves.add(waveBoss);
+
+        //Behavior
+        Behavior behavior1 = new Behavior("karen", 50, 150, 0.8, "PatternOne", "FanBulletFormation");
+        Behavior behavior2 = new Behavior("karen", 55, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
+        Behavior behavior3 = new Behavior("karen", 60, 150, 0.8, "PatternOne", "FanBulletFormation");
+        Behavior behavior4 = new Behavior("karen", 65, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
+
+        behaviors.add(behavior1);
+        behaviors.add(behavior2);
+        behaviors.add(behavior3);
+        behaviors.add(behavior4);
     }
 
     public void makeStages() {
-        this.karen = findEnemy("Karen");
-        this.covid = findEnemy("Covid");
         changePlayerBulletType();
 
-        for (Wave wave : waves) {
+        for (Wave wave : this.waves) {
             if (timeController.getElapsedTime() == wave.getStartTime()) {
                 wave.run();
             }
         }
+
+        for (Behavior behavior : this.behaviors) {
+            if (timeController.getElapsedTime() == behavior.getStartTime()) {
+                behavior.change();
+            }
+        }
+
+        fastForwardToStageThree();
     }
 
     private void changePlayerBulletType() {
@@ -138,24 +158,6 @@ public class StageController {
             player.setBullet("Syringe");
         }
     }
-
-    private Enemy findEnemy(String enemyType) {
-        ListIterator<Enemy> iterator = enemySpawningController.getEnemyList().listIterator();
-        while (iterator.hasNext()) {
-            Enemy currentEnemy = iterator.next();
-            if (enemyType.equals("Karen")) {
-                if (currentEnemy instanceof Karen) {
-                    return currentEnemy;
-                }
-            } else if (enemyType.equals("Covid")) {
-                if (currentEnemy instanceof Covid) {
-                    return currentEnemy;
-                }
-            }
-        }
-        return null;
-    }
-
 
     /**
      * Fast forward the game to the start of stage three if the player
