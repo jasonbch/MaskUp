@@ -115,10 +115,10 @@ public class StageController {
         waves.add(waveBoss);
 
         //Behavior
-        Behavior behavior1 = new Behavior("karen", 50, 150, 0.8, "PatternOne", "FanBulletFormation");
-        Behavior behavior2 = new Behavior("karen", 55, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
-        Behavior behavior3 = new Behavior("karen", 60, 150, 0.8, "PatternOne", "FanBulletFormation");
-        Behavior behavior4 = new Behavior("karen", 65, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
+        Behavior behavior1 = new Behavior("Karen", 50, 150, 0.8, "PatternOne", "FanBulletFormation");
+        Behavior behavior2 = new Behavior("Karen", 55, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
+        Behavior behavior3 = new Behavior("Karen", 60, 150, 0.8, "PatternOne", "FanBulletFormation");
+        Behavior behavior4 = new Behavior("Karen", 65, 150, 0.05, "PatternOne", "TargetDownwardLinearBulletFormation");
 
         behaviors.add(behavior1);
         behaviors.add(behavior2);
