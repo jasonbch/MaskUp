@@ -111,7 +111,7 @@ public class GameController {
         Enemy covid = stageController.getCovid();
 
         if (covid != null) {
-            return covid.IsDone();
+            return covid.isDone();
         }
 
         return false;
