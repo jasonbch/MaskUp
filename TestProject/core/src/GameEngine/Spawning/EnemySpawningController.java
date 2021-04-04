@@ -84,11 +84,11 @@ public class EnemySpawningController {
         ListIterator<Enemy> iterator = this.getEnemyList().listIterator();
         while (iterator.hasNext()) {
             Enemy currentEnemy = iterator.next();
-            if (enemyName.equals("karen")) {
+            if (enemyName.equals("Karen")) {
                 if (currentEnemy instanceof Karen) {
                     return currentEnemy;
                 }
-            } else if (enemyName.equals("covid")) {
+            } else if (enemyName.equals("Covid")) {
                 if (currentEnemy instanceof Covid) {
                     return currentEnemy;
                 }
