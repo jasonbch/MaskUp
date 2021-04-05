@@ -67,8 +67,8 @@ public class EnemySpawningController {
     /**
      * Spawn a given enemy with the given pattern
      *
-     * @param enemy     the enemy's name
-     * @param pattern   the movement pattern of the enemy
+     * @param enemy   the enemy's name
+     * @param pattern the movement pattern of the enemy
      */
     public Enemy spawnEnemies(String enemy, String pattern) {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
@@ -90,13 +90,11 @@ public class EnemySpawningController {
                 if (currentEnemy instanceof Covid) {
                     return currentEnemy;
                 }
-            }
-            else if (enemyName.equals("Bat")) {
+            } else if (enemyName.equals("Bat")) {
                 if (currentEnemy instanceof Bat) {
                     return currentEnemy;
                 }
-            }
-            else if (enemyName.equals("MurderHornet")) {
+            } else if (enemyName.equals("MurderHornet")) {
                 if (currentEnemy instanceof MurderHornet) {
                     return currentEnemy;
                 }
