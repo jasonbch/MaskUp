@@ -56,7 +56,7 @@ public class GameController {
         startGodMode();
 
         // Spawn bullets from player and enemies
-        if (! player.isInvulnerable()) {
+        if (!player.isInvulnerable()) {
             bulletSpawningController.playerFire(player);
             bulletSpawningController.enemyFire(deltaTime, enemySpawningController.getEnemyList());
         }
@@ -68,12 +68,12 @@ public class GameController {
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
         // Check players invulnerability time
-        if (! this.godMode) {
+        if (!this.godMode) {
             resetPlayerInvulnerableTime();
         }
 
         // Update the collision commands
-        if (! player.isInvulnerable()) {
+        if (!player.isInvulnerable()) {
             commandController.addCommand(new PlayerCollisionCommand(player));
         }
         commandController.addCommand(new EnemyCollisionCommand());
@@ -152,7 +152,7 @@ public class GameController {
 
     public void startGodMode() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
-            player.setInvulnerable(! player.isInvulnerable());
+            player.setInvulnerable(!player.isInvulnerable());
             if (player.isInvulnerable()) {
                 System.out.println("God Mode: Activated");
                 godMode = true;
@@ -171,7 +171,7 @@ public class GameController {
      */
     public float getGameSpeed() {
         // If the L key is just press and it is not slow down mode
-        if (Gdx.input.isKeyJustPressed(Input.Keys.L) && ! isSlowMode) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L) && !isSlowMode) {
             setIsSlowMode(true);  // Change the slow mode to true
             gameSpeed = 0.4f;   // Change the game speed to slow speed
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.L) && isSlowMode) {

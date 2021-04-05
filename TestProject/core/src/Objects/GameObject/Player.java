@@ -212,7 +212,7 @@ public class Player extends Entity {
             if (Math.abs(ammo.getXPosition() - getXPosition()) <= 200 && (Math.abs(ammo.getYPosition() - getYPosition()) <= 200)) {
 
                 // Check for intersect
-                if (! isInvulnerable()) {
+                if (!isInvulnerable()) {
                     if (intersects(ammo.getBoundingBox())) {
                         setInvulnerable(true);
                         ammo.setIsDone();

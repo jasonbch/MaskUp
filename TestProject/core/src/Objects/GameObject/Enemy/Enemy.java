@@ -43,7 +43,7 @@ public abstract class Enemy extends Entity {
     }
 
     public void revertXMultiplier() {
-        xMultiplier *= - 1;
+        xMultiplier *= -1;
     }
 
     public float getYMultiplier() {
@@ -51,7 +51,7 @@ public abstract class Enemy extends Entity {
     }
 
     public void revertYMultiplier() {
-        yMultiplier *= - 1;
+        yMultiplier *= -1;
     }
 
     public void updateTimeAlive() {
