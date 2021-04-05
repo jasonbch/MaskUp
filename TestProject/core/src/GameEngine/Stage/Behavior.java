@@ -28,7 +28,7 @@ public class Behavior {
     }
 
     public void change() {
-        if (! isRan) {
+        if (!isRan) {
             Enemy enemy = enemySpawningController.findEnemy(this.enemy);
 
             if (enemy != null) {

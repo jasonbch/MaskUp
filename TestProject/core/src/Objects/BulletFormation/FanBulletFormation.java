@@ -16,9 +16,9 @@ public class FanBulletFormation extends BulletFormation {
     @Override
     public List<Ammo> shoot(Entity entity, int xShootPosition, int yShootPosition) {
         List<Ammo> ammoList;
-        PatternAttribute patternAttribute1 = new PatternAttribute("LinearBulletMovementPattern", - 1, - 1);
-        PatternAttribute patternAttribute2 = new PatternAttribute("LinearBulletMovementPattern", 0, - 1);
-        PatternAttribute patternAttribute3 = new PatternAttribute("LinearBulletMovementPattern", 1, - 1);
+        PatternAttribute patternAttribute1 = new PatternAttribute("LinearBulletMovementPattern", -1, -1);
+        PatternAttribute patternAttribute2 = new PatternAttribute("LinearBulletMovementPattern", 0, -1);
+        PatternAttribute patternAttribute3 = new PatternAttribute("LinearBulletMovementPattern", 1, -1);
 
         Ammo ammo1 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute1);
         Ammo ammo2 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute2);

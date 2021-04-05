@@ -95,8 +95,8 @@ public class UIController {
                     backgroundOffsets[layer] = 0;
                 }
 
-                batch.draw(backgrounds[layer], 0, - backgroundOffsets[layer], gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
-                batch.draw(backgrounds[layer], 0, - backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             }
         }
     }
