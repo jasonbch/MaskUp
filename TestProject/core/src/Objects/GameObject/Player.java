@@ -1,6 +1,5 @@
 package Objects.GameObject;
 
-import GameEngine.Stage.Wave;
 import Objects.GameObject.Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -46,6 +45,13 @@ public class Player extends Entity {
         initialize();
     }
 
+    public static Player instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Player();
+        }
+        return uniqueInstance;
+    }
+
     private void initialize() {
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal("game.json"));
@@ -56,13 +62,6 @@ public class Player extends Entity {
         this.speed = element.getInt("speed");
         this.timeBetweenShot = element.getInt("timeBetweenShot");
         setFormationPattern(element.getString("bulletFormation"));
-    }
-
-    public static Player instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new Player();
-        }
-        return uniqueInstance;
     }
 
     public boolean isInvulnerable() {
@@ -210,11 +209,7 @@ public class Player extends Entity {
 
     @Override
     public boolean intersects(Rectangle otherRectangle) {
-        Rectangle rectangle = new Rectangle(
-                xPosition + (getImageWidth() / 4),
-                yPosition + (getImageHeight() / 4),
-                getImage().getWidth() / 2,
-                getImage().getHeight() / 2);
+        Rectangle rectangle = new Rectangle(xPosition + (getImageWidth() / 4), yPosition + (getImageHeight() / 4), getImage().getWidth() / 2, getImage().getHeight() / 2);
         return rectangle.overlaps(otherRectangle);
     }
 
@@ -233,11 +228,10 @@ public class Player extends Entity {
             Ammo ammo = iter.next();
 
             // Check if the two objects are near each other
-            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 200
-                    && (Math.abs(ammo.getYPosition() - getYPosition()) <= 200)) {
+            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 200 && (Math.abs(ammo.getYPosition() - getYPosition()) <= 200)) {
 
                 // Check for intersect
-                if (!isInvulnerable()) {
+                if (! isInvulnerable()) {
                     if (intersects(ammo.getBoundingBox())) {
                         setInvulnerable(true);
                         ammo.setIsDone();

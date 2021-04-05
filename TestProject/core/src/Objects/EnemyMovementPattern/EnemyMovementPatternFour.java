@@ -22,7 +22,7 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     public void move(Enemy enemy, float deltaTime) {
 
         //// UPDATED PATTERN
-        if (!enemyMovementController.getEnemyPositionMap().containsKey(enemy)) {
+        if (! enemyMovementController.getEnemyPositionMap().containsKey(enemy)) {
             GridPoint2 position = new GridPoint2(20, 900);
             enemyMovementController.getEnemyPositionMap().put(enemy, position);
         } else {

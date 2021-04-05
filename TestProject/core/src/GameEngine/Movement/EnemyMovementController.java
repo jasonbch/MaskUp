@@ -47,7 +47,7 @@ public class EnemyMovementController {
             Enemy currEnemy = iter2.next();
 
             // check if enemy is in the list
-            if (!enemyRandomYMap.containsKey(currEnemy)) {
+            if (! enemyRandomYMap.containsKey(currEnemy)) {
                 addRandomY(currEnemy);
             }
             this.move(currEnemy, deltaTime);
@@ -60,7 +60,7 @@ public class EnemyMovementController {
 
         if (enemy.getTimeAlive() >= enemy.getMaxLifeSpan()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternExit");
-        } else if (!enemy.isSpawned()) {
+        } else if (! enemy.isSpawned()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternEnter");
         } else {
             String enemyPattern = enemy.getMovingPattern();

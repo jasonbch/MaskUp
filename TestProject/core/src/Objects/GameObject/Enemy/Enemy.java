@@ -43,7 +43,7 @@ public abstract class Enemy extends Entity {
     }
 
     public void revertXMultiplier() {
-        xMultiplier *= -1;
+        xMultiplier *= - 1;
     }
 
     public float getYMultiplier() {
@@ -51,7 +51,7 @@ public abstract class Enemy extends Entity {
     }
 
     public void revertYMultiplier() {
-        yMultiplier *= -1;
+        yMultiplier *= - 1;
     }
 
     public void updateTimeAlive() {
@@ -95,8 +95,7 @@ public abstract class Enemy extends Entity {
             Ammo ammo = iter.next();
 
             // Check if the two objects are near each other
-            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 150
-                    && (Math.abs(ammo.getYPosition() - getYPosition()) <= 150)) {
+            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 150 && (Math.abs(ammo.getYPosition() - getYPosition()) <= 150)) {
                 // Check for intersect
                 if (intersects(ammo.getBoundingBox())) {
                     ammo.setIsDone();

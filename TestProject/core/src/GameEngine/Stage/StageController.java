@@ -4,7 +4,6 @@ import GameEngine.Resource.GameResources;
 import GameEngine.Time.TimeController;
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.Player;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;

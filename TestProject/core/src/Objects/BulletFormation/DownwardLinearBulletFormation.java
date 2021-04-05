@@ -17,7 +17,7 @@ public class DownwardLinearBulletFormation extends BulletFormation {
     public List<Ammo> shoot(Entity entity, int xShootPosition, int yShootPosition) {
         List<Ammo> ammoList;
 
-        PatternAttribute patternAttribute = new PatternAttribute("LinearBulletMovementPattern", 0, -1);
+        PatternAttribute patternAttribute = new PatternAttribute("LinearBulletMovementPattern", 0, - 1);
 
         Ammo ammo = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute);
         ammoList = Arrays.asList(ammo);

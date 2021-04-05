@@ -4,6 +4,7 @@ import GameEngine.Spawning.EnemySpawningController;
 import Objects.GameObject.Enemy.Enemy;
 
 public class Behavior {
+    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private String enemy;
     private int startTime;
     private int speed;
@@ -11,18 +12,8 @@ public class Behavior {
     private String enemyMovementPattern;
     private String bulletFormation;
     private boolean isRan;
-    private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
 
-    public int getStartTime() {
-        return this.startTime;
-    }
-
-    public Behavior(String enemy,
-                    int startTime,
-                    int speed,
-                    double timeBetweenShot,
-                    String enemyMovementPattern,
-                    String bulletFormation) {
+    public Behavior(String enemy, int startTime, int speed, double timeBetweenShot, String enemyMovementPattern, String bulletFormation) {
         this.enemy = enemy;
         this.startTime = startTime;
         this.speed = speed;
@@ -32,8 +23,12 @@ public class Behavior {
         this.isRan = false;
     }
 
+    public int getStartTime() {
+        return this.startTime;
+    }
+
     public void change() {
-        if (!isRan) {
+        if (! isRan) {
             Enemy enemy = enemySpawningController.findEnemy(this.enemy);
 
             if (enemy != null) {
