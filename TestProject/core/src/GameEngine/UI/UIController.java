@@ -5,7 +5,7 @@ import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.Spawning.StageController;
+import GameEngine.Stage.StageController;
 import GameEngine.Time.TimeController;
 import Objects.GameObject.GameObject;
 import Objects.GameObject.Player;
@@ -33,11 +33,7 @@ public class UIController {
     private final ScoreController scoreController = ScoreController.instance();
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
-    private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class),
-            assetManager.get("Clouds1.png", Texture.class),
-            assetManager.get("Clouds2.png", Texture.class),
-            assetManager.get("Cloud4.png", Texture.class),
-            assetManager.get("PlayerHudBackground.png", Texture.class)};
+    private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class), assetManager.get("Clouds1.png", Texture.class), assetManager.get("Clouds2.png", Texture.class), assetManager.get("Cloud4.png", Texture.class), assetManager.get("PlayerHudBackground.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
     Texture stage1 = new Texture("stage1.png");
@@ -61,11 +57,7 @@ public class UIController {
 
     public void drawWhiteDotInSlowMode() {
         if (gameController.getIsSlowMode()) {
-            batch.draw(assetManager.get("CircleHitBox.png", Texture.class),
-                    player.getXPosition() + (float) (player.getImageWidth() / 2) - (float) (player.getImageWidth() / 4),
-                    player.getYPosition() + (float) (player.getImageHeight() / 2) - (float) (player.getImageWidth() / 4),
-                    (float) player.getImageWidth() / 2,
-                    (float) player.getImageWidth() / 2);
+            batch.draw(assetManager.get("CircleHitBox.png", Texture.class), player.getXPosition() + (float) (player.getImageWidth() / 2) - (float) (player.getImageWidth() / 4), player.getYPosition() + (float) (player.getImageHeight() / 2) - (float) (player.getImageWidth() / 4), (float) player.getImageWidth() / 2, (float) player.getImageWidth() / 2);
         }
     }
 
@@ -93,33 +85,18 @@ public class UIController {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
-        batch.draw(backgrounds[4],
-                gameResources.getScreenTwoStart(),
-                0,
-                gameResources.getScreenTwoWidth(),
-                gameResources.getWorldHeight());
+        batch.draw(backgrounds[4], gameResources.getScreenTwoStart(), 0, gameResources.getScreenTwoWidth(), gameResources.getWorldHeight());
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (layer == 0) {
-                batch.draw(backgrounds[layer],
-                        0,
-                        0,
-                        gameResources.getScreenOneWidth(),
-                        gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, 0, gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             } else {
                 if (backgroundOffsets[layer] > gameResources.getWorldHeight()) {
                     backgroundOffsets[layer] = 0;
                 }
 
-                batch.draw(backgrounds[layer],
-                        0, -backgroundOffsets[layer],
-                        gameResources.getScreenOneWidth(),
-                        gameResources.getWorldHeight());
-                batch.draw(backgrounds[layer],
-                        0,
-                        -backgroundOffsets[layer] + gameResources.getWorldHeight(),
-                        gameResources.getScreenOneWidth(),
-                        gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             }
         }
     }
@@ -151,11 +128,7 @@ public class UIController {
     }
 
     private void draw(GameObject object) {
-        batch.draw(object.getImage(),
-                object.getXPosition(),
-                object.getYPosition(),
-                object.getImage().getWidth(),
-                object.getImage().getHeight());
+        batch.draw(object.getImage(), object.getXPosition(), object.getYPosition(), object.getImage().getWidth(), object.getImage().getHeight());
     }
 
     public void updateAndRenderHealthBar() {

@@ -95,8 +95,7 @@ public abstract class Enemy extends Entity {
             Ammo ammo = iter.next();
 
             // Check if the two objects are near each other
-            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 150
-                    && (Math.abs(ammo.getYPosition() - getYPosition()) <= 150)) {
+            if (Math.abs(ammo.getXPosition() - getXPosition()) <= 150 && (Math.abs(ammo.getYPosition() - getYPosition()) <= 150)) {
                 // Check for intersect
                 if (intersects(ammo.getBoundingBox())) {
                     ammo.setIsDone();

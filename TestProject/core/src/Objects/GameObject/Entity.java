@@ -48,7 +48,7 @@ public abstract class Entity extends GameObject {
     /**
      * Returns the state
      */
-    public boolean IsDone() {
+    public boolean isDone() {
         return this.isDone;
     }
 
@@ -58,7 +58,6 @@ public abstract class Entity extends GameObject {
     public void setIsDone() {
         this.isDone = true;
     }
-
 
     /**
      * Update time since last shot.
@@ -111,37 +110,27 @@ public abstract class Entity extends GameObject {
         return shootPosition;
     }
 
-    /**
-     * Return the name.
-     */
+
     public String getName() {
         return this.name;
     }
 
-    /**
-     * Return the speed.
-     */
     public float getSpeed() {
         return this.speed;
     }
 
-    /**
-     * Return the bullet string that the enemy fires.
-     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     public String getBullet() {
         return this.bullet;
     }
 
-    /**
-     * Return the time between shot.
-     */
     public float getTimeBetweenShots() {
         return this.timeBetweenShot;
     }
 
-    /**
-     * Return the Texture image.
-     */
     public Texture getImage() {
         return this.texture;
     }

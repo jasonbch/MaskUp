@@ -7,7 +7,7 @@ import GameEngine.Movement.BulletMovementController;
 import GameEngine.Movement.EnemyMovementController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.Spawning.StageController;
+import GameEngine.Stage.StageController;
 import GameEngine.Time.TimeController;
 import Interface.GameOverScreen;
 import Interface.GameVictoryScreen;
@@ -37,6 +37,7 @@ public class GameController {
     private boolean isSlowMode;
     private float gameSpeed;
     private float playerInvulnerableTime = 3;
+    private boolean godMode = false;
 
     private GameController() {
         this.isSlowMode = false;
@@ -51,6 +52,9 @@ public class GameController {
     }
 
     public void updateGame(float deltaTime, MaskGame game) {
+        // God Mode
+        startGodMode();
+
         // Spawn bullets from player and enemies
         if (!player.isInvulnerable()) {
             bulletSpawningController.playerFire(player);
@@ -63,24 +67,28 @@ public class GameController {
 
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
-        // check players invulnerability time
-        resetPlayerInvulnerableTime();
+        // Check players invulnerability time
+        if (!this.godMode) {
+            resetPlayerInvulnerableTime();
+        }
 
-        // update the collision commands
-        commandController.addCommand(new PlayerCollisionCommand(player));
+        // Update the collision commands
+        if (!player.isInvulnerable()) {
+            commandController.addCommand(new PlayerCollisionCommand(player));
+        }
         commandController.addCommand(new EnemyCollisionCommand());
         commandController.executeCommand();
 
         player.movePlayer(deltaTime);
 
-        // update movement controllers
+        // Update movement controllers
         bulletMovementController.update(deltaTime, bulletSpawningController);
         enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
 
-        // delete enemies if they need deleted
+        // Delete enemies if they need deleted
         enemySpawningController.deleteEnemies();
 
-        // make stages
+        // TODO: make stages
         stageController.makeStages();
 
         // Check if the game is over
@@ -97,8 +105,7 @@ public class GameController {
     }
 
     public void checkVictoryGame(MaskGame game) {
-        if (timeController.getElapsedTime() == stageController.getStageFourEnd()
-                || this.isFinalBossDead()) {
+        if (timeController.getElapsedTime() == stageController.getStageFourEnd() || this.isFinalBossDead()) {
             setWiningState(game);
         }
     }
@@ -111,7 +118,7 @@ public class GameController {
         Enemy covid = stageController.getCovid();
 
         if (covid != null) {
-            return covid.IsDone();
+            return covid.isDone();
         }
 
         return false;
@@ -143,6 +150,19 @@ public class GameController {
         return TimeUtils.timeSinceMillis(player.getStartInvulnerabilityTime()) / 1000;
     }
 
+    public void startGodMode() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            player.setInvulnerable(!player.isInvulnerable());
+            if (player.isInvulnerable()) {
+                System.out.println("God Mode: Activated");
+                godMode = true;
+            } else {
+                System.out.println("God Mode: Deactivated");
+                godMode = false;
+            }
+        }
+    }
+
     /**
      * Return the speed of the game. If the game is in slow speed, the
      * speed of the game is reduced by 60%.
@@ -151,12 +171,10 @@ public class GameController {
      */
     public float getGameSpeed() {
         // If the L key is just press and it is not slow down mode
-        if (Gdx.input.isKeyJustPressed(Input.Keys.L)
-                && !isSlowMode) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L) && !isSlowMode) {
             setIsSlowMode(true);  // Change the slow mode to true
             gameSpeed = 0.4f;   // Change the game speed to slow speed
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.L)
-                && isSlowMode) {
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.L) && isSlowMode) {
             // If the L key is just press and it is slow down mode
             setIsSlowMode(false); // Change slow mode to false
             gameSpeed = 1;      // Change the game speed to normal speed

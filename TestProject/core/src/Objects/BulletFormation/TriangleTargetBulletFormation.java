@@ -37,20 +37,11 @@ public class TriangleTargetBulletFormation extends BulletFormation {
         // Set up ammo
         List<Ammo> ammoList;
 
-        PatternAttribute patternAttribute1 = new PatternAttribute(
-                "LinearBulletMovementPattern",
-                (float) -newY,
-                (float) -newX);
+        PatternAttribute patternAttribute1 = new PatternAttribute("LinearBulletMovementPattern", (float) -newY, (float) -newX);
 
-        PatternAttribute patternAttribute2 = new PatternAttribute(
-                "LinearBulletMovementPattern",
-                (float) -newY,
-                (float) -newX);
+        PatternAttribute patternAttribute2 = new PatternAttribute("LinearBulletMovementPattern", (float) -newY, (float) -newX);
 
-        PatternAttribute patternAttribute3 = new PatternAttribute(
-                "LinearBulletMovementPattern",
-                (float) -newY,
-                (float) -newX);
+        PatternAttribute patternAttribute3 = new PatternAttribute("LinearBulletMovementPattern", (float) -newY, (float) -newX);
 
         double xDistance = newY * 30;
         double yDistance = newX * 30;
