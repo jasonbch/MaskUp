@@ -13,6 +13,7 @@ public class GameResources {
 
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
+    private static String gameJSON = "game.json";
 
     private GameResources() {
         this.initializeAssets();
@@ -55,6 +56,10 @@ public class GameResources {
         assetsManager.load("Lives.png", Texture.class);
         assetsManager.load("Score.png", Texture.class);
         assetsManager.load("PlayerHudBackground.png", Texture.class);
+    }
+
+    public String getGameJSON() {
+        return this.gameJSON;
     }
 
     public int getScreenOneStart() {

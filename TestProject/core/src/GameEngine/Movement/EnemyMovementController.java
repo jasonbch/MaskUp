@@ -56,9 +56,9 @@ public class EnemyMovementController {
 
     public void move(Enemy enemy, float deltaTime) {
         EnemyMovementPattern enemyMovementPattern;
-        enemy.updateTimeAlive();
+        enemy.updateCurrentTimeAlive();
 
-        if (enemy.getTimeAlive() >= enemy.getMaxLifeSpan()) {
+        if (enemy.getCurrentTimeAlive() >= enemy.getMaxTimeAlive()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternExit");
         } else if (!enemy.isSpawned()) {
             enemyMovementPattern = enemyMovementFactory.create("PatternEnter");

@@ -18,12 +18,5 @@ public class Covid extends Enemy {
     public Covid(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
         this.name = "Covid";
-        this.speed = 150;
-        this.bullet = "BabyCovid";
-        this.texture = GameResources.getAssetsManager().get("BigCovid.png", Texture.class);
-        this.timeBetweenShot = 0.6f;
-        setFormationPattern("TargetDownwardLinearBulletFormation");
-        this.maxTimeAlive = 60;
-        this.maxHealth = 70;
     }
 }

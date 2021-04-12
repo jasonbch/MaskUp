@@ -8,12 +8,12 @@ public class Behavior {
     private String enemy;
     private int startTime;
     private int speed;
-    private double timeBetweenShot;
+    private float timeBetweenShot;
     private String enemyMovementPattern;
     private String bulletFormation;
     private boolean isRan;
 
-    public Behavior(String enemy, int startTime, int speed, double timeBetweenShot, String enemyMovementPattern, String bulletFormation) {
+    public Behavior(String enemy, int startTime, int speed, float timeBetweenShot, String enemyMovementPattern, String bulletFormation) {
         this.enemy = enemy;
         this.startTime = startTime;
         this.speed = speed;
@@ -33,9 +33,9 @@ public class Behavior {
 
             if (enemy != null) {
                 enemy.setSpeed(this.speed);
-                enemy.setTimeBetweenShot((float) this.timeBetweenShot);
+                enemy.setTimeBetweenShot(this.timeBetweenShot);
                 enemy.setMovingPattern(this.enemyMovementPattern);
-                enemy.setFormationPattern(this.bulletFormation);
+                enemy.setBulletFormation(this.bulletFormation);
                 this.isRan = true;
             }
         }

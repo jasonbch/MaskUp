@@ -128,7 +128,7 @@ public class UIController {
     }
 
     private void draw(GameObject object) {
-        batch.draw(object.getImage(), object.getXPosition(), object.getYPosition(), object.getImage().getWidth(), object.getImage().getHeight());
+        batch.draw(object.getTexture(), object.getXPosition(), object.getYPosition(), object.getTexture().getWidth(), object.getTexture().getHeight());
     }
 
     public void updateAndRenderHealthBar() {

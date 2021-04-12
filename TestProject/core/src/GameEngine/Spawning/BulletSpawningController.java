@@ -63,8 +63,8 @@ public class BulletSpawningController {
      */
     private List<Ammo> fire(Entity entity) {
         List<Ammo> ammoList;
-
-        ammoList = formationController.create(entity, entity.getFormationPattern());
+        System.out.println(entity.getTimeBetweenShots());
+        ammoList = formationController.create(entity, entity.getBulletFormation());
 
         entity.resetTimeSinceLastShot();
 
