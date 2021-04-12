@@ -2,9 +2,12 @@ package Objects.GameObject;
 
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Ammo.Ammo;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ListIterator;
 
@@ -17,9 +20,11 @@ public abstract class Entity extends GameObject {
     protected float speed = 250;
     protected String bullet = "Bullet";
     protected Texture texture = GameResources.getAssetsManager().get("CovidGerm.png", Texture.class);
-    protected float timeBetweenShot = 0.5f;
-    private boolean isDone = false;
-    private String formationPattern = "FanFormation";
+    protected float timeBetweenShot = 0.1f;
+    protected boolean isDone = false;
+    protected String bulletFormation = "";
+    protected int maxHealth = 1;
+    protected int maxTimeAlive = 0;
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
@@ -30,20 +35,42 @@ public abstract class Entity extends GameObject {
     public Entity(float xPosition, float yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+        this.initialize();
     }
 
     public Entity() {
     }
 
+    public void initialize() {
+        System.out.println("Initialize " + getClass().getSimpleName());
+        JsonReader json = new JsonReader();
+        JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
+
+        // Initialize all the waves
+        JsonValue element = base.get("entities").get(getClass().getSimpleName());
+        this.speed = element.getInt("speed");
+        this.bullet = element.getString("bullet");
+        this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
+        this.timeBetweenShot = element.getFloat("timeBetweenShot");
+        this.bulletFormation = element.getString("bulletFormation");
+        this.maxTimeAlive = element.getInt("maxTimeAlive");
+        this.maxHealth = element.getInt("maxHealth");
+    }
+
     /**
      * @return
      */
-    public abstract int getHealth();
+    public int getHealth() {
+        return this.maxHealth;
+    }
 
-    /**
-     * @param bulletDamage
-     */
-    public abstract void setHealth(int bulletDamage);
+    public void takeDamage(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
+    }
+
+    public void setMaxHealth(int health) {
+        this.maxHealth = health;
+    }
 
     /**
      * Returns the state
@@ -92,7 +119,7 @@ public abstract class Entity extends GameObject {
     }
 
     public boolean intersects(Rectangle otherRectangle) {
-        Rectangle rectangle = new Rectangle(xPosition, yPosition, getImage().getWidth(), getImage().getHeight());
+        Rectangle rectangle = new Rectangle(xPosition, yPosition, getTexture().getWidth(), getTexture().getHeight());
         return rectangle.overlaps(otherRectangle);
     }
 
@@ -110,9 +137,12 @@ public abstract class Entity extends GameObject {
         return shootPosition;
     }
 
-
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getSpeed() {
@@ -127,19 +157,39 @@ public abstract class Entity extends GameObject {
         return this.bullet;
     }
 
+    public void setBullet(String bullet) {
+        this.bullet = bullet;
+    }
+
     public float getTimeBetweenShots() {
         return this.timeBetweenShot;
     }
 
-    public Texture getImage() {
+    public void setTimeBetweenShots(float time) {
+        this.timeBetweenShot = time;
+    }
+
+    public Texture getTexture() {
         return this.texture;
     }
 
-    public String getFormationPattern() {
-        return formationPattern;
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 
-    public void setFormationPattern(String formationPattern) {
-        this.formationPattern = formationPattern;
+    public String getBulletFormation() {
+        return bulletFormation;
+    }
+
+    public void setBulletFormation(String bulletFormation) {
+        this.bulletFormation = bulletFormation;
+    }
+
+    public int getMaxTimeAlive() {
+        return this.maxTimeAlive;
+    }
+
+    public void setMaxTimeAlive(int time) {
+        this.maxTimeAlive = time;
     }
 }

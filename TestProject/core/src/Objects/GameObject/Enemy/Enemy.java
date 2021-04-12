@@ -14,10 +14,8 @@ public abstract class Enemy extends Entity {
     protected float yMultiplier = 1;
     protected boolean isSpawned = false;
     protected long spawnTime = TimeUtils.millis();
-    protected long timeAlive;
+    protected long currentTimeAlive;
     protected String movingPattern;
-    protected int maxTimeAlive = 0;
-    protected int maxHealth = 1;
 
     /**
      * Create a new instance of an Entity.Enemy at the xPos and yPos.
@@ -54,12 +52,12 @@ public abstract class Enemy extends Entity {
         yMultiplier *= -1;
     }
 
-    public void updateTimeAlive() {
-        timeAlive = TimeUtils.timeSinceMillis(spawnTime) / 1000;
+    public void updateCurrentTimeAlive() {
+        currentTimeAlive = TimeUtils.timeSinceMillis(spawnTime) / 1000;
     }
 
-    public long getTimeAlive() {
-        return this.timeAlive;
+    public long getCurrentTimeAlive() {
+        return this.currentTimeAlive;
     }
 
     public String getMovingPattern() {
@@ -68,18 +66,6 @@ public abstract class Enemy extends Entity {
 
     public void setMovingPattern(String movingPattern) {
         this.movingPattern = movingPattern;
-    }
-
-    public int getMaxLifeSpan() {
-        return this.maxTimeAlive;
-    }
-
-    public int getHealth() {
-        return this.maxHealth;
-    }
-
-    public void setHealth(int bulletDamage) {
-        this.maxHealth -= bulletDamage;
     }
 
     /**
@@ -99,7 +85,7 @@ public abstract class Enemy extends Entity {
                 // Check for intersect
                 if (intersects(ammo.getBoundingBox())) {
                     ammo.setIsDone();
-                    setHealth(ammo.getBulletDamage());
+                    takeDamage(ammo.getBulletDamage());
                     returnValue = true;
                 }
             }

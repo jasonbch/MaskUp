@@ -21,6 +21,7 @@ public class FormationController {
         int xShootPosition = shootPosition.x;
         int yShootPosition = shootPosition.y;
 
+        System.out.println(pattern);
         ammoList = bulletFormationFactory.create(pattern).shoot(entity, xShootPosition, yShootPosition);
 
         return ammoList;

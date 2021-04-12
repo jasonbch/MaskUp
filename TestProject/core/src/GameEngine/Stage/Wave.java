@@ -29,7 +29,7 @@ public class Wave {
         if (!isRan) {
             for (int i = 0; i < this.amount; i++) {
                 Enemy enemy = enemySpawningController.spawnEnemies(name, enemyMovementPattern);
-                enemy.setFormationPattern(bulletFormation);
+                enemy.setBulletFormation(bulletFormation);
             }
 
             this.isRan = true;

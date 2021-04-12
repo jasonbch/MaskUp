@@ -1,52 +1,53 @@
 {
-    "player":
+    "entities":
     {
-        "health": 5,
-        "speed": 330,
-        "texture": "MurderHornet.png",
-        "timeBetweenShot": 0.3,
-        "bulletFormation": "UpwardLinearBulletFormation"
-    },
-    "enemies":
-    {
-        "bat":
+        "Player":
+        {
+            "maxHealth": 5,
+            "speed": 330,
+            "bullet": "Bullet",
+            "texture": "Player.png",
+            "timeBetweenShot": 0.4,
+            "bulletFormation": "UpwardLinearBulletFormation"
+        },
+        "Bat":
         {
             "speed": 350,
             "bullet": "CovidGerm",
             "texture": "Bat.png",
             "timeBetweenShot": 0.9,
             "maxTimeAlive": 5,
-            "formationPattern": "TriangleTargetBulletFormation",
+            "bulletFormation": "TargetDownwardLinearBulletFormation",
             "maxHealth": 3
         },
-        "murderHornet":
+        "MurderHornet":
         {
             "speed": 300,
             "bullet": "Stinger",
             "texture": "MurderHornet.png",
             "timeBetweenShot": 0.6,
             "maxTimeAlive": 6,
-            "formationPattern": "DownwardLinearBulletFormation",
+            "bulletFormation": "DownwardLinearBulletFormation",
             "maxHealth": 5
         },
-        "karen":
+        "Karen":
         {
             "speed": 150,
             "bullet": "GreenCloud",
             "texture": "Karen.png",
             "timeBetweenShot": 0.8,
             "maxTimeAlive": 45,
-            "formationPattern": "CircularBulletFormation",
+            "bulletFormation": "CircularBulletFormation",
             "maxHealth": 35
         },
-        "covid":
+        "Covid":
         {
             "speed": 150,
             "bullet": "BabyCovid",
             "texture": "BigCovid.png",
             "timeBetweenShot": 0.6,
             "maxTimeAlive": 60,
-            "formationPattern": "TargetDownwardLinearBulletFormation",
+            "bulletFormation": "TargetDownwardLinearBulletFormation",
             "maxHealth": 70
         }
     },
@@ -58,7 +59,7 @@
             "enemyAmount": 3,
             "startTime": 5,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TriangleTargetBulletFormation"
+            "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "2":
         {
@@ -66,7 +67,7 @@
             "enemyAmount": 3,
             "startTime": 15,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TriangleTargetBulletFormation"
+            "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "3":
         {
@@ -74,7 +75,7 @@
             "enemyAmount": 3,
             "startTime": 25,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TriangleTargetBulletFormation"
+            "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "4":
         {
@@ -108,6 +109,54 @@
             "enemyMovementPattern": "PatternTwo",
             "bulletFormation": "TriangleTargetBulletFormation"
         },
+        "7":
+        {
+            "enemyType": "Bat",
+            "enemyAmount": 3,
+            "startTime": 85,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TargetDownwardLinearBulletFormation"
+        },
+        "8":
+        {
+            "enemyType": "MurderHornet",
+            "enemyAmount": 3,
+            "startTime": 90,
+            "enemyMovementPattern": "PatternThree",
+            "bulletFormation": "DownwardLinearBulletFormation"
+        },
+        "9":
+        {
+            "enemyType": "Bat",
+            "enemyAmount": 3,
+            "startTime": 95,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TargetDownwardLinearBulletFormation"
+        },
+        "10":
+        {
+            "enemyType": "MurderHornet",
+            "enemyAmount": 3,
+            "startTime": 100,
+            "enemyMovementPattern": "PatternThree",
+            "bulletFormation": "DownwardLinearBulletFormation"
+        },
+        "11":
+        {
+            "enemyType": "Bat",
+            "enemyAmount": 3,
+            "startTime": 105,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TargetDownwardLinearBulletFormation"
+        },
+        "12":
+        {
+            "enemyType": "MurderHornet",
+            "enemyAmount": 3,
+            "startTime": 110,
+            "enemyMovementPattern": "PatternThree",
+            "bulletFormation": "DownwardLinearBulletFormation"
+        },
         "Boss":
         {
             "enemyType": "Covid",
@@ -124,7 +173,7 @@
             "enemyName": "Karen",
             "startTime": 50,
             "speed": 150,
-            "timeBetweenShot": 0.05,
+            "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
@@ -142,7 +191,7 @@
             "enemyName": "Karen",
             "startTime": 60,
             "speed": 150,
-            "timeBetweenShot": 0.05,
+            "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },

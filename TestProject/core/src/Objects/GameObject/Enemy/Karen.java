@@ -17,12 +17,5 @@ public class Karen extends Enemy {
     public Karen(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
         this.name = "Karen";
-        this.speed = 150;
-        this.bullet = "GreenCloud";
-        this.texture = GameResources.getAssetsManager().get("Karen.png", Texture.class);
-        this.timeBetweenShot = 0.8f;
-        setFormationPattern("CircularBulletFormation");
-        this.maxTimeAlive = 45;
-        this.maxHealth = 35;
     }
 }

@@ -96,7 +96,7 @@ public class StageController {
 
     private void initializeHelper() {
         JsonReader json = new JsonReader();
-        JsonValue base = json.parse(Gdx.files.internal("game.json"));
+        JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 
         // Initialize all the waves
         for (JsonValue wave : base.get("waves")) {
@@ -115,7 +115,7 @@ public class StageController {
             String enemyName = behavior.getString("enemyName");
             int startTime = behavior.getInt("startTime");
             int speed = behavior.getInt("speed");
-            int timeBetweenShot = behavior.getInt("timeBetweenShot");
+            float timeBetweenShot = behavior.getFloat("timeBetweenShot");
             String enemyMovementPattern = behavior.getString("enemyMovementPattern");
             String bulletFormation = behavior.getString("bulletFormation");
 

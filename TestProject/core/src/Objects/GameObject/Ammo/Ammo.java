@@ -74,7 +74,7 @@ public abstract class Ammo extends GameObject {
      * Return the Texture image.
      */
     @Override
-    public Texture getImage() {
+    public Texture getTexture() {
         return this.texture;
     }
 

@@ -1,5 +1,6 @@
 package Objects.GameObject;
 
+import GameEngine.Resource.GameResources;
 import Objects.GameObject.Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,7 +10,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
-import java.util.Arrays;
 import java.util.ListIterator;
 // Flicker the player for a couple of seconds
 // Possibly delete enemy bullets
@@ -20,7 +20,6 @@ import java.util.ListIterator;
 public class Player extends Entity {
     // Implement Singleton
     private static Player uniqueInstance = null;
-    private int maxHealth;
     private boolean invulnerable;
     private long startInvulnerabilityTime;
     private int defaultKeySet[] = {Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.DOWN};
@@ -35,14 +34,12 @@ public class Player extends Entity {
         this.xPosition = (gameResources.getScreenOneEnd()) / 2 - (getImageWidth());
         this.yPosition = gameResources.getWorldHeight() / 6;
 
+        // Initialize
+        initialize();
+
         // Pre-defined attributes
         this.name = "Player";
-        this.bullet = "Bullet";
-        this.texture = new Texture("Player.png");
         this.invulnerable = false;
-
-        // Customizable attributes
-        initialize();
     }
 
     public static Player instance() {
@@ -52,16 +49,20 @@ public class Player extends Entity {
         return uniqueInstance;
     }
 
-    private void initialize() {
+    @Override
+    public void initialize() {
+        System.out.println("Player is here");
         JsonReader json = new JsonReader();
-        JsonValue base = json.parse(Gdx.files.internal("game.json"));
+        JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 
         // Initialize all the waves
-        JsonValue element = base.get("player");
-        this.maxHealth = element.getInt("health");
+        JsonValue element = base.get("entities").get("Player");
+        this.maxHealth = element.getInt("maxHealth");
         this.speed = element.getInt("speed");
-        this.timeBetweenShot = element.getInt("timeBetweenShot");
-        setFormationPattern(element.getString("bulletFormation"));
+        this.bullet = element.getString("bullet");
+        this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
+        this.timeBetweenShot = element.getFloat("timeBetweenShot");
+        this.bulletFormation = element.getString("bulletFormation");
     }
 
     public boolean isInvulnerable() {
@@ -82,73 +83,9 @@ public class Player extends Entity {
         return this.startInvulnerabilityTime;
     }
 
-    /**
-     * Return the name.
-     *
-     * @return the name of the player.
-     */
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Return the speed.
-     *
-     * @return the speed of the player.
-     */
-    @Override
-    public float getSpeed() {
-        return this.speed;
-    }
-
-    /**
-     * Return the bullet string that the player fires.
-     *
-     * @return the bullet string the player use.
-     */
-    @Override
-    public String getBullet() {
-        return this.bullet;
-    }
-
-    public void setBullet(String name) {
-        this.bullet = name;
-    }
-
-    @Override
-    public int getHealth() {
-        return this.maxHealth;
-    }
-
-    @Override
-    public void setHealth(int bulletDamage) {
-        this.maxHealth -= bulletDamage;
-    }
-
     public void setInvulnerabilityStartTime(long time) {
         this.startInvulnerabilityTime = time;
 
-    }
-
-    /**
-     * Return the time between shot.
-     *
-     * @return the time between shot of the player.
-     */
-    @Override
-    public float getTimeBetweenShots() {
-        return this.timeBetweenShot;
-    }
-
-    /**
-     * Return the Texture image.
-     *
-     * @return the texture of the player.
-     */
-    @Override
-    public Texture getImage() {
-        return this.texture;
     }
 
     /**
@@ -209,7 +146,7 @@ public class Player extends Entity {
 
     @Override
     public boolean intersects(Rectangle otherRectangle) {
-        Rectangle rectangle = new Rectangle(xPosition + (getImageWidth() / 4), yPosition + (getImageHeight() / 4), getImage().getWidth() / 2, getImage().getHeight() / 2);
+        Rectangle rectangle = new Rectangle(xPosition + (getImageWidth() / 4), yPosition + (getImageHeight() / 4), getTexture().getWidth() / 2, getTexture().getHeight() / 2);
         return rectangle.overlaps(otherRectangle);
     }
 
@@ -235,7 +172,7 @@ public class Player extends Entity {
                     if (intersects(ammo.getBoundingBox())) {
                         setInvulnerable(true);
                         ammo.setIsDone();
-                        setHealth(ammo.getBulletDamage());
+                        takeDamage(ammo.getBulletDamage());
                         returnValue = true;
                     }
                 }

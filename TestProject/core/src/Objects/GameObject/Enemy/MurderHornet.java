@@ -17,12 +17,5 @@ public class MurderHornet extends Enemy {
     public MurderHornet(float xPos, float yPos, String pattern) {
         super(xPos, yPos, pattern);
         this.name = "MurderHornet";
-        this.speed = 300;
-        this.bullet = "Stinger";
-        this.texture = GameResources.getAssetsManager().get("MurderHornet.png", Texture.class);
-        this.timeBetweenShot = 0.6f;
-        this.maxTimeAlive = 6;
-        this.maxHealth = 5;
-        setFormationPattern("DownwardLinearBulletFormation");
     }
 }

@@ -133,19 +133,19 @@ public abstract class GameObject {
     /**
      * Return the Texture image.
      */
-    public abstract Texture getImage();
+    public abstract Texture getTexture();
 
     /**
      * Return the image width.
      */
     public int getImageWidth() {
-        return getImage().getWidth();
+        return getTexture().getWidth();
     }
 
     /**
      * Return the image height.
      */
     public int getImageHeight() {
-        return getImage().getHeight();
+        return getTexture().getHeight();
     }
 }
