@@ -3,6 +3,7 @@ package GameEngine.Spawning;
 import GameEngine.Factory.EnemyFactory;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
+import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.*;
 
 import java.util.LinkedList;
@@ -17,6 +18,8 @@ import java.util.Random;
 public class EnemySpawningController {
     private static final GameResources gameResources = GameResources.instance();
     private static final ScoreController scoreController = ScoreController.instance();
+    private static final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
+
     // Implement Singleton
     private static EnemySpawningController uniqueInstance = null;
 
@@ -58,7 +61,7 @@ public class EnemySpawningController {
             } else if (currEnemy.isDone()) {
                 scoreController.addScore(currEnemy);
                 iter2.remove();
-            } else if (currEnemy.getHealth() <= 0) {
+            } else if (currEnemy.getMaxHealth() <= 0) {
                 currEnemy.setIsDone();
             }
         }
@@ -74,7 +77,19 @@ public class EnemySpawningController {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
         int yPosition = gameResources.getWorldHeight();
         Enemy concreteEnemy = enemyFactory.create(enemy, xPosition, yPosition, pattern);
+        BulletSpawner bulletSpawner = bulletSpawnerSpawningController.addSpawner(concreteEnemy);
+
+        // Make the bulletSpawner observe the enemy
+        concreteEnemy.addObserver(bulletSpawner);
+        float randomY = rand.nextInt(300) + 500;
+        concreteEnemy.setYAxis(randomY);
+
+        // Add enemy to the list
         enemyList.add(concreteEnemy);
+
+        // Add bullet spawner to the list
+        bulletSpawnerSpawningController.getBulletSpawnerList().add(bulletSpawner);
+
         return concreteEnemy;
     }
 

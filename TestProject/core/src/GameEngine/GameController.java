@@ -5,6 +5,7 @@ import GameEngine.Collision.EnemyCollisionCommand;
 import GameEngine.Collision.PlayerCollisionCommand;
 import GameEngine.Movement.BulletMovementController;
 import GameEngine.Movement.EnemyMovementController;
+import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Stage.StageController;
@@ -13,10 +14,13 @@ import Interface.GameOverScreen;
 import Interface.GameVictoryScreen;
 import Interface.MaskGame;
 import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.GameObject;
 import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.List;
 
 public class GameController {
     private static boolean isLost;
@@ -33,6 +37,8 @@ public class GameController {
     private final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
     private final BulletMovementController bulletMovementController = BulletMovementController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
+
     private final CommandController commandController = new CommandController();
     private boolean isSlowMode;
     private float gameSpeed;
@@ -58,7 +64,9 @@ public class GameController {
         // Spawn bullets from player and enemies
         if (!player.isInvulnerable()) {
             bulletSpawningController.playerFire(player);
-            bulletSpawningController.enemyFire(deltaTime, enemySpawningController.getEnemyList());
+
+            // Fire from the bullet spawner
+            bulletSpawningController.enemyFire(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
         }
 
         // Clear used enemies and bullets
@@ -84,9 +92,11 @@ public class GameController {
         // Update movement controllers
         bulletMovementController.update(deltaTime, bulletSpawningController);
         enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
+        enemyMovementController.update(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
 
         // Delete enemies if they need deleted
         enemySpawningController.deleteEnemies();
+        bulletSpawnerSpawningController.deleteBulletSpawners();
 
         // TODO: make stages
         stageController.makeStages();
@@ -99,7 +109,7 @@ public class GameController {
     }
 
     public void checkGameOver(MaskGame game) {
-        if (player.getHealth() <= 0) {
+        if (player.getMaxHealth() <= 0) {
             setLosingState(game);
         }
     }

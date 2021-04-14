@@ -42,25 +42,26 @@ public abstract class Entity extends GameObject {
     }
 
     public void initialize() {
-        System.out.println("Initialize " + getClass().getSimpleName());
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 
         // Initialize all the waves
         JsonValue element = base.get("entities").get(getClass().getSimpleName());
-        this.speed = element.getInt("speed");
-        this.bullet = element.getString("bullet");
-        this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
-        this.timeBetweenShot = element.getFloat("timeBetweenShot");
-        this.bulletFormation = element.getString("bulletFormation");
-        this.maxTimeAlive = element.getInt("maxTimeAlive");
-        this.maxHealth = element.getInt("maxHealth");
+        if (element != null) {
+            this.speed = element.getInt("speed");
+            this.bullet = element.getString("bullet");
+            this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
+            this.timeBetweenShot = element.getFloat("timeBetweenShot");
+            this.bulletFormation = element.getString("bulletFormation");
+            this.maxTimeAlive = element.getInt("maxTimeAlive");
+            this.maxHealth = element.getInt("maxHealth");
+        }
     }
 
     /**
      * @return
      */
-    public int getHealth() {
+    public int getMaxHealth() {
         return this.maxHealth;
     }
 
@@ -72,39 +73,22 @@ public abstract class Entity extends GameObject {
         this.maxHealth = health;
     }
 
-    /**
-     * Returns the state
-     */
     public boolean isDone() {
         return this.isDone;
     }
 
-    /**
-     * Set state
-     */
     public void setIsDone() {
         this.isDone = true;
     }
 
-    /**
-     * Update time since last shot.
-     *
-     * @param deltaTime The current delta time.
-     */
     public void updateTimeSinceLastShot(float deltaTime) {
         timeSinceLastShot += deltaTime;
     }
 
-    /**
-     * Reset time since last shot to 0.
-     */
     public void resetTimeSinceLastShot() {
         timeSinceLastShot = 0;
     }
 
-    /**
-     * Set time between shots.
-     */
     public void setTimeBetweenShot(float time) {
         this.timeBetweenShot = time;
     }
@@ -125,11 +109,6 @@ public abstract class Entity extends GameObject {
 
     public abstract boolean collide(ListIterator<Ammo> entityAmmolist);
 
-    /**
-     * Return the coordinate for shooting position.
-     *
-     * @return shooting position.
-     */
     public GridPoint2 getShootingPosition() {
         float xShootPosition = getXPosition() + (float) getImageWidth() / 2;
         float yShootPosition = getYPosition();

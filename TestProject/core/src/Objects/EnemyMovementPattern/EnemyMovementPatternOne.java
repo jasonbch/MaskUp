@@ -19,7 +19,7 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        float val = enemyMovementController.getEnemyRandomYMap().get(enemy) + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
+        float val = enemy.getYAxis() + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
 
         enemy.setYPosition(val);
 
@@ -32,6 +32,5 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
         }
 
         enemy.setXPosition(enemy.getXPosition() + (enemy.getXMultiplier() * enemy.getSpeed() * deltaTime));
-
     }
 }

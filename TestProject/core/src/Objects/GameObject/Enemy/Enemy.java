@@ -1,21 +1,28 @@
 package Objects.GameObject.Enemy;
 
+import GameEngine.Observer.BulletSpawnerObserver;
+import GameEngine.Observer.EnemySubject;
 import Objects.GameObject.Ammo.Ammo;
 import Objects.GameObject.Entity;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 
 /**
  * The Entity.Enemy abstract class that extends from Entity that can move and fire.
  */
-public abstract class Enemy extends Entity {
+public abstract class Enemy extends Entity implements EnemySubject {
     protected float xMultiplier = 1;
     protected float yMultiplier = 1;
     protected boolean isSpawned = false;
     protected long spawnTime = TimeUtils.millis();
     protected long currentTimeAlive;
     protected String movingPattern;
+    protected float yAxis;
+
+    private List<BulletSpawnerObserver> spawners = new ArrayList<>();
 
     /**
      * Create a new instance of an Entity.Enemy at the xPos and yPos.
@@ -26,6 +33,11 @@ public abstract class Enemy extends Entity {
     public Enemy(float xPos, float yPos, String movingPattern) {
         super(xPos, yPos);
         this.movingPattern = movingPattern;
+    }
+
+    public void setIsDone() {
+        this.isDone = true;
+        notifyObservers();
     }
 
     public boolean isSpawned() {
@@ -66,6 +78,21 @@ public abstract class Enemy extends Entity {
 
     public void setMovingPattern(String movingPattern) {
         this.movingPattern = movingPattern;
+        notifyObservers();
+    }
+
+    public float getYAxis() {
+        return this.yAxis;
+    }
+
+    public void setYAxis(float yAxis) {
+        this.yAxis = yAxis;
+        notifyObservers();
+    }
+
+    public void setBulletFormation(String bulletFormation) {
+        this.bulletFormation = bulletFormation;
+        notifyObservers();
     }
 
     /**
@@ -92,5 +119,20 @@ public abstract class Enemy extends Entity {
         }
 
         return returnValue;
+    }
+
+    // Observer pattern
+    public void addObserver(BulletSpawnerObserver spawner) {
+        this.spawners.add(spawner);
+    }
+
+    public void removeObserver(BulletSpawnerObserver spawner) {
+        this.spawners.remove(spawner);
+    }
+
+    public void notifyObservers() {
+        for (BulletSpawnerObserver spawner : this.spawners) {
+            spawner.update(this);
+        }
     }
 }
