@@ -1,12 +1,10 @@
 package GameEngine.Spawning;
 
-import GameEngine.GameResources;
-import GameEngine.StageController;
-import GameEngine.TimeController;
-import GameObject.Ammo.Ammo;
-import GameObject.Enemy.Enemy;
-import GameObject.Entity;
-import GameObject.Player;
+import GameEngine.Resource.GameResources;
+import GameEngine.Stage.FormationController;
+import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
@@ -65,8 +63,7 @@ public class BulletSpawningController {
      */
     private List<Ammo> fire(Entity entity) {
         List<Ammo> ammoList;
-
-        ammoList = formationController.create(entity, entity.getFormationPattern());
+        ammoList = formationController.create(entity, entity.getBulletFormation());
 
         entity.resetTimeSinceLastShot();
 

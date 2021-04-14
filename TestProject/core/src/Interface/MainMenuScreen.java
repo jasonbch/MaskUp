@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import MaskGame.SettingsScreen;
 
 public class MainMenuScreen extends InputAdapter implements Screen {
     private final Camera camera;
@@ -25,6 +26,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     private Texture playButtonActive;
     private Texture playButtonInActive;
     private Texture background;
+    private Texture settingsButton;
     private int buttonWidth = 241;
     private int buttonHeight = 41;
 
@@ -42,6 +44,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         playButtonInActive = new Texture("PlayButton.png");
         exitButtonActive = new Texture("ExitButtonPressed.png");
         exitButtonInActive = new Texture("ExitButton.png");
+        settingsButton = new Texture("settingsButton.png");
     }
 
     @Override
@@ -56,6 +59,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
 
         batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
+        // Play Button
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             batch.draw(playButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
             dispose();
@@ -64,12 +68,20 @@ public class MainMenuScreen extends InputAdapter implements Screen {
             batch.draw(playButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
         }
 
+        // Quit Button
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             batch.draw(exitButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
             dispose();
             Gdx.app.exit();
         } else {
             batch.draw(exitButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
+        }
+
+        // Settings Button
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
+            game.setScreen(new SettingsScreen(game));
+        } else{
+            batch.draw(settingsButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 6, buttonWidth, buttonHeight);
         }
 
         batch.end();

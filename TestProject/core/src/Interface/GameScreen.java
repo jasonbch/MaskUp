@@ -1,7 +1,7 @@
 package Interface;
 
 import GameEngine.GameController;
-import GameEngine.TimeController;
+import GameEngine.Time.TimeController;
 import GameEngine.UI.UIController;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -59,7 +59,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
      */
     @Override
     public void render(float deltaTime) {
-        logger.log();
+        //logger.log();
 
         // Get the game speed
         deltaTime *= gameController.getGameSpeed();
@@ -83,11 +83,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Draw and update Health Bar
         UIController.updateAndRenderHealthBar();
-        UIController.updateScore();
 
         UIController.updateScore();
+
         // Draw stage message
-
         UIController.drawStageMessage();
 
         // Pause Option

@@ -1,10 +1,11 @@
 package GameEngine.Movement;
 
-import GameObject.BulletMovementPattern.BulletMovementPattern;
-import GameEngine.GameResources;
+import GameEngine.Factory.BulletMovementPatternFactory;
+import GameEngine.Resource.GameResources;
 import GameEngine.Spawning.BulletSpawningController;
-import GameObject.Ammo.Ammo;
-import GameObject.Ammo.Ammo.PatternAttribute;
+import Objects.BulletMovementPattern.BulletMovementPattern;
+import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.Ammo.Ammo.PatternAttribute;
 
 import java.util.ListIterator;
 

@@ -1,14 +1,15 @@
 package GameEngine.UI;
 
 import GameEngine.GameController;
-import GameEngine.GameResources;
+import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
+import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
-import GameEngine.StageController;
-import GameEngine.TimeController;
-import GameObject.GameObject;
-import GameObject.Player;
+import GameEngine.Stage.StageController;
+import GameEngine.Time.TimeController;
+import Objects.GameObject.GameObject;
+import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -23,6 +24,8 @@ import java.util.ListIterator;
 public class UIController {
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
+
     private final GameObject player = Player.instance();
     private final GameResources gameResources = GameResources.instance();
     private final TimeController timeController = TimeController.instance();
@@ -34,11 +37,7 @@ public class UIController {
     private final ScoreController scoreController = ScoreController.instance();
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
-    private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class),
-            assetManager.get("Clouds1.png", Texture.class),
-            assetManager.get("Clouds2.png", Texture.class),
-            assetManager.get("Cloud4.png", Texture.class),
-            assetManager.get("PlayerHudBackground.png", Texture.class)};
+    private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class), assetManager.get("Clouds1.png", Texture.class), assetManager.get("Clouds2.png", Texture.class), assetManager.get("Cloud4.png", Texture.class), assetManager.get("PlayerHudBackground.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
     Texture stage1 = new Texture("stage1.png");
@@ -64,11 +63,7 @@ public class UIController {
 
     public void drawWhiteDotInSlowMode() {
         if (gameController.getIsSlowMode()) {
-            batch.draw(assetManager.get("CircleHitBox.png", Texture.class),
-                    player.getXPosition() + (float) (player.getImageWidth() / 2) - (float) (player.getImageWidth() / 4),
-                    player.getYPosition() + (float) (player.getImageHeight() / 2) - (float) (player.getImageWidth() / 4),
-                    (float) player.getImageWidth() / 2,
-                    (float) player.getImageWidth() / 2);
+            batch.draw(assetManager.get("CircleHitBox.png", Texture.class), player.getXPosition() + (float) (player.getImageWidth() / 2) - (float) (player.getImageWidth() / 4), player.getYPosition() + (float) (player.getImageHeight() / 2) - (float) (player.getImageWidth() / 4), (float) player.getImageWidth() / 2, (float) player.getImageWidth() / 2);
         }
     }
 
@@ -83,6 +78,7 @@ public class UIController {
         drawEnemyAmmo();
         drawEnemies();
         drawPlayer();
+        drawBulletSpawners();
     }
 
     /**
@@ -96,33 +92,18 @@ public class UIController {
         backgroundOffsets[2] += deltaTime * maxScrollingSpeed / 2;
         backgroundOffsets[3] += deltaTime * maxScrollingSpeed;
 
-        batch.draw(backgrounds[4],
-                gameResources.getScreenTwoStart(),
-                0,
-                gameResources.getScreenTwoWidth(),
-                gameResources.getWorldHeight());
+        batch.draw(backgrounds[4], gameResources.getScreenTwoStart(), 0, gameResources.getScreenTwoWidth(), gameResources.getWorldHeight());
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (layer == 0) {
-                batch.draw(backgrounds[layer],
-                        0,
-                        0,
-                        gameResources.getScreenOneWidth(),
-                        gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, 0, gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             } else {
                 if (backgroundOffsets[layer] > gameResources.getWorldHeight()) {
                     backgroundOffsets[layer] = 0;
                 }
 
-                batch.draw(backgrounds[layer],
-                        0, -backgroundOffsets[layer],
-                        gameResources.getScreenOneWidth(),
-                        gameResources.getWorldHeight());
-                batch.draw(backgrounds[layer],
-                        0,
-                        -backgroundOffsets[layer] + gameResources.getWorldHeight(),
-                        gameResources.getScreenOneWidth(),
-                        gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
+                batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + gameResources.getWorldHeight(), gameResources.getScreenOneWidth(), gameResources.getWorldHeight());
             }
         }
     }
@@ -146,6 +127,12 @@ public class UIController {
         draw(player);
     }
 
+    private void drawBulletSpawners() {
+        List<GameObject> objectList = (List<GameObject>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList();
+        drawList(objectList.listIterator());
+        System.out.println(objectList.size());
+    }
+
     private void drawList(ListIterator<GameObject> iterator) {
         while (iterator.hasNext()) {
             GameObject object = iterator.next();
@@ -154,19 +141,15 @@ public class UIController {
     }
 
     private void draw(GameObject object) {
-        batch.draw(object.getImage(),
-                object.getXPosition(),
-                object.getYPosition(),
-                object.getImage().getWidth(),
-                object.getImage().getHeight());
+        batch.draw(object.getTexture(), object.getXPosition(), object.getYPosition(), object.getTexture().getWidth(), object.getTexture().getHeight());
     }
 
     public void updateAndRenderHealthBar() {
         int xoffset = 70;
         Texture LivesFont = assetManager.get("Lives.png", Texture.class);
         batch.draw(LivesFont, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
-        for (int i = 0; i < ((Player) player).getHealth(); i++) {
-            if (((Player) player).getHealth() != 0) {
+        for (int i = 0; i < ((Player) player).getMaxHealth(); i++) {
+            if (((Player) player).getMaxHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
                 batch.draw(image, xoffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
             }
