@@ -51,7 +51,6 @@ public class Player extends Entity {
 
     @Override
     public void initialize() {
-        System.out.println("Player is here");
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 

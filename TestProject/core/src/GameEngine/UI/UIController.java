@@ -3,6 +3,7 @@ package GameEngine.UI;
 import GameEngine.GameController;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
+import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Stage.StageController;
@@ -22,6 +23,8 @@ import java.util.ListIterator;
 public class UIController {
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
+
     private final GameObject player = Player.instance();
     private final GameResources gameResources = GameResources.instance();
     private final TimeController timeController = TimeController.instance();
@@ -72,6 +75,7 @@ public class UIController {
         drawEnemyAmmo();
         drawEnemies();
         drawPlayer();
+        drawBulletSpawners();
     }
 
     /**
@@ -120,6 +124,12 @@ public class UIController {
         draw(player);
     }
 
+    private void drawBulletSpawners() {
+        List<GameObject> objectList = (List<GameObject>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList();
+        drawList(objectList.listIterator());
+        System.out.println(objectList.size());
+    }
+
     private void drawList(ListIterator<GameObject> iterator) {
         while (iterator.hasNext()) {
             GameObject object = iterator.next();
@@ -135,8 +145,8 @@ public class UIController {
         int xoffset = 70;
         Texture LivesFont = assetManager.get("Lives.png", Texture.class);
         batch.draw(LivesFont, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
-        for (int i = 0; i < ((Player) player).getHealth(); i++) {
-            if (((Player) player).getHealth() != 0) {
+        for (int i = 0; i < ((Player) player).getMaxHealth(); i++) {
+            if (((Player) player).getMaxHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
                 batch.draw(image, xoffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
             }

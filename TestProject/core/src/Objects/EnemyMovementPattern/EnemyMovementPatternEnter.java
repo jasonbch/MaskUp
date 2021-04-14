@@ -8,9 +8,6 @@ import Objects.GameObject.Enemy.Enemy;
  */
 
 public class EnemyMovementPatternEnter extends EnemyMovementPattern {
-
-    private final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
-
     @Override
     public String getName() {
         return "PatternEnter";
@@ -20,7 +17,7 @@ public class EnemyMovementPatternEnter extends EnemyMovementPattern {
     public void move(Enemy enemy, float deltaTime) {
         enemy.moveDown(deltaTime);
 
-        if (enemy.getYPosition() <= enemyMovementController.getEnemyRandomYMap().get(enemy)) {
+        if (enemy.getYPosition() <= enemy.getYAxis()) {
             enemy.setIsSpawned(true);
         }
     }
