@@ -144,10 +144,6 @@ public abstract class Entity extends GameObject {
         return this.timeBetweenShot;
     }
 
-    public void setTimeBetweenShots(float time) {
-        this.timeBetweenShot = time;
-    }
-
     public Texture getTexture() {
         return this.texture;
     }

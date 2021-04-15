@@ -21,6 +21,7 @@ public abstract class Enemy extends Entity implements EnemySubject {
     protected long currentTimeAlive;
     protected String movingPattern;
     protected float yAxis;
+    protected float xAxis;
 
     private List<BulletSpawnerObserver> spawners = new ArrayList<>();
 
@@ -87,6 +88,15 @@ public abstract class Enemy extends Entity implements EnemySubject {
 
     public void setYAxis(float yAxis) {
         this.yAxis = yAxis;
+        notifyObservers();
+    }
+
+    public float getXAxis() {
+        return this.xAxis;
+    }
+
+    public void setXAxis(float xAxis) {
+        this.xAxis = xAxis;
         notifyObservers();
     }
 

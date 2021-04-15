@@ -64,41 +64,23 @@
     },
     "behaviors":
     {
-        "1":
+        "5":
         {
             "enemyName": "Karen",
-            "startTime": 10,
+            "startTime": 5,
             "speed": 150,
-            "timeBetweenShot": 0.6,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "CircularBulletFormation"
-        },
-        "2":
-        {
-            "enemyName": "Karen",
-            "startTime": 15,
-            "speed": 150,
-            "timeBetweenShot": 0.8,
-            "enemyMovementPattern": "PatternOne",
+            "timeBetweenShot": 0.1,
+            "enemyMovementPattern": "PatternFour",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
-        "3":
+        "6":
         {
             "enemyName": "Karen",
             "startTime": 20,
             "speed": 150,
-            "timeBetweenShot": 0.6,
+            "timeBetweenShot": 0.1,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "CircularBulletFormation"
-        },
-        "4":
-        {
-            "enemyName": "Karen",
-            "startTime": 25,
-            "speed": 150,
-            "timeBetweenShot": 0.8,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "CircularBulletFormation"
+            "bulletFormation": "TargetDownwardLinearBulletFormation"
         }
     }
 }

@@ -9,8 +9,6 @@ import Objects.GameObject.Enemy.Enemy;
  * enemy changes direction and continue moving.
  */
 public class EnemyMovementPatternOne extends EnemyMovementPattern {
-    private final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
-
 
     @Override
     public String getName() {
@@ -19,8 +17,9 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
-        float val = enemy.getYAxis() + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
+        enemy.notifyObservers();
 
+        float val = enemy.getYAxis() + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));
         enemy.setYPosition(val);
 
         if (enemy.isLeftOfScreen()) {
