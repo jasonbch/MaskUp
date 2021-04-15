@@ -127,7 +127,6 @@ public class UIController {
     private void drawBulletSpawners() {
         List<GameObject> objectList = (List<GameObject>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList();
         drawList(objectList.listIterator());
-        System.out.println(objectList.size());
     }
 
     private void drawList(ListIterator<GameObject> iterator) {

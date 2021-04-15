@@ -1,6 +1,5 @@
 package Objects.EnemyMovementPattern;
 
-import GameEngine.Movement.EnemyMovementController;
 import Objects.GameObject.Enemy.Enemy;
 
 /**
@@ -15,6 +14,8 @@ public class EnemyMovementPatternEnter extends EnemyMovementPattern {
 
     @Override
     public void move(Enemy enemy, float deltaTime) {
+        enemy.notifyObservers();
+
         enemy.moveDown(deltaTime);
 
         if (enemy.getYPosition() <= enemy.getYAxis()) {

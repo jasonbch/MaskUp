@@ -1,5 +1,6 @@
 package Objects.EnemyMovementPattern;
 
+import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Enemy;
 
 /**
