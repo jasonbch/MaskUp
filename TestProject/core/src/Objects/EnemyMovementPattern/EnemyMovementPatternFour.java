@@ -1,12 +1,19 @@
 package Objects.EnemyMovementPattern;
 
+import GameEngine.Spawning.BulletSpawnerSpawningController;
 import Objects.GameObject.BulletSpawner;
+import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.Enemy.Karen;
 
 /**
- * Circular pattern from a point
+ * Circular pattern from a point for spawner.
+ * The enemy is static.
  */
 public class EnemyMovementPatternFour extends EnemyMovementPattern {
+    private final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
+    private boolean isSpawned = false;
+
     @Override
     public String getName() {
         return "PatternFour";
@@ -15,7 +22,6 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     @Override
     public void move(Enemy enemy, float deltaTime) {
         if (enemy instanceof BulletSpawner) {
-
             float centerX = enemy.getXAxis();
             float centerY = enemy.getYAxis();
 
@@ -32,9 +38,30 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
             ((BulletSpawner)enemy).setAngle(angle);
             enemy.setXPosition(circleX);
             enemy.setYPosition(circleY + (enemy.getImageHeight() / 2));
+        } else if (enemy instanceof Karen
+                || enemy instanceof Covid) {
+            if  (enemy.getBulletSpawnerCount() == 1) {
+                generateSecondSpawner(enemy);
+                enemy.setBulletSpawnerCount(enemy.getBulletSpawnerCount() + 1);
+            }
+
+            enemy.setXAxis(enemy.getXPosition());
         } else {
             enemy.setXAxis(enemy.getXPosition());
         }
+    }
+
+    private void generateSecondSpawner(Enemy concreteEnemy) {
+        // Add an observer for the enemy
+        BulletSpawner secondBulletSpawner = bulletSpawnerSpawningController.addSpawner(concreteEnemy, "2");
+        secondBulletSpawner.setAngle(180);
+
+        // Make the bulletSpawner observe the enemy
+        concreteEnemy.addObserver(secondBulletSpawner);
+
+        // Add bullet spawner to the list
+        bulletSpawnerSpawningController.getBulletSpawnerList().add(secondBulletSpawner);
+
     }
 }
 

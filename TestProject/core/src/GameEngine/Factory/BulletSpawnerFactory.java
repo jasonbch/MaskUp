@@ -7,6 +7,7 @@ public class BulletSpawnerFactory {
     public BulletSpawner create(float xPos,
                                 float yPos,
                                 String movingPattern,
+                                String name,
                                 float speed,
                                 String bullet,
                                 Texture texture,
@@ -14,6 +15,6 @@ public class BulletSpawnerFactory {
                                 String bulletFormation,
                                 int maxTimeAlive,
                                 int maxHealth) {
-        return new BulletSpawner(xPos, yPos, movingPattern, speed, bullet, texture, timeBetweenShot, bulletFormation, maxTimeAlive, maxHealth);
+        return new BulletSpawner(xPos, yPos, movingPattern, name, speed, bullet, texture, timeBetweenShot, bulletFormation, maxTimeAlive, maxHealth);
     }
 }

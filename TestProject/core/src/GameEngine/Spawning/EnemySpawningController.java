@@ -77,10 +77,17 @@ public class EnemySpawningController {
         int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
         int yPosition = gameResources.getWorldHeight();
         Enemy concreteEnemy = enemyFactory.create(enemy, xPosition, yPosition, pattern);
-        BulletSpawner bulletSpawner = bulletSpawnerSpawningController.addSpawner(concreteEnemy);
+
+        // Add an observer for the enemy
+        BulletSpawner bulletSpawner = bulletSpawnerSpawningController.addSpawner(concreteEnemy, "1");
 
         // Make the bulletSpawner observe the enemy
         concreteEnemy.addObserver(bulletSpawner);
+
+        // Increase the bullet spawner count
+        concreteEnemy.setBulletSpawnerCount(1);
+
+        // Get the position for y
         float randomY = rand.nextInt(300) + 500;
         concreteEnemy.setYAxis(randomY);
 

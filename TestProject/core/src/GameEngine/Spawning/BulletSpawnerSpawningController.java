@@ -30,11 +30,11 @@ public class BulletSpawnerSpawningController {
         return uniqueInstance;
     }
 
-    public BulletSpawner addSpawner(Enemy enemy) {
+    public BulletSpawner addSpawner(Enemy enemy, String spawnerName) {
         float xPos = enemy.getXPosition();
         float yPos = enemy.getYPosition();
         String movingPattern = enemy.getMovingPattern();
-        String name = "Bullet Spawner";
+        String name = spawnerName;
         float speed = enemy.getSpeed();
         String bullet = enemy.getBullet();
         Texture texture = enemy.getTexture();
@@ -46,6 +46,7 @@ public class BulletSpawnerSpawningController {
         BulletSpawner bulletSpawner = bulletSpawnerFactory.create(xPos,
                 yPos,
                 movingPattern,
+                name,
                 speed,
                 bullet,
                 texture,
