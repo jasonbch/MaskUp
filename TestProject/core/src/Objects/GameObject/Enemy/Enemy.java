@@ -22,6 +22,7 @@ public abstract class Enemy extends Entity implements EnemySubject {
     protected String movingPattern;
     protected float yAxis;
     protected float xAxis;
+    protected int bulletSpawnerCount;
 
     private List<BulletSpawnerObserver> spawners = new ArrayList<>();
 
@@ -98,6 +99,14 @@ public abstract class Enemy extends Entity implements EnemySubject {
     public void setXAxis(float xAxis) {
         this.xAxis = xAxis;
         notifyObservers();
+    }
+
+    public int getBulletSpawnerCount() {
+        return this.bulletSpawnerCount;
+    }
+
+    public void setBulletSpawnerCount(int amount) {
+        this.bulletSpawnerCount = amount;
     }
 
     public void setBulletFormation(String bulletFormation) {

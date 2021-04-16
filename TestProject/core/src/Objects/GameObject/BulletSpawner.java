@@ -21,6 +21,7 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
     public BulletSpawner(float xPos,
                          float yPos,
                          String movingPattern,
+                         String name,
                          float speed,
                          String bullet,
                          Texture texture,
@@ -29,7 +30,7 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
                          int maxTimeAlive,
                          int maxHealth) {
         super(xPos, yPos, movingPattern);
-        this.name = "Bullet Spawner";
+        this.name = name;
         this.speed = speed;
         this.bullet = bullet;
         this.texture = texture;
@@ -51,6 +52,8 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
         this.setTimeBetweenShot(enemy.getTimeBetweenShots());
 
         if (enemy.isDone()) {
+            this.setIsDone();
+        } else if (!enemy.getMovingPattern().equals("PatternFour") && this.name.equals("2")) {
             this.setIsDone();
         }
     }
