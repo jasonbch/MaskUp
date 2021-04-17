@@ -17,6 +17,8 @@ public class BulletFormationFactory {
                 return new TargetDownwardLinearBulletFormation();
             case "TriangleTargetBulletFormation":
                 return new TriangleTargetBulletFormation();
+            case "SlowTargetDownwardLinearBulletFormation":
+                return new SlowTargetDownwardLinearBulletFormation();
             default:
                 return null;
         }
