@@ -39,7 +39,7 @@ public class SlowTargetDownwardLinearBulletFormation extends BulletFormation {
         Ammo.PatternAttribute patternAttribute = new Ammo.PatternAttribute("LinearBulletMovementPattern", (float) -newY, (float) -newX);
 
         Ammo ammo = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute);
-        ammo.setSpeed(170);
+        ammo.setSpeed(130);
         ammoList = Arrays.asList(ammo);
 
         return ammoList;
