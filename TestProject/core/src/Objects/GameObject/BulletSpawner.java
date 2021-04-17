@@ -43,18 +43,22 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
 
     @Override
     public void update(EnemySubject mySubject) {
-        Enemy enemy = (Enemy) mySubject;
+        if (mySubject instanceof Enemy) {
+            Enemy enemy = (Enemy) mySubject;
 
-        this.setXAxis(enemy.getXAxis());
-        this.setYAxis(enemy.getYAxis());
-        this.setMovingPattern(enemy.getMovingPattern());
-        this.setBulletFormation(enemy.getBulletFormation());
-        this.setTimeBetweenShot(enemy.getTimeBetweenShots());
+            this.setXAxis(enemy.getXAxis());
+            this.setYAxis(enemy.getYAxis());
+            this.setMovingPattern(enemy.getMovingPattern());
+            this.setBulletFormation(enemy.getBulletFormation());
+            this.setTimeBetweenShot(enemy.getTimeBetweenShots());
 
-        if (enemy.isDone()) {
-            this.setIsDone();
-        } else if (!enemy.getMovingPattern().equals("PatternFour") && this.name.equals("2")) {
-            this.setIsDone();
+            if (enemy.isDone()) {
+                this.setIsDone();
+            } else if (!enemy.getMovingPattern().equals("PatternFour") && this.name.equals("2")) {
+                this.setIsDone();
+            } else if (!enemy.getMovingPattern().equals("PatternFour")) {
+                this.setAngle(0);
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
             float centerX = enemy.getXAxis();
             float centerY = enemy.getYAxis();
 
-            float radius = 70;
+            float radius = 80;
             System.out.println(radius);
 
             float speed = 4000f;
@@ -63,7 +63,6 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
 
         // Add bullet spawner to the list
         bulletSpawnerSpawningController.getBulletSpawnerList().add(secondBulletSpawner);
-
     }
 }
 
