@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 // Spawner must observe the enemy
 public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
     private float angle;
+    protected float scaling;
 
     public float getAngle() {
         return this.angle;
@@ -16,6 +17,14 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
 
     public void setAngle(float angle) {
         this.angle = angle;
+    }
+
+    public float getScaling() {
+        return this.scaling;
+    }
+
+    public void setScaling(float duration) {
+        this.scaling = duration;
     }
 
     public BulletSpawner(float xPos,
@@ -46,6 +55,7 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
         if (mySubject instanceof Enemy) {
             Enemy enemy = (Enemy) mySubject;
 
+            // Update the spawner's behaviors to enemy's behavior
             this.setXAxis(enemy.getXAxis());
             this.setYAxis(enemy.getYAxis());
             this.setMovingPattern(enemy.getMovingPattern());
@@ -53,11 +63,22 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
             this.setTimeBetweenShot(enemy.getTimeBetweenShots());
 
             if (enemy.isDone()) {
+                // Delete the spawner if the enemy is done
                 this.setIsDone();
             } else if (!enemy.getMovingPattern().equals("PatternFour") && this.name.equals("2")) {
+                // Delete second spawner if the next pattern is not pattern four
+                // and if the spawner name is "2"
                 this.setIsDone();
-            } else if (!enemy.getMovingPattern().equals("PatternFour")) {
+            } else if (!enemy.getMovingPattern().equals("PatternFour") && this.name.equals("1")) {
+                // Reset the angle for next pattern after pattern four
                 this.setAngle(0);
+
+                // Reset the scaling for next pattern
+                this.setScaling(0);
+
+                // Reset the spawner position to enemy position
+                this.setXPosition(enemy.getXPosition());
+                this.setYPosition(enemy.getYPosition());
             }
         }
     }

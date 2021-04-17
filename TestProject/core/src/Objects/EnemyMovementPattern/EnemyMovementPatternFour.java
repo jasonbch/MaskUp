@@ -1,6 +1,7 @@
 package Objects.EnemyMovementPattern;
 
 import GameEngine.Spawning.BulletSpawnerSpawningController;
+import Objects.GameObject.Ammo.Bullet;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Enemy;
@@ -21,34 +22,48 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     @Override
     public void move(Enemy enemy, float deltaTime) {
         if (enemy instanceof BulletSpawner) {
+
+            BulletSpawner bulletSpawner = (BulletSpawner) enemy;
+            // Move spawner in a circle
             float centerX = enemy.getXAxis();
             float centerY = enemy.getYAxis();
 
-            float radius = 80;
-            System.out.println(radius);
+            // Initial radius
+            float radius = 50f;
 
-            float speed = 4000f;
+            float speed = 12000f;
             float rate = deltaTime;
-            float circleX = (float) (Math.cos(((BulletSpawner)enemy).getAngle()) * (radius) + centerX);
-            float circleY = (float) (Math.sin(((BulletSpawner)enemy).getAngle()) * (radius) + centerY);
-            float angle = ((BulletSpawner)enemy).getAngle() + (speed * (rate / 1000)) % 360;
+
+            // Scaling to expand circle
+            float scaling = bulletSpawner.getScaling() + deltaTime * 3f;
+
+            System.out.println(scaling);
+
+            float circleX = (float) (Math.cos(bulletSpawner.getAngle()) * (radius * scaling) + centerX);
+            float circleY = (float) (Math.sin(bulletSpawner.getAngle()) * (radius * scaling) + centerY);
+            float angle = bulletSpawner.getAngle() + (speed * (rate / 1000)) % 360;
 
             if (angle >= 360) {
                 angle = 0;
             }
 
-            ((BulletSpawner)enemy).setAngle(angle);
+            bulletSpawner.setAngle(angle);
+            bulletSpawner.setScaling(scaling);
             enemy.setXPosition(circleX);
             enemy.setYPosition(circleY + (enemy.getImageHeight() / 2));
+
         } else if (enemy instanceof Karen
                 || enemy instanceof Covid) {
+            // Generate second spawner only if the spawner count is 1
             if  (enemy.getBulletSpawnerCount() == 1) {
                 generateSecondSpawner(enemy);
                 enemy.setBulletSpawnerCount(enemy.getBulletSpawnerCount() + 1);
             }
 
+            // Continuously setting x axis for enemy for movement purpose
             enemy.setXAxis(enemy.getXPosition());
         } else {
+            // Continuously setting x axis for enemy for movement purpose
             enemy.setXAxis(enemy.getXPosition());
         }
     }
