@@ -12,7 +12,6 @@ import Objects.GameObject.Enemy.Karen;
  */
 public class EnemyMovementPatternFour extends EnemyMovementPattern {
     private final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
-    private boolean isSpawned = false;
 
     @Override
     public String getName() {
@@ -25,10 +24,13 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
             float centerX = enemy.getXAxis();
             float centerY = enemy.getYAxis();
 
-            float speed = 2000f;
+            float radius = 70;
+            System.out.println(radius);
+
+            float speed = 4000f;
             float rate = deltaTime;
-            float circleX = (float) (Math.cos(((BulletSpawner)enemy).getAngle()) * (enemy.getImageWidth() / 1.25) + centerX);
-            float circleY = (float) (Math.sin(((BulletSpawner)enemy).getAngle()) * (enemy.getImageHeight() / 1.25) + centerY);
+            float circleX = (float) (Math.cos(((BulletSpawner)enemy).getAngle()) * (radius) + centerX);
+            float circleY = (float) (Math.sin(((BulletSpawner)enemy).getAngle()) * (radius) + centerY);
             float angle = ((BulletSpawner)enemy).getAngle() + (speed * (rate / 1000)) % 360;
 
             if (angle >= 360) {

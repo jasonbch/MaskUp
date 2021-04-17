@@ -75,7 +75,7 @@ public class UIController {
         drawEnemyAmmo();
         drawEnemies();
         drawPlayer();
-        drawBulletSpawners();
+        //drawBulletSpawners();
     }
 
     /**

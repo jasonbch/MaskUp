@@ -88,7 +88,7 @@ public class EnemySpawningController {
         concreteEnemy.setBulletSpawnerCount(1);
 
         // Get the position for y
-        float randomY = rand.nextInt(300) + 500;
+        float randomY = rand.nextInt(300) + 600;
         concreteEnemy.setYAxis(randomY);
 
         // Add enemy to the list
