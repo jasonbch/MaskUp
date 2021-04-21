@@ -14,7 +14,7 @@ public class FanBulletFormation extends BulletFormation {
     }
 
     @Override
-    public List<Ammo> shoot(Entity entity, int xShootPosition, int yShootPosition) {
+    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition) {
         List<Ammo> ammoList;
         PatternAttribute patternAttribute1 = new PatternAttribute("LinearBulletMovementPattern", -1, -1);
         PatternAttribute patternAttribute2 = new PatternAttribute("LinearBulletMovementPattern", 0, -1);

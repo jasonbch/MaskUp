@@ -80,7 +80,7 @@ public abstract class Enemy extends Entity implements EnemySubject {
 
     public void setMovingPattern(String movingPattern) {
         // TODO: Fix for pattern four not reset bullet spawner count
-        if (this.movingPattern.equals("PatternFour") && !movingPattern.equals("PatternFour")) {
+        if (this.movingPattern.equals("PatternFour") && !movingPattern.equals("PatternFour") && this.bulletSpawnerCount == 2) {
             this.setBulletSpawnerCount(this.getBulletSpawnerCount() - 1);
         }
 

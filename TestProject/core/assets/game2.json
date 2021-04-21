@@ -63,20 +63,29 @@
         }
     },
     "behaviors":
-    {
+    {   
+        "4":
+        {
+            "enemyName": "Karen",
+            "startTime": 2,
+            "speed": 150,
+            "timeBetweenShot": 0.5,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
+        },
         "5":
         {
             "enemyName": "Karen",
             "startTime": 10,
             "speed": 150,
             "timeBetweenShot": 0.005,
-            "enemyMovementPattern": "PatternFour",
-            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+            "enemyMovementPattern": "PatternFive",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
         },
         "6":
         {
             "enemyName": "Karen",
-            "startTime": 11,
+            "startTime": 12,
             "speed": 150,
             "timeBetweenShot": 1,
             "enemyMovementPattern": "PatternOne",
@@ -85,38 +94,11 @@
         "7":
         {
             "enemyName": "Karen",
-            "startTime": 20,
-            "speed": 150,
-            "timeBetweenShot": 0.005,
-            "enemyMovementPattern": "PatternFour",
-            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
-        },
-        "8":
-        {
-            "enemyName": "Karen",
-            "startTime": 21,
+            "startTime": 16,
             "speed": 150,
             "timeBetweenShot": 1,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TargetThreeDirectionBulletFormation"
-        },
-        "9":
-        {
-            "enemyName": "Karen",
-            "startTime": 30,
-            "speed": 150,
-            "timeBetweenShot": 0.005,
-            "enemyMovementPattern": "PatternFour",
-            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
-        },
-        "10":
-        {
-            "enemyName": "Karen",
-            "startTime": 31,
-            "speed": 150,
-            "timeBetweenShot": 1,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TargetThreeDirectionBulletFormation"
+            "bulletFormation": "CircularBulletFormation"
         }
     }
 }

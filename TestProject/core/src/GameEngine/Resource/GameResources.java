@@ -13,7 +13,7 @@ public class GameResources {
 
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
-    private static String gameJSON = "game1.json";
+    private static String gameJSON = "game2.json";
 
     private GameResources() {
         this.initializeAssets();

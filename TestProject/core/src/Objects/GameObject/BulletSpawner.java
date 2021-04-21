@@ -69,7 +69,9 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
                 // Delete second spawner if the next pattern is not pattern four
                 // and if the spawner name is "2"
                 this.setIsDone();
-            } else if (!enemy.getMovingPattern().equals("PatternFour") && this.name.equals("1")) {
+            } else if (!enemy.getMovingPattern().equals("PatternFive")
+                    && !enemy.getMovingPattern().equals("PatternFour")
+                    && this.name.equals("1")) {
                 // Reset the angle for next pattern after pattern four
                 this.setAngle(0);
 
