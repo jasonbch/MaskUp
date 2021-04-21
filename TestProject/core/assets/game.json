@@ -10,7 +10,7 @@
     {
         "Player":
         {
-            "maxHealth": 3,
+            "maxHealth": 30,
             "speed": 330,
             "bullet": "Bullet",
             "texture": "Player.png",
@@ -327,6 +327,69 @@
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
+        },
+        "4-5":
+        {
+            "enemyName":"Covid",
+            "startTimeFromStage": 35,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisXFlipAttack"
+        },
+        "4-6":
+        {
+            "enemyName":"Covid",
+            "startTimeFromStage": 40,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TriangleTargetBulletFormation"
+        },
+        "4-7":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 45,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisXFlipAttackRevert"
+        },
+        "4-8":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 50,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-9":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 55,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisYFlipAttack"
+        },
+        "4-10":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 60,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-11":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 65,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisYFlipAttackRevert"
         }
     }
 }

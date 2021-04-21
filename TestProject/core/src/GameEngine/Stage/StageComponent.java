@@ -1,7 +1,6 @@
 package GameEngine.Stage;
 
 import GameEngine.Observer.GameObserver;
-import org.graalvm.compiler.phases.common.NodeCounterPhase;
 
 public class StageComponent implements GameObserver {
     protected String section;

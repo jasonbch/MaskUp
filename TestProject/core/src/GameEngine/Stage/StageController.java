@@ -126,6 +126,7 @@ public class StageController implements GameObserver, GameSubject {
 
             // Add to list
             this.waves.add(waveObject);
+            // need to add in reading of xDrop and yStop. how will they be read in
         }
 
         // Initialize all the behaviors
