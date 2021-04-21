@@ -21,6 +21,8 @@ public abstract class Enemy extends Entity implements EnemySubject {
     protected long currentTimeAlive;
     protected String movingPattern;
     protected float yAxis;
+    protected float xAxis;
+    protected int bulletSpawnerCount;
 
     private List<BulletSpawnerObserver> spawners = new ArrayList<>();
 
@@ -77,6 +79,11 @@ public abstract class Enemy extends Entity implements EnemySubject {
     }
 
     public void setMovingPattern(String movingPattern) {
+        // TODO: Fix for pattern four not reset bullet spawner count
+        if (this.movingPattern.equals("PatternFour") && !movingPattern.equals("PatternFour")) {
+            this.setBulletSpawnerCount(this.getBulletSpawnerCount() - 1);
+        }
+
         this.movingPattern = movingPattern;
         notifyObservers();
     }
@@ -88,6 +95,23 @@ public abstract class Enemy extends Entity implements EnemySubject {
     public void setYAxis(float yAxis) {
         this.yAxis = yAxis;
         notifyObservers();
+    }
+
+    public float getXAxis() {
+        return this.xAxis;
+    }
+
+    public void setXAxis(float xAxis) {
+        this.xAxis = xAxis;
+        notifyObservers();
+    }
+
+    public int getBulletSpawnerCount() {
+        return this.bulletSpawnerCount;
+    }
+
+    public void setBulletSpawnerCount(int amount) {
+        this.bulletSpawnerCount = amount;
     }
 
     public void setBulletFormation(String bulletFormation) {

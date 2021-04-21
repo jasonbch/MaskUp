@@ -59,44 +59,62 @@
             "enemyAmount": 1,
             "startTime": 5,
             "enemyMovementPattern": "PatternTwo",
-            "bulletFormation": "TriangleTargetBulletFormation"
+            "bulletFormation": "DownwardLinearBulletFormation"
         }
     },
     "behaviors":
     {
-        "1":
+        "5":
         {
             "enemyName": "Karen",
             "startTime": 10,
             "speed": 150,
-            "timeBetweenShot": 0.6,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "6":
+        {
+            "enemyName": "Karen",
+            "startTime": 11,
+            "speed": 150,
+            "timeBetweenShot": 1,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
-        "2":
-        {
-            "enemyName": "Karen",
-            "startTime": 15,
-            "speed": 150,
-            "timeBetweenShot": 0.8,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TargetDownwardLinearBulletFormation"
-        },
-        "3":
+        "7":
         {
             "enemyName": "Karen",
             "startTime": 20,
             "speed": 150,
-            "timeBetweenShot": 0.6,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "8":
+        {
+            "enemyName": "Karen",
+            "startTime": 21,
+            "speed": 150,
+            "timeBetweenShot": 1,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
-        "4":
+        "9":
         {
             "enemyName": "Karen",
-            "startTime": 25,
+            "startTime": 30,
             "speed": 150,
-            "timeBetweenShot": 0.8,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "10":
+        {
+            "enemyName": "Karen",
+            "startTime": 31,
+            "speed": 150,
+            "timeBetweenShot": 1,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         }
