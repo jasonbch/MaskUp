@@ -106,11 +106,12 @@ public class BulletSpawningController {
 
         while (iter.hasNext()) {
             Ammo ammo = iter.next();
-            if (ammo.getXPosition() + ammo.getImageWidth() >= gameResources.getScreenOneEnd()) {
+            float ammoPosition = ammo.getXPosition();
+            if (ammoPosition >= gameResources.getScreenOneEnd() - ammo.getImageWidth() || ammoPosition <= gameResources.getScreenOneStart()) {
+
                 ammo.isDone();
                 iter.remove();
-            }
-            if (ammo.isDone()) {
+            } else if (ammo.isDone()) {
                 iter.remove();
             }
         }

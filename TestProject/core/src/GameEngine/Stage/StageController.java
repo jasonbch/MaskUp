@@ -106,6 +106,9 @@ public class StageController {
             String enemyMovementPattern = wave.getString("enemyMovementPattern");
             String bulletFormation = wave.getString("bulletFormation");
 
+            // need to add in reading of xDrop and yStop. how will they be read in
+
+
             Wave newWave = new Wave(enemyType, enemyAmount, startTime, enemyMovementPattern, bulletFormation);
             this.waves.add(newWave);
         }
