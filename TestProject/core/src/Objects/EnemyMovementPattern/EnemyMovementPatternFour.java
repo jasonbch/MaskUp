@@ -1,7 +1,6 @@
 package Objects.EnemyMovementPattern;
 
 import GameEngine.Spawning.BulletSpawnerSpawningController;
-import Objects.GameObject.Ammo.Bullet;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Enemy;
@@ -30,14 +29,11 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
 
             // Initial radius
             float radius = 50f;
-
             float speed = 12000f;
             float rate = deltaTime;
 
             // Scaling to expand circle
             float scaling = bulletSpawner.getScaling() + deltaTime * 3f;
-
-            System.out.println(scaling);
 
             float circleX = (float) (Math.cos(bulletSpawner.getAngle()) * (radius * scaling) + centerX);
             float circleY = (float) (Math.sin(bulletSpawner.getAngle()) * (radius * scaling) + centerY);

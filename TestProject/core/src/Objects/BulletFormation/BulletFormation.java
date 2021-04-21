@@ -17,5 +17,5 @@ public abstract class BulletFormation {
     /**
      * Return ammo list to shoot
      */
-    public abstract List<Ammo> shoot(Entity entity, int xShootPosition, int yShootPosition);
+    public abstract List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition);
 }
