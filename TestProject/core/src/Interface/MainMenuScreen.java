@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import MaskGame.SettingsScreen;
 
 public class MainMenuScreen extends InputAdapter implements Screen {
-    private final Camera camera;
+    private final OrthographicCamera camera;
     private final Viewport viewport;
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
@@ -55,6 +55,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        camera.setToOrtho(false);
         batch.begin();
 
         batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
@@ -91,6 +92,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
+        camera.update();
         batch.setProjectionMatrix(camera.combined);
     }
 

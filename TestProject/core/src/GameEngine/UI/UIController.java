@@ -13,9 +13,11 @@ import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.awt.*;
 import java.util.List;
@@ -71,6 +73,11 @@ public class UIController {
         backgroundMusic.setVolume((float) 0.01);
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
+    }
+
+    public void flip(OrthographicCamera camera) {
+        camera.setToOrtho(true, WORLD_WIDTH, WORLD_HEIGHT);
+        batch.setProjectionMatrix(camera.combined);
     }
 
     public void drawGameObjects() {

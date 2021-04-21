@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -20,9 +21,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 public class GameScreen extends ApplicationAdapter implements Screen {
     // Screen
-    private final Camera camera;
+    private final OrthographicCamera camera1;
+   // private final OrthographicCamera camera2;
 
-    private final Viewport viewport;
+    private final Viewport viewport1;
+    //private final Viewport viewport2;
     private final int VIEWPORT_WIDTH = 576;
     private final int VIEWPORT_HEIGHT = 1024;
 
@@ -44,9 +47,11 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         this.game = mainGame;
 
         // Initialize camera and view
-        camera = new OrthographicCamera();
+        camera1 = new OrthographicCamera();
+        //camera2 = new OrthographicCamera();
 
-        viewport = new StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
+        viewport1 = new StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera1);
+        //viewport2 = new StretchViewport(VIEWPORT_WIDTH /2, VIEWPORT_HEIGHT, camera2);
         batch = new SpriteBatch();
         UIController = new UIController(batch);
         UIController.playMusic();
@@ -66,8 +71,8 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
         // Update game time
         timeController.updateElapsedTime();
-
         batch.begin();
+        UIController.flip(camera1);
 
         // Update scrolling background
         UIController.drawBackground(deltaTime);
@@ -93,6 +98,8 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         this.pauseGame();
 
         batch.end();
+        //batch2.end();
+
     }
 
     private void pauseGame() {
@@ -104,7 +111,9 @@ public class GameScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        //viewport1.update(width/2, height);
+        //viewport2.update(width /2,height);
+        //viewport2.setScreenX(width/2);
     }
 
     @Override
