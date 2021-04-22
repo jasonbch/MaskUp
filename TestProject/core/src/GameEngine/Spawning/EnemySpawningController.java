@@ -1,31 +1,38 @@
 package GameEngine.Spawning;
 
 import GameEngine.Factory.EnemyFactory;
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
+import GameEngine.Stage.StageController;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * EnemySpawningController class that implements Singleton.
  * The class is in charged of spawning enemies. The class can
  * also create different type of enemies.
  */
-public class EnemySpawningController {
+public class EnemySpawningController implements GameObserver {
     private static final GameResources gameResources = GameResources.instance();
     private static final ScoreController scoreController = ScoreController.instance();
     private static final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
+    private static final StageController stageController = StageController.instance();
 
     // Implement Singleton
     private static EnemySpawningController uniqueInstance = null;
 
     private final EnemyFactory enemyFactory = new EnemyFactory();
-    private final LinkedList<Enemy> enemyList = new LinkedList<>();
+    CopyOnWriteArrayList enemyList = new CopyOnWriteArrayList<Enemy>();
     private final Random rand = new Random();
+    private Enemy currentEnemy;
 
     private EnemySpawningController() {
     }
@@ -44,27 +51,15 @@ public class EnemySpawningController {
         return uniqueInstance;
     }
 
-    public LinkedList<Enemy> getEnemyList() {
+    public CopyOnWriteArrayList<Enemy> getEnemyList() {
         return this.enemyList;
     }
 
     /**
      * Delete the enemies if they got out of the screen.
      */
-    public void deleteEnemies() {
-        ListIterator<Enemy> iter2 = enemyList.listIterator();
-        while (iter2.hasNext()) {
-            Enemy currEnemy = iter2.next();
-
-            if (currEnemy.getYPosition() > gameResources.getWorldHeight()) {
-                iter2.remove();
-            } else if (currEnemy.isDone()) {
-                scoreController.addScore(currEnemy);
-                iter2.remove();
-            } else if (currEnemy.getMaxHealth() <= 0) {
-                currEnemy.setIsDone();
-            }
-        }
+    public void deleteEnemies(Enemy enemy) {
+        enemyList.remove(enemy);
     }
 
     /**
@@ -90,6 +85,13 @@ public class EnemySpawningController {
         // Get the position for y
         float randomY = rand.nextInt(300) + 700;
         concreteEnemy.setYAxis(randomY);
+
+        // Attach Observers
+        concreteEnemy.Attach(this);
+        concreteEnemy.Attach(scoreController);
+        if(enemy.equals("Karen") || enemy.equals("Covid")){
+            concreteEnemy.Attach(stageController);
+        }
 
         // Add enemy to the list
         enemyList.add(concreteEnemy);
@@ -124,4 +126,36 @@ public class EnemySpawningController {
         }
         return null;
     }
+
+    @Override
+    public void update(Object o, String args) {
+        if(o instanceof Enemy)
+        {
+            if(args.equals("deleteEnemy"))
+            {
+                deleteEnemies((Enemy) o);
+            }
+        }
+    }
+
+//
+//    @Override
+//    public void Attach(GameObserver o) {
+//        this.myObs.add(o);
+//    }
+//
+//    @Override
+//    public void Dettach(GameObserver o) {
+//        this.myObs.remove(o);
+//    }
+//
+//    @Override
+//    public void Notify() {
+//        for(int i = 0; i < this.myObs.size(); i++)
+//        {
+//            this.myObs.get(i).update(this, currentEnemy);
+//        }
+//    }
+
+
 }

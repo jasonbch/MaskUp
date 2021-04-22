@@ -1,26 +1,29 @@
 package GameEngine.Spawning;
 
+import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
 import GameEngine.Stage.FormationController;
 import Objects.GameObject.Ammo.Ammo;
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.Entity;
+import Objects.GameObject.GameObject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * ShootController class that controls the spawning of ammo. The entity can
  * fire their default bullet or a given bullet can be given to them.
  */
-public class BulletSpawningController {
+public class BulletSpawningController implements GameObserver {
     // Implement Singleton
     private static BulletSpawningController uniqueInstance = null;
-    private final LinkedList<Ammo> enemyAmmoList = new LinkedList<>();
-    private final LinkedList<Ammo> playerAmmoList = new LinkedList<>();
+    CopyOnWriteArrayList enemyAmmoList = new CopyOnWriteArrayList<Ammo>();
+    CopyOnWriteArrayList playerAmmoList = new CopyOnWriteArrayList<Ammo>();
     private final FormationController formationController = new FormationController();
     private final GameResources gameResources = GameResources.instance();
 
@@ -44,11 +47,11 @@ public class BulletSpawningController {
         return uniqueInstance;
     }
 
-    public LinkedList<Ammo> getEnemyAmmoList() {
+    public CopyOnWriteArrayList<Ammo> getEnemyAmmoList() {
         return this.enemyAmmoList;
     }
 
-    public LinkedList<Ammo> getPlayerAmmoList() {
+    public CopyOnWriteArrayList<Ammo> getPlayerAmmoList() {
         return this.playerAmmoList;
     }
 
@@ -87,6 +90,7 @@ public class BulletSpawningController {
 
                 for (Ammo ammo : ammoList) {
                     enemyAmmoList.add(ammo);
+                    ammo.Attach(this);
                 }
             }
         }
@@ -96,24 +100,9 @@ public class BulletSpawningController {
      * TODO: Refactor into two methods.
      * Deleting the enemies bullet if state isDone
      */
-    public void deleteBullet(String type) {
-        ListIterator<Ammo> iter;
-        if (type == "Player") {
-            iter = getPlayerAmmoList().listIterator();
-        } else {
-            iter = getEnemyAmmoList().listIterator();
-        }
-
-        while (iter.hasNext()) {
-            Ammo ammo = iter.next();
-            if (ammo.getXPosition() + ammo.getImageWidth() >= gameResources.getScreenOneEnd()) {
-                ammo.isDone();
-                iter.remove();
-            }
-            if (ammo.isDone()) {
-                iter.remove();
-            }
-        }
+    public void deleteBullet(Ammo ammo) {
+        if(playerAmmoList.contains(ammo)){ playerAmmoList.remove( ammo);}
+        if(enemyAmmoList.contains(ammo)){ enemyAmmoList.remove(ammo);}
     }
 
     /**
@@ -127,7 +116,19 @@ public class BulletSpawningController {
 
                 for (Ammo ammo : ammoList) {
                     playerAmmoList.add(ammo);
+                    ammo.Attach(this);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void update(Object o, String args) {
+        if(o instanceof Ammo || o instanceof GameObject)
+        {
+            if(args.equals("deleteAmmo"))
+            {
+                this.deleteBullet((Ammo) o);
             }
         }
     }

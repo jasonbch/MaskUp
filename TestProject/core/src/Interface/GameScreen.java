@@ -1,8 +1,12 @@
 package Interface;
 
 import GameEngine.GameController;
+import GameEngine.Observer.GameObserver;
+import GameEngine.Score.ScoreController;
+import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Time.TimeController;
 import GameEngine.UI.UIController;
+import Objects.GameObject.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -33,9 +37,11 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final GameController gameController = GameController.instance();
     private final TimeController timeController = TimeController.instance();
     private final GameEngine.UI.UIController UIController;
-
     private final FPSLogger logger = new FPSLogger();
     private final MaskGame game;
+    private final ScoreController scoreController = ScoreController.instance();
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final Player player = Player.instance();
 
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
@@ -50,6 +56,10 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         batch = new SpriteBatch();
         UIController = new UIController(batch);
         UIController.playMusic();
+
+//        // Attach Observers
+//        player.Attach(enemySpawningController);
+//        player.Attach(scoreController);
     }
 
     /**

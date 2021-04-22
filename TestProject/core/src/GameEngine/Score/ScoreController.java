@@ -1,8 +1,13 @@
 package GameEngine.Score;
 
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
+import GameEngine.Spawning.EnemySpawningController;
 import Objects.GameObject.Enemy.*;
 
-public class ScoreController {
+import java.util.ArrayList;
+
+public class ScoreController implements GameObserver {
     // Implement Singleton
     private static ScoreController uniqueInstance = null;
     private int score;
@@ -47,5 +52,13 @@ public class ScoreController {
             score = 3000;
         }
         this.addScore(score);
+    }
+
+
+    @Override
+    public void update(Object o, String args) {
+        if(o instanceof Enemy){
+            this.addScore((Enemy) o);
+        }
     }
 }

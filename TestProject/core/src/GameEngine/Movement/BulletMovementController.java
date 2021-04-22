@@ -41,9 +41,9 @@ public class BulletMovementController {
             Ammo ammo = iterator.next();
             this.move(ammo, deltaTime);
 
-            if (ammo.getYPosition() > gameResources.getWorldHeight()) {
-                iterator.remove();
-            }
+//            if (ammo.getYPosition() > gameResources.getWorldHeight()) {
+//                iterator.remove();
+//            }
         }
 
         // Entity.Enemy bullets
@@ -52,9 +52,9 @@ public class BulletMovementController {
             Ammo ammo = iter.next();
             this.move(ammo, deltaTime);
 
-            if (ammo.getYPosition() < 0) {
-                iter.remove();
-            }
+//            if (ammo.getYPosition() < 0) {
+//                iter.remove();
+//            }
         }
     }
 
