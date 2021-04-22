@@ -1,17 +1,22 @@
 package Objects.GameObject;
 
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
+import Objects.GameObject.Ammo.Ammo;
 import com.badlogic.gdx.graphics.Texture;
+
+import java.util.ArrayList;
 
 /**
  * Objects.GameObject class that has the x and y position. It also has an image and can
  * draw the image on a batch.
  */
-public abstract class GameObject {
+public abstract class GameObject implements GameSubject {
     protected final GameResources gameResources = GameResources.instance();
     protected float xPosition;  // Initial x position
     protected float yPosition;  // Initial y position
-
+    protected ArrayList<GameObserver> myObs = new ArrayList<GameObserver>();
     /**
      * Return the name.
      */
@@ -32,6 +37,7 @@ public abstract class GameObject {
      * @param yPos
      */
     public void setYPosition(float yPos) {
+
         this.yPosition = yPos;
     }
 
@@ -51,6 +57,10 @@ public abstract class GameObject {
      */
     public void setXPosition(float xPos) {
         this.xPosition = xPos;
+        if(this.getXPosition() + this.getImageWidth() >= gameResources.getScreenOneEnd())
+        {
+            this.Notify("deleteAmmo");
+        }
     }
 
     /**
@@ -147,5 +157,23 @@ public abstract class GameObject {
      */
     public int getImageHeight() {
         return getTexture().getHeight();
+    }
+
+    @Override
+    public void Attach(GameObserver o) {
+        this.myObs.add(o);
+    }
+
+    @Override
+    public void Dettach(GameObserver o) {
+        this.myObs.remove(o);
+    }
+
+    @Override
+    public void Notify(String args) {
+        for(int i = 0; i < this.myObs.size(); i++)
+        {
+            this.myObs.get(i).update(this, args);
+        }
     }
 }

@@ -2,6 +2,7 @@ package Objects.GameObject;
 
 import GameEngine.Observer.BulletSpawnerObserver;
 import GameEngine.Observer.EnemySubject;
+import GameEngine.Observer.GameObserver;
 import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -39,5 +40,20 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
         if (enemy.isDone()) {
             this.setIsDone();
         }
+    }
+
+    @Override
+    public void Attach(GameObserver o) {
+
+    }
+
+    @Override
+    public void Dettach(GameObserver o) {
+
+    }
+
+    @Override
+    public void Notify(String args) {
+
     }
 }

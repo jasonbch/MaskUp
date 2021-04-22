@@ -1,6 +1,7 @@
 package GameEngine.UI;
 
 import GameEngine.GameController;
+import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
@@ -19,6 +20,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Observable;
+import java.util.Observer;
 
 public class UIController {
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
@@ -127,7 +130,6 @@ public class UIController {
     private void drawBulletSpawners() {
         List<GameObject> objectList = (List<GameObject>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList();
         drawList(objectList.listIterator());
-        System.out.println(objectList.size());
     }
 
     private void drawList(ListIterator<GameObject> iterator) {
@@ -171,4 +173,6 @@ public class UIController {
             batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight - 50, stageMessageWidth, stageMessageHeight);
         }
     }
+
+
 }

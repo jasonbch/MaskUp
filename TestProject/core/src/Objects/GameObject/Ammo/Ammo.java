@@ -40,6 +40,7 @@ public abstract class Ammo extends GameObject {
 
     public void setIsDone() {
         this.isDone = true;
+        Notify("deleteAmmo");
     }
 
     /**
@@ -114,5 +115,6 @@ public abstract class Ammo extends GameObject {
         public float getYMultiplier() {
             return this.y;
         }
+
     }
 }

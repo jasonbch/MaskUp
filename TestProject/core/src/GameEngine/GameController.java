@@ -5,6 +5,7 @@ import GameEngine.Collision.EnemyCollisionCommand;
 import GameEngine.Collision.PlayerCollisionCommand;
 import GameEngine.Movement.BulletMovementController;
 import GameEngine.Movement.EnemyMovementController;
+import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
@@ -57,6 +58,7 @@ public class GameController {
         return uniqueInstance;
     }
 
+
     public void updateGame(float deltaTime, MaskGame game) {
         // God Mode
         startGodMode();
@@ -70,8 +72,8 @@ public class GameController {
         }
 
         // Clear used enemies and bullets
-        bulletSpawningController.deleteBullet("Player");
-        bulletSpawningController.deleteBullet("Enemy");
+        //bulletSpawningController.deleteBullet("Player");
+        //bulletSpawningController.deleteBullet("Enemy");
 
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
@@ -95,7 +97,7 @@ public class GameController {
         enemyMovementController.update(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
 
         // Delete enemies if they need deleted
-        enemySpawningController.deleteEnemies();
+        //enemySpawningController.deleteEnemies();
         bulletSpawnerSpawningController.deleteBulletSpawners();
 
         // TODO: make stages

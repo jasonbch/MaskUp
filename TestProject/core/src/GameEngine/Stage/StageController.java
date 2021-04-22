@@ -1,24 +1,28 @@
 package GameEngine.Stage;
 
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import GameEngine.Time.TimeController;
+import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.Enemy.Karen;
 import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.Null;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * StageController class that implements Singleton.
  * The class can create stages for a game.
  */
-public class StageController {
+public class StageController implements GameObserver, GameSubject {
     private static final TimeController timeController = TimeController.instance();
     private static final GameResources gameResources = GameResources.instance();
-
+    private ArrayList<GameObserver> myObs = new ArrayList<GameObserver>();
     // Implement Singleton
     private static StageController uniqueInstance = null;
     private final Player player = Player.instance();
@@ -98,15 +102,26 @@ public class StageController {
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 
+        // Initialize Stage times
+        JsonValue stageStartTimes  = base.get("StageStartTimes");
+            this.stageOneStart = stageStartTimes.getInt("stageOne");
+            this.stageTwoStart = stageStartTimes.getInt("stageTwo");
+            this.stageThreeStart = stageStartTimes.getInt("stageThree");
+            this.stageFourStart = stageStartTimes.getInt("stageFour");
+
+
         // Initialize all the waves
         for (JsonValue wave : base.get("waves")) {
+            String section = wave.name;
             String enemyType = wave.getString("enemyType");
             int enemyAmount = wave.getInt("enemyAmount");
-            int startTime = wave.getInt("startTime");
+            int startTimeFromStage = wave.getInt("startTimeFromStage");
             String enemyMovementPattern = wave.getString("enemyMovementPattern");
             String bulletFormation = wave.getString("bulletFormation");
 
-            Wave newWave = new Wave(enemyType, enemyAmount, startTime, enemyMovementPattern, bulletFormation);
+            Wave newWave = new Wave(section, enemyType, enemyAmount, startTimeFromStage, enemyMovementPattern, bulletFormation);
+            this.Attach(newWave);
+            newWave = this.resetWaveStartTime(newWave.getStageNumber(), newWave);
             this.waves.add(newWave);
         }
 
@@ -122,6 +137,9 @@ public class StageController {
             Behavior newBehavior = new Behavior(enemyName, startTime, speed, timeBetweenShot, enemyMovementPattern, bulletFormation);
             this.behaviors.add(newBehavior);
         }
+
+
+
     }
 
     public void makeStages() {
@@ -129,6 +147,9 @@ public class StageController {
 
         for (Wave wave : this.waves) {
             if (timeController.getElapsedTime() == wave.getStartTime()) {
+                System.out.println("Stage " + wave.getSection());
+                System.out.println("Wave start time " + wave.getStartTime());
+                System.out.println("Elapsed time " + timeController.getStartTime());
                 wave.run();
             }
         }
@@ -139,7 +160,7 @@ public class StageController {
             }
         }
 
-        this.fastForwardToStageThree();
+        //this.fastForwardToStageThree();
     }
 
     private void changePlayerBulletType() {
@@ -157,16 +178,69 @@ public class StageController {
         }
     }
 
+    public Wave resetWaveStartTime(int stageNumber, Wave wave){
+        switch (stageNumber)
+        {
+            case 1:
+                wave.setStartTime(this.stageOneStart + wave.getStartTimeFromStage());
+                return wave;
+            case 2:
+                wave.setStartTime(this.stageTwoStart + wave.getStartTimeFromStage());
+                return wave;
+            case 3:
+                wave.setStartTime(this.stageThreeStart + wave.getStartTimeFromStage());
+                return wave;
+            case 4:
+                wave.setStartTime(this.stageFourStart + wave.getStartTimeFromStage());
+                return wave;
+            default:
+                return null;
+        }
+    }
+
     /**
      * TODO: Does not work
      * Fast forward the game to the start of stage three if the player
      * kills the mid boss before the stage two end.
      */
     private void fastForwardToStageThree() {
-        if (this.karen != null) {
-            if (this.stageThreeStart > (int) timeController.getElapsedTime() && this.karen.isDone()) {
-                this.stageThreeStart = (int) timeController.getElapsedTime();
+        this.stageThreeStart = (int) timeController.getElapsedTime();
+        this.stageThreeEnd = stageThreeStart + stageOneDuration;
+        this.stageFourStart = stageThreeEnd + stageBuffer;
+        this.stageFourEnd = stageFourStart + stageFourDuration;
+        this.Notify((this.stageThreeStart)+","+ (this.stageFourStart));
+
+    }
+
+    @Override
+    public void update(Object o, String args) {
+        if(o instanceof Karen){
+            if(args.equals("deleteEnemy")){
+                this.fastForwardToStageThree();
             }
+        }
+        if(o instanceof Covid){
+            if(args.equals("deleteEnemy")){
+
+            }
+        }
+    }
+
+    @Override
+    public void Attach(GameObserver o) {
+        myObs.add(o);
+    }
+
+    @Override
+    public void Dettach(GameObserver o) {
+
+    }
+
+    @Override
+    public void Notify(String args) {
+        for(int i = 0; i < this.myObs.size(); i++)
+        {
+            this.myObs.get(i).update(this, args);
         }
     }
 }
