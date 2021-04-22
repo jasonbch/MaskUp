@@ -64,7 +64,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             batch.draw(playButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
             dispose();
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new DifficultyScreen(game));
         } else {
             batch.draw(playButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
         }

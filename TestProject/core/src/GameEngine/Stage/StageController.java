@@ -23,6 +23,8 @@ public class StageController {
     private static StageController uniqueInstance = null;
     private final Player player = Player.instance();
 
+    private String difficulty;
+
     // Stages duration
     public int stageBuffer = 5;
     public int stageOneStart = 10;
@@ -50,7 +52,7 @@ public class StageController {
     private List<Behavior> behaviors = new ArrayList<>();
 
     private StageController() {
-        this.initialize();
+
     }
 
     /**
@@ -65,6 +67,10 @@ public class StageController {
         }
         return uniqueInstance;
     }
+
+    public String getGameDifficulty() { return this.difficulty; }
+
+    public void setGameDifficulty(String difficulty) { this.difficulty = difficulty; }
 
     public Enemy getKaren() {
         return this.karen;
@@ -90,11 +96,12 @@ public class StageController {
         return stageFourEnd;
     }
 
-    private void initialize() {
+   /* private void initialize() {
         this.initializeHelper();
-    }
+    }*/
 
-    private void initializeHelper() {
+    public void initialize() {
+        System.out.println("StageController: " + getGameDifficulty());
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 

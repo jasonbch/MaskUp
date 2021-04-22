@@ -17,9 +17,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.awt.*;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -49,6 +47,11 @@ public class UIController {
 
     // Drawing the players score font
     BitmapFont font = new BitmapFont(Gdx.files.internal("arial.fnt"));
+
+    // Used for TimeElapsed
+    private String timePlaceHolder;
+    long min = 0;
+    long time;
 
     // Stage Message
     private int stageMessageWidth = 421;
@@ -166,6 +169,23 @@ public class UIController {
         Texture PlayerScore = assetManager.get("Score.png", Texture.class);
         batch.draw(PlayerScore, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 250, PlayerScore.getWidth(), PlayerScore.getHeight());
         font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 133);
+    }
+
+    public void updateTimeElapsed() {
+        Texture TimeElapsed = assetManager.get("TimeElapsed.png", Texture.class);
+        batch.draw(TimeElapsed, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 350, TimeElapsed.getWidth(), TimeElapsed.getHeight());
+        time = timeController.getElapsedTime();
+        if ((time % 60) < 10){
+            min = time / 60;
+            time = (time % 60);
+            timePlaceHolder = ":0";
+        } else if ((time % 60) >= 10){
+            min = time / 60;
+            timePlaceHolder = ":";
+            time = (time  % 60);
+        }
+
+        font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,gameResources.getWorldHeight() - 235 );
     }
 
     public void drawStageMessage() {

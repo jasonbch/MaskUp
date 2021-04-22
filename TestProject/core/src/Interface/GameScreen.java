@@ -1,17 +1,16 @@
 package Interface;
 
 import GameEngine.GameController;
+import GameEngine.Stage.StageController;
 import GameEngine.Time.TimeController;
 import GameEngine.UI.UIController;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -35,7 +34,9 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     // Game controllers
     private final GameController gameController = GameController.instance();
     private final TimeController timeController = TimeController.instance();
+    private final StageController stageController = StageController.instance();
     private final GameEngine.UI.UIController UIController;
+    private String gameDifficulty;
 
     private final FPSLogger logger = new FPSLogger();
     private final MaskGame game;
@@ -43,9 +44,13 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
-    public GameScreen(MaskGame mainGame) {
+    public GameScreen(MaskGame mainGame, String difficulty) {
         this.game = mainGame;
 
+        this.gameDifficulty = difficulty;
+        System.out.println("GameScreen: " + this.gameDifficulty);
+        stageController.setGameDifficulty(this.gameDifficulty);
+        stageController.initialize();
         // Initialize camera and view
         camera1 = new OrthographicCamera();
         //camera2 = new OrthographicCamera();
@@ -66,13 +71,14 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     public void render(float deltaTime) {
         //logger.log();
 
+
         // Get the game speed
         deltaTime *= gameController.getGameSpeed();
 
         // Update game time
         timeController.updateElapsedTime();
         batch.begin();
-        UIController.flip(camera1);
+        //UIController.flip(camera1);
 
         // Update scrolling background
         UIController.drawBackground(deltaTime);
@@ -90,6 +96,7 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         UIController.updateAndRenderHealthBar();
 
         UIController.updateScore();
+        UIController.updateTimeElapsed();
 
         // Draw stage message
         UIController.drawStageMessage();
