@@ -1,0 +1,166 @@
+{
+    "entities":
+    {
+        "Player":
+        {
+            "maxHealth": 5,
+            "speed": 330,
+            "bullet": "Bullet",
+            "texture": "Player.png",
+            "timeBetweenShot": 0.4,
+            "bulletFormation": "UpwardLinearBulletFormation"
+        },
+        "Bat":
+        {
+            "speed": 350,
+            "bullet": "CovidGerm",
+            "texture": "Bat.png",
+            "timeBetweenShot": 0.9,
+            "maxTimeAlive": 5,
+            "bulletFormation": "TargetDownwardLinearBulletFormation",
+            "maxHealth": 3
+        },
+        "MurderHornet":
+        {
+            "speed": 300,
+            "bullet": "Stinger",
+            "texture": "MurderHornet.png",
+            "timeBetweenShot": 0.6,
+            "maxTimeAlive": 6,
+            "bulletFormation": "DownwardLinearBulletFormation",
+            "maxHealth": 5
+        },
+        "Karen":
+        {
+            "speed": 150,
+            "bullet": "GreenCloud",
+            "texture": "Karen.png",
+            "timeBetweenShot": 0.8,
+            "maxTimeAlive": 45,
+            "bulletFormation": "CircularBulletFormation",
+            "maxHealth": 35
+        },
+        "Covid":
+        {
+            "speed": 150,
+            "bullet": "BabyCovid",
+            "texture": "BigCovid.png",
+            "timeBetweenShot": 0.6,
+            "maxTimeAlive": 60,
+            "bulletFormation": "TargetDownwardLinearBulletFormation",
+            "maxHealth": 70
+        }
+    },
+    "waves":
+    {
+        "MidBoss":
+        {
+            "enemyType": "Karen",
+            "enemyAmount": 1,
+            "startTime": 10,
+            "enemyMovementPattern": "PatternTwo",
+            "bulletFormation": "TriangleTargetBulletFormation"
+        },
+        "Boss":
+        {
+            "enemyType": "Covid",
+            "enemyAmount": 1,
+            "startTime": 120,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TriangleTargetBulletFormation"
+        }
+    },
+    "behaviors":
+    {
+        "1":
+        {
+            "enemyName": "Karen",
+            "startTime": 15,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "2":
+        {
+            "enemyName": "Karen",
+            "startTime": 16,
+            "speed": 150,
+            "timeBetweenShot": 1,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "3":
+        {
+            "enemyName": "Karen",
+            "startTime": 21,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "4":
+        {
+            "enemyName": "Karen",
+            "startTime": 22,
+            "speed": 150,
+            "timeBetweenShot": 1,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "5":
+        {
+            "enemyName": "Karen",
+            "startTime": 27,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "6":
+        {
+            "enemyName": "Karen",
+            "startTime": 28,
+            "speed": 150,
+            "timeBetweenShot": 1,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "7":
+        {
+            "enemyName": "Karen",
+            "startTime": 32,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "8":
+        {
+            "enemyName": "Karen",
+            "startTime": 33,
+            "speed": 150,
+            "timeBetweenShot": 1,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "9":
+        {
+            "enemyName": "Karen",
+            "startTime": 38,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "10":
+        {
+            "enemyName": "Karen",
+            "startTime": 39,
+            "speed": 150,
+            "timeBetweenShot": 1,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        }
+    }
+}
