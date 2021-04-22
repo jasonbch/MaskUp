@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.Null;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * StageController class that implements Singleton.
  * The class can create stages for a game.
@@ -36,13 +38,13 @@ public class StageController implements GameObserver, GameSubject {
     private int stageThreeDuration = 30;
     private int stageFourDuration = 60;
 
-    private int stageOneEnd = stageOneStart + stageOneDuration;
-    public int stageTwoStart = stageOneEnd + stageBuffer;
-    private int stageTwoEnd = stageTwoStart + stageTwoDuration;
-    public int stageThreeStart = stageTwoEnd + stageBuffer;
-    private int stageThreeEnd = stageThreeStart + stageThreeDuration;
-    public int stageFourStart = stageThreeEnd + stageBuffer;
-    private int stageFourEnd = stageFourStart + stageFourDuration;
+    private int stageOneEnd;
+    public int stageTwoStart;
+    private int stageTwoEnd;
+    public int stageThreeStart;
+    private int stageThreeEnd;
+    public int stageFourStart;
+    private int stageFourEnd;
 
     // Final Boss
     private Enemy covid;
@@ -50,7 +52,8 @@ public class StageController implements GameObserver, GameSubject {
     // Mid Boss
     private Enemy karen;
 
-    private List<Wave> waves = new ArrayList<>();
+    CopyOnWriteArrayList waves = new CopyOnWriteArrayList<Wave>();
+    //private List<Wave> waves = new ArrayList<>();
     private List<Behavior> behaviors = new ArrayList<>();
 
     private StageController() {
@@ -108,6 +111,7 @@ public class StageController implements GameObserver, GameSubject {
             this.stageTwoStart = stageStartTimes.getInt("stageTwo");
             this.stageThreeStart = stageStartTimes.getInt("stageThree");
             this.stageFourStart = stageStartTimes.getInt("stageFour");
+            this.stageFourEnd = stageFourStart + stageFourDuration;
 
 
         // Initialize all the waves
@@ -120,10 +124,17 @@ public class StageController implements GameObserver, GameSubject {
             String bulletFormation = wave.getString("bulletFormation");
 
             Wave newWave = new Wave(section, enemyType, enemyAmount, startTimeFromStage, enemyMovementPattern, bulletFormation);
-            this.Attach(newWave);
-            newWave = this.resetWaveStartTime(newWave.getStageNumber(), newWave);
-            this.waves.add(newWave);
+            Wave wave2 = this.resetWaveStartTime(newWave.getStageNumber(), newWave);
+            this.Attach(wave2);
+            this.waves.add(wave2);
+            
+
         }
+       
+       
+       
+
+
 
         // Initialize all the behaviors
         for (JsonValue behavior : base.get("behaviors")) {
@@ -145,11 +156,13 @@ public class StageController implements GameObserver, GameSubject {
     public void makeStages() {
         this.changePlayerBulletType();
 
-        for (Wave wave : this.waves) {
-            if (timeController.getElapsedTime() == wave.getStartTime()) {
-                System.out.println("Stage " + wave.getSection());
+
+        for (Object obj : this.waves) {
+            Wave wave = (Wave) obj;
+            if(wave.getSection().equals("3-7")){
                 System.out.println("Wave start time " + wave.getStartTime());
-                System.out.println("Elapsed time " + timeController.getStartTime());
+            }
+            if (timeController.getElapsedTime() == wave.getStartTime()) {
                 wave.run();
             }
         }
@@ -205,7 +218,7 @@ public class StageController implements GameObserver, GameSubject {
      */
     private void fastForwardToStageThree() {
         this.stageThreeStart = (int) timeController.getElapsedTime();
-        this.stageThreeEnd = stageThreeStart + stageOneDuration;
+        this.stageThreeEnd = stageThreeStart + stageThreeDuration;
         this.stageFourStart = stageThreeEnd + stageBuffer;
         this.stageFourEnd = stageFourStart + stageFourDuration;
         this.Notify((this.stageThreeStart)+","+ (this.stageFourStart));
