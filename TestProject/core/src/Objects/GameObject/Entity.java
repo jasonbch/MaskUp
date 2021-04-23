@@ -79,6 +79,7 @@ public abstract class Entity extends GameObject {
 
     public void setIsDone() {
         this.isDone = true;
+        notifyGameObserver("die");
     }
 
     public void updateTimeSinceLastShot(float deltaTime) {

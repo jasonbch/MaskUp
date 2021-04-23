@@ -173,6 +173,9 @@ public class Player extends Entity {
                         setInvulnerable(true);
                         ammo.setIsDone();
                         takeDamage(ammo.getBulletDamage());
+                        if (this.getMaxHealth() <= 0) {
+                            this.setIsDone();
+                        }
                         returnValue = true;
                     }
                 }
@@ -181,4 +184,5 @@ public class Player extends Entity {
 
         return returnValue;
     }
+
 }
