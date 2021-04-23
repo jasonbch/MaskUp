@@ -92,9 +92,9 @@ public class StageController implements GameObserver, GameSubject {
         this.stageFourEnd = stageFourStart + stageFourDuration;
 
         // Calculate duration
-        this.stageOneDuration = stageTwoStart - stageBuffer;
-        this.stageTwoDuration = stageThreeStart - stageBuffer;
-        this.stageThreeDuration = stageFourStart - stageBuffer;
+        this.stageOneDuration = stageTwoStart - stageOneStart;
+        this.stageTwoDuration = stageThreeStart - stageTwoStart;
+        this.stageThreeDuration = stageFourStart - stageThreeStart;
 
         // Initialize all the waves
         for (JsonValue wave : base.get("waves")) {
@@ -108,7 +108,7 @@ public class StageController implements GameObserver, GameSubject {
             Wave waveObject = new Wave(section, enemyType, startTimeFromStage, enemyMovementPattern, bulletFormation, enemyAmount);
 
             // Calculate start time
-            this.calculateWaveStartTime(waveObject.getStageNumber(), waveObject);
+            this.calculateStageComponentStartTime(waveObject.getStageNumber(), waveObject);
 
             // Attach observer
             this.attachGameObserver(waveObject);
@@ -127,8 +127,16 @@ public class StageController implements GameObserver, GameSubject {
             String enemyMovementPattern = behavior.getString("enemyMovementPattern");
             String bulletFormation = behavior.getString("bulletFormation");
 
-            Behavior newBehavior = new Behavior(section, enemyName, startTimeFromStage, enemyMovementPattern, bulletFormation, speed, timeBetweenShot);
-            this.behaviors.add(newBehavior);
+            Behavior behaviorObject = new Behavior(section, enemyName, startTimeFromStage, enemyMovementPattern, bulletFormation, speed, timeBetweenShot);
+
+            // Calculate start time
+            this.calculateStageComponentStartTime(behaviorObject.getStageNumber(), behaviorObject);
+
+            // Attach observer
+            this.attachGameObserver(behaviorObject);
+
+            // Add to list
+            this.behaviors.add(behaviorObject);
         }
     }
 
@@ -162,19 +170,19 @@ public class StageController implements GameObserver, GameSubject {
         }
     }
 
-    public void calculateWaveStartTime(int stageNumber, Wave wave) {
+    public void calculateStageComponentStartTime(int stageNumber, StageComponent stageComponent) {
         switch (stageNumber) {
             case 1:
-                wave.setStartTime(this.stageOneStart + wave.getStartTimeFromStage());
+                stageComponent.setStartTime(this.stageOneStart + stageComponent.getStartTimeFromStage());
                 break;
             case 2:
-                wave.setStartTime(this.stageTwoStart + wave.getStartTimeFromStage());
+                stageComponent.setStartTime(this.stageTwoStart + stageComponent.getStartTimeFromStage());
                 break;
             case 3:
-                wave.setStartTime(this.stageThreeStart + wave.getStartTimeFromStage());
+                stageComponent.setStartTime(this.stageThreeStart + stageComponent.getStartTimeFromStage());
                 break;
             case 4:
-                wave.setStartTime(this.stageFourStart + wave.getStartTimeFromStage());
+                stageComponent.setStartTime(this.stageFourStart + stageComponent.getStartTimeFromStage());
                 break;
             default:
                 break;

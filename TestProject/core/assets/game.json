@@ -214,7 +214,7 @@
         "4-1":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 50,
+            "startTimeFromStage": 10,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
@@ -223,7 +223,7 @@
         "4-2":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 55,
+            "startTimeFromStage": 15,
             "speed": 150,
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
@@ -232,7 +232,7 @@
         "4-3":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 60,
+            "startTimeFromStage": 20,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
@@ -241,7 +241,7 @@
         "4-4":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 65,
+            "startTimeFromStage": 25,
             "speed": 150,
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
