@@ -32,19 +32,4 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
             this.setIsDone();
         }
     }
-
-    @Override
-    public void attachGameObserver(GameObserver o) {
-
-    }
-
-    @Override
-    public void detachGameObserver(GameObserver o) {
-
-    }
-
-    @Override
-    public void notifyGameObserver(String args) {
-
-    }
 }
