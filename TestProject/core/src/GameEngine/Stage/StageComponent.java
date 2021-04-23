@@ -12,6 +12,16 @@ public class StageComponent implements GameObserver {
     protected boolean isRan;
     protected int stageNumber = 0;
 
+    public StageComponent(String section, String enemyName, int startTimeFromStage, String enemyMovementPattern, String bulletFormation) {
+        this.section = section;
+        this.enemyName = enemyName;
+        this.startTimeFromStage = startTimeFromStage;
+        this.enemyMovementPattern = enemyMovementPattern;
+        this.bulletFormation = bulletFormation;
+        this.isRan = false;
+        this.setStageNumber();
+    }
+
     public int getStartTime() {
         return this.startTime;
     }
@@ -30,20 +40,6 @@ public class StageComponent implements GameObserver {
 
     public int getStartTimeFromStage() {
         return this.startTimeFromStage;
-    }
-
-    public StageComponent(String section,
-                          String enemyName,
-                          int startTimeFromStage,
-                          String enemyMovementPattern,
-                          String bulletFormation) {
-        this.section = section;
-        this.enemyName = enemyName;
-        this.startTimeFromStage = startTimeFromStage;
-        this.enemyMovementPattern = enemyMovementPattern;
-        this.bulletFormation = bulletFormation;
-        this.isRan = false;
-        this.setStageNumber();
     }
 
     private void setStageNumber() {

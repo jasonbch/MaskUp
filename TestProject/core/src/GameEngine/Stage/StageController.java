@@ -21,11 +21,9 @@ import java.util.List;
 public class StageController implements GameObserver, GameSubject {
     private static final TimeController timeController = TimeController.instance();
     private static final GameResources gameResources = GameResources.instance();
-    private final Player player = Player.instance();
-
     // Implement Singleton
     private static final StageController instance = new StageController();
-
+    private final Player player = Player.instance();
     // Stages duration
     public int stageBuffer = 5;
     public int stageOneStart;
@@ -107,8 +105,7 @@ public class StageController implements GameObserver, GameSubject {
             String enemyMovementPattern = wave.getString("enemyMovementPattern");
             String bulletFormation = wave.getString("bulletFormation");
 
-            Wave waveObject = new Wave(section, enemyType, startTimeFromStage, enemyMovementPattern,
-                    bulletFormation, enemyAmount);
+            Wave waveObject = new Wave(section, enemyType, startTimeFromStage, enemyMovementPattern, bulletFormation, enemyAmount);
 
             // Calculate start time
             this.calculateWaveStartTime(waveObject.getStageNumber(), waveObject);
@@ -130,8 +127,7 @@ public class StageController implements GameObserver, GameSubject {
             String enemyMovementPattern = behavior.getString("enemyMovementPattern");
             String bulletFormation = behavior.getString("bulletFormation");
 
-            Behavior newBehavior = new Behavior(section, enemyName, startTimeFromStage,
-                    enemyMovementPattern, bulletFormation, speed, timeBetweenShot);
+            Behavior newBehavior = new Behavior(section, enemyName, startTimeFromStage, enemyMovementPattern, bulletFormation, speed, timeBetweenShot);
             this.behaviors.add(newBehavior);
         }
     }

@@ -7,12 +7,7 @@ public class Wave extends StageComponent {
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private int amount;
 
-    public Wave(String section,
-                String enemyName,
-                int startTimeFromStage,
-                String enemyMovementPattern,
-                String bulletFormation,
-                int amount) {
+    public Wave(String section, String enemyName, int startTimeFromStage, String enemyMovementPattern, String bulletFormation, int amount) {
         super(section, enemyName, startTimeFromStage, enemyMovementPattern, bulletFormation);
         this.amount = amount;
     }

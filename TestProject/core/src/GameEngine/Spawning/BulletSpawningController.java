@@ -1,7 +1,6 @@
 package GameEngine.Spawning;
 
 import GameEngine.Observer.GameObserver;
-import GameEngine.Resource.GameResources;
 import GameEngine.Stage.FormationController;
 import Objects.GameObject.Ammo.Ammo;
 import Objects.GameObject.Enemy.Enemy;
@@ -126,8 +125,7 @@ public class BulletSpawningController implements GameObserver {
 
     @Override
     public void update(Object object, String args) {
-        if (object instanceof Ammo
-                || object instanceof GameObject) {
+        if (object instanceof Ammo || object instanceof GameObject) {
             if (args.equals("deleteAmmo")) {
                 this.deleteBullet((Ammo) object);
             }

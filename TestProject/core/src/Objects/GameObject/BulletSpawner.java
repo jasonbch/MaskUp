@@ -2,7 +2,6 @@ package Objects.GameObject;
 
 import GameEngine.Observer.BulletSpawnerObserver;
 import GameEngine.Observer.EnemySubject;
-import GameEngine.Observer.GameObserver;
 import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 
