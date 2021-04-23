@@ -1,6 +1,5 @@
 package GameEngine.Stage;
 
-import GameEngine.GameController;
 import GameEngine.Observer.GameObserver;
 import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
@@ -8,6 +7,7 @@ import GameEngine.Time.TimeController;
 import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Karen;
 import Objects.GameObject.Player;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
