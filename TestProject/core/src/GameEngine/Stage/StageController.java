@@ -26,7 +26,7 @@ public class StageController implements GameObserver, GameSubject {
     private static final GameResources gameResources = GameResources.instance();
     private ArrayList<GameObserver> myObs = new ArrayList<GameObserver>();
     // Implement Singleton
-    private static StageController uniqueInstance = null;
+    private static final StageController instance = new StageController();
     private final Player player = Player.instance();
 
     // Stages duration
@@ -52,8 +52,7 @@ public class StageController implements GameObserver, GameSubject {
     // Mid Boss
     private Enemy karen;
 
-    CopyOnWriteArrayList waves = new CopyOnWriteArrayList<Wave>();
-    //private List<Wave> waves = new ArrayList<>();
+    private List<Wave> waves = new ArrayList<>();
     private List<Behavior> behaviors = new ArrayList<>();
 
     private StageController() {
@@ -67,10 +66,7 @@ public class StageController implements GameObserver, GameSubject {
      * @return the instance of StageController.
      */
     public static StageController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new StageController();
-        }
-        return uniqueInstance;
+        return instance;
     }
 
     public Enemy getKaren() {
@@ -155,10 +151,7 @@ public class StageController implements GameObserver, GameSubject {
 
     public void makeStages() {
         this.changePlayerBulletType();
-
-
-        for (Object obj : this.waves) {
-            Wave wave = (Wave) obj;
+        for (Wave wave : this.waves) {
             if(wave.getSection().equals("3-7")){
                 System.out.println("Wave start time " + wave.getStartTime());
             }

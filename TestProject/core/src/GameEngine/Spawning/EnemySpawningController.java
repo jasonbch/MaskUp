@@ -27,7 +27,7 @@ public class EnemySpawningController implements GameObserver {
     private static final StageController stageController = StageController.instance();
 
     // Implement Singleton
-    private static EnemySpawningController uniqueInstance = null;
+    private static final EnemySpawningController uniqueInstance = new EnemySpawningController();
 
     private final EnemyFactory enemyFactory = new EnemyFactory();
     CopyOnWriteArrayList enemyList = new CopyOnWriteArrayList<Enemy>();
@@ -44,10 +44,6 @@ public class EnemySpawningController implements GameObserver {
      * @return the instance of EnemySpawningController.
      */
     public static EnemySpawningController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new EnemySpawningController();
-        }
-
         return uniqueInstance;
     }
 
