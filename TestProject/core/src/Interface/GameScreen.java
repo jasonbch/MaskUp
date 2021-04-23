@@ -1,8 +1,13 @@
 package Interface;
 
 import GameEngine.GameController;
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
+import GameEngine.Score.ScoreController;
+import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Time.TimeController;
 import GameEngine.UI.UIController;
+import Objects.GameObject.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,7 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * GameScreen class that implements from Screen that let the user play
  * the game.
  */
-public class GameScreen extends ApplicationAdapter implements Screen {
+public class GameScreen extends ApplicationAdapter implements Screen, GameObserver {
     // Screen
     private final Camera camera;
 
@@ -33,9 +38,11 @@ public class GameScreen extends ApplicationAdapter implements Screen {
     private final GameController gameController = GameController.instance();
     private final TimeController timeController = TimeController.instance();
     private final GameEngine.UI.UIController UIController;
-
     private final FPSLogger logger = new FPSLogger();
     private final MaskGame game;
+    private final ScoreController scoreController = ScoreController.instance();
+    private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
+    private final Player player = Player.instance();
 
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
@@ -50,6 +57,12 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         batch = new SpriteBatch();
         UIController = new UIController(batch);
         UIController.playMusic();
+
+        //        // Attach Observers
+        //        player.Attach(enemySpawningController);
+        //        player.Attach(scoreController);
+
+        gameController.attachGameObserver(this);
     }
 
     /**
@@ -81,13 +94,14 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         // Draw white dot in slow mode
         UIController.drawWhiteDotInSlowMode();
 
-        // Draw and update Health Bar
-        UIController.updateAndRenderHealthBar();
-
+        // Draw Score
         UIController.updateScore();
 
         // Draw stage message
         UIController.drawStageMessage();
+
+        // Draw and update Health Bar
+        UIController.updateAndRenderHealthBar();
 
         // Pause Option
         this.pauseGame();
@@ -99,6 +113,25 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             pause();
             game.setScreen(new MainMenuScreen(game));
+        }
+    }
+
+    private void setWiningState(MaskGame game) {
+        game.setScreen((new GameVictoryScreen(game)));
+    }
+
+    private void setLosingState(MaskGame game) {
+        game.setScreen((new GameOverScreen(game)));
+    }
+
+    @Override
+    public void update(Object object, String args) {
+        if (object instanceof GameController) {
+            if (args.equals("winningState")) {
+                setWiningState(game);
+            } else if (args.equals("losingState")) {
+                setLosingState(game);
+            }
         }
     }
 

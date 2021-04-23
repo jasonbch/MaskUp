@@ -40,6 +40,7 @@ public abstract class Enemy extends Entity implements EnemySubject {
     public void setIsDone() {
         this.isDone = true;
         notifyObservers();
+        notifyGameObserver("deleteEnemy");
     }
 
     public boolean isSpawned() {
@@ -137,6 +138,9 @@ public abstract class Enemy extends Entity implements EnemySubject {
                 if (intersects(ammo.getBoundingBox())) {
                     ammo.setIsDone();
                     takeDamage(ammo.getBulletDamage());
+                    if (this.getMaxHealth() <= 0) {
+                        this.setIsDone();
+                    }
                     returnValue = true;
                 }
             }

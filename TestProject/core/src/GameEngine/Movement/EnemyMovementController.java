@@ -12,7 +12,7 @@ import java.util.ListIterator;
  */
 public class EnemyMovementController {
     // Implement Singleton
-    private static EnemyMovementController uniqueInstance = null;
+    private static final EnemyMovementController uniqueInstance = new EnemyMovementController();
     private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
 
     private EnemyMovementController() {
@@ -25,10 +25,6 @@ public class EnemyMovementController {
      * @return the instance of EnemyMovementController.
      */
     public static EnemyMovementController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new EnemyMovementController();
-        }
-
         return uniqueInstance;
     }
 
