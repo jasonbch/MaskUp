@@ -5,6 +5,8 @@ import GameEngine.Collision.EnemyCollisionCommand;
 import GameEngine.Collision.PlayerCollisionCommand;
 import GameEngine.Movement.BulletMovementController;
 import GameEngine.Movement.EnemyMovementController;
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
@@ -18,15 +20,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GameController {
+public class GameController implements GameObserver, GameSubject {
     private static boolean isLost;
     private static boolean isWon;
 
     // player instance
     private static Player player = Player.instance();
-    private static GameController uniqueInstance = null;
+    private static final GameController uniqueInstance = new GameController();
 
     // game controllers
     private final StageController stageController = StageController.instance();
@@ -42,15 +45,16 @@ public class GameController {
     private float playerInvulnerableTime = 3;
     private boolean godMode = false;
 
+    private ArrayList<GameObserver> myObservers = new ArrayList<>();
+
     private GameController() {
         this.isSlowMode = false;
         this.gameSpeed = 1;
+
+        StageController.instance().attachGameObserver(this);
     }
 
     public static GameController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new GameController();
-        }
         return uniqueInstance;
     }
 
@@ -110,11 +114,6 @@ public class GameController {
         //        if (timeController.getElapsedTime() == stageController.getStageFourEnd() || this.isFinalBossDead()) {
         //            setWiningState(game);
         //        }
-    }
-
-    private void setWiningState(MaskGame game) {
-        // TODO: Make Game observe gameController and set it themselves?
-        game.setScreen((new GameVictoryScreen(game)));
     }
 
     // TODO: winning stage
@@ -186,5 +185,36 @@ public class GameController {
         }
 
         return gameSpeed;
+    }
+
+    @Override
+    public void update(Object object, String args) {
+        System.out.println("1");
+        if (object instanceof StageController) {
+            System.out.println("2");
+            if (args.equals("winingState")) {
+                System.out.println("3");
+                notifyGameObserver("winningState");
+            }
+        }
+    }
+
+    @Override
+    public void attachGameObserver(GameObserver object) {
+        myObservers.add(object);
+    }
+
+    @Override
+    public void detachGameObserver(GameObserver object) {
+        myObservers.remove(object);
+    }
+
+    @Override
+    public void notifyGameObserver(String args) {
+        System.out.println("2.5");
+        for (int i = 0; i < this.myObservers.size(); i++) {
+            System.out.println("3.5");
+            this.myObservers.get(i).update(this, args);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package GameEngine.Stage;
 
+import GameEngine.GameController;
 import GameEngine.Observer.GameObserver;
 import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
@@ -43,7 +44,33 @@ public class StageController implements GameObserver, GameSubject {
 
     private List<Wave> waves = new ArrayList<>();
     private List<Behavior> behaviors = new ArrayList<>();
+
     private ArrayList<GameObserver> myObservers = new ArrayList<>();
+
+
+    public int getStageOneEnd() {
+        return this.stageOneEnd;
+    }
+
+    public int getStageTwoEnd() {
+        return this.stageTwoEnd;
+    }
+
+    public int getStageThreeEnd() {
+        return this.stageThreeEnd;
+    }
+
+    public int getStageFourEnd() {
+        return this.stageFourEnd;
+    }
+
+    public int getStageThreeStart() {
+        return this.stageThreeStart;
+    }
+
+    public int getStageFourStart() {
+        return this.stageFourStart;
+    }
 
     private StageController() {
         this.initialize();
@@ -57,22 +84,6 @@ public class StageController implements GameObserver, GameSubject {
      */
     public static StageController instance() {
         return instance;
-    }
-
-    public int getStageOneEnd() {
-        return stageOneEnd;
-    }
-
-    public int getStageTwoEnd() {
-        return stageTwoEnd;
-    }
-
-    public int getStageThreeEnd() {
-        return stageThreeEnd;
-    }
-
-    public int getStageFourEnd() {
-        return stageFourEnd;
     }
 
     private void initialize() {
@@ -198,7 +209,7 @@ public class StageController implements GameObserver, GameSubject {
         this.stageThreeEnd = stageThreeStart + stageThreeDuration;
         this.stageFourStart = stageThreeEnd + stageBuffer;
         this.stageFourEnd = stageFourStart + stageFourDuration;
-        this.notifyGameObserver((this.stageThreeStart) + "," + (this.stageFourStart));
+        this.notifyGameObserver("fastForward");
     }
 
     @Override
@@ -211,8 +222,7 @@ public class StageController implements GameObserver, GameSubject {
 
         if (object instanceof Covid) {
             if (args.equals("deleteEnemy")) {
-                // Todo: Fast forward to winning screen
-                // Notify the gameController? to set winning screen
+                notifyGameObserver("winingState");
             }
         }
     }
