@@ -125,6 +125,17 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
     }
 
     @Override
+    public void update(Object object, String args) {
+        if (object instanceof GameController) {
+            if (args.equals("winningState")) {
+                setWiningState(game);
+            } else if (args.equals("losingState")) {
+                setLosingState(game);
+            }
+        }
+    }
+
+    @Override
     public void resize(int width, int height) {
 
     }
@@ -147,16 +158,5 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
 
     @Override
     public void dispose() {
-    }
-
-    @Override
-    public void update(Object object, String args) {
-        if (object instanceof GameController) {
-            if (args.equals("winningState")) {
-                setWiningState(game);
-            } else if (args.equals("losingState")) {
-                setLosingState(game);
-            }
-        }
     }
 }

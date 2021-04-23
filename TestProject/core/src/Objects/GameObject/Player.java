@@ -1,6 +1,5 @@
 package Objects.GameObject;
 
-import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
