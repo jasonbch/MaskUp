@@ -40,7 +40,7 @@ public abstract class GameObject implements GameSubject {
     public void setYPosition(float yPos) {
         this.yPosition = yPos;
         if (this instanceof Ammo) {
-            if (this.getYPosition() > gameResources.getWorldHeight() || this.getYPosition() < 0) {
+            if (this.getYPosition() > gameResources.getWorldHeight() + 300 || this.getYPosition() < 0) {
                 this.notifyGameObserver("deleteAmmo");
             }
         }
