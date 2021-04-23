@@ -38,6 +38,7 @@ public abstract class Enemy extends Entity implements EnemySubject {
     public void setIsDone() {
         this.isDone = true;
         notifyObservers();
+        Notify("deleteEnemy");
     }
 
     public boolean isSpawned() {
@@ -115,8 +116,8 @@ public abstract class Enemy extends Entity implements EnemySubject {
                     takeDamage(ammo.getBulletDamage());
                     if (this.getMaxHealth() <= 0) {
                         this.setIsDone();
-                        Notify("deleteEnemy");
                     }
+
                     returnValue = true;
                 }
             }

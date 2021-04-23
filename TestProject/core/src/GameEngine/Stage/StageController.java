@@ -142,9 +142,6 @@ public class StageController implements GameObserver, GameSubject {
     public void makeStages() {
         this.changePlayerBulletType();
         for (Wave wave : this.waves) {
-            if (wave.getSection().equals("3-7")) {
-                System.out.println("Wave start time " + wave.getStartTime());
-            }
             if (timeController.getElapsedTime() == wave.getStartTime()) {
                 wave.run();
             }

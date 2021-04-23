@@ -21,7 +21,6 @@ public class EnemySpawningController implements GameObserver {
     private static final GameResources gameResources = GameResources.instance();
     private static final ScoreController scoreController = ScoreController.instance();
     private static final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
-    private static final StageController stageController = StageController.instance();
 
     // Implement Singleton
     private static final EnemySpawningController uniqueInstance = new EnemySpawningController();

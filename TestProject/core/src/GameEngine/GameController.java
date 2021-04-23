@@ -69,10 +69,6 @@ public class GameController {
             bulletSpawningController.enemyFire(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
         }
 
-        // Clear used enemies and bullets
-        //bulletSpawningController.deleteBullet("Player");
-        //bulletSpawningController.deleteBullet("Enemy");
-
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
         // Check players invulnerability time
@@ -93,10 +89,6 @@ public class GameController {
         bulletMovementController.update(deltaTime, bulletSpawningController);
         enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
         enemyMovementController.update(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
-
-        // Delete enemies if they need deleted
-        //enemySpawningController.deleteEnemies();
-        bulletSpawnerSpawningController.deleteBulletSpawners();
 
         // TODO: make stages
         stageController.makeStages();

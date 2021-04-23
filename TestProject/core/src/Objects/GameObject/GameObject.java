@@ -180,8 +180,6 @@ public abstract class GameObject implements GameSubject {
                 }
                 this.myObs.get(i).update(this, args);
             }
-
-
         }
     }
 }

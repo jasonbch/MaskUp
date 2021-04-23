@@ -1,15 +1,15 @@
 package GameEngine.Spawning;
 
 import GameEngine.Factory.BulletSpawnerFactory;
+import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.LinkedList;
-import java.util.ListIterator;
 
-public class BulletSpawnerSpawningController {
+public class BulletSpawnerSpawningController implements GameObserver {
     private static final GameResources gameResources = GameResources.instance();
     private static BulletSpawnerSpawningController uniqueInstance = null;
     private final BulletSpawnerFactory bulletSpawnerFactory = new BulletSpawnerFactory();
@@ -45,23 +45,21 @@ public class BulletSpawnerSpawningController {
 
         BulletSpawner bulletSpawner = bulletSpawnerFactory.create(xPos, yPos, movingPattern, speed, bullet, texture, timeBetweenShot, bulletFormation, maxTimeAlive, maxHealth);
 
+        bulletSpawner.Attach(this);
+
         return bulletSpawner;
     }
 
-    /**
-     * Delete the enemies if they got out of the screen.
-     */
-    public void deleteBulletSpawners() {
-        ListIterator<BulletSpawner> iter2 = bulletSpawnerList.listIterator();
-        while (iter2.hasNext()) {
-            Enemy currEnemy = iter2.next();
+    public void deleteEnemies(BulletSpawner spawner) {
+        bulletSpawnerList.remove(spawner);
+    }
 
-            if (currEnemy.getYPosition() > gameResources.getWorldHeight()) {
-                iter2.remove();
-            } else if (currEnemy.isDone()) {
-                iter2.remove();
-            } else if (currEnemy.getMaxHealth() <= 0) {
-                currEnemy.setIsDone();
+    @Override
+    public void update(Object o, String args) {
+        System.out.println("Update spawner controller");
+        if (o instanceof BulletSpawner) {
+            if (args.equals("deleteEnemy")) {
+                deleteEnemies((BulletSpawner) o);
             }
         }
     }
