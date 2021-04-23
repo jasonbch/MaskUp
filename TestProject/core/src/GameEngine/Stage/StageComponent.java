@@ -1,6 +1,7 @@
 package GameEngine.Stage;
 
 import GameEngine.Observer.GameObserver;
+import org.graalvm.compiler.phases.common.NodeCounterPhase;
 
 public class StageComponent implements GameObserver {
     protected String section;
@@ -48,15 +49,15 @@ public class StageComponent implements GameObserver {
 
     @Override
     public void update(Object object, String args) {
-        if (object instanceof StageController) {
-            String[] array = args.split(",");
+        if (args.equals("fastForward")) {
+            if (object instanceof StageController) {
+                StageController stageController = (StageController) object;
 
-            if (this.stageNumber == 3) {
-                System.out.println("three: " + Integer.parseInt(array[0]));
-                this.setStartTime(Integer.parseInt(array[0]) + this.startTimeFromStage);
-            } else if (this.stageNumber == 4) {
-                System.out.println("four: " + Integer.parseInt(array[1]));
-                this.setStartTime(Integer.parseInt(array[1]) + this.startTimeFromStage);
+                if (this.stageNumber == 3) {
+                    this.setStartTime(stageController.getStageThreeStart() + this.startTimeFromStage);
+                } else if (this.stageNumber == 4) {
+                    this.setStartTime(stageController.getStageFourStart() + this.startTimeFromStage);
+                }
             }
         }
     }
