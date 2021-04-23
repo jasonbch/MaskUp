@@ -40,8 +40,7 @@ public abstract class GameObject implements GameSubject {
     public void setYPosition(float yPos) {
         this.yPosition = yPos;
         if (this instanceof Ammo) {
-            if (this.getYPosition() > gameResources.getWorldHeight()
-                    || this.getYPosition() < 0) {
+            if (this.getYPosition() > gameResources.getWorldHeight() || this.getYPosition() < 0) {
                 this.notifyGameObserver("deleteAmmo");
             }
         }
@@ -64,8 +63,7 @@ public abstract class GameObject implements GameSubject {
     public void setXPosition(float xPos) {
         this.xPosition = xPos;
         if (this instanceof Ammo) {
-            if ((this.getXPosition() + this.getImageWidth()) > (gameResources.getScreenOneEnd())
-                    || this.getXPosition() < 0) {
+            if ((this.getXPosition() + this.getImageWidth()) > (gameResources.getScreenOneEnd()) || this.getXPosition() < -200) {
                 this.notifyGameObserver("deleteAmmo");
             }
         }
@@ -113,7 +111,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     *
      * @return returns if the game object is above the screen.
      */
     public boolean isAboveScreen() {
@@ -121,7 +118,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     *
      * @return returns if the game object is below the screen.
      */
     public boolean isBelowScreen() {
@@ -129,7 +125,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     *
      * @return returns if the game object is left of the screen.
      */
     public boolean isLeftOfScreen() {
@@ -137,7 +132,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     *
      * @return returns if the game object is right of the screen.
      */
     public boolean isRightOfScreen() {
