@@ -178,8 +178,8 @@
         "2-1":
         {
             "enemyName": "Karen",
-            "startTime": 50,
-            "speed": 10,
+            "startTimeFromStage": 10,
+            "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
@@ -187,8 +187,8 @@
         "2-2":
         {
             "enemyName": "Karen",
-            "startTime": 55,
-            "speed": 10,
+            "startTimeFromStage": 15,
+            "speed": 150,
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
@@ -196,8 +196,8 @@
         "2-3":
         {
             "enemyName": "Karen",
-            "startTime": 60,
-            "speed": 10,
+            "startTimeFromStage": 20,
+            "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
@@ -205,44 +205,44 @@
         "2-4":
         {
             "enemyName": "Karen",
-            "startTime": 65,
-            "speed": 10,
+            "startTimeFromStage": 25,
+            "speed": 150,
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
         "4-1":
         {
-            "enemyName": "Karen",
-            "startTime": 50,
-            "speed": 10,
+            "enemyName": "Covid",
+            "startTimeFromStage": 50,
+            "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
         "4-2":
         {
-            "enemyName": "Karen",
-            "startTime": 55,
-            "speed": 10,
+            "enemyName": "Covid",
+            "startTimeFromStage": 55,
+            "speed": 150,
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "4-3":
         {
-            "enemyName": "Karen",
-            "startTime": 60,
-            "speed": 10,
+            "enemyName": "Covid",
+            "startTimeFromStage": 60,
+            "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
         "4-4":
         {
-            "enemyName": "Karen",
-            "startTime": 65,
-            "speed": 10,
+            "enemyName": "Covid",
+            "startTimeFromStage": 65,
+            "speed": 150,
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"

@@ -3,33 +3,26 @@ package GameEngine.Stage;
 import GameEngine.Spawning.EnemySpawningController;
 import Objects.GameObject.Enemy.Enemy;
 
-public class Behavior {
+public class Behavior extends StageComponent{
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-    private String enemy;
-    private int startTime;
     private int speed;
     private float timeBetweenShot;
-    private String enemyMovementPattern;
-    private String bulletFormation;
-    private boolean isRan;
 
-    public Behavior(String enemy, int startTime, int speed, float timeBetweenShot, String enemyMovementPattern, String bulletFormation) {
-        this.enemy = enemy;
-        this.startTime = startTime;
+    public Behavior(String section,
+                    String enemyName,
+                    int startTimeFromStage,
+                    String enemyMovementPattern,
+                    String bulletFormation,
+                    int speed,
+                    float timeBetweenShot) {
+        super(section, enemyName, startTimeFromStage, enemyMovementPattern, bulletFormation);
         this.speed = speed;
         this.timeBetweenShot = timeBetweenShot;
-        this.enemyMovementPattern = enemyMovementPattern;
-        this.bulletFormation = bulletFormation;
-        this.isRan = false;
-    }
-
-    public int getStartTime() {
-        return this.startTime;
     }
 
     public void change() {
         if (!isRan) {
-            Enemy enemy = enemySpawningController.findEnemy(this.enemy);
+            Enemy enemy = enemySpawningController.findEnemy(this.enemyName);
 
             if (enemy != null) {
                 enemy.setSpeed(this.speed);
