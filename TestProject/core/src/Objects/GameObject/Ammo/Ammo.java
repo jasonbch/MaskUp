@@ -40,7 +40,7 @@ public abstract class Ammo extends GameObject {
 
     public void setIsDone() {
         this.isDone = true;
-        Notify("deleteAmmo");
+        notifyGameObserver("deleteAmmo");
     }
 
     /**

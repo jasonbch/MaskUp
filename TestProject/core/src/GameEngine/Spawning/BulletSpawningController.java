@@ -10,7 +10,6 @@ import Objects.GameObject.GameObject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,10 +21,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class BulletSpawningController implements GameObserver {
     // Implement Singleton
     private static BulletSpawningController uniqueInstance = null;
+    private final FormationController formationController = new FormationController();
     CopyOnWriteArrayList enemyAmmoList = new CopyOnWriteArrayList<Ammo>();
     CopyOnWriteArrayList playerAmmoList = new CopyOnWriteArrayList<Ammo>();
-    private final FormationController formationController = new FormationController();
-    private final GameResources gameResources = GameResources.instance();
 
     /**
      * Create a new instance of the ShootController.
@@ -90,7 +88,7 @@ public class BulletSpawningController implements GameObserver {
 
                 for (Ammo ammo : ammoList) {
                     enemyAmmoList.add(ammo);
-                    ammo.Attach(this);
+                    ammo.attachGameObserver(this);
                 }
             }
         }
@@ -101,8 +99,12 @@ public class BulletSpawningController implements GameObserver {
      * Deleting the enemies bullet if state isDone
      */
     public void deleteBullet(Ammo ammo) {
-        if(playerAmmoList.contains(ammo)){ playerAmmoList.remove( ammo);}
-        if(enemyAmmoList.contains(ammo)){ enemyAmmoList.remove(ammo);}
+        if (playerAmmoList.contains(ammo)) {
+            playerAmmoList.remove(ammo);
+        }
+        if (enemyAmmoList.contains(ammo)) {
+            enemyAmmoList.remove(ammo);
+        }
     }
 
     /**
@@ -116,19 +118,18 @@ public class BulletSpawningController implements GameObserver {
 
                 for (Ammo ammo : ammoList) {
                     playerAmmoList.add(ammo);
-                    ammo.Attach(this);
+                    ammo.attachGameObserver(this);
                 }
             }
         }
     }
 
     @Override
-    public void update(Object o, String args) {
-        if(o instanceof Ammo || o instanceof GameObject)
-        {
-            if(args.equals("deleteAmmo"))
-            {
-                this.deleteBullet((Ammo) o);
+    public void update(Object object, String args) {
+        if (object instanceof Ammo
+                || object instanceof GameObject) {
+            if (args.equals("deleteAmmo")) {
+                this.deleteBullet((Ammo) object);
             }
         }
     }

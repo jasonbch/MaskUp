@@ -84,19 +84,4 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
             }
         }
     }
-
-    @Override
-    public void Attach(GameObserver o) {
-
-    }
-
-    @Override
-    public void Dettach(GameObserver o) {
-
-    }
-
-    @Override
-    public void Notify(String args) {
-
-    }
 }

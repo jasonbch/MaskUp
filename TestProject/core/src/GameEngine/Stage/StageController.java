@@ -5,17 +5,14 @@ import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import GameEngine.Time.TimeController;
 import Objects.GameObject.Enemy.Covid;
-import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.Enemy.Karen;
 import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.Null;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * StageController class that implements Singleton.
@@ -24,14 +21,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class StageController implements GameObserver, GameSubject {
     private static final TimeController timeController = TimeController.instance();
     private static final GameResources gameResources = GameResources.instance();
-    private ArrayList<GameObserver> myObs = new ArrayList<GameObserver>();
+    private final Player player = Player.instance();
+
     // Implement Singleton
     private static final StageController instance = new StageController();
-    private final Player player = Player.instance();
 
     // Stages duration
     public int stageBuffer = 5;
     public int stageOneStart = 10;
+    public int stageTwoStart;
+    public int stageThreeStart;
+    public int stageFourStart;
 
     private int stageOneDuration = 30;
     private int stageTwoDuration = 45;
@@ -39,21 +39,13 @@ public class StageController implements GameObserver, GameSubject {
     private int stageFourDuration = 60;
 
     private int stageOneEnd;
-    public int stageTwoStart;
     private int stageTwoEnd;
-    public int stageThreeStart;
     private int stageThreeEnd;
-    public int stageFourStart;
     private int stageFourEnd;
-
-    // Final Boss
-    private Enemy covid;
-
-    // Mid Boss
-    private Enemy karen;
 
     private List<Wave> waves = new ArrayList<>();
     private List<Behavior> behaviors = new ArrayList<>();
+    private ArrayList<GameObserver> myObservers = new ArrayList<>();
 
     private StageController() {
         this.initialize();
@@ -67,14 +59,6 @@ public class StageController implements GameObserver, GameSubject {
      */
     public static StageController instance() {
         return instance;
-    }
-
-    public Enemy getKaren() {
-        return this.karen;
-    }
-
-    public Enemy getCovid() {
-        return this.covid;
     }
 
     public int getStageOneEnd() {
@@ -102,13 +86,12 @@ public class StageController implements GameObserver, GameSubject {
         JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 
         // Initialize Stage times
-        JsonValue stageStartTimes  = base.get("StageStartTimes");
-            this.stageOneStart = stageStartTimes.getInt("stageOne");
-            this.stageTwoStart = stageStartTimes.getInt("stageTwo");
-            this.stageThreeStart = stageStartTimes.getInt("stageThree");
-            this.stageFourStart = stageStartTimes.getInt("stageFour");
-            this.stageFourEnd = stageFourStart + stageFourDuration;
-
+        JsonValue stageStartTimes = base.get("StageStartTimes");
+        this.stageOneStart = stageStartTimes.getInt("stageOne");
+        this.stageTwoStart = stageStartTimes.getInt("stageTwo");
+        this.stageThreeStart = stageStartTimes.getInt("stageThree");
+        this.stageFourStart = stageStartTimes.getInt("stageFour");
+        this.stageFourEnd = stageFourStart + stageFourDuration;
 
         // Initialize all the waves
         for (JsonValue wave : base.get("waves")) {
@@ -119,18 +102,17 @@ public class StageController implements GameObserver, GameSubject {
             String enemyMovementPattern = wave.getString("enemyMovementPattern");
             String bulletFormation = wave.getString("bulletFormation");
 
-            Wave newWave = new Wave(section, enemyType, enemyAmount, startTimeFromStage, enemyMovementPattern, bulletFormation);
-            Wave wave2 = this.resetWaveStartTime(newWave.getStageNumber(), newWave);
-            this.Attach(wave2);
-            this.waves.add(wave2);
-            
+            Wave waveObject = new Wave(section, enemyType, enemyAmount, startTimeFromStage, enemyMovementPattern, bulletFormation);
 
+            // Calculate start time
+            this.resetWaveStartTime(waveObject.getStageNumber(), waveObject);
+
+            // Attach observer
+            this.attachGameObserver(waveObject);
+
+            // Add to list
+            this.waves.add(waveObject);
         }
-       
-       
-       
-
-
 
         // Initialize all the behaviors
         for (JsonValue behavior : base.get("behaviors")) {
@@ -144,17 +126,11 @@ public class StageController implements GameObserver, GameSubject {
             Behavior newBehavior = new Behavior(enemyName, startTime, speed, timeBetweenShot, enemyMovementPattern, bulletFormation);
             this.behaviors.add(newBehavior);
         }
-
-
-
     }
 
     public void makeStages() {
         this.changePlayerBulletType();
         for (Wave wave : this.waves) {
-            if(wave.getSection().equals("3-7")){
-                System.out.println("Wave start time " + wave.getStartTime());
-            }
             if (timeController.getElapsedTime() == wave.getStartTime()) {
                 wave.run();
             }
@@ -165,8 +141,6 @@ public class StageController implements GameObserver, GameSubject {
                 behavior.change();
             }
         }
-
-        //this.fastForwardToStageThree();
     }
 
     private void changePlayerBulletType() {
@@ -184,28 +158,26 @@ public class StageController implements GameObserver, GameSubject {
         }
     }
 
-    public Wave resetWaveStartTime(int stageNumber, Wave wave){
-        switch (stageNumber)
-        {
+    public void resetWaveStartTime(int stageNumber, Wave wave) {
+        switch (stageNumber) {
             case 1:
                 wave.setStartTime(this.stageOneStart + wave.getStartTimeFromStage());
-                return wave;
+                break;
             case 2:
                 wave.setStartTime(this.stageTwoStart + wave.getStartTimeFromStage());
-                return wave;
+                break;
             case 3:
                 wave.setStartTime(this.stageThreeStart + wave.getStartTimeFromStage());
-                return wave;
+                break;
             case 4:
                 wave.setStartTime(this.stageFourStart + wave.getStartTimeFromStage());
-                return wave;
+                break;
             default:
-                return null;
+                break;
         }
     }
 
     /**
-     * TODO: Does not work
      * Fast forward the game to the start of stage three if the player
      * kills the mid boss before the stage two end.
      */
@@ -214,39 +186,39 @@ public class StageController implements GameObserver, GameSubject {
         this.stageThreeEnd = stageThreeStart + stageThreeDuration;
         this.stageFourStart = stageThreeEnd + stageBuffer;
         this.stageFourEnd = stageFourStart + stageFourDuration;
-        this.Notify((this.stageThreeStart)+","+ (this.stageFourStart));
-
+        this.notifyGameObserver((this.stageThreeStart) + "," + (this.stageFourStart));
     }
 
     @Override
-    public void update(Object o, String args) {
-        if(o instanceof Karen){
-            if(args.equals("deleteEnemy")){
+    public void update(Object object, String args) {
+        if (object instanceof Karen) {
+            if (args.equals("deleteEnemy")) {
                 this.fastForwardToStageThree();
             }
         }
-        if(o instanceof Covid){
-            if(args.equals("deleteEnemy")){
 
+        if (object instanceof Covid) {
+            if (args.equals("deleteEnemy")) {
+                // Todo: Fast forward to winning screen
+                // Notify the gameController? to set winning screen
             }
         }
     }
 
     @Override
-    public void Attach(GameObserver o) {
-        myObs.add(o);
+    public void attachGameObserver(GameObserver object) {
+        myObservers.add(object);
     }
 
     @Override
-    public void Dettach(GameObserver o) {
-
+    public void detachGameObserver(GameObserver object) {
+        myObservers.remove(object);
     }
 
     @Override
-    public void Notify(String args) {
-        for(int i = 0; i < this.myObs.size(); i++)
-        {
-            this.myObs.get(i).update(this, args);
+    public void notifyGameObserver(String args) {
+        for (int i = 0; i < this.myObservers.size(); i++) {
+            this.myObservers.get(i).update(this, args);
         }
     }
 }

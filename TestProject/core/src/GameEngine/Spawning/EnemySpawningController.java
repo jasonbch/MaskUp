@@ -2,15 +2,12 @@ package GameEngine.Spawning;
 
 import GameEngine.Factory.EnemyFactory;
 import GameEngine.Observer.GameObserver;
-import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Stage.StageController;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,15 +21,13 @@ public class EnemySpawningController implements GameObserver {
     private static final GameResources gameResources = GameResources.instance();
     private static final ScoreController scoreController = ScoreController.instance();
     private static final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
-    private static final StageController stageController = StageController.instance();
 
     // Implement Singleton
     private static final EnemySpawningController uniqueInstance = new EnemySpawningController();
 
     private final EnemyFactory enemyFactory = new EnemyFactory();
-    CopyOnWriteArrayList enemyList = new CopyOnWriteArrayList<Enemy>();
     private final Random rand = new Random();
-    private Enemy currentEnemy;
+    private CopyOnWriteArrayList enemyList = new CopyOnWriteArrayList<Enemy>();
 
     private EnemySpawningController() {
     }
@@ -49,13 +44,6 @@ public class EnemySpawningController implements GameObserver {
 
     public CopyOnWriteArrayList<Enemy> getEnemyList() {
         return this.enemyList;
-    }
-
-    /**
-     * Delete the enemies if they got out of the screen.
-     */
-    public void deleteEnemies(Enemy enemy) {
-        enemyList.remove(enemy);
     }
 
     /**
@@ -83,10 +71,10 @@ public class EnemySpawningController implements GameObserver {
         concreteEnemy.setYAxis(randomY);
 
         // Attach Observers
-        concreteEnemy.Attach(this);
-        concreteEnemy.Attach(scoreController);
-        if(enemy.equals("Karen") || enemy.equals("Covid")){
-            concreteEnemy.Attach(stageController);
+        concreteEnemy.attachGameObserver(this);
+        concreteEnemy.attachGameObserver(scoreController);
+        if (enemy.equals("Karen") || enemy.equals("Covid")) {
+            concreteEnemy.attachGameObserver(StageController.instance());
         }
 
         // Add enemy to the list
@@ -98,6 +86,11 @@ public class EnemySpawningController implements GameObserver {
         return concreteEnemy;
     }
 
+    /**
+     * Return the enemy with the given name from the enemy list.
+     *
+     * @param enemyName the enemy's name
+     */
     public Enemy findEnemy(String enemyName) {
         ListIterator<Enemy> iterator = this.getEnemyList().listIterator();
         while (iterator.hasNext()) {
@@ -124,34 +117,15 @@ public class EnemySpawningController implements GameObserver {
     }
 
     @Override
-    public void update(Object o, String args) {
-        if(o instanceof Enemy)
-        {
-            if(args.equals("deleteEnemy"))
-            {
-                deleteEnemies((Enemy) o);
+    public void update(Object object, String args) {
+        if (object instanceof Enemy) {
+            if (args.equals("deleteEnemy")) {
+                deleteEnemies((Enemy) object);
             }
         }
     }
 
-//
-//    @Override
-//    public void Attach(GameObserver o) {
-//        this.myObs.add(o);
-//    }
-//
-//    @Override
-//    public void Dettach(GameObserver o) {
-//        this.myObs.remove(o);
-//    }
-//
-//    @Override
-//    public void Notify() {
-//        for(int i = 0; i < this.myObs.size(); i++)
-//        {
-//            this.myObs.get(i).update(this, currentEnemy);
-//        }
-//    }
-
-
+    private void deleteEnemies(Enemy enemy) {
+        enemyList.remove(enemy);
+    }
 }
