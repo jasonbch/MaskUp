@@ -9,7 +9,6 @@ import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Stage.StageController;
-import GameEngine.Time.TimeController;
 import Interface.GameOverScreen;
 import Interface.GameVictoryScreen;
 import Interface.MaskGame;
@@ -30,7 +29,6 @@ public class GameController {
     private static GameController uniqueInstance = null;
 
     // game controllers
-    private final TimeController timeController = TimeController.instance();
     private final StageController stageController = StageController.instance();
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
@@ -89,9 +87,6 @@ public class GameController {
         bulletMovementController.update(deltaTime, bulletSpawningController);
         enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
         enemyMovementController.update(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
-
-        // TODO: delete spawner bullet
-        //bulletSpawnerSpawningController.deleteBulletSpawners();
 
         // Make Stage
         stageController.makeStages();

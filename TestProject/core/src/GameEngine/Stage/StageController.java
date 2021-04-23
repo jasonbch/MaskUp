@@ -28,15 +28,15 @@ public class StageController implements GameObserver, GameSubject {
 
     // Stages duration
     public int stageBuffer = 5;
-    public int stageOneStart = 10;
+    public int stageOneStart;
     public int stageTwoStart;
     public int stageThreeStart;
     public int stageFourStart;
 
-    private int stageOneDuration = 30;
-    private int stageTwoDuration = 45;
-    private int stageThreeDuration = 30;
-    private int stageFourDuration = 60;
+    private int stageOneDuration;
+    private int stageTwoDuration;
+    private int stageThreeDuration;
+    private int stageFourDuration = 120;
 
     private int stageOneEnd;
     private int stageTwoEnd;
@@ -93,6 +93,11 @@ public class StageController implements GameObserver, GameSubject {
         this.stageFourStart = stageStartTimes.getInt("stageFour");
         this.stageFourEnd = stageFourStart + stageFourDuration;
 
+        // Calculate duration
+        this.stageOneDuration = stageTwoStart - stageBuffer;
+        this.stageTwoDuration = stageThreeStart - stageBuffer;
+        this.stageThreeDuration = stageFourStart - stageBuffer;
+
         // Initialize all the waves
         for (JsonValue wave : base.get("waves")) {
             String section = wave.name;
@@ -106,7 +111,7 @@ public class StageController implements GameObserver, GameSubject {
                     bulletFormation, enemyAmount);
 
             // Calculate start time
-            this.resetWaveStartTime(waveObject.getStageNumber(), waveObject);
+            this.calculateWaveStartTime(waveObject.getStageNumber(), waveObject);
 
             // Attach observer
             this.attachGameObserver(waveObject);
@@ -161,7 +166,7 @@ public class StageController implements GameObserver, GameSubject {
         }
     }
 
-    public void resetWaveStartTime(int stageNumber, Wave wave) {
+    public void calculateWaveStartTime(int stageNumber, Wave wave) {
         switch (stageNumber) {
             case 1:
                 wave.setStartTime(this.stageOneStart + wave.getStartTimeFromStage());
