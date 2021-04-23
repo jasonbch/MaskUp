@@ -20,10 +20,6 @@ public class StageComponent implements GameObserver {
         this.startTime = startTime;
     }
 
-    private void setStageNumber() {
-        this.stageNumber = Integer.parseInt(String.valueOf(section.toCharArray()[0]));
-    }
-
     public String getSection() {
         return this.section;
     }
@@ -48,6 +44,10 @@ public class StageComponent implements GameObserver {
         this.bulletFormation = bulletFormation;
         this.isRan = false;
         this.setStageNumber();
+    }
+
+    private void setStageNumber() {
+        this.stageNumber = Integer.parseInt(String.valueOf(section.toCharArray()[0]));
     }
 
     @Override
