@@ -1,5 +1,6 @@
 package Objects.GameObject;
 
+import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Ammo.Ammo;
 import com.badlogic.gdx.Gdx;
@@ -173,6 +174,9 @@ public class Player extends Entity {
                         setInvulnerable(true);
                         ammo.setIsDone();
                         takeDamage(ammo.getBulletDamage());
+                        if (this.getMaxHealth() <= 0) {
+                            this.setIsDone();
+                        }
                         returnValue = true;
                     }
                 }

@@ -117,8 +117,11 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
     }
 
     private void setWiningState(MaskGame game) {
-        // TODO: Make Game observe gameController and set it themselves?
         game.setScreen((new GameVictoryScreen(game)));
+    }
+
+    private void setLosingState(MaskGame game) {
+        game.setScreen((new GameOverScreen(game)));
     }
 
     @Override
@@ -148,12 +151,11 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
 
     @Override
     public void update(Object object, String args) {
-        System.out.println("4");
         if (object instanceof GameController) {
-            System.out.println("5");
             if (args.equals("winningState")) {
-                System.out.println("6");
                 setWiningState(game);
+            } else if (args.equals("losingState")) {
+                setLosingState(game);
             }
         }
     }
