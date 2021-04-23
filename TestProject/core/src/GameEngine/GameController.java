@@ -11,8 +11,6 @@ import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Stage.StageController;
-import Interface.GameOverScreen;
-import Interface.GameVictoryScreen;
 import Interface.MaskGame;
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.Player;
@@ -58,7 +56,6 @@ public class GameController implements GameObserver, GameSubject {
     public static GameController instance() {
         return uniqueInstance;
     }
-
 
     public void updateGame(float deltaTime, MaskGame game) {
         // God Mode
