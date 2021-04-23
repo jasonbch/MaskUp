@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ScoreController implements GameObserver {
     // Implement Singleton
-    private static ScoreController uniqueInstance = null;
+    private static final ScoreController uniqueInstance = new ScoreController();
     private int score;
 
     private ScoreController() {
@@ -24,10 +24,6 @@ public class ScoreController implements GameObserver {
      * @return the instance of ScoreController.
      */
     public static ScoreController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new ScoreController();
-        }
-
         return uniqueInstance;
     }
 
