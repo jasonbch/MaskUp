@@ -8,16 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 // Spawner must observe the enemy
 public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
-    public BulletSpawner(float xPos,
-                         float yPos,
-                         String movingPattern,
-                         float speed,
-                         String bullet,
-                         Texture texture,
-                         float timeBetweenShot,
-                         String bulletFormation,
-                         int maxTimeAlive,
-                         int maxHealth) {
+    public BulletSpawner(float xPos, float yPos, String movingPattern, float speed, String bullet, Texture texture, float timeBetweenShot, String bulletFormation, int maxTimeAlive, int maxHealth) {
         super(xPos, yPos, movingPattern);
         this.name = "Bullet Spawner";
         this.speed = speed;
@@ -43,17 +34,17 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
     }
 
     @Override
-    public void Attach(GameObserver o) {
+    public void attachGameObserver(GameObserver o) {
 
     }
 
     @Override
-    public void Dettach(GameObserver o) {
+    public void detachGameObserver(GameObserver o) {
 
     }
 
     @Override
-    public void Notify(String args) {
+    public void notifyGameObserver(String args) {
 
     }
 }

@@ -10,10 +10,9 @@ public class GameResources {
 
     // Implement Singleton
     private static GameResources uniqueInstance = null;
-
+    private static String gameJSON = "game.json";
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
-    private static String gameJSON = "game.json";
 
     private GameResources() {
         this.initializeAssets();

@@ -5,7 +5,6 @@ import GameEngine.Collision.EnemyCollisionCommand;
 import GameEngine.Collision.PlayerCollisionCommand;
 import GameEngine.Movement.BulletMovementController;
 import GameEngine.Movement.EnemyMovementController;
-import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
@@ -15,7 +14,6 @@ import Interface.GameOverScreen;
 import Interface.GameVictoryScreen;
 import Interface.MaskGame;
 import Objects.GameObject.Enemy.Enemy;
-import Objects.GameObject.GameObject;
 import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -71,10 +69,6 @@ public class GameController {
             bulletSpawningController.enemyFire(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
         }
 
-        // Clear used enemies and bullets
-        //bulletSpawningController.deleteBullet("Player");
-        //bulletSpawningController.deleteBullet("Enemy");
-
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
         // Check players invulnerability time
@@ -96,47 +90,51 @@ public class GameController {
         enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
         enemyMovementController.update(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
 
-        // Delete enemies if they need deleted
-        //enemySpawningController.deleteEnemies();
-        bulletSpawnerSpawningController.deleteBulletSpawners();
+        // TODO: delete spawner bullet
+        //bulletSpawnerSpawningController.deleteBulletSpawners();
 
-        // TODO: make stages
+        // Make Stage
         stageController.makeStages();
 
-        // Check if the game is over
+        // TODO: Check if the game is over
         checkGameOver(game);
 
-        // Check if the player won
+        // TODO: Check if the player won
         checkVictoryGame(game);
     }
 
     public void checkGameOver(MaskGame game) {
+        // TODO: Losing stage - delete this - switch to observer - when the player die
         if (player.getMaxHealth() <= 0) {
             setLosingState(game);
         }
     }
 
     public void checkVictoryGame(MaskGame game) {
-        if (timeController.getElapsedTime() == stageController.getStageFourEnd() || this.isFinalBossDead()) {
-            setWiningState(game);
-        }
+        // TODO: Winning stage -  delete this - when the boss die or the boss leave - both when the boss die
+        //        if (timeController.getElapsedTime() == stageController.getStageFourEnd() || this.isFinalBossDead()) {
+        //            setWiningState(game);
+        //        }
     }
 
     private void setWiningState(MaskGame game) {
+        // TODO: Make Game observe gameController and set it themselves?
         game.setScreen((new GameVictoryScreen(game)));
     }
 
-    private boolean isFinalBossDead() {
-        Enemy covid = stageController.getCovid();
-
-        if (covid != null) {
-            return covid.isDone();
-        }
-
-        return false;
-    }
+    // TODO: winning stage
+    //    private boolean isFinalBossDead() {
+    //        Enemy covid = stageController.getCovid();
+    //
+    //        if (covid != null) {
+    //            return covid.isDone();
+    //        }
+    //
+    //        return false;
+    //    }
 
     private void setLosingState(MaskGame game) {
+        // TODO: Make Game observe gameController and set it themselves?
         game.setScreen((new GameOverScreen(game)));
     }
 

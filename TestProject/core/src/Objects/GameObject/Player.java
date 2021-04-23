@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
+
 import java.util.ListIterator;
 // Flicker the player for a couple of seconds
 // Possibly delete enemy bullets
@@ -127,18 +128,18 @@ public class Player extends Entity {
         }
     }
 
-    public void changeDefaultKeySet(){
-        if (isDefaultKeySet()){
+    public void changeDefaultKeySet() {
+        if (isDefaultKeySet()) {
             this.defaultKeySet = wasdKeySet;
         } else {
             this.defaultKeySet = arrowKeySet;
         }
     }
 
-    public boolean isDefaultKeySet(){
-        if (this.defaultKeySet == arrowKeySet){
+    public boolean isDefaultKeySet() {
+        if (this.defaultKeySet == arrowKeySet) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }

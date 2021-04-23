@@ -1,7 +1,6 @@
 package GameEngine.UI;
 
 import GameEngine.GameController;
-import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
@@ -20,8 +19,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Observable;
-import java.util.Observer;
 
 public class UIController {
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
@@ -33,20 +30,22 @@ public class UIController {
     private final TimeController timeController = TimeController.instance();
     private final GameController gameController = GameController.instance();
 
-
     private final Batch batch;
     private final AssetManager assetManager = GameResources.getAssetsManager();
     private final ScoreController scoreController = ScoreController.instance();
+
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
     private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class), assetManager.get("Clouds1.png", Texture.class), assetManager.get("Clouds2.png", Texture.class), assetManager.get("Cloud4.png", Texture.class), assetManager.get("PlayerHudBackground.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
-    Texture stage1 = new Texture("stage1.png");
-    Texture stage2 = new Texture("stage2.png");
-    Texture stage3 = new Texture("stage3.png");
-    Texture stage4 = new Texture("stage4.png");
-    BitmapFont font = new BitmapFont(Gdx.files.internal("arial.fnt"));
+
+    // Texture
+    private final Texture stage1 = new Texture("stage1.png");
+    private final Texture stage2 = new Texture("stage2.png");
+    private final Texture stage3 = new Texture("stage3.png");
+    private final Texture stage4 = new Texture("stage4.png");
+    private final BitmapFont font = new BitmapFont(Gdx.files.internal("arial.fnt"));
 
     // Stage Message
     private int stageMessageWidth = 421;
@@ -54,8 +53,6 @@ public class UIController {
     private int WORLD_WIDTH = Gdx.graphics.getWidth();
     private int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private StageController stageController = StageController.instance();
-
-    //BitmapFont font = new BitmapFont();
 
     public UIController(Batch batch) {
         this.batch = batch;
@@ -144,13 +141,19 @@ public class UIController {
     }
 
     public void updateAndRenderHealthBar() {
-        int xoffset = 70;
+        int xOffset = 70;
         Texture LivesFont = assetManager.get("Lives.png", Texture.class);
         batch.draw(LivesFont, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
+
+        // Draw player health
+        drawPlayerHealth(xOffset);
+    }
+
+    private void drawPlayerHealth(int xOffset) {
         for (int i = 0; i < ((Player) player).getMaxHealth(); i++) {
             if (((Player) player).getMaxHealth() != 0) {
                 Texture image = assetManager.get("toiletPaper.png", Texture.class);
-                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
+                batch.draw(image, xOffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
             }
         }
     }
@@ -161,6 +164,7 @@ public class UIController {
         font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 133);
     }
 
+    // TODO - Observer
     public void drawStageMessage() {
         drawStageMessageTexture(stage1, stageController.stageOneStart - stageController.stageBuffer, stageController.stageBuffer);
         drawStageMessageTexture(stage2, stageController.stageTwoStart - stageController.stageBuffer, stageController.stageBuffer);
@@ -173,6 +177,4 @@ public class UIController {
             batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight - 50, stageMessageWidth, stageMessageHeight);
         }
     }
-
-
 }

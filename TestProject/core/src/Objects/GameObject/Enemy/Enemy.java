@@ -113,9 +113,9 @@ public abstract class Enemy extends Entity implements EnemySubject {
                 if (intersects(ammo.getBoundingBox())) {
                     ammo.setIsDone();
                     takeDamage(ammo.getBulletDamage());
-                    if(this.getMaxHealth() <= 0){
+                    if (this.getMaxHealth() <= 0) {
                         this.setIsDone();
-                        Notify("deleteEnemy");
+                        notifyGameObserver("deleteEnemy");
                     }
                     returnValue = true;
                 }

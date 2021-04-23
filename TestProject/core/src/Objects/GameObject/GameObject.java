@@ -14,9 +14,10 @@ import java.util.ArrayList;
  */
 public abstract class GameObject implements GameSubject {
     protected final GameResources gameResources = GameResources.instance();
-    protected float xPosition;  // Initial x position
-    protected float yPosition;  // Initial y position
-    protected ArrayList<GameObserver> myObs = new ArrayList<GameObserver>();
+    protected float xPosition;
+    protected float yPosition;
+    protected ArrayList<GameObserver> myObs = new ArrayList<>();
+
     /**
      * Return the name.
      */
@@ -37,8 +38,13 @@ public abstract class GameObject implements GameSubject {
      * @param yPos
      */
     public void setYPosition(float yPos) {
-
         this.yPosition = yPos;
+        if (this instanceof Ammo) {
+            if (this.getYPosition() > gameResources.getWorldHeight()
+                    || this.getYPosition() < 0) {
+                this.notifyGameObserver("deleteAmmo");
+            }
+        }
     }
 
     /**
@@ -57,10 +63,10 @@ public abstract class GameObject implements GameSubject {
      */
     public void setXPosition(float xPos) {
         this.xPosition = xPos;
-        if(this instanceof Ammo){
-            if(this.getXPosition() + this.getImageWidth() >= gameResources.getScreenOneEnd())
-            {
-                this.Notify("deleteAmmo");
+        if (this instanceof Ammo) {
+            if ((this.getXPosition() + this.getImageWidth()) > (gameResources.getScreenOneEnd())
+                    || this.getXPosition() < 200) {
+                this.notifyGameObserver("deleteAmmo");
             }
         }
     }
@@ -107,7 +113,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     * \
      *
      * @return returns if the game object is above the screen.
      */
@@ -116,7 +121,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     * \
      *
      * @return returns if the game object is below the screen.
      */
@@ -125,7 +129,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     * \
      *
      * @return returns if the game object is left of the screen.
      */
@@ -134,7 +137,6 @@ public abstract class GameObject implements GameSubject {
     }
 
     /**
-     * \
      *
      * @return returns if the game object is right of the screen.
      */
@@ -162,28 +164,25 @@ public abstract class GameObject implements GameSubject {
     }
 
     @Override
-    public void Attach(GameObserver o) {
+    public void attachGameObserver(GameObserver o) {
         this.myObs.add(o);
     }
 
     @Override
-    public void Dettach(GameObserver o) {
+    public void detachGameObserver(GameObserver o) {
         this.myObs.remove(o);
     }
 
     @Override
-    public void Notify(String args) {
-        for(int i = 0; i < this.myObs.size(); i++)
-        {
-            if(myObs.get(i) != null)
-            {
-                if(this.getName().equals("Karen")){
+    public void notifyGameObserver(String args) {
+        for (int i = 0; i < this.myObs.size(); i++) {
+            if (myObs.get(i) != null) {
+                if (this.getName().equals("Karen")) {
                     System.out.println("karen");
                 }
+
                 this.myObs.get(i).update(this, args);
             }
-
-
         }
     }
 }
