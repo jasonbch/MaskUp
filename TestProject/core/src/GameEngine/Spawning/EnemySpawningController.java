@@ -67,7 +67,7 @@ public class EnemySpawningController implements GameObserver {
         concreteEnemy.setBulletSpawnerCount(1);
 
         // Get the position for y
-        float randomY = rand.nextInt(300) + 700;
+        float randomY = rand.nextInt(300) + 600;
         concreteEnemy.setYAxis(randomY);
 
         // Attach Observers

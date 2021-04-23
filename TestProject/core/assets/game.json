@@ -180,7 +180,7 @@
             "enemyName": "Karen",
             "startTimeFromStage": 10,
             "speed": 150,
-            "timeBetweenShot": 0.6,
+            "timeBetweenShot": 0.9,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
@@ -189,25 +189,106 @@
             "enemyName": "Karen",
             "startTimeFromStage": 15,
             "speed": 150,
-            "timeBetweenShot": 0.8,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TargetDownwardLinearBulletFormation"
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
         },
         "2-3":
         {
             "enemyName": "Karen",
-            "startTimeFromStage": 20,
+            "startTimeFromStage": 16,
             "speed": 150,
-            "timeBetweenShot": 0.6,
+            "timeBetweenShot": 0.9,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-4":
         {
             "enemyName": "Karen",
-            "startTimeFromStage": 25,
+            "startTimeFromStage": 21,
             "speed": 150,
-            "timeBetweenShot": 0.8,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "2-5":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 22,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-6":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 27,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
+        },
+        "2-7":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 28,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-8":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 33,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFive",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
+        },
+        "2-9":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 35,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-10":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 40,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFive",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
+        },
+        "2-11":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 42,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-12":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 47,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFive",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
+        },
+        "2-13":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 49,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
