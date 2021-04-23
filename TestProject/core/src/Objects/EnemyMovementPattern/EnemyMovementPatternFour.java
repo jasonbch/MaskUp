@@ -2,7 +2,6 @@ package Objects.EnemyMovementPattern;
 
 import GameEngine.Movement.EnemyMovementController;
 import Objects.GameObject.Enemy.Enemy;
-import com.badlogic.gdx.math.GridPoint2;
 
 /**
  * The Objects.EnemyMovementPattern that move the enemy up and down. If the enemy touch

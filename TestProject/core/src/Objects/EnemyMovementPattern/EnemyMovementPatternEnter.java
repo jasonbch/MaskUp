@@ -1,6 +1,5 @@
 package Objects.EnemyMovementPattern;
 
-import GameEngine.Movement.EnemyMovementController;
 import Objects.GameObject.Enemy.Enemy;
 
 /**

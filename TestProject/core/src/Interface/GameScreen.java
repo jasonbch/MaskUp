@@ -1,7 +1,6 @@
 package Interface;
 
 import GameEngine.GameController;
-import GameEngine.Observer.GameObserver;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Time.TimeController;
@@ -57,9 +56,9 @@ public class GameScreen extends ApplicationAdapter implements Screen {
         UIController = new UIController(batch);
         UIController.playMusic();
 
-//        // Attach Observers
-//        player.Attach(enemySpawningController);
-//        player.Attach(scoreController);
+        //        // Attach Observers
+        //        player.Attach(enemySpawningController);
+        //        player.Attach(scoreController);
     }
 
     /**

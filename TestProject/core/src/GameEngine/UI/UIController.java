@@ -1,7 +1,6 @@
 package GameEngine.UI;
 
 import GameEngine.GameController;
-import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
@@ -20,8 +19,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Observable;
-import java.util.Observer;
 
 public class UIController {
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();

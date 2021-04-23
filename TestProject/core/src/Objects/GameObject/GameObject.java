@@ -17,6 +17,7 @@ public abstract class GameObject implements GameSubject {
     protected float xPosition;  // Initial x position
     protected float yPosition;  // Initial y position
     protected ArrayList<GameObserver> myObs = new ArrayList<GameObserver>();
+
     /**
      * Return the name.
      */
@@ -57,9 +58,8 @@ public abstract class GameObject implements GameSubject {
      */
     public void setXPosition(float xPos) {
         this.xPosition = xPos;
-        if(this instanceof Ammo){
-            if(this.getXPosition() + this.getImageWidth() >= gameResources.getScreenOneEnd())
-            {
+        if (this instanceof Ammo) {
+            if (this.getXPosition() + this.getImageWidth() >= gameResources.getScreenOneEnd()) {
                 this.Notify("deleteAmmo");
             }
         }
@@ -173,11 +173,9 @@ public abstract class GameObject implements GameSubject {
 
     @Override
     public void Notify(String args) {
-        for(int i = 0; i < this.myObs.size(); i++)
-        {
-            if(myObs.get(i) != null)
-            {
-                if(this.getName().equals("Karen")){
+        for (int i = 0; i < this.myObs.size(); i++) {
+            if (myObs.get(i) != null) {
+                if (this.getName().equals("Karen")) {
                     System.out.println("karen");
                 }
                 this.myObs.get(i).update(this, args);

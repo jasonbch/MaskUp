@@ -10,7 +10,6 @@ import Objects.GameObject.GameObject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,10 +21,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class BulletSpawningController implements GameObserver {
     // Implement Singleton
     private static BulletSpawningController uniqueInstance = null;
-    CopyOnWriteArrayList enemyAmmoList = new CopyOnWriteArrayList<Ammo>();
-    CopyOnWriteArrayList playerAmmoList = new CopyOnWriteArrayList<Ammo>();
     private final FormationController formationController = new FormationController();
     private final GameResources gameResources = GameResources.instance();
+    CopyOnWriteArrayList enemyAmmoList = new CopyOnWriteArrayList<Ammo>();
+    CopyOnWriteArrayList playerAmmoList = new CopyOnWriteArrayList<Ammo>();
 
     /**
      * Create a new instance of the ShootController.
@@ -101,8 +100,12 @@ public class BulletSpawningController implements GameObserver {
      * Deleting the enemies bullet if state isDone
      */
     public void deleteBullet(Ammo ammo) {
-        if(playerAmmoList.contains(ammo)){ playerAmmoList.remove( ammo);}
-        if(enemyAmmoList.contains(ammo)){ enemyAmmoList.remove(ammo);}
+        if (playerAmmoList.contains(ammo)) {
+            playerAmmoList.remove(ammo);
+        }
+        if (enemyAmmoList.contains(ammo)) {
+            enemyAmmoList.remove(ammo);
+        }
     }
 
     /**
@@ -124,10 +127,8 @@ public class BulletSpawningController implements GameObserver {
 
     @Override
     public void update(Object o, String args) {
-        if(o instanceof Ammo || o instanceof GameObject)
-        {
-            if(args.equals("deleteAmmo"))
-            {
+        if (o instanceof Ammo || o instanceof GameObject) {
+            if (args.equals("deleteAmmo")) {
                 this.deleteBullet((Ammo) o);
             }
         }

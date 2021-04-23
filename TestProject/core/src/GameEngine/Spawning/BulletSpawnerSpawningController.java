@@ -2,7 +2,6 @@ package GameEngine.Spawning;
 
 import GameEngine.Factory.BulletSpawnerFactory;
 import GameEngine.Resource.GameResources;
-import Objects.GameObject.Ammo.Bullet;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,10 +15,6 @@ public class BulletSpawnerSpawningController {
     private final BulletSpawnerFactory bulletSpawnerFactory = new BulletSpawnerFactory();
     private final LinkedList<BulletSpawner> bulletSpawnerList = new LinkedList<>();
 
-    public LinkedList<BulletSpawner> getBulletSpawnerList() {
-        return this.bulletSpawnerList;
-    }
-
     private BulletSpawnerSpawningController() {
     }
 
@@ -29,6 +24,10 @@ public class BulletSpawnerSpawningController {
         }
 
         return uniqueInstance;
+    }
+
+    public LinkedList<BulletSpawner> getBulletSpawnerList() {
+        return this.bulletSpawnerList;
     }
 
     public BulletSpawner addSpawner(Enemy enemy) {
@@ -44,16 +43,7 @@ public class BulletSpawnerSpawningController {
         int maxTimeAlive = enemy.getMaxTimeAlive();
         int maxHealth = enemy.getMaxHealth();
 
-        BulletSpawner bulletSpawner = bulletSpawnerFactory.create(xPos,
-                yPos,
-                movingPattern,
-                speed,
-                bullet,
-                texture,
-                timeBetweenShot,
-                bulletFormation,
-                maxTimeAlive,
-                maxHealth);
+        BulletSpawner bulletSpawner = bulletSpawnerFactory.create(xPos, yPos, movingPattern, speed, bullet, texture, timeBetweenShot, bulletFormation, maxTimeAlive, maxHealth);
 
         return bulletSpawner;
     }

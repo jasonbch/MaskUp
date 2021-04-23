@@ -1,6 +1,5 @@
 package MaskGame;
 
-import GameEngine.UI.UIController;
 import Interface.MainMenuScreen;
 import Interface.MaskGame;
 import Objects.GameObject.Player;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import GameEngine.UI.UIController;
 
 public class SettingsScreen extends InputAdapter implements Screen {
     private final Camera camera;
@@ -66,7 +64,7 @@ public class SettingsScreen extends InputAdapter implements Screen {
         batch.begin();
 
         batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-        batch.draw(backButton, (WORLD_WIDTH/2) - (backButtonWidth/2), WORLD_HEIGHT/4, backButtonWidth, backButtonHeight);
+        batch.draw(backButton, (WORLD_WIDTH / 2) - (backButtonWidth / 2), WORLD_HEIGHT / 4, backButtonWidth, backButtonHeight);
 
         if (player.isDefaultKeySet()) {
             batch.draw(changeToWASDKeySet, (WORLD_WIDTH / 2) - (changeKeyButtonWidth / 2), WORLD_HEIGHT / 3, changeKeyButtonWidth, changeKeyButtonHeight);
@@ -76,7 +74,7 @@ public class SettingsScreen extends InputAdapter implements Screen {
             batch.draw(wasdKeyInstructions, (WORLD_WIDTH / 2) - (instructionWidth / 2), (WORLD_HEIGHT / 2), instructionWidth, instructionHeight);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
             player.changeDefaultKeySet();
         }
 

@@ -14,7 +14,7 @@ import java.util.ListIterator;
 /**
  * The Entity abstract class that can move and fire.
  */
-public abstract class  Entity extends GameObject {
+public abstract class Entity extends GameObject {
     protected float timeSinceLastShot = 0;
     protected String name = "GameObject";
     protected float speed = 250;
@@ -65,12 +65,12 @@ public abstract class  Entity extends GameObject {
         return this.maxHealth;
     }
 
-    public void takeDamage(int bulletDamage) {
-        this.maxHealth -= bulletDamage;
-    }
-
     public void setMaxHealth(int health) {
         this.maxHealth = health;
+    }
+
+    public void takeDamage(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
     }
 
     public boolean isDone() {

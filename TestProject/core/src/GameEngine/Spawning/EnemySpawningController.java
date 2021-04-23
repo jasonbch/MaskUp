@@ -2,15 +2,12 @@ package GameEngine.Spawning;
 
 import GameEngine.Factory.EnemyFactory;
 import GameEngine.Observer.GameObserver;
-import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import GameEngine.Score.ScoreController;
 import GameEngine.Stage.StageController;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -30,8 +27,8 @@ public class EnemySpawningController implements GameObserver {
     private static final EnemySpawningController uniqueInstance = new EnemySpawningController();
 
     private final EnemyFactory enemyFactory = new EnemyFactory();
-    CopyOnWriteArrayList enemyList = new CopyOnWriteArrayList<Enemy>();
     private final Random rand = new Random();
+    CopyOnWriteArrayList enemyList = new CopyOnWriteArrayList<Enemy>();
     private Enemy currentEnemy;
 
     private EnemySpawningController() {
@@ -78,8 +75,8 @@ public class EnemySpawningController implements GameObserver {
         // Attach Observers
         concreteEnemy.Attach(this);
         concreteEnemy.Attach(scoreController);
-        if(enemy.equals("Karen") || enemy.equals("Covid")){
-            concreteEnemy.Attach(stageController);
+        if (enemy.equals("Karen") || enemy.equals("Covid")) {
+            concreteEnemy.Attach(StageController.instance());
         }
 
         // Add enemy to the list
@@ -118,33 +115,31 @@ public class EnemySpawningController implements GameObserver {
 
     @Override
     public void update(Object o, String args) {
-        if(o instanceof Enemy)
-        {
-            if(args.equals("deleteEnemy"))
-            {
+        if (o instanceof Enemy) {
+            if (args.equals("deleteEnemy")) {
                 deleteEnemies((Enemy) o);
             }
         }
     }
 
-//
-//    @Override
-//    public void Attach(GameObserver o) {
-//        this.myObs.add(o);
-//    }
-//
-//    @Override
-//    public void Dettach(GameObserver o) {
-//        this.myObs.remove(o);
-//    }
-//
-//    @Override
-//    public void Notify() {
-//        for(int i = 0; i < this.myObs.size(); i++)
-//        {
-//            this.myObs.get(i).update(this, currentEnemy);
-//        }
-//    }
+    //
+    //    @Override
+    //    public void Attach(GameObserver o) {
+    //        this.myObs.add(o);
+    //    }
+    //
+    //    @Override
+    //    public void Dettach(GameObserver o) {
+    //        this.myObs.remove(o);
+    //    }
+    //
+    //    @Override
+    //    public void Notify() {
+    //        for(int i = 0; i < this.myObs.size(); i++)
+    //        {
+    //            this.myObs.get(i).update(this, currentEnemy);
+    //        }
+    //    }
 
 
 }
