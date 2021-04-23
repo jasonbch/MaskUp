@@ -3,29 +3,12 @@ package Objects.GameObject;
 import GameEngine.Observer.BulletSpawnerObserver;
 import GameEngine.Observer.EnemySubject;
 import Objects.GameObject.Enemy.Enemy;
-
 import com.badlogic.gdx.graphics.Texture;
 
 // Spawner must observe the enemy
 public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
-    private float angle;
     protected float scaling;
-
-    public float getAngle() {
-        return this.angle;
-    }
-
-    public void setAngle(float angle) {
-        this.angle = angle;
-    }
-
-    public float getScaling() {
-        return this.scaling;
-    }
-
-    public void setScaling(float duration) {
-        this.scaling = duration;
-    }
+    private float angle;
 
     public BulletSpawner(float xPos,
                          float yPos,
@@ -48,6 +31,22 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
         this.maxTimeAlive = maxTimeAlive;
         this.maxHealth = maxHealth;
         this.angle = 0;
+    }
+
+    public float getAngle() {
+        return this.angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public float getScaling() {
+        return this.scaling;
+    }
+
+    public void setScaling(float duration) {
+        this.scaling = duration;
     }
 
     @Override

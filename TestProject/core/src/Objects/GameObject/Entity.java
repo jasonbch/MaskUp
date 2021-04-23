@@ -65,12 +65,12 @@ public abstract class Entity extends GameObject {
         return this.maxHealth;
     }
 
-    public void takeDamage(int bulletDamage) {
-        this.maxHealth -= bulletDamage;
-    }
-
     public void setMaxHealth(int health) {
         this.maxHealth = health;
+    }
+
+    public void takeDamage(int bulletDamage) {
+        this.maxHealth -= bulletDamage;
     }
 
     public boolean isDone() {

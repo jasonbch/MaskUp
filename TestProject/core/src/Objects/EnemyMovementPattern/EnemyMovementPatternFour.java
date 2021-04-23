@@ -51,7 +51,7 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
         } else if (enemy instanceof Karen
                 || enemy instanceof Covid) {
             // Generate second spawner only if the spawner count is 1
-            if  (enemy.getBulletSpawnerCount() == 1) {
+            if (enemy.getBulletSpawnerCount() == 1) {
                 generateSecondSpawner(enemy);
                 enemy.setBulletSpawnerCount(enemy.getBulletSpawnerCount() + 1);
             }

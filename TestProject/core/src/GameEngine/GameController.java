@@ -14,7 +14,6 @@ import Interface.GameOverScreen;
 import Interface.GameVictoryScreen;
 import Interface.MaskGame;
 import Objects.GameObject.Enemy.Enemy;
-import Objects.GameObject.GameObject;
 import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

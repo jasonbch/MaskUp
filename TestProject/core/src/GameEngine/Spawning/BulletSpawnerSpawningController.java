@@ -15,10 +15,6 @@ public class BulletSpawnerSpawningController {
     private final BulletSpawnerFactory bulletSpawnerFactory = new BulletSpawnerFactory();
     private final LinkedList<BulletSpawner> bulletSpawnerList = new LinkedList<>();
 
-    public LinkedList<BulletSpawner> getBulletSpawnerList() {
-        return this.bulletSpawnerList;
-    }
-
     private BulletSpawnerSpawningController() {
     }
 
@@ -28,6 +24,10 @@ public class BulletSpawnerSpawningController {
         }
 
         return uniqueInstance;
+    }
+
+    public LinkedList<BulletSpawner> getBulletSpawnerList() {
+        return this.bulletSpawnerList;
     }
 
     public BulletSpawner addSpawner(Enemy enemy, String spawnerName) {
