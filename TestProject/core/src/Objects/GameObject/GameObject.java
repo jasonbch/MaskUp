@@ -65,7 +65,7 @@ public abstract class GameObject implements GameSubject {
         this.xPosition = xPos;
         if (this instanceof Ammo) {
             if ((this.getXPosition() + this.getImageWidth()) > (gameResources.getScreenOneEnd())
-                    || this.getXPosition() < - 0) {
+                    || this.getXPosition() < 0) {
                 this.notifyGameObserver("deleteAmmo");
             }
         }
