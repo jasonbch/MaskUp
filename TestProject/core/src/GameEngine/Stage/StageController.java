@@ -102,7 +102,8 @@ public class StageController implements GameObserver, GameSubject {
             String enemyMovementPattern = wave.getString("enemyMovementPattern");
             String bulletFormation = wave.getString("bulletFormation");
 
-            Wave waveObject = new Wave(section, enemyType, enemyAmount, startTimeFromStage, enemyMovementPattern, bulletFormation);
+            Wave waveObject = new Wave(section, enemyType, startTimeFromStage, enemyMovementPattern,
+                    bulletFormation, enemyAmount);
 
             // Calculate start time
             this.resetWaveStartTime(waveObject.getStageNumber(), waveObject);
@@ -116,14 +117,16 @@ public class StageController implements GameObserver, GameSubject {
 
         // Initialize all the behaviors
         for (JsonValue behavior : base.get("behaviors")) {
+            String section = behavior.name;
             String enemyName = behavior.getString("enemyName");
-            int startTime = behavior.getInt("startTime");
             int speed = behavior.getInt("speed");
             float timeBetweenShot = behavior.getFloat("timeBetweenShot");
+            int startTimeFromStage = behavior.getInt("startTimeFromStage");
             String enemyMovementPattern = behavior.getString("enemyMovementPattern");
             String bulletFormation = behavior.getString("bulletFormation");
 
-            Behavior newBehavior = new Behavior(enemyName, startTime, speed, timeBetweenShot, enemyMovementPattern, bulletFormation);
+            Behavior newBehavior = new Behavior(section, enemyName, startTimeFromStage,
+                    enemyMovementPattern, bulletFormation, speed, timeBetweenShot);
             this.behaviors.add(newBehavior);
         }
     }
