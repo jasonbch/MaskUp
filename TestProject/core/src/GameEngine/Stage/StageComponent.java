@@ -52,8 +52,10 @@ public class StageComponent implements GameObserver {
             String[] array = args.split(",");
 
             if (this.stageNumber == 3) {
+                System.out.println("three: " + Integer.parseInt(array[0]));
                 this.setStartTime(Integer.parseInt(array[0]) + this.startTimeFromStage);
             } else if (this.stageNumber == 4) {
+                System.out.println("four: " + Integer.parseInt(array[1]));
                 this.setStartTime(Integer.parseInt(array[1]) + this.startTimeFromStage);
             }
         }
