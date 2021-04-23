@@ -52,6 +52,7 @@ public class GameController implements GameObserver, GameSubject {
         this.gameSpeed = 1;
 
         StageController.instance().attachGameObserver(this);
+        Player.instance().attachGameObserver(this);
     }
 
     public static GameController instance() {
@@ -94,42 +95,6 @@ public class GameController implements GameObserver, GameSubject {
 
         // Make Stage
         stageController.makeStages();
-
-        // TODO: Check if the game is over
-        checkGameOver(game);
-
-        // TODO: Check if the player won
-        checkVictoryGame(game);
-    }
-
-    public void checkGameOver(MaskGame game) {
-        // TODO: Losing stage - delete this - switch to observer - when the player die
-        if (player.getMaxHealth() <= 0) {
-            setLosingState(game);
-        }
-    }
-
-    public void checkVictoryGame(MaskGame game) {
-        // TODO: Winning stage -  delete this - when the boss die or the boss leave - both when the boss die
-        //        if (timeController.getElapsedTime() == stageController.getStageFourEnd() || this.isFinalBossDead()) {
-        //            setWiningState(game);
-        //        }
-    }
-
-    // TODO: winning stage
-    //    private boolean isFinalBossDead() {
-    //        Enemy covid = stageController.getCovid();
-    //
-    //        if (covid != null) {
-    //            return covid.isDone();
-    //        }
-    //
-    //        return false;
-    //    }
-
-    private void setLosingState(MaskGame game) {
-        // TODO: Make Game observe gameController and set it themselves?
-        game.setScreen((new GameOverScreen(game)));
     }
 
     public boolean getIsSlowMode() {
@@ -189,12 +154,13 @@ public class GameController implements GameObserver, GameSubject {
 
     @Override
     public void update(Object object, String args) {
-        System.out.println("1");
         if (object instanceof StageController) {
-            System.out.println("2");
             if (args.equals("winingState")) {
-                System.out.println("3");
                 notifyGameObserver("winningState");
+            }
+        } else if (object instanceof Player) {
+            if (args.equals("die")) {
+                notifyGameObserver("losingState");
             }
         }
     }
@@ -211,9 +177,7 @@ public class GameController implements GameObserver, GameSubject {
 
     @Override
     public void notifyGameObserver(String args) {
-        System.out.println("2.5");
         for (int i = 0; i < this.myObservers.size(); i++) {
-            System.out.println("3.5");
             this.myObservers.get(i).update(this, args);
         }
     }
