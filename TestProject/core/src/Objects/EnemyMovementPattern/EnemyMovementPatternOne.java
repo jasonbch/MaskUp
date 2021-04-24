@@ -1,6 +1,7 @@
 package Objects.EnemyMovementPattern;
 
 import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.GameObject;
 
 /**
  * The Objects.EnemyMovementPattern that move the enemy left and right on the screen
@@ -15,7 +16,8 @@ public class EnemyMovementPatternOne extends EnemyMovementPattern {
     }
 
     @Override
-    public void move(Enemy enemy, float deltaTime) {
+    public void move(GameObject obj, float deltaTime) {
+        Enemy enemy = (Enemy) obj;
         enemy.notifyObservers();
 
         float val = enemy.getYAxis() + (float) (50 * Math.sin(enemy.getXPosition() * .5 * Math.PI / 80));

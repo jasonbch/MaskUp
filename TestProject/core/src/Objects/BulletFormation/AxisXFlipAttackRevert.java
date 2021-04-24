@@ -2,7 +2,6 @@ package Objects.BulletFormation;
 
 import GameEngine.UI.UIController;
 import Objects.GameObject.Ammo.Ammo;
-import Objects.GameObject.Ammo.Bullet;
 import Objects.GameObject.Entity;
 
 import java.util.ArrayList;

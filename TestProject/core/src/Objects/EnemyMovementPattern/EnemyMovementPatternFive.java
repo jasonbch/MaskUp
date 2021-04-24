@@ -2,6 +2,7 @@ package Objects.EnemyMovementPattern;
 
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.GameObject;
 
 /**
  * Circular pattern from a point for spawner.
@@ -14,7 +15,8 @@ public class EnemyMovementPatternFive extends EnemyMovementPattern {
     }
 
     @Override
-    public void move(Enemy enemy, float deltaTime) {
+    public void move(GameObject obj, float deltaTime) {
+        Enemy enemy = (Enemy) obj;
         if (enemy instanceof BulletSpawner) {
 
             BulletSpawner bulletSpawner = (BulletSpawner) enemy;

@@ -23,7 +23,9 @@ public abstract class Enemy extends Entity implements EnemySubject {
     protected float yAxis;
     protected float xAxis;
     protected int bulletSpawnerCount;
-
+    protected boolean isAtDiamondPatternStartLocation = false;
+    protected boolean diamondPatternX = false;
+    protected boolean diamondPatternY = false;
     private List<BulletSpawnerObserver> spawners = new ArrayList<>();
 
     /**
@@ -41,6 +43,30 @@ public abstract class Enemy extends Entity implements EnemySubject {
         this.isDone = true;
         notifyObservers();
         notifyGameObserver("deleteEnemy");
+    }
+
+    public boolean getDiamondPatternStartLocation() {
+        return isAtDiamondPatternStartLocation;
+    }
+
+    public void setDiamondPatternStartLocation() {
+        isAtDiamondPatternStartLocation = true;
+    }
+
+    public boolean getDiamondPatternX() {
+        return diamondPatternX;
+    }
+
+    public void setDiamondPatternX() {
+        diamondPatternX = true;
+    }
+
+    public boolean getDiamondPatternY() {
+        return diamondPatternY;
+    }
+
+    public void setDiamondPatternY() {
+        diamondPatternY = true;
     }
 
     public boolean isSpawned() {

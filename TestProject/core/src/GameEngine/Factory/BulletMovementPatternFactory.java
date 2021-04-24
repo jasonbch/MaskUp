@@ -1,11 +1,11 @@
 package GameEngine.Factory;
 
-import Objects.BulletMovementPattern.BulletMovementPattern;
 import Objects.BulletMovementPattern.LinearBulletMovementPattern;
+import Objects.MovementPattern;
 
-public class BulletMovementPatternFactory {
+public class BulletMovementPatternFactory extends MovementPatternFactory {
 
-    public BulletMovementPattern create(String pattern) {
+    public MovementPattern create(String pattern) {
         switch (pattern) {
             case "LinearBulletMovementPattern":
                 return new LinearBulletMovementPattern();

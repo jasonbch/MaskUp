@@ -1,8 +1,9 @@
 package GameEngine.Movement;
 
 import GameEngine.Factory.EnemyMovementFactory;
-import Objects.EnemyMovementPattern.EnemyMovementPattern;
+import GameEngine.Factory.MovementPatternFactory;
 import Objects.GameObject.Enemy.Enemy;
+import Objects.MovementPattern;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -13,7 +14,7 @@ import java.util.ListIterator;
 public class EnemyMovementController {
     // Implement Singleton
     private static final EnemyMovementController uniqueInstance = new EnemyMovementController();
-    private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
+    private final MovementPatternFactory enemyMovementFactory = new EnemyMovementFactory();
 
     private EnemyMovementController() {
     }
@@ -38,7 +39,7 @@ public class EnemyMovementController {
     }
 
     public void move(Enemy enemy, float deltaTime) {
-        EnemyMovementPattern enemyMovementPattern;
+        MovementPattern enemyMovementPattern;
         enemy.updateCurrentTimeAlive();
 
         if (enemy.getCurrentTimeAlive() >= enemy.getMaxTimeAlive()) {

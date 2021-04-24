@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -112,11 +113,13 @@ public class StageController implements GameObserver, GameSubject {
             String section = wave.name;
             String enemyType = wave.getString("enemyType");
             int enemyAmount = wave.getInt("enemyAmount");
+            // get the spawnLocations list from json
+            List<HashMap<String, Integer>> map = getSpawnLocations(wave);
             int startTimeFromStage = wave.getInt("startTimeFromStage");
             String enemyMovementPattern = wave.getString("enemyMovementPattern");
             String bulletFormation = wave.getString("bulletFormation");
 
-            Wave waveObject = new Wave(section, enemyType, startTimeFromStage, enemyMovementPattern, bulletFormation, enemyAmount);
+            Wave waveObject = new Wave(section, enemyType, startTimeFromStage, enemyMovementPattern, bulletFormation, enemyAmount, map);
 
             // Calculate start time
             this.calculateStageComponentStartTime(waveObject.getStageNumber(), waveObject);
@@ -150,6 +153,21 @@ public class StageController implements GameObserver, GameSubject {
             // Add to list
             this.behaviors.add(behaviorObject);
         }
+    }
+
+    private List<HashMap<String, Integer>> getSpawnLocations(JsonValue jsonList) {
+        List<HashMap<String, Integer>> positionList = new ArrayList<>();
+        for (JsonValue spawnLocations : jsonList.get("spawnLocation")) {
+            HashMap<String, Integer> map = new HashMap<>();
+            int x = spawnLocations.getInt("x");
+            int y = spawnLocations.getInt("y");
+
+            map.put("x", x);
+            map.put("y", y);
+            positionList.add(map);
+        }
+
+        return positionList;
     }
 
     public void makeStages() {

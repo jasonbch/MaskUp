@@ -3,11 +3,8 @@ package GameEngine.Resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameResources {
@@ -108,20 +105,19 @@ public class GameResources {
         return WORLD_WIDTH;
     }
 
-    public void setBatch(SpriteBatch batch){
-        this.batch = batch;
-    }
-
-    public SpriteBatch getBatch()
-    {
+    public SpriteBatch getBatch() {
         return this.batch;
     }
 
-    public void setCamera(OrthographicCamera camera){
-        this.camera = camera;
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
     }
 
-    public OrthographicCamera getCamera(){
+    public OrthographicCamera getCamera() {
         return this.camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 }
