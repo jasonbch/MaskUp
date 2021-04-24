@@ -2,6 +2,7 @@ package GameEngine.Spawning;
 
 import GameEngine.Factory.BulletSpawnerFactory;
 import GameEngine.Observer.GameObserver;
+import GameEngine.Resource.GameResources;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.graphics.Texture;

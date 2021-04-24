@@ -1,9 +1,10 @@
 package GameEngine.Factory;
 
 import Objects.EnemyMovementPattern.*;
+import Objects.MovementPattern;
 
-public class EnemyMovementFactory {
-    public EnemyMovementPattern create(String pattern) {
+public class EnemyMovementFactory extends MovementPatternFactory {
+    public MovementPattern create(String pattern) {
         switch (pattern) {
             case "PatternOne":
                 return new EnemyMovementPatternOne();
@@ -19,6 +20,8 @@ public class EnemyMovementFactory {
                 return new EnemyMovementPatternEnter();
             case "PatternFive":
                 return new EnemyMovementPatternFive();
+            case "PatternDiamond":
+                return new EnemyMovementPatternDiamond();
             default:
                 return null;
         }

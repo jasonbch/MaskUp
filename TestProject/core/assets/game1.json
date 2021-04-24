@@ -57,9 +57,14 @@
         {
             "enemyType": "Karen",
             "enemyAmount": 1,
+            "spawnLocation": [{"x": 250, "y": 650}],
             "startTime": 5,
             "enemyMovementPattern": "PatternTwo",
             "bulletFormation": "DownwardLinearBulletFormation"
+=======
+            "enemyMovementPattern": "PatternDiamond",
+            "bulletFormation": "TriangleTargetBulletFormation"
+>>>>>>> added diamond pattern, enemy position in json, added extra layer of inheritance between bullet & enemy patterns to have abstract MovementPattern
         }
     },
     "behaviors":
@@ -67,7 +72,7 @@
         "5":
         {
             "enemyName": "Karen",
-            "startTime": 10,
+            "startTime": 15,
             "speed": 150,
             "timeBetweenShot": 0.005,
             "enemyMovementPattern": "PatternFour",
@@ -76,6 +81,7 @@
         "6":
         {
             "enemyName": "Karen",
+<<<<<<< HEAD
             "startTime": 11,
             "speed": 150,
             "timeBetweenShot": 1,
@@ -101,10 +107,20 @@
             "bulletFormation": "TargetThreeDirectionBulletFormation"
         },
         "9":
+=======
+            "startTime": 20,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternDiamond",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "3":
+>>>>>>> added diamond pattern, enemy position in json, added extra layer of inheritance between bullet & enemy patterns to have abstract MovementPattern
         {
             "enemyName": "Karen",
             "startTime": 30,
             "speed": 150,
+<<<<<<< HEAD
             "timeBetweenShot": 0.005,
             "enemyMovementPattern": "PatternFour",
             "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
@@ -115,6 +131,9 @@
             "startTime": 31,
             "speed": 150,
             "timeBetweenShot": 1,
+=======
+            "timeBetweenShot": 0.6,
+>>>>>>> added diamond pattern, enemy position in json, added extra layer of inheritance between bullet & enemy patterns to have abstract MovementPattern
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetThreeDirectionBulletFormation"
         }

@@ -5,6 +5,7 @@ import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.Enemy.Karen;
+import Objects.GameObject.GameObject;
 
 /**
  * Circular pattern from a point for spawner.
@@ -19,10 +20,12 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     }
 
     @Override
-    public void move(Enemy enemy, float deltaTime) {
-        if (enemy instanceof BulletSpawner) {
 
-            BulletSpawner bulletSpawner = (BulletSpawner) enemy;
+    public void move(GameObject obj, float deltaTime) {
+
+        if (obj instanceof BulletSpawner) {
+            Enemy enemy = (Enemy) obj;
+            BulletSpawner bulletSpawner = (BulletSpawner) obj;
             // Move spawner in a circle
             float centerX = enemy.getXAxis();
             float centerY = enemy.getYAxis();
@@ -48,9 +51,10 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
             enemy.setXPosition(circleX);
             enemy.setYPosition(circleY + (enemy.getImageHeight() / 2));
 
-        } else if (enemy instanceof Karen
-                || enemy instanceof Covid) {
+        } else if (obj instanceof Karen
+                || obj instanceof Covid) {
             // Generate second spawner only if the spawner count is 1
+            Enemy enemy = (Enemy) obj;
             if (enemy.getBulletSpawnerCount() == 1) {
                 generateSecondSpawner(enemy);
                 enemy.setBulletSpawnerCount(enemy.getBulletSpawnerCount() + 1);
@@ -60,6 +64,7 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
             enemy.setXAxis(enemy.getXPosition());
         } else {
             // Continuously setting x axis for enemy for movement purpose
+            Enemy enemy = (Enemy) obj;
             enemy.setXAxis(enemy.getXPosition());
         }
     }

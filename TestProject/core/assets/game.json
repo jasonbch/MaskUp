@@ -10,7 +10,7 @@
     {
         "Player":
         {
-            "maxHealth": 3,
+            "maxHealth": 30,
             "speed": 330,
             "bullet": "Bullet",
             "texture": "Player.png",
@@ -63,48 +63,54 @@
         "1-1":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
             "startTimeFromStage": 0,
-            "enemyMovementPattern": "PatternOne",
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "1-2":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
             "startTimeFromStage": 10,
-            "enemyMovementPattern": "PatternOne",
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "1-3":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
             "startTimeFromStage": 20,
-            "enemyMovementPattern": "PatternOne",
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "1-4":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
             "startTimeFromStage": 5,
             "enemyMovementPattern": "PatternThree",
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "bulletFormation": "DownwardLinearBulletFormation"
         },
         "1-5":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
             "startTimeFromStage": 15,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
         "1-6":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
             "startTimeFromStage": 25,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
@@ -113,54 +119,61 @@
             "enemyType": "Karen",
             "enemyAmount": 1,
             "startTimeFromStage": 0,
+            "spawnLocation": [{"x": 250, "y": 650}],
             "enemyMovementPattern": "PatternTwo",
             "bulletFormation": "TriangleTargetBulletFormation"
         },
         "3-7":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
             "startTimeFromStage": 0,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "3-8":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
             "startTimeFromStage": 5,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
         "3-9":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
             "startTimeFromStage": 10,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "3-10":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
             "startTimeFromStage": 15,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
         "3-11":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
             "startTimeFromStage": 20,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "3-12":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
             "startTimeFromStage": 25,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
@@ -169,6 +182,7 @@
             "enemyType": "Covid",
             "enemyAmount": 1,
             "startTimeFromStage": 0,
+            "spawnLocation": [{"x": 250, "y": 650}],
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TriangleTargetBulletFormation"
         }
@@ -327,6 +341,69 @@
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
+        },
+        "4-5":
+        {
+            "enemyName":"Covid",
+            "startTimeFromStage": 35,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisXFlipAttack"
+        },
+        "4-6":
+        {
+            "enemyName":"Covid",
+            "startTimeFromStage": 40,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TriangleTargetBulletFormation"
+        },
+        "4-7":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 45,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisXFlipAttackRevert"
+        },
+        "4-8":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 50,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-9":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 55,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisYFlipAttack"
+        },
+        "4-10":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 60,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-11":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 65,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisYFlipAttackRevert"
         }
     }
 }

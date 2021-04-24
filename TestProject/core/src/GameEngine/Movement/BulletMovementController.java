@@ -1,11 +1,12 @@
 package GameEngine.Movement;
 
 import GameEngine.Factory.BulletMovementPatternFactory;
+import GameEngine.Factory.MovementPatternFactory;
 import GameEngine.Resource.GameResources;
 import GameEngine.Spawning.BulletSpawningController;
-import Objects.BulletMovementPattern.BulletMovementPattern;
 import Objects.GameObject.Ammo.Ammo;
 import Objects.GameObject.Ammo.Ammo.PatternAttribute;
+import Objects.MovementPattern;
 
 import java.util.ListIterator;
 
@@ -15,7 +16,7 @@ import java.util.ListIterator;
 public class BulletMovementController {
     // Implement Singleton
     private static BulletMovementController uniqueInstance = null;
-    private final BulletMovementPatternFactory bulletMovementPatternFactory = new BulletMovementPatternFactory();
+    private final MovementPatternFactory bulletMovementPatternFactory = new BulletMovementPatternFactory();
     private final GameResources gameResources = GameResources.instance();
 
     private BulletMovementController() {
@@ -59,9 +60,9 @@ public class BulletMovementController {
     }
 
     public void move(Ammo ammo, float deltaTime) {
-        BulletMovementPattern bulletMovementPattern;
+        MovementPattern bulletMovementPattern;
         PatternAttribute bulletPattern = ammo.getPatternAttribute();
         bulletMovementPattern = bulletMovementPatternFactory.create(bulletPattern.getName());
-        bulletMovementPattern.move(ammo, deltaTime, bulletPattern.getXMultiplier(), bulletPattern.getYMultiplier());
+        bulletMovementPattern.move(ammo, deltaTime);
     }
 }

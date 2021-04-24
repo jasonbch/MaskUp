@@ -21,6 +21,14 @@ public class BulletFormationFactory {
                 return new SlowTargetDownwardLinearBulletFormation();
             case "TargetThreeDirectionBulletFormation":
                 return new TargetThreeDirectionBulletFormation();
+            case "AxisXFlipAttack":
+                return new AxisXFlipAttack();
+            case "AxisXFlipAttackRevert":
+                return new AxisXFlipAttackRevert();
+            case "AxisYFlipAttack":
+                return new AxisYFlipAttack();
+            case "AxisYFlipAttackRevert":
+                return new AxisYFlipAttackRevert();
             default:
                 return null;
         }

@@ -5,6 +5,7 @@ import GameEngine.Observer.GameObserver;
 import GameEngine.Observer.GameSubject;
 import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.EnemySpawningController;
+import GameEngine.Resource.GameResources;
 import GameEngine.Time.TimeController;
 import GameEngine.UI.UIController;
 import Objects.GameObject.Player;
@@ -12,10 +13,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -25,24 +26,34 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 public class GameScreen extends ApplicationAdapter implements Screen, GameObserver {
     // Screen
-    private final Camera camera;
+    private final OrthographicCamera camera;
+    //private final OrthographicCamera camera2;
 
     private final Viewport viewport;
+    // private final Viewport viewport2;
+
     private final int VIEWPORT_WIDTH = 576;
     private final int VIEWPORT_HEIGHT = 1024;
 
     // Graphic
     private final SpriteBatch batch;
+    //private final SpriteBatch batch2;
 
     // Game controllers
     private final GameController gameController = GameController.instance();
     private final TimeController timeController = TimeController.instance();
-    private final GameEngine.UI.UIController UIController;
+    private final GameResources gameResources = GameResources.instance();
+    private final UIController uiController = UIController.instance();
+
     private final FPSLogger logger = new FPSLogger();
     private final MaskGame game;
     private final ScoreController scoreController = ScoreController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final Player player = Player.instance();
+
+    //testing with a matrix
+    private final Matrix4 tempMatrix4 = new Matrix4();
+
 
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
@@ -52,17 +63,22 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
 
         // Initialize camera and view
         camera = new OrthographicCamera();
+        //camera2 = new OrthographicCamera();
 
         viewport = new StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
+        //viewport2 = new StretchViewport(VIEWPORT_WIDTH/ 2, VIEWPORT_HEIGHT, camera2);
         batch = new SpriteBatch();
-        UIController = new UIController(batch);
-        UIController.playMusic();
 
         //        // Attach Observers
         //        player.Attach(enemySpawningController);
         //        player.Attach(scoreController);
 
         gameController.attachGameObserver(this);
+        gameResources.setBatch(batch);
+        uiController.setBatch(batch);
+        uiController.setCamera(camera);
+
+        uiController.playMusic();
     }
 
     /**
@@ -82,26 +98,26 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
 
         batch.begin();
 
-        // Update scrolling background
-        UIController.drawBackground(deltaTime);
+        //Update scrolling background
+        uiController.drawBackground(deltaTime);
 
         // Draw all game objects
-        UIController.drawGameObjects();
+        uiController.drawGameObjects();
 
         // GameController
         gameController.updateGame(deltaTime, game);
 
-        // Draw white dot in slow mode
-        UIController.drawWhiteDotInSlowMode();
-
-        // Draw Score
-        UIController.updateScore();
-
         // Draw stage message
-        UIController.drawStageMessage();
+        uiController.drawStageMessage();
+
+
+        // Draw white dot in slow mode
+        uiController.drawWhiteDotInSlowMode();
 
         // Draw and update Health Bar
-        UIController.updateAndRenderHealthBar();
+        uiController.updateAndRenderHealthBar();
+
+        uiController.updateScore();
 
         // Pause Option
         this.pauseGame();
@@ -137,7 +153,9 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
 
     @Override
     public void resize(int width, int height) {
-
+//        viewport.update(width/ 2, height);
+//        viewport2.update(width / 2, height);
+//        viewport2.setScreenX(width/2);
     }
 
     @Override
