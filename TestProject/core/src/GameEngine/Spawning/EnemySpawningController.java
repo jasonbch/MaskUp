@@ -73,16 +73,16 @@ public class EnemySpawningController {
      * @param enemy   the enemy's name
      * @param pattern the movement pattern of the enemy
      */
-    public Enemy spawnEnemies(String enemy, String pattern) {
-        int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
-        int yPosition = gameResources.getWorldHeight();
-        Enemy concreteEnemy = enemyFactory.create(enemy, xPosition, yPosition, pattern);
+    public Enemy spawnEnemies(String enemy, String pattern, int xPosition, int yPosition) {
+        //int xPosition = rand.nextInt(gameResources.getScreenOneEnd() - 200) + 100;
+        int ySpawnPosition = gameResources.getWorldHeight();
+        Enemy concreteEnemy = enemyFactory.create(enemy, xPosition, ySpawnPosition, pattern);
+        concreteEnemy.setYAxis(yPosition);
+
         BulletSpawner bulletSpawner = bulletSpawnerSpawningController.addSpawner(concreteEnemy);
 
         // Make the bulletSpawner observe the enemy
         concreteEnemy.addObserver(bulletSpawner);
-        float randomY = rand.nextInt(300) + 500;
-        concreteEnemy.setYAxis(randomY);
 
         // Add enemy to the list
         enemyList.add(concreteEnemy);

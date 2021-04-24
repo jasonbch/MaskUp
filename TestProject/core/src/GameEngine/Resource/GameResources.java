@@ -3,11 +3,8 @@ package GameEngine.Resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameResources {
@@ -15,10 +12,9 @@ public class GameResources {
 
     // Implement Singleton
     private static GameResources uniqueInstance = null;
-
+    private static String gameJSON = "game1.json";
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
-    private static String gameJSON = "game.json";
     private SpriteBatch batch = null;
     private OrthographicCamera camera = null;
 
@@ -109,20 +105,19 @@ public class GameResources {
         return WORLD_WIDTH;
     }
 
-    public void setBatch(SpriteBatch batch){
-        this.batch = batch;
-    }
-
-    public SpriteBatch getBatch()
-    {
+    public SpriteBatch getBatch() {
         return this.batch;
     }
 
-    public void setCamera(OrthographicCamera camera){
-        this.camera = camera;
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
     }
 
-    public OrthographicCamera getCamera(){
+    public OrthographicCamera getCamera() {
         return this.camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 }

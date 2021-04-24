@@ -1,6 +1,7 @@
 package Objects.BulletMovementPattern;
 
 import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.GameObject;
 
 public class LinearBulletMovementPattern extends BulletMovementPattern {
     @Override
@@ -9,9 +10,11 @@ public class LinearBulletMovementPattern extends BulletMovementPattern {
     }
 
     @Override
-    public void move(Ammo ammo, float deltaTime, float xMultiplier, float yMultiplier) {
-        float newX = ammo.getXPosition() + xMultiplier * ammo.getSpeed() * deltaTime;
-        float newY = ammo.getYPosition() + yMultiplier * ammo.getSpeed() * deltaTime;
+    public void move(GameObject obj, float deltaTime) {
+        Ammo ammo = (Ammo) obj;
+        Ammo.PatternAttribute bulletPattern = ammo.getPatternAttribute();
+        float newX = ammo.getXPosition() + bulletPattern.getXMultiplier() * ammo.getSpeed() * deltaTime;
+        float newY = ammo.getYPosition() + bulletPattern.getYMultiplier() * ammo.getSpeed() * deltaTime;
 
         ammo.setXPosition(newX);
         ammo.setYPosition(newY);

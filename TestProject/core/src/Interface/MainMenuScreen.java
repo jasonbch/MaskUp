@@ -1,10 +1,10 @@
 package Interface;
 
+import MaskGame.SettingsScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import MaskGame.SettingsScreen;
 
 public class MainMenuScreen extends InputAdapter implements Screen {
     //changed to orthographicCamera
@@ -83,9 +82,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         }
 
         // Settings Button
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             game.setScreen(new SettingsScreen(game));
-        } else{
+        } else {
             batch.draw(settingsButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 6, buttonWidth, buttonHeight);
         }
 

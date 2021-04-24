@@ -7,7 +7,7 @@ import Objects.GameObject.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AxisYFlipAttack extends BulletFormation{
+public class AxisYFlipAttack extends BulletFormation {
 
     private final UIController uiController = UIController.instance();
 

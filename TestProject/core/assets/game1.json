@@ -57,8 +57,9 @@
         {
             "enemyType": "Karen",
             "enemyAmount": 1,
+            "spawnLocation": [{"x": 250, "y": 650}],
             "startTime": 5,
-            "enemyMovementPattern": "PatternTwo",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TriangleTargetBulletFormation"
         }
     },
@@ -67,7 +68,7 @@
         "1":
         {
             "enemyName": "Karen",
-            "startTime": 10,
+            "startTime": 15,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
@@ -76,27 +77,18 @@
         "2":
         {
             "enemyName": "Karen",
-            "startTime": 15,
+            "startTime": 20,
             "speed": 150,
-            "timeBetweenShot": 0.8,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TargetDownwardLinearBulletFormation"
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternDiamond",
+            "bulletFormation": "CircularBulletFormation"
         },
         "3":
         {
             "enemyName": "Karen",
-            "startTime": 20,
-            "speed": 150,
-            "timeBetweenShot": 0.6,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "CircularBulletFormation"
-        },
-        "4":
-        {
-            "enemyName": "Karen",
             "startTime": 25,
             "speed": 150,
-            "timeBetweenShot": 0.8,
+            "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         }

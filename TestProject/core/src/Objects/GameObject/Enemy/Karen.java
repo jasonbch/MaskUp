@@ -1,8 +1,5 @@
 package Objects.GameObject.Enemy;
 
-import GameEngine.Resource.GameResources;
-import com.badlogic.gdx.graphics.Texture;
-
 /**
  * The Karen class that extends from Entity.Enemy that can move and fire.
  */

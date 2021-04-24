@@ -3,6 +3,9 @@ package GameEngine.Stage;
 import GameEngine.Spawning.EnemySpawningController;
 import Objects.GameObject.Enemy.Enemy;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class Wave {
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private String name;
@@ -12,9 +15,14 @@ public class Wave {
     private String bulletFormation;
     private boolean isRan;
 
-    public Wave(String name, int amount, int startTime, String enemyMovementPattern, String bulletFormation) {
+    // adding xDrop and yDrop array for enemies
+    private List<HashMap<String, Integer>> spawnLocations;
+
+
+    public Wave(String name, int amount, int startTime, List<HashMap<String, Integer>> locations, String enemyMovementPattern, String bulletFormation) {
         this.name = name;
         this.amount = amount;
+        this.spawnLocations = locations;
         this.startTime = startTime;
         this.enemyMovementPattern = enemyMovementPattern;
         this.bulletFormation = bulletFormation;
@@ -28,7 +36,10 @@ public class Wave {
     public void run() {
         if (!isRan) {
             for (int i = 0; i < this.amount; i++) {
-                Enemy enemy = enemySpawningController.spawnEnemies(name, enemyMovementPattern);
+                HashMap<String, Integer> enemyPos = spawnLocations.get(i);
+                int xPos = enemyPos.get("x");
+                int yPos = enemyPos.get("y");
+                Enemy enemy = enemySpawningController.spawnEnemies(name, enemyMovementPattern, xPos, yPos);
                 enemy.setBulletFormation(bulletFormation);
             }
 

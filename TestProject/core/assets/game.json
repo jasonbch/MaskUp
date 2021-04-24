@@ -56,40 +56,44 @@
         "1":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
-
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 5,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "2":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 15,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "3":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 25,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "4":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 10,
-            "enemyMovementPattern": "PatternThree",
+            "enemyMovementPattern": "PatternOne",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
         "5":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 20,
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
@@ -97,7 +101,8 @@
         "6":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 30,
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
@@ -106,6 +111,7 @@
         {
             "enemyType": "Karen",
             "enemyAmount": 1,
+            "spawnLocation": [{"x": 250, "y": 650}],
             "startTime": 40,
             "enemyMovementPattern": "PatternTwo",
             "bulletFormation": "TriangleTargetBulletFormation"
@@ -113,7 +119,8 @@
         "7":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 85,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
@@ -121,7 +128,8 @@
         "8":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 90,
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
@@ -129,7 +137,8 @@
         "9":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 95,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
@@ -137,7 +146,8 @@
         "10":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 100,
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
@@ -145,7 +155,8 @@
         "11":
         {
             "enemyType": "Bat",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 105,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
@@ -153,7 +164,8 @@
         "12":
         {
             "enemyType": "MurderHornet",
-            "enemyAmount": 3,
+            "enemyAmount": 2,
+            "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
             "startTime": 110,
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
@@ -162,6 +174,7 @@
         {
             "enemyType": "Covid",
             "enemyAmount": 1,
+            "spawnLocation": [{"x": 250, "y": 650}],
             "startTime": 120,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TriangleTargetBulletFormation"

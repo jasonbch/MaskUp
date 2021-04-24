@@ -1,6 +1,7 @@
 package Objects.EnemyMovementPattern;
 
 import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.GameObject;
 
 /**
  * The Objects.EnemyMovementPattern that move the enemy diagonally in the screen.
@@ -16,7 +17,8 @@ public class EnemyMovementPatternThree extends EnemyMovementPattern {
     }
 
     @Override
-    public void move(Enemy enemy, float deltaTime) {
+    public void move(GameObject obj, float deltaTime) {
+        Enemy enemy = (Enemy) obj;
 
         if (enemy.isLeftOfScreen()) {
             enemy.revertXMultiplier();

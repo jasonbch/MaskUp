@@ -1,8 +1,7 @@
 package Objects.EnemyMovementPattern;
 
 import GameEngine.Movement.EnemyMovementController;
-import Objects.GameObject.Enemy.Enemy;
-import com.badlogic.gdx.math.GridPoint2;
+import Objects.GameObject.GameObject;
 
 /**
  * The Objects.EnemyMovementPattern that move the enemy up and down. If the enemy touch
@@ -18,7 +17,7 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     }
 
     @Override
-    public void move(Enemy enemy, float deltaTime) {
+    public void move(GameObject obj, float deltaTime) {
 
     }
 }
