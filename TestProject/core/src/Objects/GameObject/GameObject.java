@@ -4,6 +4,7 @@ import GameEngine.Observer.GameObserver;
 import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
@@ -40,8 +41,12 @@ public abstract class GameObject implements GameSubject {
     public void setYPosition(float yPos) {
         this.yPosition = yPos;
         if (this instanceof Ammo) {
-            if (this.getYPosition() > gameResources.getWorldHeight() + 300 || this.getYPosition() < 0) {
+            if (this.getYPosition() > gameResources.getWorldHeight() || this.getYPosition() < 0) {
                 this.notifyGameObserver("deleteAmmo");
+            }
+        } else if (this instanceof Enemy) {
+            if (this.getYPosition() > gameResources.getWorldHeight() + 100 || this.getYPosition() < 0) {
+                ((Enemy) this).setIsDone();
             }
         }
     }
@@ -171,10 +176,6 @@ public abstract class GameObject implements GameSubject {
     public void notifyGameObserver(String args) {
         for (int i = 0; i < this.myObs.size(); i++) {
             if (myObs.get(i) != null) {
-                if (this.getName().equals("Karen")) {
-                    System.out.println("karen");
-                }
-
                 this.myObs.get(i).update(this, args);
             }
         }

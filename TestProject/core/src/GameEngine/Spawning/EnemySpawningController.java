@@ -8,6 +8,8 @@ import GameEngine.Stage.StageController;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -42,8 +44,8 @@ public class EnemySpawningController implements GameObserver {
         return uniqueInstance;
     }
 
-    public CopyOnWriteArrayList<Enemy> getEnemyList() {
-        return this.enemyList;
+    public List<Enemy> getEnemyList() {
+        return Collections.synchronizedList(enemyList);
     }
 
     /**
@@ -124,6 +126,8 @@ public class EnemySpawningController implements GameObserver {
     }
 
     private void deleteEnemies(Enemy enemy) {
-        enemyList.remove(enemy);
+        if (this.enemyList.contains(enemy)) {
+            enemyList.remove(enemy);
+        }
     }
 }

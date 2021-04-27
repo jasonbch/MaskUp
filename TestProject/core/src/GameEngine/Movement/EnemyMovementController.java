@@ -30,11 +30,13 @@ public class EnemyMovementController {
     }
 
     public void update(float deltaTime, List<Enemy> enemyList) {
-        ListIterator<Enemy> iter2 = enemyList.listIterator();
-        while (iter2.hasNext()) {
-            Enemy currEnemy = iter2.next();
+        synchronized(enemyList) {
+            ListIterator<Enemy> iter = enemyList.listIterator();
+            while (iter.hasNext()) {
+                Enemy currEnemy = iter.next();
 
-            this.move(currEnemy, deltaTime);
+                this.move(currEnemy, deltaTime);
+            }
         }
     }
 
