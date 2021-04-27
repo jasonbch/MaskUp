@@ -58,6 +58,7 @@ public class GameController implements GameObserver, GameSubject {
     }
 
     public void updateGame(float deltaTime, MaskGame game) {
+        System.out.println(enemySpawningController.getEnemyList().size());
         // God Mode
         startGodMode();
 
