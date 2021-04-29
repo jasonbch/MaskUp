@@ -17,6 +17,7 @@ public abstract class Ammo extends GameObject {
     protected int damage = 0;
     protected PatternAttribute patternAttribute;
     protected boolean isDone = false;
+    protected float scaling = 0;
 
     /**
      * Create a new instance of a Entity.Ammo at the xPos and yPos.
@@ -84,6 +85,14 @@ public abstract class Ammo extends GameObject {
      */
     public int getBulletDamage() {
         return this.damage;
+    }
+
+    public float getScaling() {
+        return this.scaling;
+    }
+
+    public void setScaling(float scaling) {
+        this.scaling = scaling;
     }
 
     /**

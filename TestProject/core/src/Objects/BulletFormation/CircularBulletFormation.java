@@ -18,14 +18,14 @@ public class CircularBulletFormation extends BulletFormation {
     @Override
     public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition) {
         List<Ammo> ammoList;
-        PatternAttribute patternAttribute1 = new PatternAttribute("LinearBulletMovementPattern", -1, -1);
-        PatternAttribute patternAttribute2 = new PatternAttribute("LinearBulletMovementPattern", 0, -1);
-        PatternAttribute patternAttribute3 = new PatternAttribute("LinearBulletMovementPattern", 1, -1);
-        PatternAttribute patternAttribute4 = new PatternAttribute("LinearBulletMovementPattern", 1, 1);
-        PatternAttribute patternAttribute5 = new PatternAttribute("LinearBulletMovementPattern", 0, 1);
-        PatternAttribute patternAttribute6 = new PatternAttribute("LinearBulletMovementPattern", -1, 1);
-        PatternAttribute patternAttribute7 = new PatternAttribute("LinearBulletMovementPattern", 1, 0);
-        PatternAttribute patternAttribute8 = new PatternAttribute("LinearBulletMovementPattern", -1, 0);
+        PatternAttribute patternAttribute1 = new PatternAttribute("CurveBulletMovementPattern", -1, -1);
+        PatternAttribute patternAttribute2 = new PatternAttribute("CurveBulletMovementPattern", 0, -1);
+        PatternAttribute patternAttribute3 = new PatternAttribute("CurveBulletMovementPattern", 1, -1);
+        PatternAttribute patternAttribute4 = new PatternAttribute("CurveBulletMovementPattern", 1, 1);
+        PatternAttribute patternAttribute5 = new PatternAttribute("CurveBulletMovementPattern", 0, 1);
+        PatternAttribute patternAttribute6 = new PatternAttribute("CurveBulletMovementPattern", -1, 1);
+        PatternAttribute patternAttribute7 = new PatternAttribute("CurveBulletMovementPattern", 1, 0);
+        PatternAttribute patternAttribute8 = new PatternAttribute("CurveBulletMovementPattern", -1, 0);
 
         // Shoot bottom left
         Ammo ammo1 = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute1);
