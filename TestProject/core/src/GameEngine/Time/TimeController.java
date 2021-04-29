@@ -2,7 +2,6 @@ package GameEngine.Time;
 
 import com.badlogic.gdx.utils.TimeUtils;
 
-
 public class TimeController {
     private static TimeController uniqueInstance = null;
     private long startTime;

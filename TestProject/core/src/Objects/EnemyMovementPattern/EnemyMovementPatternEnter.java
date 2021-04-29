@@ -1,6 +1,7 @@
 package Objects.EnemyMovementPattern;
 
 import Objects.GameObject.Enemy.Enemy;
+import Objects.GameObject.GameObject;
 
 /**
  * The Objects.EnemyMovementPattern that move the enemy to the top of the screen.
@@ -13,9 +14,9 @@ public class EnemyMovementPatternEnter extends EnemyMovementPattern {
     }
 
     @Override
-    public void move(Enemy enemy, float deltaTime) {
+    public void move(GameObject obj, float deltaTime) {
+        Enemy enemy = (Enemy) obj;
         enemy.notifyObservers();
-
         enemy.moveDown(deltaTime);
 
         if (enemy.getYPosition() <= enemy.getYAxis()) {

@@ -3,29 +3,12 @@ package Objects.GameObject;
 import GameEngine.Observer.BulletSpawnerObserver;
 import GameEngine.Observer.EnemySubject;
 import Objects.GameObject.Enemy.Enemy;
-
 import com.badlogic.gdx.graphics.Texture;
 
 // Spawner must observe the enemy
 public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
-    private float angle;
     protected float scaling;
-
-    public float getAngle() {
-        return this.angle;
-    }
-
-    public void setAngle(float angle) {
-        this.angle = angle;
-    }
-
-    public float getScaling() {
-        return this.scaling;
-    }
-
-    public void setScaling(float duration) {
-        this.scaling = duration;
-    }
+    private float angle;
 
     public BulletSpawner(float xPos,
                          float yPos,
@@ -50,6 +33,22 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
         this.angle = 0;
     }
 
+    public float getAngle() {
+        return this.angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public float getScaling() {
+        return this.scaling;
+    }
+
+    public void setScaling(float duration) {
+        this.scaling = duration;
+    }
+
     @Override
     public void update(EnemySubject mySubject) {
         if (mySubject instanceof Enemy) {
@@ -69,7 +68,9 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
                 // Delete second spawner if the next pattern is not pattern four
                 // and if the spawner name is "2"
                 this.setIsDone();
-            } else if (!enemy.getMovingPattern().equals("PatternFour") && this.name.equals("1")) {
+            } else if (!enemy.getMovingPattern().equals("PatternFive")
+                    && !enemy.getMovingPattern().equals("PatternFour")
+                    && this.name.equals("1")) {
                 // Reset the angle for next pattern after pattern four
                 this.setAngle(0);
 

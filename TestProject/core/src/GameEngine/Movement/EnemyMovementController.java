@@ -1,8 +1,9 @@
 package GameEngine.Movement;
 
 import GameEngine.Factory.EnemyMovementFactory;
-import Objects.EnemyMovementPattern.EnemyMovementPattern;
+import GameEngine.Factory.MovementPatternFactory;
 import Objects.GameObject.Enemy.Enemy;
+import Objects.MovementPattern;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -12,8 +13,8 @@ import java.util.ListIterator;
  */
 public class EnemyMovementController {
     // Implement Singleton
-    private static EnemyMovementController uniqueInstance = null;
-    private final EnemyMovementFactory enemyMovementFactory = new EnemyMovementFactory();
+    private static final EnemyMovementController uniqueInstance = new EnemyMovementController();
+    private final MovementPatternFactory enemyMovementFactory = new EnemyMovementFactory();
 
     private EnemyMovementController() {
     }
@@ -25,24 +26,22 @@ public class EnemyMovementController {
      * @return the instance of EnemyMovementController.
      */
     public static EnemyMovementController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new EnemyMovementController();
-        }
-
         return uniqueInstance;
     }
 
     public void update(float deltaTime, List<Enemy> enemyList) {
-        ListIterator<Enemy> iter2 = enemyList.listIterator();
-        while (iter2.hasNext()) {
-            Enemy currEnemy = iter2.next();
+        synchronized(enemyList) {
+            ListIterator<Enemy> iter = enemyList.listIterator();
+            while (iter.hasNext()) {
+                Enemy currEnemy = iter.next();
 
-            this.move(currEnemy, deltaTime);
+                this.move(currEnemy, deltaTime);
+            }
         }
     }
 
     public void move(Enemy enemy, float deltaTime) {
-        EnemyMovementPattern enemyMovementPattern;
+        MovementPattern enemyMovementPattern;
         enemy.updateCurrentTimeAlive();
 
         if (enemy.getCurrentTimeAlive() >= enemy.getMaxTimeAlive()) {

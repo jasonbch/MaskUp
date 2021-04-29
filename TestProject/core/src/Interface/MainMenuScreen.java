@@ -1,10 +1,10 @@
 package Interface;
 
+import MaskGame.SettingsScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,9 +12,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import MaskGame.SettingsScreen;
 
 public class MainMenuScreen extends InputAdapter implements Screen {
+<<<<<<< HEAD
+=======
+    //changed to orthographicCamera
+>>>>>>> master
     private final OrthographicCamera camera;
     private final Viewport viewport;
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
@@ -55,7 +58,14 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+<<<<<<< HEAD
         camera.setToOrtho(false);
+=======
+
+        camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+
+
+>>>>>>> master
         batch.begin();
 
         batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
@@ -79,9 +89,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         }
 
         // Settings Button
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             game.setScreen(new SettingsScreen(game));
-        } else{
+        } else {
             batch.draw(settingsButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 6, buttonWidth, buttonHeight);
         }
 

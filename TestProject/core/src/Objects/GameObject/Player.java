@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
+
 import java.util.ListIterator;
 // Flicker the player for a couple of seconds
 // Possibly delete enemy bullets
@@ -127,18 +128,18 @@ public class Player extends Entity {
         }
     }
 
-    public void changeDefaultKeySet(){
-        if (isDefaultKeySet()){
+    public void changeDefaultKeySet() {
+        if (isDefaultKeySet()) {
             this.defaultKeySet = wasdKeySet;
         } else {
             this.defaultKeySet = arrowKeySet;
         }
     }
 
-    public boolean isDefaultKeySet(){
-        if (this.defaultKeySet == arrowKeySet){
+    public boolean isDefaultKeySet() {
+        if (this.defaultKeySet == arrowKeySet) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
@@ -172,6 +173,9 @@ public class Player extends Entity {
                         setInvulnerable(true);
                         ammo.setIsDone();
                         takeDamage(ammo.getBulletDamage());
+                        if (this.getMaxHealth() <= 0) {
+                            this.setIsDone();
+                        }
                         returnValue = true;
                     }
                 }
@@ -180,4 +184,5 @@ public class Player extends Entity {
 
         return returnValue;
     }
+
 }

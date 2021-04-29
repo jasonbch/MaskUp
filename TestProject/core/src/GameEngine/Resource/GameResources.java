@@ -3,17 +3,20 @@ package GameEngine.Resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameResources {
     public static AssetManager assetsManager = new AssetManager();
 
     // Implement Singleton
     private static GameResources uniqueInstance = null;
-
+    private static String gameJSON = "game.json";
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
-    private static String gameJSON = "game1.json";
+    private SpriteBatch batch = null;
+    private OrthographicCamera camera = null;
 
     private GameResources() {
         this.initializeAssets();
@@ -101,5 +104,21 @@ public class GameResources {
      */
     public int getWorldWidth() {
         return WORLD_WIDTH;
+    }
+
+    public SpriteBatch getBatch() {
+        return this.batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
+    }
+
+    public OrthographicCamera getCamera() {
+        return this.camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 }

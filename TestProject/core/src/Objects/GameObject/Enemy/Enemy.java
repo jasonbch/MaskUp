@@ -23,7 +23,9 @@ public abstract class Enemy extends Entity implements EnemySubject {
     protected float yAxis;
     protected float xAxis;
     protected int bulletSpawnerCount;
-
+    protected boolean isAtDiamondPatternStartLocation = false;
+    protected boolean diamondPatternX = false;
+    protected boolean diamondPatternY = false;
     private List<BulletSpawnerObserver> spawners = new ArrayList<>();
 
     /**
@@ -40,6 +42,31 @@ public abstract class Enemy extends Entity implements EnemySubject {
     public void setIsDone() {
         this.isDone = true;
         notifyObservers();
+        notifyGameObserver("deleteEnemy");
+    }
+
+    public boolean getDiamondPatternStartLocation() {
+        return isAtDiamondPatternStartLocation;
+    }
+
+    public void setDiamondPatternStartLocation() {
+        isAtDiamondPatternStartLocation = true;
+    }
+
+    public boolean getDiamondPatternX() {
+        return diamondPatternX;
+    }
+
+    public void setDiamondPatternX() {
+        diamondPatternX = true;
+    }
+
+    public boolean getDiamondPatternY() {
+        return diamondPatternY;
+    }
+
+    public void setDiamondPatternY() {
+        diamondPatternY = true;
     }
 
     public boolean isSpawned() {
@@ -80,7 +107,7 @@ public abstract class Enemy extends Entity implements EnemySubject {
 
     public void setMovingPattern(String movingPattern) {
         // TODO: Fix for pattern four not reset bullet spawner count
-        if (this.movingPattern.equals("PatternFour") && !movingPattern.equals("PatternFour")) {
+        if (this.movingPattern.equals("PatternFour") && !movingPattern.equals("PatternFour") && this.bulletSpawnerCount == 2) {
             this.setBulletSpawnerCount(this.getBulletSpawnerCount() - 1);
         }
 
@@ -137,6 +164,9 @@ public abstract class Enemy extends Entity implements EnemySubject {
                 if (intersects(ammo.getBoundingBox())) {
                     ammo.setIsDone();
                     takeDamage(ammo.getBulletDamage());
+                    if (this.getMaxHealth() <= 0) {
+                        this.setIsDone();
+                    }
                     returnValue = true;
                 }
             }

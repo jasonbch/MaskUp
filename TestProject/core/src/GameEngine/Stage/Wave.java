@@ -2,36 +2,30 @@ package GameEngine.Stage;
 
 import GameEngine.Spawning.EnemySpawningController;
 import Objects.GameObject.Enemy.Enemy;
+import java.util.HashMap;
+import java.util.List;
 
-public class Wave {
+public class Wave extends StageComponent {
     private static final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
-    private String name;
     private int amount;
-    private int startTime;
-    private String enemyMovementPattern;
-    private String bulletFormation;
-    private boolean isRan;
+    private List<HashMap<String, Integer>> spawnLocations;
 
-    public Wave(String name, int amount, int startTime, String enemyMovementPattern, String bulletFormation) {
-        this.name = name;
+    public Wave(String section, String enemyName, int startTimeFromStage, String enemyMovementPattern, String bulletFormation, int amount, List<HashMap<String, Integer>> locations) {
+        super(section, enemyName, startTimeFromStage, enemyMovementPattern, bulletFormation);
         this.amount = amount;
-        this.startTime = startTime;
-        this.enemyMovementPattern = enemyMovementPattern;
-        this.bulletFormation = bulletFormation;
-        this.isRan = false;
-    }
-
-    public int getStartTime() {
-        return startTime;
+        // adding xDrop and yDrop array for enemies
+        this.spawnLocations = locations;
     }
 
     public void run() {
         if (!isRan) {
             for (int i = 0; i < this.amount; i++) {
-                Enemy enemy = enemySpawningController.spawnEnemies(name, enemyMovementPattern);
+                HashMap<String, Integer> enemyPos = spawnLocations.get(i);
+                int xPos = enemyPos.get("x");
+                int yPos = enemyPos.get("y");
+                Enemy enemy = enemySpawningController.spawnEnemies(enemyName, enemyMovementPattern, xPos, yPos);
                 enemy.setBulletFormation(bulletFormation);
             }
-
             this.isRan = true;
         }
     }

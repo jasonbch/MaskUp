@@ -1,16 +1,23 @@
 package Objects.GameObject;
 
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
+import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.Enemy.Enemy;
 import com.badlogic.gdx.graphics.Texture;
+
+import java.util.ArrayList;
 
 /**
  * Objects.GameObject class that has the x and y position. It also has an image and can
  * draw the image on a batch.
  */
-public abstract class GameObject {
+public abstract class GameObject implements GameSubject {
     protected final GameResources gameResources = GameResources.instance();
-    protected float xPosition;  // Initial x position
-    protected float yPosition;  // Initial y position
+    protected float xPosition;
+    protected float yPosition;
+    protected ArrayList<GameObserver> myObs = new ArrayList<>();
 
     /**
      * Return the name.
@@ -33,6 +40,15 @@ public abstract class GameObject {
      */
     public void setYPosition(float yPos) {
         this.yPosition = yPos;
+        if (this instanceof Ammo) {
+            if (this.getYPosition() > gameResources.getWorldHeight() || this.getYPosition() < 0) {
+                this.notifyGameObserver("deleteAmmo");
+            }
+        } else if (this instanceof Enemy) {
+            if (this.getYPosition() > gameResources.getWorldHeight() + 100 || this.getYPosition() < 0) {
+                ((Enemy) this).setIsDone();
+            }
+        }
     }
 
     /**
@@ -51,6 +67,11 @@ public abstract class GameObject {
      */
     public void setXPosition(float xPos) {
         this.xPosition = xPos;
+        if (this instanceof Ammo) {
+            if ((this.getXPosition() + this.getImageWidth()) > (gameResources.getScreenOneEnd()) || this.getXPosition() < 0) {
+                this.notifyGameObserver("deleteAmmo");
+            }
+        }
     }
 
     /**
@@ -95,8 +116,6 @@ public abstract class GameObject {
     }
 
     /**
-     * \
-     *
      * @return returns if the game object is above the screen.
      */
     public boolean isAboveScreen() {
@@ -104,8 +123,6 @@ public abstract class GameObject {
     }
 
     /**
-     * \
-     *
      * @return returns if the game object is below the screen.
      */
     public boolean isBelowScreen() {
@@ -113,8 +130,6 @@ public abstract class GameObject {
     }
 
     /**
-     * \
-     *
      * @return returns if the game object is left of the screen.
      */
     public boolean isLeftOfScreen() {
@@ -122,8 +137,6 @@ public abstract class GameObject {
     }
 
     /**
-     * \
-     *
      * @return returns if the game object is right of the screen.
      */
     public boolean isRightOfScreen() {
@@ -147,5 +160,24 @@ public abstract class GameObject {
      */
     public int getImageHeight() {
         return getTexture().getHeight();
+    }
+
+    @Override
+    public void attachGameObserver(GameObserver o) {
+        this.myObs.add(o);
+    }
+
+    @Override
+    public void detachGameObserver(GameObserver o) {
+        this.myObs.remove(o);
+    }
+
+    @Override
+    public void notifyGameObserver(String args) {
+        for (int i = 0; i < this.myObs.size(); i++) {
+            if (myObs.get(i) != null) {
+                this.myObs.get(i).update(this, args);
+            }
+        }
     }
 }

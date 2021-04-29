@@ -17,29 +17,30 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.List;
 import java.util.ListIterator;
 
 public class UIController {
+    // Singleton attribute
+    private static UIController uniqueInstance = null;
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemySpawningController enemySpawningController = EnemySpawningController.instance();
     private final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
-
     private final GameObject player = Player.instance();
     private final GameResources gameResources = GameResources.instance();
     private final TimeController timeController = TimeController.instance();
     private final GameController gameController = GameController.instance();
-
-
-    private final Batch batch;
     private final AssetManager assetManager = GameResources.getAssetsManager();
     private final ScoreController scoreController = ScoreController.instance();
+
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
     private final Texture[] backgrounds = {assetManager.get("BlueBackground.png", Texture.class), assetManager.get("Clouds1.png", Texture.class), assetManager.get("Clouds2.png", Texture.class), assetManager.get("Cloud4.png", Texture.class), assetManager.get("PlayerHudBackground.png", Texture.class)};
     private final float[] backgroundOffsets = {0, 0, 0, 0};
     private final Music backgroundMusic = assetManager.get("BackgroundMusic.mp3", Music.class);
+<<<<<<< HEAD
     Texture stage1 = new Texture("stage1.png");
     Texture stage2 = new Texture("stage2.png");
     Texture stage3 = new Texture("stage3.png");
@@ -47,6 +48,21 @@ public class UIController {
 
     // Drawing the players score font
     BitmapFont font = new BitmapFont(Gdx.files.internal("arial.fnt"));
+=======
+
+    // Texture
+    private final Texture stage1 = new Texture("stage1.png");
+    private final Texture stage2 = new Texture("stage2.png");
+    private final Texture stage3 = new Texture("stage3.png");
+    private final Texture stage4 = new Texture("stage4.png");
+    private final BitmapFont font = new BitmapFont(Gdx.files.internal("arial.fnt"));
+
+    BitmapFont fontFlipped = new BitmapFont(Gdx.files.internal("arial.fnt"), true);
+    private OrthographicCamera camera;
+    private Batch batch;
+    private boolean yAxisFlipAttack = false;
+    private boolean xAxisFlipAttack = false;
+>>>>>>> master
 
     // Used for TimeElapsed
     private String timePlaceHolder;
@@ -62,8 +78,24 @@ public class UIController {
 
     //BitmapFont font = new BitmapFont();
 
-    public UIController(Batch batch) {
-        this.batch = batch;
+    private UIController() {
+
+    }
+
+    public static UIController instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new UIController();
+        }
+
+        return uniqueInstance;
+    }
+
+    public OrthographicCamera getCamera() {
+        return this.camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 
     public void drawWhiteDotInSlowMode() {
@@ -89,6 +121,32 @@ public class UIController {
         drawEnemies();
         drawPlayer();
         //drawBulletSpawners();
+    }
+
+    public void setBatch(Batch batch) {
+        this.batch = batch;
+    }
+
+    public void flipScreenOnXAxis() {
+        this.camera.setToOrtho(true, WORLD_WIDTH, WORLD_HEIGHT);
+        batch.setProjectionMatrix(camera.combined);
+        xAxisFlipAttack = true;
+    }
+
+    public void flipScreenOnYAxis() {
+
+        this.yAxisFlipAttack = true;
+    }
+
+    public void revertYAxis() {
+
+        this.yAxisFlipAttack = false;
+    }
+
+    public void revertXAxis() {
+        this.camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        batch.setProjectionMatrix(camera.combined);
+        xAxisFlipAttack = false;
     }
 
     /**
@@ -150,27 +208,76 @@ public class UIController {
     }
 
     private void draw(GameObject object) {
-        batch.draw(object.getTexture(), object.getXPosition(), object.getYPosition(), object.getTexture().getWidth(), object.getTexture().getHeight());
+
+        if (yAxisFlipAttack) {
+
+            // need the center x value of screen
+            int screenMiddleX = gameResources.getScreenOneWidth() / 2;
+
+            int objectX = (int) object.getXPosition();
+
+            // calculate diff. between objectX and ScreenX
+            int difference = screenMiddleX - objectX;
+
+            // we can just add the difference directly no matter what side the object
+            // was on. the sign of difference handles whether we add or subtract
+            int newObjectX = screenMiddleX + difference;
+
+            batch.draw(object.getTexture(), newObjectX, object.getYPosition(), -object.getTexture().getWidth(), object.getTexture().getHeight());
+        } else {
+            batch.draw(object.getTexture(), object.getXPosition(), object.getYPosition(), object.getTexture().getWidth(), object.getTexture().getHeight());
+        }
     }
 
     public void updateAndRenderHealthBar() {
         int xoffset = 70;
         Texture LivesFont = assetManager.get("Lives.png", Texture.class);
-        batch.draw(LivesFont, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
+        Texture image = assetManager.get("toiletPaper.png", Texture.class);
+        Sprite paperSprite = new Sprite(image);
+        int toiletPaperY;
+
+        //System.out.println(LivesFont.getHeight());
+
+        // world height = 1024
+        // world width = 576
+
+        if (xAxisFlipAttack) {
+            Sprite sprite = new Sprite(LivesFont);
+            sprite.flip(false, true);
+            paperSprite.flip(false, true);
+            batch.draw(sprite, gameResources.getScreenTwoStart() - 20, 3, LivesFont.getWidth(), LivesFont.getHeight());
+            toiletPaperY = 32;
+        } else {
+            batch.draw(LivesFont, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 145, LivesFont.getWidth(), LivesFont.getHeight());
+            toiletPaperY = 940;
+        }
+
+        //Texture image = assetManager.get("toiletPaper.png", Texture.class);
         for (int i = 0; i < ((Player) player).getMaxHealth(); i++) {
             if (((Player) player).getMaxHealth() != 0) {
-                Texture image = assetManager.get("toiletPaper.png", Texture.class);
-                batch.draw(image, xoffset * i + gameResources.getScreenTwoStart() + 150, 940, image.getWidth(), image.getHeight());
+                //Texture image = assetManager.get("toiletPaper.png", Texture.class);
+                batch.draw(paperSprite, xoffset * i + gameResources.getScreenTwoStart() + 150, toiletPaperY, image.getWidth(), image.getHeight());
             }
         }
     }
 
     public void updateScore() {
         Texture PlayerScore = assetManager.get("Score.png", Texture.class);
-        batch.draw(PlayerScore, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 250, PlayerScore.getWidth(), PlayerScore.getHeight());
-        font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 133);
+
+        if (xAxisFlipAttack) {
+
+            Sprite sprite = new Sprite(PlayerScore);
+            sprite.flip(false, true);
+            batch.draw(sprite, gameResources.getScreenTwoStart() - 20, 108, PlayerScore.getWidth(), PlayerScore.getHeight());
+            fontFlipped.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, 132);
+
+        } else {
+            batch.draw(PlayerScore, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 250, PlayerScore.getWidth(), PlayerScore.getHeight());
+            font.draw(batch, String.valueOf(scoreController.getScore()), gameResources.getScreenTwoStart() + PlayerScore.getWidth() - 20, gameResources.getWorldHeight() - 133);
+        }
     }
 
+<<<<<<< HEAD
     public void updateTimeElapsed() {
         Texture TimeElapsed = assetManager.get("TimeElapsed.png", Texture.class);
         batch.draw(TimeElapsed, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 350, TimeElapsed.getWidth(), TimeElapsed.getHeight());
@@ -188,6 +295,9 @@ public class UIController {
         font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,gameResources.getWorldHeight() - 235 );
     }
 
+=======
+    // TODO - Observer
+>>>>>>> master
     public void drawStageMessage() {
         drawStageMessageTexture(stage1, stageController.stageOneStart - stageController.stageBuffer, stageController.stageBuffer);
         drawStageMessageTexture(stage2, stageController.stageTwoStart - stageController.stageBuffer, stageController.stageBuffer);

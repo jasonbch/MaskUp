@@ -5,33 +5,31 @@ import GameEngine.Collision.EnemyCollisionCommand;
 import GameEngine.Collision.PlayerCollisionCommand;
 import GameEngine.Movement.BulletMovementController;
 import GameEngine.Movement.EnemyMovementController;
+import GameEngine.Observer.GameObserver;
+import GameEngine.Observer.GameSubject;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Stage.StageController;
-import GameEngine.Time.TimeController;
-import Interface.GameOverScreen;
-import Interface.GameVictoryScreen;
 import Interface.MaskGame;
 import Objects.GameObject.Enemy.Enemy;
-import Objects.GameObject.GameObject;
 import Objects.GameObject.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GameController {
+public class GameController implements GameObserver, GameSubject {
     private static boolean isLost;
     private static boolean isWon;
 
     // player instance
     private static Player player = Player.instance();
-    private static GameController uniqueInstance = null;
+    private static final GameController uniqueInstance = new GameController();
 
     // game controllers
-    private final TimeController timeController = TimeController.instance();
     private final StageController stageController = StageController.instance();
     private final BulletSpawningController bulletSpawningController = BulletSpawningController.instance();
     private final EnemyMovementController enemyMovementController = EnemyMovementController.instance();
@@ -45,15 +43,17 @@ public class GameController {
     private float playerInvulnerableTime = 3;
     private boolean godMode = false;
 
+    private ArrayList<GameObserver> myObservers = new ArrayList<>();
+
     private GameController() {
         this.isSlowMode = false;
         this.gameSpeed = 1;
+
+        StageController.instance().attachGameObserver(this);
+        Player.instance().attachGameObserver(this);
     }
 
     public static GameController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new GameController();
-        }
         return uniqueInstance;
     }
 
@@ -68,10 +68,6 @@ public class GameController {
             // Fire from the bullet spawner
             bulletSpawningController.enemyFire(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
         }
-
-        // Clear used enemies and bullets
-        bulletSpawningController.deleteBullet("Player");
-        bulletSpawningController.deleteBullet("Enemy");
 
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
@@ -94,48 +90,8 @@ public class GameController {
         enemyMovementController.update(deltaTime, enemySpawningController.getEnemyList());
         enemyMovementController.update(deltaTime, (List<Enemy>) (List<?>) bulletSpawnerSpawningController.getBulletSpawnerList());
 
-        // Delete enemies if they need deleted
-        enemySpawningController.deleteEnemies();
-        bulletSpawnerSpawningController.deleteBulletSpawners();
-
-        // TODO: make stages
+        // Make Stage
         stageController.makeStages();
-
-        // Check if the game is over
-        checkGameOver(game);
-
-        // Check if the player won
-        checkVictoryGame(game);
-    }
-
-    public void checkGameOver(MaskGame game) {
-        if (player.getMaxHealth() <= 0) {
-            setLosingState(game);
-        }
-    }
-
-    public void checkVictoryGame(MaskGame game) {
-        if (timeController.getElapsedTime() == stageController.getStageFourEnd() || this.isFinalBossDead()) {
-            setWiningState(game);
-        }
-    }
-
-    private void setWiningState(MaskGame game) {
-        game.setScreen((new GameVictoryScreen(game)));
-    }
-
-    private boolean isFinalBossDead() {
-        Enemy covid = stageController.getCovid();
-
-        if (covid != null) {
-            return covid.isDone();
-        }
-
-        return false;
-    }
-
-    private void setLosingState(MaskGame game) {
-        game.setScreen((new GameOverScreen(game)));
     }
 
     public boolean getIsSlowMode() {
@@ -191,5 +147,35 @@ public class GameController {
         }
 
         return gameSpeed;
+    }
+
+    @Override
+    public void update(Object object, String args) {
+        if (object instanceof StageController) {
+            if (args.equals("winingState")) {
+                notifyGameObserver("winningState");
+            }
+        } else if (object instanceof Player) {
+            if (args.equals("die")) {
+                notifyGameObserver("losingState");
+            }
+        }
+    }
+
+    @Override
+    public void attachGameObserver(GameObserver object) {
+        myObservers.add(object);
+    }
+
+    @Override
+    public void detachGameObserver(GameObserver object) {
+        myObservers.remove(object);
+    }
+
+    @Override
+    public void notifyGameObserver(String args) {
+        for (int i = 0; i < this.myObservers.size(); i++) {
+            this.myObservers.get(i).update(this, args);
+        }
     }
 }

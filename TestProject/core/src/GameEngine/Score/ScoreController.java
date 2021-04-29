@@ -1,10 +1,11 @@
 package GameEngine.Score;
 
+import GameEngine.Observer.GameObserver;
 import Objects.GameObject.Enemy.*;
 
-public class ScoreController {
+public class ScoreController implements GameObserver {
     // Implement Singleton
-    private static ScoreController uniqueInstance = null;
+    private static final ScoreController uniqueInstance = new ScoreController();
     private int score;
 
     private ScoreController() {
@@ -19,10 +20,6 @@ public class ScoreController {
      * @return the instance of ScoreController.
      */
     public static ScoreController instance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new ScoreController();
-        }
-
         return uniqueInstance;
     }
 
@@ -47,5 +44,13 @@ public class ScoreController {
             score = 3000;
         }
         this.addScore(score);
+    }
+
+
+    @Override
+    public void update(Object o, String args) {
+        if (o instanceof Enemy) {
+            this.addScore((Enemy) o);
+        }
     }
 }
