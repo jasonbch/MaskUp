@@ -17,6 +17,10 @@ public abstract class Ammo extends GameObject {
     protected int damage = 0;
     protected PatternAttribute patternAttribute;
     protected boolean isDone = false;
+    protected float scaling = 0;
+    protected float originalX;
+    protected float originalY;
+    protected float angle;
 
     /**
      * Create a new instance of a Entity.Ammo at the xPos and yPos.
@@ -28,6 +32,9 @@ public abstract class Ammo extends GameObject {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.patternAttribute = patternAttribute;
+        this.originalX = xPosition;
+        this.originalY = yPosition;
+        angle = (float) Math.atan2(patternAttribute.y, patternAttribute.x);
     }
 
     public PatternAttribute getPatternAttribute() {
@@ -84,6 +91,30 @@ public abstract class Ammo extends GameObject {
      */
     public int getBulletDamage() {
         return this.damage;
+    }
+
+    public float getScaling() {
+        return this.scaling;
+    }
+
+    public void setScaling(float scaling) {
+        this.scaling = scaling;
+    }
+
+    public float getOriginalX() {
+        return this.originalX;
+    }
+
+    public float getOriginalY() {
+        return this.originalY;
+    }
+
+    public float getAngle() {
+        return this.angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 
     /**
