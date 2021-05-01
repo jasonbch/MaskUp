@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -22,8 +24,8 @@ public class GameOverScreen extends InputAdapter implements Screen {
     private Texture background;
     private Texture replayButton;
     private Texture replayButtonPressed;
-    private Texture quitButton;
-    private Texture quitButtonPressed;
+    private Texture quitButtonInActive;
+    private Texture quitButtonActive;
     private int buttonWidth = 241;
     private int buttonHeight = 41;
 
@@ -39,8 +41,8 @@ public class GameOverScreen extends InputAdapter implements Screen {
         background = new Texture("gameOverScreen.png");
         replayButton = new Texture("PlayButtonPressed.png");
         replayButtonPressed = new Texture("PlayButton.png");
-        quitButton = new Texture("ExitButtonPressed.png");
-        quitButtonPressed = new Texture("ExitButton.png");
+        quitButtonInActive = new Texture("ExitButton.png");
+        quitButtonActive = new Texture("ExitButtonPressed.png");
     }
 
     @Override
@@ -53,12 +55,19 @@ public class GameOverScreen extends InputAdapter implements Screen {
         batch.begin();
         batch.draw(background, 0, 0, (WORLD_WIDTH), (WORLD_HEIGHT));
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            batch.draw(quitButtonPressed, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
-            dispose();
-            Gdx.app.exit();
+        Rectangle quitBound = new Rectangle((WORLD_WIDTH / 2) - (buttonWidth/ 2), (WORLD_HEIGHT / 4), quitButtonInActive.getWidth(), quitButtonInActive.getHeight());
+        Vector3 quit = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(quit);
+
+        // Quit Button
+        if (quitBound.contains(quit.x, quit.y)) {
+            batch.draw(quitButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                dispose();
+                Gdx.app.exit();
+            }
         } else {
-            batch.draw(quitButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
+            batch.draw(quitButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
         }
 
         batch.end();

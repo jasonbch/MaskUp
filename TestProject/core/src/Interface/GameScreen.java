@@ -8,6 +8,8 @@ import GameEngine.Spawning.EnemySpawningController;
 import GameEngine.Resource.GameResources;
 import GameEngine.Time.TimeController;
 import GameEngine.UI.UIController;
+import Objects.GameObject.Entity;
+import Objects.GameObject.GameObject;
 import Objects.GameObject.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -39,6 +41,7 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
     private final SpriteBatch batch;
     //private final SpriteBatch batch2;
 
+
     // Game controllers
     private final GameController gameController = GameController.instance();
     private final TimeController timeController = TimeController.instance();
@@ -58,16 +61,19 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
     /**
      * Create a GameScreen that let the user play a game of bullet hell.
      */
-    public GameScreen(MaskGame mainGame) {
+    public GameScreen(MaskGame mainGame, String difficulty) {
         this.game = mainGame;
 
         // Initialize camera and view
         camera = new OrthographicCamera();
         //camera2 = new OrthographicCamera();
 
+        gameResources.setDifficulty(difficulty);
+
         viewport = new StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
         //viewport2 = new StretchViewport(VIEWPORT_WIDTH/ 2, VIEWPORT_HEIGHT, camera2);
         batch = new SpriteBatch();
+
 
         //        // Attach Observers
         //        player.Attach(enemySpawningController);
@@ -116,6 +122,7 @@ public class GameScreen extends ApplicationAdapter implements Screen, GameObserv
 
         // Draw and update Health Bar
         uiController.updateAndRenderHealthBar();
+        uiController.updateTimeElapsed();
 
         uiController.updateScore();
 

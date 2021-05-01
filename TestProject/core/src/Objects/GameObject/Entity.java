@@ -25,6 +25,10 @@ public abstract class Entity extends GameObject {
     protected String bulletFormation = "";
     protected int maxHealth = 1;
     protected int maxTimeAlive = 0;
+    private float EasyDifficultyMultiplier = 0.8f;
+    private float HardDiffifcultyMultiplier = 1.6f;
+    //private int HardHealthMultiplier = 2;
+    //private int EasyHealthMultiplier = (1/2);
 
     /**
      * Create a new instance of an Entity at the xPos and yPos.
@@ -45,17 +49,49 @@ public abstract class Entity extends GameObject {
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 
+        System.out.println("Entity: " + gameResources.getDifficulty());
+
         // Initialize all the waves
         JsonValue element = base.get("entities").get(getClass().getSimpleName());
         if (element != null) {
-            this.speed = element.getInt("speed");
-            this.bullet = element.getString("bullet");
-            this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
-            this.timeBetweenShot = element.getFloat("timeBetweenShot");
-            this.bulletFormation = element.getString("bulletFormation");
-            this.maxTimeAlive = element.getInt("maxTimeAlive");
-            this.maxHealth = element.getInt("maxHealth");
+            if (gameResources.getDifficulty() == "Easy") {
+               EasyMode(element);
+            } else if (gameResources.getDifficulty() == "Medium") {
+                MediumMode(element);
+            } else {
+                HardMode(element);
+            }
+
         }
+    }
+    private void EasyMode(JsonValue element) {
+        this.speed = (element.getInt("speed") * EasyDifficultyMultiplier);
+        this.bullet = element.getString("bullet");
+        this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
+        this.timeBetweenShot = (element.getFloat("timeBetweenShot") * HardDiffifcultyMultiplier);
+        this.bulletFormation = element.getString("bulletFormation");
+        this.maxTimeAlive = element.getInt("maxTimeAlive");
+        this.maxHealth = (int) (element.getInt("maxHealth") * EasyDifficultyMultiplier);
+    }
+
+    private void MediumMode(JsonValue element) {
+        this.speed = element.getInt("speed");
+        this.bullet = element.getString("bullet");
+        this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
+        this.timeBetweenShot = element.getFloat("timeBetweenShot");
+        this.bulletFormation = element.getString("bulletFormation");
+        this.maxTimeAlive = element.getInt("maxTimeAlive");
+        this.maxHealth = element.getInt("maxHealth");
+    }
+    private void HardMode(JsonValue element) {
+        this.speed = (element.getInt("speed") * HardDiffifcultyMultiplier);
+        this.bullet = element.getString("bullet");
+        this.texture = GameResources.getAssetsManager().get(element.getString("texture"), Texture.class);
+        this.timeBetweenShot = (element.getFloat("timeBetweenShot") * EasyDifficultyMultiplier);
+        this.bulletFormation = element.getString("bulletFormation");
+        this.maxTimeAlive = element.getInt("maxTimeAlive");
+        this.maxHealth = (int) (element.getInt("maxHealth") * HardDiffifcultyMultiplier);
+
     }
 
     /**

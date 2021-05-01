@@ -52,7 +52,7 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
                 enemy.setXPosition((float) (enemy.getXPosition() + (-1.4 * enemy.getXMultiplier() * enemy.getSpeed() * deltaTime)));
                 enemy.setYPosition((float) (enemy.getYPosition() + (1.6 * enemy.getSpeed() * enemy.getYMultiplier() * deltaTime)));
             } else {
-                System.out.println("idk where im at");
+                //System.out.println("idk where im at");
                 System.out.println(enemy.getXPosition() + ", " + enemy.getYPosition());
             }
         }
@@ -63,7 +63,7 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
         int yPos = (int) enemy.getYPosition();
         boolean isInFirstQuad = false;
         if (xPos >= 50 && xPos < 225 && yPos >= 700 && yPos < 900) {
-            System.out.println("in first quadrant");
+            //System.out.println("in first quadrant");
             isInFirstQuad = true;
         }
 
@@ -75,7 +75,7 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
         int yPos = (int) enemy.getYPosition();
         boolean isInSecondQuad = false;
         if (xPos >= 220 && xPos < 400 && yPos >= 700 && yPos <= 905) {
-            System.out.println("in second quadrant");
+           // System.out.println("in second quadrant");
 
             isInSecondQuad = true;
         }
@@ -88,7 +88,7 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
         int yPos = (int) enemy.getYPosition();
         boolean isInThirdQuad = false;
         if (xPos >= 220 && xPos <= 400 && yPos >= 500 && yPos <= 705) {
-            System.out.println("in third quadrant");
+            //System.out.println("in third quadrant");
 
             isInThirdQuad = true;
         }
@@ -101,7 +101,7 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
         int yPos = (int) enemy.getYPosition();
         boolean isInFourthQuad = false;
         if (xPos >= 50 && xPos < 225 && yPos >= 500 && yPos <= 700) {
-            System.out.println("in fourth quadrant");
+            //System.out.println("in fourth quadrant");
 
             isInFourthQuad = true;
         }
@@ -128,7 +128,7 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
         }
 
         if (enemy.getDiamondPatternX() && enemy.getDiamondPatternY()) {
-            System.out.println("at the start position");
+            //System.out.println("at the start position");
             enemy.setDiamondPatternStartLocation();
         }
     }
