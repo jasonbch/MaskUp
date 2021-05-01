@@ -53,6 +53,9 @@ public class UIController {
     private Batch batch;
     private boolean yAxisFlipAttack = false;
     private boolean xAxisFlipAttack = false;
+    private long time;
+    private long min;
+    private String timePlaceHolder;
 
     // Stage Message
     private int stageMessageWidth = 421;
@@ -60,6 +63,7 @@ public class UIController {
     private int WORLD_WIDTH = Gdx.graphics.getWidth();
     private int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private StageController stageController = StageController.instance();
+
 
     //BitmapFont font = new BitmapFont();
 
@@ -240,6 +244,23 @@ public class UIController {
             }
         }
     }
+
+    public void updateTimeElapsed() {
+        Texture TimeElapsed = assetManager.get("TimeElapsed.png", Texture.class);
+        batch.draw(TimeElapsed, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 350, TimeElapsed.getWidth(), TimeElapsed.getHeight());
+        time = timeController.getElapsedTime();
+        if ((time % 60) < 10){
+            min = time / 60;
+            time = (time % 60);
+            timePlaceHolder = ":0";
+        } else if ((time % 60) >= 10){
+            min = time / 60;
+            timePlaceHolder = ":";
+            time = (time  % 60);
+        }
+        font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,gameResources.getWorldHeight() - 235 );
+    }
+
 
     public void updateScore() {
         Texture PlayerScore = assetManager.get("Score.png", Texture.class);

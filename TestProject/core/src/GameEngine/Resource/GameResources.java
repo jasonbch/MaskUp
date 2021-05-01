@@ -17,6 +17,7 @@ public class GameResources {
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private SpriteBatch batch = null;
     private OrthographicCamera camera = null;
+    private String difficulty;
 
     private GameResources() {
         this.initializeAssets();
@@ -60,6 +61,7 @@ public class GameResources {
         assetsManager.load("Score.png", Texture.class);
         assetsManager.load("PlayerHudBackground.png", Texture.class);
         assetsManager.load("human.png", Texture.class);
+        assetsManager.load("TimeElapsed.png", Texture.class);
     }
 
     public String getGameJSON() {
@@ -90,6 +92,9 @@ public class GameResources {
     public int getScreenTwoWidth() {
         return 576;
     }
+
+    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
+    public String getDifficulty() { return this.difficulty; }
 
     /**
      * Return the world height.

@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -26,7 +28,8 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     private Texture playButtonActive;
     private Texture playButtonInActive;
     private Texture background;
-    private Texture settingsButton;
+    private Texture settingsButtonInActive;
+    private Texture settingsButtonActive;
     private int buttonWidth = 241;
     private int buttonHeight = 41;
 
@@ -44,7 +47,8 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         playButtonInActive = new Texture("PlayButton.png");
         exitButtonActive = new Texture("ExitButtonPressed.png");
         exitButtonInActive = new Texture("ExitButton.png");
-        settingsButton = new Texture("settingsButton.png");
+        settingsButtonInActive = new Texture("settingsButton.png");
+        settingsButtonActive = new Texture("settingsButtonPressed.png");
     }
 
     @Override
@@ -61,31 +65,52 @@ public class MainMenuScreen extends InputAdapter implements Screen {
 
         batch.begin();
 
+        Rectangle playBound = new Rectangle((WORLD_WIDTH / 2) - (buttonWidth/ 2), (WORLD_HEIGHT / 3), playButtonInActive.getWidth(), playButtonInActive.getHeight());
+        Vector3 play = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(play);
+
+
+        Rectangle exitBound = new Rectangle((WORLD_WIDTH / 2) - (buttonWidth/ 2), (WORLD_HEIGHT / 4), exitButtonInActive.getWidth(), exitButtonInActive.getHeight());
+        Vector3 exit = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(exit);
+
+
+        Rectangle settingsBound = new Rectangle((WORLD_WIDTH / 2) - (buttonWidth/ 2), (WORLD_HEIGHT / 6), settingsButtonInActive.getWidth(), settingsButtonInActive.getHeight());
+        Vector3 settings = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(settings);
+
         batch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
         // Play Button
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+        if (playBound.contains(play.x, play.y)) {
             batch.draw(playButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
-            dispose();
-            game.setScreen(new GameScreen(game));
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                dispose();
+                game.setScreen(new DifficultyScreen(game));
+            }
         } else {
             batch.draw(playButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 3, buttonWidth, buttonHeight);
         }
 
         // Quit Button
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+        if (exitBound.contains(exit.x, exit.y)) {
             batch.draw(exitButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
-            dispose();
-            Gdx.app.exit();
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                dispose();
+                Gdx.app.exit();
+            }
         } else {
             batch.draw(exitButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 4, buttonWidth, buttonHeight);
         }
 
         // Settings Button
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            game.setScreen(new SettingsScreen(game));
+        if (settingsBound.contains(settings.x, settings.y)) {
+            batch.draw(settingsButtonActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 6, buttonWidth, buttonHeight);
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                game.setScreen(new SettingsScreen(game));
+            }
         } else {
-            batch.draw(settingsButton, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 6, buttonWidth, buttonHeight);
+            batch.draw(settingsButtonInActive, (WORLD_WIDTH / 2) - (buttonWidth / 2), WORLD_HEIGHT / 6, buttonWidth, buttonHeight);
         }
 
         batch.end();

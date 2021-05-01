@@ -40,7 +40,7 @@ public class EnemyMovementPatternFive extends EnemyMovementPattern {
                 angle = 0;
             }
 
-            System.out.println(angle);
+            //System.out.println(angle);
 
             bulletSpawner.setAngle(angle);
             bulletSpawner.setScaling(scaling);
