@@ -166,6 +166,7 @@ public abstract class Enemy extends Entity implements EnemySubject {
                     takeDamage(ammo.getBulletDamage());
                     if (this.getMaxHealth() <= 0) {
                         this.setIsDone();
+                        notifyGameObserver("playerKillsEnemy");
                     }
                     returnValue = true;
                 }

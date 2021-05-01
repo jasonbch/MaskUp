@@ -50,7 +50,9 @@ public class ScoreController implements GameObserver {
     @Override
     public void update(Object o, String args) {
         if (o instanceof Enemy) {
-            this.addScore((Enemy) o);
+            if (args.equals("playerKillsEnemy")) {
+                this.addScore((Enemy) o);
+            }
         }
     }
 }
