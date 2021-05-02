@@ -198,6 +198,15 @@
             "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "CircularBulletFormation"
         },
+        "2-111":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 14,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
+            "bulletFormation": "CircularBulletFormation"
+        },
         "2-2":
         {
             "enemyName": "Karen",
@@ -216,6 +225,15 @@
             "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "CircularBulletFormation"
         },
+        "2-311":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 20,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
+            "bulletFormation": "CircularBulletFormation"
+        },
         "2-4":
         {
             "enemyName": "Karen",
@@ -232,6 +250,15 @@
             "speed": 150,
             "timeBetweenShot": 0.9,
             "enemyMovementPattern": "PatternDiamond",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-511":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 26,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-6":

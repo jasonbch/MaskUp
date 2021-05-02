@@ -16,7 +16,7 @@ public class EnemyMovementPatternExit extends EnemyMovementPattern {
 
     public void move(GameObject obj, float deltaTime) {
         Enemy enemy = (Enemy) obj;
-            enemy.notifyObservers();
+        enemy.notifyObservers();
 
         if (enemy.isLeftOfScreen()) {
             enemy.revertXMultiplier();

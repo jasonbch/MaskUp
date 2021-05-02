@@ -22,6 +22,8 @@ public class EnemyMovementFactory extends MovementPatternFactory {
                 return new EnemyMovementPatternFive();
             case "PatternDiamond":
                 return new EnemyMovementPatternDiamond();
+            case "PatternStatic":
+                return new EnemyMovementPatternStatic();
             default:
                 return null;
         }
