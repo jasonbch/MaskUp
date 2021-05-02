@@ -3,6 +3,7 @@ package GameEngine.Factory;
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Ammo.*;
 import Objects.GameObject.Ammo.Ammo.PatternAttribute;
+import Objects.GameObject.PowerUp;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -16,6 +17,7 @@ public class AmmoFactory {
     private final Texture texture5 = GameResources.getAssetsManager().get("CovidGerm.png", Texture.class);
     private final Texture texture6 = GameResources.getAssetsManager().get("Mask.png", Texture.class);
     private final Texture texture7 = GameResources.getAssetsManager().get("Syringe.png", Texture.class);
+    private final Texture texture8 = GameResources.getAssetsManager().get("StimulusPack.png", Texture.class);
 
     /**
      * The factory class to create different kind of ammo.
@@ -40,6 +42,8 @@ public class AmmoFactory {
                 return new Mask(xPos - (texture6.getWidth() / 2), yPos, patternAttribute);
             case "Syringe":
                 return new Syringe(xPos - (texture7.getWidth() / 2), yPos, patternAttribute);
+            case "PowerUp":
+                return new PowerUp(xPos - (texture8.getWidth() / 2), yPos - texture8.getHeight(), patternAttribute);
         }
 
         return null;

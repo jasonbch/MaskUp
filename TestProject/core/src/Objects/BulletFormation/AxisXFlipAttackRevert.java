@@ -17,7 +17,7 @@ public class AxisXFlipAttackRevert extends BulletFormation {
     }
 
     @Override
-    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition) {
+    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition, boolean isPowerUp) {
         uiController.revertXAxis();
 
         List<Ammo> ammo = new ArrayList<>();
