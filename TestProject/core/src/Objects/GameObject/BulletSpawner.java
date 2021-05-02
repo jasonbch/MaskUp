@@ -80,6 +80,16 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
                 // Reset the spawner position to enemy position
                 this.setXPosition(enemy.getXPosition());
                 this.setYPosition(enemy.getYPosition());
+            }  else if (enemy.getMovingPattern().equals("PatternDiamond")) {
+                // Reset the angle for next pattern after pattern four
+                this.setAngle(0);
+
+                // Reset the scaling for next pattern
+                this.setScaling(0);
+
+                // Reset the spawner position to enemy position
+                this.setXPosition(enemy.getXPosition());
+                this.setYPosition(enemy.getYPosition());
             }
         }
     }
