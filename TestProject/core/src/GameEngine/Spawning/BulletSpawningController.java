@@ -11,6 +11,7 @@ import com.badlogic.gdx.Input;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -61,9 +62,14 @@ public class BulletSpawningController implements GameObserver {
      *
      * @param entity the entity that fires the bullet
      */
-    private List<Ammo> fire(Entity entity) {
+    private List<Ammo> fire(Entity entity, boolean isPowerUp) {
         List<Ammo> ammoList;
-        ammoList = formationController.create(entity, entity.getBulletFormation());
+        if (isPowerUp){
+            ammoList = formationController.create(entity, "DownwardLinearBulletFormation", true);
+        }
+        else{
+            ammoList = formationController.create(entity, entity.getBulletFormation(), false);
+        }
 
         entity.resetTimeSinceLastShot();
 
@@ -83,11 +89,23 @@ public class BulletSpawningController implements GameObserver {
             currEnemy.updateTimeSinceLastShot(deltaTime);
 
             if (currEnemy.canFire()) {
-                List<Ammo> ammoList = fire(currEnemy);
+                List<Ammo> ammoList = fire(currEnemy, false);
 
                 for (Ammo ammo : ammoList) {
                     enemyAmmoList.add(ammo);
                     ammo.attachGameObserver(this);
+                }
+
+                if (!currEnemy.isDone()){
+                    currEnemy.updateTimeSinceLastShot(deltaTime);
+                    Random random = new Random();
+                    float chance = random.nextFloat();
+                    if (chance < 0.01f){
+                        ammoList = fire(currEnemy, true);
+                        for (Ammo ammo : ammoList){
+                            enemyAmmoList.add(ammo);
+                        }
+                    }
                 }
             }
         }
@@ -113,7 +131,7 @@ public class BulletSpawningController implements GameObserver {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (player.canFire()) {
                 List<Ammo> ammoList;
-                ammoList = fire(player);
+                ammoList = fire(player, false);
 
                 for (Ammo ammo : ammoList) {
                     playerAmmoList.add(ammo);

@@ -14,12 +14,18 @@ public class DownwardLinearBulletFormation extends BulletFormation {
     }
 
     @Override
-    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition) {
+    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition, boolean isPowerUp) {
         List<Ammo> ammoList;
 
         PatternAttribute patternAttribute = new PatternAttribute("LinearBulletMovementPattern", 0, -1);
 
-        Ammo ammo = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute);
+        Ammo ammo;
+        if (isPowerUp){
+            ammo = ammoFactory.create("PowerUp", xShootPosition, yShootPosition, patternAttribute);
+        }
+        else {
+            ammo = ammoFactory.create(entity.getBullet(), xShootPosition, yShootPosition, patternAttribute);
+        }
         ammoList = Arrays.asList(ammo);
 
         return ammoList;

@@ -16,7 +16,7 @@ public class CircularBulletFormation extends BulletFormation {
     }
 
     @Override
-    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition) {
+    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition, boolean isPowerUp) {
         List<Ammo> ammoList;
         PatternAttribute patternAttribute1 = new PatternAttribute("CurveBulletMovementPattern", -1, -1);
         PatternAttribute patternAttribute2 = new PatternAttribute("CurveBulletMovementPattern", 0, -1);
