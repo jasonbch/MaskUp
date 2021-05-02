@@ -60,6 +60,7 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
             this.setMovingPattern(enemy.getMovingPattern());
             this.setBulletFormation(enemy.getBulletFormation());
             this.setTimeBetweenShot(enemy.getTimeBetweenShots());
+            this.setSpeed(enemy.getSpeed());
 
             if (enemy.isDone()) {
                 // Delete the spawner if the enemy is done

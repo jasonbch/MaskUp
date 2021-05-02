@@ -139,14 +139,12 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
 
         if (xPos < 50) {
             enemy.setXPosition(50);
-        }
-        if (xPos > 400) {
+        } else if (xPos > 400) {
             enemy.setXPosition(400);
         }
         if (yPos < 500) {
             enemy.setYPosition(500);
-        }
-        if (yPos > 900) {
+        } else if (yPos > 900) {
             enemy.setYPosition(900);
         }
     }
