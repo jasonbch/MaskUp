@@ -12,7 +12,7 @@ public class GameResources {
 
     // Implement Singleton
     private static GameResources uniqueInstance = null;
-    private static String gameJSON = "game.json";
+    private static String gameJSON = "game2.json";
     private final int WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final int WORLD_WIDTH = Gdx.graphics.getWidth();
     private SpriteBatch batch = null;
