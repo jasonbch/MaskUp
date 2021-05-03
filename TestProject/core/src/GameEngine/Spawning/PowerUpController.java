@@ -6,6 +6,7 @@ import GameEngine.Resource.GameResources;
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.PowerUp;
 
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PowerUpController implements GameObserver {
@@ -42,6 +43,14 @@ public class PowerUpController implements GameObserver {
                 this.remove((PowerUp) object);
             }
         }
-        
+        if (object instanceof Enemy) {
+            if (args.equals("deleteEnemy")) {
+                Random random = new Random();
+                float chance = random.nextFloat();
+                if (chance < 0.1f) {
+                    this.add((Enemy)object);
+                }
+            }
+        }
     }
 }
