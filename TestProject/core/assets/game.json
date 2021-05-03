@@ -10,7 +10,7 @@
     {
         "Player":
         {
-            "maxHealth": 3,
+            "maxHealth": 10,
             "speed": 330,
             "bullet": "Bullet",
             "texture": "Player.png",
@@ -66,7 +66,7 @@
             "startTimeFromStage": 0,
             "enemyAmount": 2,
             "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
-            "enemyMovementPattern": "PatternDiamond",
+            "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "1-2":
@@ -75,7 +75,7 @@
             "startTimeFromStage": 10,
             "enemyAmount": 2,
             "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
-            "enemyMovementPattern": "PatternDiamond",
+            "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "1-3":
@@ -84,7 +84,7 @@
             "startTimeFromStage": 20,
             "enemyAmount": 2,
             "spawnLocation": [{"x": 250, "y": 650}, {"x":  450, "y": 850}],
-            "enemyMovementPattern": "PatternDiamond",
+            "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TargetDownwardLinearBulletFormation"
         },
         "1-4":
@@ -120,7 +120,7 @@
             "enemyAmount": 1,
             "startTimeFromStage": 0,
             "spawnLocation": [{"x": 250, "y": 650}],
-            "enemyMovementPattern": "PatternTwo",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "TriangleTargetBulletFormation"
         },
         "3-7":
@@ -195,7 +195,16 @@
             "startTimeFromStage": 10,
             "speed": 150,
             "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-111":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 14,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-2":
@@ -213,7 +222,16 @@
             "startTimeFromStage": 16,
             "speed": 150,
             "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-311":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 20,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-4":
@@ -231,7 +249,16 @@
             "startTimeFromStage": 22,
             "speed": 150,
             "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "2-511":
+        {
+            "enemyName": "Karen",
+            "startTimeFromStage": 26,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-6":
@@ -249,7 +276,7 @@
             "startTimeFromStage": 28,
             "speed": 150,
             "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-8":
@@ -267,7 +294,7 @@
             "startTimeFromStage": 35,
             "speed": 150,
             "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-10":
@@ -285,7 +312,7 @@
             "startTimeFromStage": 42,
             "speed": 150,
             "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "CircularBulletFormation"
         },
         "2-12":
@@ -303,7 +330,7 @@
             "startTimeFromStage": 49,
             "speed": 150,
             "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternDiamond",
             "bulletFormation": "CircularBulletFormation"
         },
         "4-1":
