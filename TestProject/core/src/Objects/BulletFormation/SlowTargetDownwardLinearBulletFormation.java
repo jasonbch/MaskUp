@@ -16,7 +16,7 @@ public class SlowTargetDownwardLinearBulletFormation extends BulletFormation {
     }
 
     @Override
-    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition, boolean isPowerUp) {
+    public List<Ammo> shoot(Entity entity, float xShootPosition, float yShootPosition) {
         // Set up multiply
         float playerXPosition = player.getXPosition();
         float playerYPosition = player.getYPosition();

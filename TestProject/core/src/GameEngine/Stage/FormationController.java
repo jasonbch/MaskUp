@@ -13,7 +13,7 @@ public class FormationController {
     public FormationController() {
     }
 
-    public List<Ammo> create(Entity entity, String pattern, boolean isPowerUp) {
+    public List<Ammo> create(Entity entity, String pattern) {
         List<Ammo> ammoList = null;
 
         // Get shoot position
@@ -21,13 +21,7 @@ public class FormationController {
         int xShootPosition = shootPosition.x;
         int yShootPosition = shootPosition.y;
 
-        if (isPowerUp){
-            ammoList = bulletFormationFactory.create(pattern).shoot(entity, xShootPosition, yShootPosition, true);
-        }
-        else {
-            ammoList = bulletFormationFactory.create(pattern).shoot(entity, xShootPosition, yShootPosition, false);
-
-        }
+        ammoList = bulletFormationFactory.create(pattern).shoot(entity, xShootPosition, yShootPosition);
 
         return ammoList;
     }
