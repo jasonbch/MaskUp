@@ -82,7 +82,7 @@
             "enemyName": "Covid",
             "startTimeFromStage": 25,
             "speed": 150,
-            "timeBetweenShot": 0.8,
+            "timeBetweenShot": 0.005,
             "enemyMovementPattern": "PatternFour",
             "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
         },
@@ -127,7 +127,7 @@
             "enemyName": "Covid",
             "startTimeFromStage": 39,
             "speed": 150,
-            "timeBetweenShot": 0.8,
+            "timeBetweenShot": 0.005,
             "enemyMovementPattern": "PatternFour",
             "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
         },
