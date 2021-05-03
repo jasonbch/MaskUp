@@ -8,7 +8,7 @@ public class PowerUp extends GameObject {
     protected String name = "PowerUp";
     protected int speed = 0;
     protected String[] acceptableTargets = new String[]{"Player"};
-    protected Texture texture = GameResources.getAssetsManager().get("StimulusPack.png", Texture.class);
+    protected Texture texture = GameResources.getAssetsManager().get("PowerUp.png", Texture.class);
     protected int health = 1;
     protected float originalX;
     protected float originalY;

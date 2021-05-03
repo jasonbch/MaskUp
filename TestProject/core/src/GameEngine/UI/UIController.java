@@ -6,6 +6,7 @@ import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
+import GameEngine.Spawning.PowerUpController;
 import GameEngine.Stage.StageController;
 import GameEngine.Time.TimeController;
 import Objects.GameObject.GameObject;
@@ -35,6 +36,7 @@ public class UIController {
     private final GameController gameController = GameController.instance();
     private final AssetManager assetManager = GameResources.getAssetsManager();
     private final ScoreController scoreController = ScoreController.instance();
+    private final PowerUpController powerUpController = PowerUpController.instance();
 
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
@@ -106,6 +108,7 @@ public class UIController {
         drawEnemies();
         drawPlayer();
         drawBulletSpawners(); // Only for testing
+        drawPowerUp();
     }
 
     public void setBatch(Batch batch) {
@@ -313,6 +316,7 @@ public class UIController {
     }
 
     public void drawPowerUp() {
-
+        List<GameObject> objectList = (List<GameObject>) (List<?>) powerUpController.getPowerUpList();
+        drawList(objectList.listIterator());
     }
 }

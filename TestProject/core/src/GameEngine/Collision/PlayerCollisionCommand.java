@@ -2,6 +2,7 @@ package GameEngine.Collision;
 
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.PowerUpController;
+import Objects.GameObject.Entity;
 import Objects.GameObject.Player;
 
 public class PlayerCollisionCommand implements Command {
