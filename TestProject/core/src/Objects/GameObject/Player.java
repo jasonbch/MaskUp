@@ -200,7 +200,7 @@ public class Player extends Entity {
                 if (!isInvulnerable()) {
                     if (intersects(powerUp.getBoundingBox())) {
                         powerUp.setIsDone();
-                        increaseHealth(powerUp.getHealth());
+                        addHealth(powerUp.getHealth());
                         returnValue = true;
                     }
                 }

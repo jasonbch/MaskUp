@@ -3,6 +3,7 @@ package GameEngine.Spawning;
 import GameEngine.Factory.PowerUpFactory;
 import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
+import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.GameObject;
 import Objects.GameObject.PowerUp;
 
@@ -18,8 +19,11 @@ public class PowerUpController implements GameObserver {
         return uniqueInstance;
     }
 
-    public void add() {
-
+    public void add(Enemy enemy) {
+        float xPos = enemy.getXPosition();
+        float yPos = enemy.getYAxis();
+        PowerUp powerUp = powerUpFactory.create(xPos, yPos);
+        powerUpList.add(powerUp);
     }
 
     public void remove(PowerUp powerUp) {

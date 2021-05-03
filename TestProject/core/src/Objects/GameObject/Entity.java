@@ -101,7 +101,7 @@ public abstract class Entity extends GameObject {
         return this.maxHealth;
     }
 
-    public void increaseHealth(int health) {
+    public void addHealth(int health) {
         this.maxHealth += health;
     }
 

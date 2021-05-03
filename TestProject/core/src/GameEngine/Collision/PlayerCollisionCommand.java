@@ -19,7 +19,7 @@ public class PlayerCollisionCommand implements Command {
             bulletSpawningController.clearEnemyAmmoList();
         }
         if (player.collideWithPowerUp(powerUpController.getPowerUpList().listIterator())){
-            //powerUpController.remove();
+            powerUpController.remove(powerUpController.getPowerUpList().listIterator().next());
         }
     }
 }
