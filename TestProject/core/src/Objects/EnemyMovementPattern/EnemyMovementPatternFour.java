@@ -22,7 +22,6 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
     @Override
 
     public void move(GameObject obj, float deltaTime) {
-
         if (obj instanceof BulletSpawner) {
             Enemy enemy = (Enemy) obj;
             BulletSpawner bulletSpawner = (BulletSpawner) obj;
@@ -62,10 +61,12 @@ public class EnemyMovementPatternFour extends EnemyMovementPattern {
 
             // Continuously setting x axis for enemy for movement purpose
             enemy.setXAxis(enemy.getXPosition());
+            enemy.setYAxis(enemy.getYPosition());
         } else {
             // Continuously setting x axis for enemy for movement purpose
             Enemy enemy = (Enemy) obj;
             enemy.setXAxis(enemy.getXPosition());
+            enemy.setYAxis(enemy.getYPosition());
         }
     }
 

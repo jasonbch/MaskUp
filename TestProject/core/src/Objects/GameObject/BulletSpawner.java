@@ -60,6 +60,7 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
             this.setMovingPattern(enemy.getMovingPattern());
             this.setBulletFormation(enemy.getBulletFormation());
             this.setTimeBetweenShot(enemy.getTimeBetweenShots());
+            this.setSpeed(enemy.getSpeed());
 
             if (enemy.isDone()) {
                 // Delete the spawner if the enemy is done
@@ -71,6 +72,26 @@ public class BulletSpawner extends Enemy implements BulletSpawnerObserver {
             } else if (!enemy.getMovingPattern().equals("PatternFive")
                     && !enemy.getMovingPattern().equals("PatternFour")
                     && this.name.equals("1")) {
+                // Reset the angle for next pattern after pattern four
+                this.setAngle(0);
+
+                // Reset the scaling for next pattern
+                this.setScaling(0);
+
+                // Reset the spawner position to enemy position
+                this.setXPosition(enemy.getXPosition());
+                this.setYPosition(enemy.getYPosition());
+            }  else if (enemy.getMovingPattern().equals("PatternDiamond")) {
+                // Reset the angle for next pattern after pattern four
+                this.setAngle(0);
+
+                // Reset the scaling for next pattern
+                this.setScaling(0);
+
+                // Reset the spawner position to enemy position
+                this.setXPosition(enemy.getXPosition());
+                this.setYPosition(enemy.getYPosition());
+            } else if (enemy.getMovingPattern().equals("PatternStatic")) {
                 // Reset the angle for next pattern after pattern four
                 this.setAngle(0);
 

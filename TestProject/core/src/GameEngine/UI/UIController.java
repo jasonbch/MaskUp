@@ -104,7 +104,7 @@ public class UIController {
         drawEnemyAmmo();
         drawEnemies();
         drawPlayer();
-        //drawBulletSpawners();
+        drawBulletSpawners(); // Only for testing
     }
 
     public void setBatch(Batch batch) {

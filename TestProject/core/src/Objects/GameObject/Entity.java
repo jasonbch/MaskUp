@@ -165,7 +165,7 @@ public abstract class Entity extends GameObject {
         return this.speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
 
