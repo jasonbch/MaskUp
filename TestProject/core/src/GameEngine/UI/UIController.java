@@ -262,15 +262,17 @@ public class UIController {
 
         // Then calculate string and draw the time
         time = timeController.getElapsedTime();
-        if ((time % 60) < 10){
+        if ((time % 60) < 10) {
             min = time / 60;
             time = (time % 60);
             timePlaceHolder = ":0";
-        } else if ((time % 60) >= 10){
+        } else if ((time % 60) >= 10) {
             min = time / 60;
             timePlaceHolder = ":";
-            time = (time  % 60);
+            time = (time % 60);
         }
+
+        font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20, gameResources.getWorldHeight() - 235);
 
         if(xAxisFlipAttack){
             fontFlipped.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,235);
@@ -310,7 +312,7 @@ public class UIController {
         }
     }
 
-    public void drawPowerUp(){
+    public void drawPowerUp() {
 
     }
 }

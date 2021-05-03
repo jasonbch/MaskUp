@@ -2,7 +2,6 @@ package GameEngine.Collision;
 
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.PowerUpController;
-import Objects.GameObject.Entity;
 import Objects.GameObject.Player;
 
 public class PlayerCollisionCommand implements Command {
@@ -18,7 +17,7 @@ public class PlayerCollisionCommand implements Command {
         if (player.collide(bulletSpawningController.getEnemyAmmoList().listIterator())) {
             bulletSpawningController.clearEnemyAmmoList();
         }
-        if (player.collideWithPowerUp(powerUpController.getPowerUpList().listIterator())){
+        if (player.collideWithPowerUp(powerUpController.getPowerUpList().listIterator())) {
             powerUpController.remove(powerUpController.getPowerUpList().listIterator().next());
         }
     }

@@ -186,11 +186,11 @@ public class Player extends Entity {
     }
 
     // check collision, increase health, notify when to delete powerup
-    public boolean collideWithPowerUp(ListIterator<PowerUp> powerUpList){
+    public boolean collideWithPowerUp(ListIterator<PowerUp> powerUpList) {
         ListIterator<PowerUp> iter = powerUpList;
         boolean returnValue = false;
 
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             PowerUp powerUp = iter.next();
 
             // Check if the two objects are near each other

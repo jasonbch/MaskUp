@@ -55,7 +55,7 @@ public abstract class Entity extends GameObject {
         JsonValue element = base.get("entities").get(getClass().getSimpleName());
         if (element != null) {
             if (gameResources.getDifficulty() == "Easy") {
-               EasyMode(element);
+                EasyMode(element);
             } else if (gameResources.getDifficulty() == "Medium") {
                 MediumMode(element);
             } else {
@@ -64,6 +64,7 @@ public abstract class Entity extends GameObject {
 
         }
     }
+
     private void EasyMode(JsonValue element) {
         this.speed = (element.getInt("speed") * EasyDifficultyMultiplier);
         this.bullet = element.getString("bullet");
@@ -83,6 +84,7 @@ public abstract class Entity extends GameObject {
         this.maxTimeAlive = element.getInt("maxTimeAlive");
         this.maxHealth = element.getInt("maxHealth");
     }
+
     private void HardMode(JsonValue element) {
         this.speed = (element.getInt("speed") * HardDiffifcultyMultiplier);
         this.bullet = element.getString("bullet");

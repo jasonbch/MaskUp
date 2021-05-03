@@ -4,7 +4,6 @@ import GameEngine.Factory.PowerUpFactory;
 import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Enemy.Enemy;
-import Objects.GameObject.GameObject;
 import Objects.GameObject.PowerUp;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -27,21 +26,22 @@ public class PowerUpController implements GameObserver {
     }
 
     public void remove(PowerUp powerUp) {
-        if (powerUpList.contains(powerUp)){
+        if (powerUpList.contains(powerUp)) {
             powerUpList.remove(powerUp);
         }
     }
 
-    public CopyOnWriteArrayList<PowerUp> getPowerUpList(){
+    public CopyOnWriteArrayList<PowerUp> getPowerUpList() {
         return this.powerUpList;
     }
 
     @Override
     public void update(Object object, String args) {
-        if (object instanceof PowerUp){
-            if (args.equals("deletePowerUp")){
-                this.remove((PowerUp)object);
+        if (object instanceof PowerUp) {
+            if (args.equals("deletePowerUp")) {
+                this.remove((PowerUp) object);
             }
         }
+        
     }
 }

@@ -4,7 +4,7 @@ import GameEngine.Resource.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-public class PowerUp extends GameObject{
+public class PowerUp extends GameObject {
     protected String name = "PowerUp";
     protected int speed = 0;
     protected String[] acceptableTargets = new String[]{"Player"};
@@ -14,23 +14,25 @@ public class PowerUp extends GameObject{
     protected float originalY;
     protected boolean isDone = false;
 
-    public PowerUp(float xPosition, float yPosition){
+    public PowerUp(float xPosition, float yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.originalX = xPosition;
         this.originalY = yPosition;
     }
 
-    public Rectangle getBoundingBox(){
+    public Rectangle getBoundingBox() {
         return new Rectangle(xPosition, yPosition, getImageWidth(), getImageHeight() - 10);
     }
 
-    public void setIsDone(){
+    public void setIsDone() {
         this.isDone = true;
         notifyGameObserver("deletePowerUp");
     }
 
-    public int getHealth(){ return this.health; }
+    public int getHealth() {
+        return this.health;
+    }
 
     @Override
     public String getName() {
