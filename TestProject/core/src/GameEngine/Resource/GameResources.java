@@ -62,6 +62,7 @@ public class GameResources {
         assetsManager.load("PlayerHudBackground.png", Texture.class);
         assetsManager.load("human.png", Texture.class);
         assetsManager.load("TimeElapsed.png", Texture.class);
+        assetsManager.load("StimulusPack.png", Texture.class);
     }
 
     public String getGameJSON() {
