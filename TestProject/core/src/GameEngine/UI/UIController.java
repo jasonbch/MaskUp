@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -247,7 +248,19 @@ public class UIController {
 
     public void updateTimeElapsed() {
         Texture TimeElapsed = assetManager.get("TimeElapsed.png", Texture.class);
-        batch.draw(TimeElapsed, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 350, TimeElapsed.getWidth(), TimeElapsed.getHeight());
+
+        //First draw "Time Elapsed"
+        if(xAxisFlipAttack){
+            Sprite sprite = new Sprite(TimeElapsed);
+            sprite.flip(false, true);
+            batch.draw(sprite, gameResources.getScreenTwoStart() - 20, 210, TimeElapsed.getWidth(), TimeElapsed.getHeight());
+
+        }
+        else {
+            batch.draw(TimeElapsed, gameResources.getScreenTwoStart() - 20, gameResources.getWorldHeight() - 350, TimeElapsed.getWidth(), TimeElapsed.getHeight());
+        }
+
+        // Then calculate string and draw the time
         time = timeController.getElapsedTime();
         if ((time % 60) < 10){
             min = time / 60;
@@ -258,9 +271,14 @@ public class UIController {
             timePlaceHolder = ":";
             time = (time  % 60);
         }
-        font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,gameResources.getWorldHeight() - 235 );
-    }
 
+        if(xAxisFlipAttack){
+            fontFlipped.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,235);
+        }
+        else {
+            font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20, gameResources.getWorldHeight() - 235);
+        }
+    }
 
     public void updateScore() {
         Texture PlayerScore = assetManager.get("Score.png", Texture.class);
