@@ -185,4 +185,28 @@ public class Player extends Entity {
         return returnValue;
     }
 
+    // check collision, increase health, notify when to delete powerup
+    public boolean collideWithPowerUp(ListIterator<PowerUp> powerUpList){
+        ListIterator<PowerUp> iter = powerUpList;
+        boolean returnValue = false;
+
+        while(iter.hasNext()){
+            PowerUp powerUp = iter.next();
+
+            // Check if the two objects are near each other
+            if (Math.abs(powerUp.getXPosition() - getXPosition()) <= 200 && (Math.abs(powerUp.getYPosition() - getYPosition()) <= 200)) {
+
+                // Check for intersect
+                if (!isInvulnerable()) {
+                    if (intersects(powerUp.getBoundingBox())) {
+                        powerUp.setIsDone();
+                        increaseHealth(powerUp.getHealth());
+                        returnValue = true;
+                    }
+                }
+            }
+        }
+
+        return returnValue;
+    }
 }

@@ -34,9 +34,9 @@ public class PowerUpController implements GameObserver {
 
     @Override
     public void update(Object object, String args) {
-        if (object instanceof PowerUp || object instanceof GameObject){
+        if (object instanceof PowerUp){
             if (args.equals("deletePowerUp")){
-                this.remove((PowerUp) object);
+                this.remove((PowerUp)object);
             }
         }
     }

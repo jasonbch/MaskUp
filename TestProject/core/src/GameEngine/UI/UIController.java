@@ -309,4 +309,8 @@ public class UIController {
             batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight - 50, stageMessageWidth, stageMessageHeight);
         }
     }
+
+    public void drawPowerUp(){
+
+    }
 }
