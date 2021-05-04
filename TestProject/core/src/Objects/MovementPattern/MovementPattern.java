@@ -1,4 +1,4 @@
-package Objects;
+package Objects.MovementPattern;
 
 import Objects.GameObject.GameObject;
 

@@ -2,6 +2,7 @@ package Objects.GameObject;
 
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Ammo.Ammo;
+import Objects.GameObject.PowerUp.PowerUp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;

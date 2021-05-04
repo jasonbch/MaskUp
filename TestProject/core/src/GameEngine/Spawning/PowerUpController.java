@@ -4,7 +4,7 @@ import GameEngine.Factory.PowerUpFactory;
 import GameEngine.Observer.GameObserver;
 import GameEngine.Resource.GameResources;
 import Objects.GameObject.Enemy.Enemy;
-import Objects.GameObject.PowerUp;
+import Objects.GameObject.PowerUp.PowerUp;
 
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;

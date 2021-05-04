@@ -8,6 +8,9 @@ import Objects.GameObject.Enemy.Covid;
 import Objects.GameObject.Enemy.Karen;
 import Objects.GameObject.Player;
 
+import Objects.GameObject.StageComponent.Behavior;
+import Objects.GameObject.StageComponent.StageComponent;
+import Objects.GameObject.StageComponent.Wave;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;

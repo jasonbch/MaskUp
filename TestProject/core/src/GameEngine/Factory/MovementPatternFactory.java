@@ -1,6 +1,6 @@
 package GameEngine.Factory;
 
-import Objects.MovementPattern;
+import Objects.MovementPattern.MovementPattern;
 
 public abstract class MovementPatternFactory {
 

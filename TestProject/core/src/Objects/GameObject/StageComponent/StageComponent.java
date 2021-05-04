@@ -1,6 +1,7 @@
-package GameEngine.Stage;
+package Objects.GameObject.StageComponent;
 
 import GameEngine.Observer.GameObserver;
+import GameEngine.Stage.StageController;
 
 public class StageComponent implements GameObserver {
     protected String section;

@@ -60,7 +60,6 @@ public class GameResources {
         assetsManager.load("Lives.png", Texture.class);
         assetsManager.load("Score.png", Texture.class);
         assetsManager.load("PlayerHudBackground.png", Texture.class);
-        assetsManager.load("human.png", Texture.class);
         assetsManager.load("TimeElapsed.png", Texture.class);
         assetsManager.load("PowerUp.png", Texture.class);
     }

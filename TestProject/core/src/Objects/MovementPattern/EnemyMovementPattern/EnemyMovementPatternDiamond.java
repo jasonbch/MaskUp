@@ -1,4 +1,4 @@
-package Objects.EnemyMovementPattern;
+package Objects.MovementPattern.EnemyMovementPattern;
 
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.GameObject;

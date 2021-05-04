@@ -1,7 +1,7 @@
 package GameEngine.Factory;
 
-import Objects.EnemyMovementPattern.*;
-import Objects.MovementPattern;
+import Objects.MovementPattern.EnemyMovementPattern.*;
+import Objects.MovementPattern.MovementPattern;
 
 public class EnemyMovementFactory extends MovementPatternFactory {
     public MovementPattern create(String pattern) {

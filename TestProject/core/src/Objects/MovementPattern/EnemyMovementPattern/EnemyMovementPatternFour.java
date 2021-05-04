@@ -1,4 +1,4 @@
-package Objects.EnemyMovementPattern;
+package Objects.MovementPattern.EnemyMovementPattern;
 
 import GameEngine.Spawning.BulletSpawnerSpawningController;
 import Objects.GameObject.BulletSpawner;

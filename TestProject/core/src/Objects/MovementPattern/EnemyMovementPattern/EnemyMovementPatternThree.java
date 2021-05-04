@@ -1,10 +1,10 @@
-package Objects.EnemyMovementPattern;
+package Objects.MovementPattern.EnemyMovementPattern;
 
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.GameObject;
 
 /**
- * The Objects.EnemyMovementPattern that move the enemy diagonally in the screen.
+ * The Objects.MovementPattern.EnemyMovementPattern that move the enemy diagonally in the screen.
  * If the enemy touches the side of the screen, the enemy switch direction
  * to the opposite side but still maintain vertical direction. If the
  * enemy touches the top or bottom of the screen, the enemy switches
