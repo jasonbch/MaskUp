@@ -53,7 +53,7 @@
             "bullet": "BabyCovid",
             "texture": "BigCovid.png",
             "timeBetweenShot": 0.6,
-            "maxTimeAlive": 60,
+            "maxTimeAlive": 80,
             "bulletFormation": "TargetDownwardLinearBulletFormation",
             "maxHealth": 70
         }
@@ -92,16 +92,16 @@
             "enemyType": "MurderHornet",
             "startTimeFromStage": 5,
             "enemyMovementPattern": "PatternThree",
-            "enemyAmount": 2,
-            "spawnLocation": [{"x": 50, "y": 650}, {"x":  400, "y": 850}],
+            "enemyAmount": 3,
+            "spawnLocation": [{"x": 50, "y": 650},{"x": 225, "y": 750}, {"x":  400, "y": 850}],
             "bulletFormation": "DownwardLinearBulletFormation"
         },
         "1-5":
         {
             "enemyType": "MurderHornet",
             "startTimeFromStage": 15,
-            "enemyAmount": 2,
-            "spawnLocation": [{"x": 50, "y": 650}, {"x":  400, "y": 850}],
+            "enemyAmount": 3,
+            "spawnLocation": [{"x": 50, "y": 650},{"x": 225, "y": 750}, {"x":  400, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
@@ -109,8 +109,8 @@
         {
             "enemyType": "MurderHornet",
             "startTimeFromStage": 25,
-            "enemyAmount": 2,
-            "spawnLocation": [{"x": 50, "y": 650}, {"x":  400, "y": 850}],
+            "enemyAmount": 3,
+            "spawnLocation": [{"x": 50, "y": 650},{"x": 225, "y": 750}, {"x":  400, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
@@ -136,8 +136,8 @@
         {
             "enemyType": "MurderHornet",
             "startTimeFromStage": 5,
-            "enemyAmount": 2,
-            "spawnLocation": [{"x": 50, "y": 650}, {"x":  400, "y": 850}],
+            "enemyAmount": 3,
+            "spawnLocation": [{"x": 50, "y": 650},{"x": 225, "y": 750}, {"x":  400, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
@@ -154,8 +154,8 @@
         {
             "enemyType": "MurderHornet",
             "startTimeFromStage": 15,
-            "enemyAmount": 2,
-            "spawnLocation": [{"x": 50, "y": 650}, {"x":  400, "y": 850}],
+            "enemyAmount": 3,
+            "spawnLocation": [{"x": 50, "y": 650},{"x": 225, "y": 750}, {"x":  400, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
@@ -172,8 +172,8 @@
         {
             "enemyType": "MurderHornet",
             "startTimeFromStage": 25,
-            "enemyAmount": 2,
-            "spawnLocation": [{"x": 50, "y": 650}, {"x":  400, "y": 850}],
+            "enemyAmount": 3,
+            "spawnLocation": [{"x": 50, "y": 650},{"x": 225, "y": 750}, {"x":  400, "y": 850}],
             "enemyMovementPattern": "PatternThree",
             "bulletFormation": "DownwardLinearBulletFormation"
         },
@@ -336,16 +336,25 @@
         "4-1":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 10,
+            "startTimeFromStage": 9,
             "speed": 150,
             "timeBetweenShot": 0.6,
-            "enemyMovementPattern": "PatternOne",
+            "enemyMovementPattern": "PatternStatic",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-111":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 10,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
             "bulletFormation": "CircularBulletFormation"
         },
         "4-2":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 15,
+            "startTimeFromStage": 11,
             "speed": 150,
             "timeBetweenShot": 0.8,
             "enemyMovementPattern": "PatternOne",
@@ -360,77 +369,176 @@
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "CircularBulletFormation"
         },
+        "4-311":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 24,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
+            "bulletFormation": "CircularBulletFormation"
+        },
         "4-4":
         {
             "enemyName": "Covid",
             "startTimeFromStage": 25,
             "speed": 150,
-            "timeBetweenShot": 0.8,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "CircularBulletFormation"
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
         },
         "4-5":
         {
+            "enemyName": "Covid",
+            "startTimeFromStage": 26,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-6":
+        {
             "enemyName":"Covid",
-            "startTimeFromStage": 35,
+            "startTimeFromStage": 30,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "AxisXFlipAttack"
         },
-        "4-6":
+        "4-7":
         {
             "enemyName":"Covid",
-            "startTimeFromStage": 40,
+            "startTimeFromStage": 33,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
             "bulletFormation": "TriangleTargetBulletFormation"
         },
-        "4-7":
+        "4-711":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 38,
+            "speed": 150,
+            "timeBetweenShot": 0.9,
+            "enemyMovementPattern": "PatternStatic",
+            "bulletFormation":  "CircularBulletFormation"
+        },
+        "4-8":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 39,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFour",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-9":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 40,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-10":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 43,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "AxisXFlipAttackRevert"
+        },
+        "4-11":
         {
             "enemyName": "Covid",
             "startTimeFromStage": 45,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "AxisXFlipAttackRevert"
+            "bulletFormation": "CircularBulletFormation"
         },
-        "4-8":
+        "4-12":
         {
             "enemyName": "Covid",
             "startTimeFromStage": 50,
             "speed": 150,
-            "timeBetweenShot": 0.6,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "CircularBulletFormation"
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFive",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
         },
-        "4-9":
+        "4-13":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 55,
+            "startTimeFromStage": 52,
             "speed": 150,
             "timeBetweenShot": 0.6,
-            "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "AxisYFlipAttack"
+            "enemyMovementPattern": "PatternThree",
+            "bulletFormation": "CircularBulletFormation"
         },
-        "4-10":
+        "4-14":
         {
             "enemyName": "Covid",
             "startTimeFromStage": 60,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "CircularBulletFormation"
+            "bulletFormation": "AxisYFlipAttack"
         },
-        "4-11":
+        "4-15":
         {
-            "enemyName": "Covid",
-            "startTimeFromStage": 65,
+            "enemyName":"Covid",
+            "startTimeFromStage": 63,
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TriangleTargetBulletFormation"
+        },
+        "4-16":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 68,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFive",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
+        },
+        "4-17":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 70,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternThree",
+            "bulletFormation": "CircularBulletFormation"
+        },
+        "4-18":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 72,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternThree",
             "bulletFormation": "AxisYFlipAttackRevert"
+        },
+        "4-19":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 74,
+            "speed": 150,
+            "timeBetweenShot": 0.005,
+            "enemyMovementPattern": "PatternFive",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
+        },
+        "4-20":
+        {
+            "enemyName": "Covid",
+            "startTimeFromStage": 76,
+            "speed": 150,
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternOne",
+            "bulletFormation": "TargetThreeDirectionBulletFormation"
         }
     }
 }
