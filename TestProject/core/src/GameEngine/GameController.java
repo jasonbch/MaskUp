@@ -72,9 +72,8 @@ public class GameController implements GameObserver, GameSubject {
         player.updateTimeSinceLastShot(deltaTime);  // Restrict shooting interval
 
         // Check players invulnerability time
-        if (!this.godMode) {
-            resetPlayerInvulnerableTime();
-        }
+        resetPlayerInvulnerableTime();
+
 
         // Update the collision commands
         if (!player.isInvulnerable()) {
@@ -119,12 +118,11 @@ public class GameController implements GameObserver, GameSubject {
     public void startGodMode() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             player.setGodMode(!player.isGod());
-            if (player.isInvulnerable()) {
-                System.out.println("God Mode: Activated");
-                godMode = true;
+            godMode = player.isGod();
+            if (player.isGod()) {
+                System.out.println("God Mode: ON");
             } else {
-                System.out.println("God Mode: Deactivated");
-                godMode = false;
+                System.out.println("God Mode: OFF");
             }
         }
     }
