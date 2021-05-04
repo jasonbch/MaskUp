@@ -1,16 +1,16 @@
 {
     "StageStartTimes":
     {
-        "stageOne": 5,
-        "stageTwo": 40,
-        "stageThree": 85,
-        "stageFour": 120
+        "stageOne": 15,
+        "stageTwo": 50,
+        "stageThree": 100,
+        "stageFour": 135
     },
     "entities":
     {
         "Player":
         {
-            "maxHealth": 5,
+            "maxHealth": 20,
             "speed": 330,
             "bullet": "Bullet",
             "texture": "Player.png",
@@ -311,27 +311,9 @@
             "enemyName": "Karen",
             "startTimeFromStage": 42,
             "speed": 150,
-            "timeBetweenShot": 0.9,
+            "timeBetweenShot": 50,
             "enemyMovementPattern": "PatternDiamond",
-            "bulletFormation": "CircularBulletFormation"
-        },
-        "2-12":
-        {
-            "enemyName": "Karen",
-            "startTimeFromStage": 47,
-            "speed": 150,
-            "timeBetweenShot": 0.005,
-            "enemyMovementPattern": "PatternFive",
-            "bulletFormation": "TargetThreeDirectionBulletFormation"
-        },
-        "2-13":
-        {
-            "enemyName": "Karen",
-            "startTimeFromStage": 49,
-            "speed": 150,
-            "timeBetweenShot": 0.9,
-            "enemyMovementPattern": "PatternDiamond",
-            "bulletFormation": "CircularBulletFormation"
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
         },
         "4-1":
         {
@@ -527,18 +509,18 @@
             "enemyName": "Covid",
             "startTimeFromStage": 74,
             "speed": 150,
-            "timeBetweenShot": 0.005,
-            "enemyMovementPattern": "PatternFive",
-            "bulletFormation": "TargetThreeDirectionBulletFormation"
+            "timeBetweenShot": 0.6,
+            "enemyMovementPattern": "PatternThree",
+            "bulletFormation": "CircularBulletFormation"
         },
         "4-20":
         {
             "enemyName": "Covid",
-            "startTimeFromStage": 76,
+            "startTimeFromStage": 77,
             "speed": 150,
-            "timeBetweenShot": 0.6,
+            "timeBetweenShot": 50,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TargetThreeDirectionBulletFormation"
+            "bulletFormation": "SlowTargetDownwardLinearBulletFormation"
         }
     }
 }

@@ -107,7 +107,7 @@ public class UIController {
         drawEnemyAmmo();
         drawEnemies();
         drawPlayer();
-        drawBulletSpawners(); // Only for testing
+        //drawBulletSpawners(); // Only for testing
         drawPowerUp();
     }
 
