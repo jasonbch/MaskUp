@@ -1,7 +1,8 @@
-package Objects.GameObject;
+package Objects.GameObject.PowerUp;
 
 import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
+import Objects.GameObject.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 

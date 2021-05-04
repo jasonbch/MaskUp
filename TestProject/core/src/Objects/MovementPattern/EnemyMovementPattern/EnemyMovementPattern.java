@@ -1,10 +1,10 @@
-package Objects.EnemyMovementPattern;
+package Objects.MovementPattern.EnemyMovementPattern;
 
 import Objects.GameObject.GameObject;
-import Objects.MovementPattern;
+import Objects.MovementPattern.MovementPattern;
 
 /**
- * The Objects.EnemyMovementPattern class that move the enemy in a specific order.
+ * The Objects.MovementPattern.EnemyMovementPattern class that move the enemy in a specific order.
  */
 public abstract class EnemyMovementPattern extends MovementPattern {
     /**

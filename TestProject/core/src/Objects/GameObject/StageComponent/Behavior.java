@@ -1,4 +1,4 @@
-package GameEngine.Stage;
+package Objects.GameObject.StageComponent;
 
 import GameEngine.Spawning.EnemySpawningController;
 import Objects.GameObject.Enemy.Enemy;

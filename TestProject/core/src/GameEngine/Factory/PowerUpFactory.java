@@ -1,7 +1,7 @@
 package GameEngine.Factory;
 
 import GameEngine.Resource.GameResources;
-import Objects.GameObject.PowerUp;
+import Objects.GameObject.PowerUp.PowerUp;
 import com.badlogic.gdx.graphics.Texture;
 
 public class PowerUpFactory {

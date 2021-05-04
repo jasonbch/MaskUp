@@ -1,10 +1,10 @@
-package Objects.EnemyMovementPattern;
+package Objects.MovementPattern.EnemyMovementPattern;
 
 import Objects.GameObject.Enemy.Enemy;
 import Objects.GameObject.GameObject;
 
 /**
- * The Objects.EnemyMovementPattern that move the enemy left and right of the screen.
+ * The Objects.MovementPattern.EnemyMovementPattern that move the enemy left and right of the screen.
  * If the enemy touches the side of the screen, the enemy switches horizontal
  * direction and continue moving.
  */

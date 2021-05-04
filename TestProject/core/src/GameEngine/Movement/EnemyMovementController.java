@@ -3,7 +3,7 @@ package GameEngine.Movement;
 import GameEngine.Factory.EnemyMovementFactory;
 import GameEngine.Factory.MovementPatternFactory;
 import Objects.GameObject.Enemy.Enemy;
-import Objects.MovementPattern;
+import Objects.MovementPattern.MovementPattern;
 
 import java.util.List;
 import java.util.ListIterator;

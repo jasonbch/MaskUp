@@ -7,7 +7,6 @@ import GameEngine.Score.ScoreController;
 import GameEngine.Stage.StageController;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.*;
-import Objects.GameObject.PowerUp;
 
 import java.util.Collections;
 import java.util.List;

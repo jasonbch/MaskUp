@@ -6,7 +6,7 @@ import GameEngine.Resource.GameResources;
 import GameEngine.Spawning.BulletSpawningController;
 import Objects.GameObject.Ammo.Ammo;
 import Objects.GameObject.Ammo.Ammo.PatternAttribute;
-import Objects.MovementPattern;
+import Objects.MovementPattern.MovementPattern;
 
 import java.util.ListIterator;
 

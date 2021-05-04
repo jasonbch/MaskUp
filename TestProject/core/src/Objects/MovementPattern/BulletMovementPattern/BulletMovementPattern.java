@@ -1,10 +1,10 @@
-package Objects.BulletMovementPattern;
+package Objects.MovementPattern.BulletMovementPattern;
 
 import Objects.GameObject.GameObject;
-import Objects.MovementPattern;
+import Objects.MovementPattern.MovementPattern;
 
 /**
- * The Objects.BulletMovementPattern class that move the bullet in a specific order.
+ * The Objects.MovementPattern.BulletMovementPattern class that move the bullet in a specific order.
  */
 public abstract class BulletMovementPattern extends MovementPattern {
     /**

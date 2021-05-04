@@ -1,8 +1,8 @@
 package GameEngine.Factory;
 
-import Objects.BulletMovementPattern.CurveBulletMovementPattern;
-import Objects.BulletMovementPattern.LinearBulletMovementPattern;
-import Objects.MovementPattern;
+import Objects.MovementPattern.BulletMovementPattern.CurveBulletMovementPattern;
+import Objects.MovementPattern.BulletMovementPattern.LinearBulletMovementPattern;
+import Objects.MovementPattern.MovementPattern;
 
 public class BulletMovementPatternFactory extends MovementPatternFactory {
 
