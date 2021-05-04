@@ -10,7 +10,7 @@
     {
         "Player":
         {
-            "maxHealth": 30,
+            "maxHealth": 5,
             "speed": 330,
             "bullet": "Bullet",
             "texture": "Player.png",
@@ -184,7 +184,7 @@
             "startTimeFromStage": 0,
             "spawnLocation": [{"x": 250, "y": 650}],
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TriangleTargetBulletFormation"
+            "bulletFormation": "FanBulletFormation"
         }
     },
     "behaviors":
@@ -412,7 +412,7 @@
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TriangleTargetBulletFormation"
+            "bulletFormation": "FanBulletFormation"
         },
         "4-711":
         {
@@ -493,7 +493,7 @@
             "speed": 150,
             "timeBetweenShot": 0.6,
             "enemyMovementPattern": "PatternOne",
-            "bulletFormation": "TriangleTargetBulletFormation"
+            "bulletFormation": "FanBulletFormation"
         },
         "4-16":
         {

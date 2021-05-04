@@ -275,8 +275,6 @@ public class UIController {
             time = (time % 60);
         }
 
-        font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20, gameResources.getWorldHeight() - 235);
-
         if(xAxisFlipAttack){
             fontFlipped.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,235);
         }
