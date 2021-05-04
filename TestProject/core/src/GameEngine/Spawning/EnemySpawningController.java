@@ -7,6 +7,7 @@ import GameEngine.Score.ScoreController;
 import GameEngine.Stage.StageController;
 import Objects.GameObject.BulletSpawner;
 import Objects.GameObject.Enemy.*;
+import Objects.GameObject.PowerUp;
 
 import java.util.Collections;
 import java.util.List;
@@ -63,12 +64,14 @@ public class EnemySpawningController implements GameObserver {
         concreteEnemy.setYAxis(yPosition);
 
         BulletSpawner bulletSpawner = bulletSpawnerSpawningController.addSpawner(concreteEnemy, "1");
-
         // Increase the bullet spawner count
         concreteEnemy.setBulletSpawnerCount(1);
 
         // Make the bulletSpawner observe the enemy
         concreteEnemy.addObserver(bulletSpawner);
+
+        // Make powerUpController observe the enemy
+        concreteEnemy.attachGameObserver(PowerUpController.instance());
 
         // Attach Observers
         concreteEnemy.attachGameObserver(this);

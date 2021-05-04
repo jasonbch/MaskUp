@@ -6,6 +6,7 @@ import GameEngine.Score.ScoreController;
 import GameEngine.Spawning.BulletSpawnerSpawningController;
 import GameEngine.Spawning.BulletSpawningController;
 import GameEngine.Spawning.EnemySpawningController;
+import GameEngine.Spawning.PowerUpController;
 import GameEngine.Stage.StageController;
 import GameEngine.Time.TimeController;
 import Objects.GameObject.GameObject;
@@ -35,6 +36,7 @@ public class UIController {
     private final GameController gameController = GameController.instance();
     private final AssetManager assetManager = GameResources.getAssetsManager();
     private final ScoreController scoreController = ScoreController.instance();
+    private final PowerUpController powerUpController = PowerUpController.instance();
 
     // Background
     private final float maxScrollingSpeed = (float) (gameResources.getWorldHeight()) / 4;
@@ -106,6 +108,7 @@ public class UIController {
         drawEnemies();
         drawPlayer();
         drawBulletSpawners(); // Only for testing
+        drawPowerUp();
     }
 
     public void setBatch(Batch batch) {
@@ -262,15 +265,17 @@ public class UIController {
 
         // Then calculate string and draw the time
         time = timeController.getElapsedTime();
-        if ((time % 60) < 10){
+        if ((time % 60) < 10) {
             min = time / 60;
             time = (time % 60);
             timePlaceHolder = ":0";
-        } else if ((time % 60) >= 10){
+        } else if ((time % 60) >= 10) {
             min = time / 60;
             timePlaceHolder = ":";
-            time = (time  % 60);
+            time = (time % 60);
         }
+
+        font.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20, gameResources.getWorldHeight() - 235);
 
         if(xAxisFlipAttack){
             fontFlipped.draw(batch, min + timePlaceHolder + time, gameResources.getScreenTwoStart() + TimeElapsed.getWidth() - 20,235);
@@ -308,5 +313,10 @@ public class UIController {
         if (timeController.getElapsedTime() >= start && timeController.getElapsedTime() != 0 && timeController.getElapsedTime() < start + duration) {
             batch.draw(stage, WORLD_WIDTH / 4 - stageMessageWidth / 2, WORLD_HEIGHT - stageMessageHeight - 50, stageMessageWidth, stageMessageHeight);
         }
+    }
+
+    public void drawPowerUp() {
+        List<GameObject> objectList = (List<GameObject>) (List<?>) powerUpController.getPowerUpList();
+        drawList(objectList.listIterator());
     }
 }
