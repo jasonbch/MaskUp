@@ -1,10 +1,11 @@
 package Objects.GameObject;
 
+import GameEngine.Observer.GameSubject;
 import GameEngine.Resource.GameResources;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-public class PowerUp extends GameObject {
+public class PowerUp extends GameObject implements GameSubject {
     protected String name = "PowerUp";
     protected int speed = 0;
     protected String[] acceptableTargets = new String[]{"Player"};

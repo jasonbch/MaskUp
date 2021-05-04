@@ -24,7 +24,6 @@ public class EnemySpawningController implements GameObserver {
     private static final GameResources gameResources = GameResources.instance();
     private static final ScoreController scoreController = ScoreController.instance();
     private static final BulletSpawnerSpawningController bulletSpawnerSpawningController = BulletSpawnerSpawningController.instance();
-    private static final PowerUpController powerUpController = PowerUpController.instance();
 
     // Implement Singleton
     private static final EnemySpawningController uniqueInstance = new EnemySpawningController();
@@ -72,7 +71,7 @@ public class EnemySpawningController implements GameObserver {
         concreteEnemy.addObserver(bulletSpawner);
 
         // Make powerUpController observe the enemy
-        concreteEnemy.attachGameObserver(powerUpController);
+        concreteEnemy.attachGameObserver(PowerUpController.instance());
 
         // Attach Observers
         concreteEnemy.attachGameObserver(this);
