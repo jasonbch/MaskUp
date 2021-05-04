@@ -15,8 +15,10 @@ public class PlayerCollisionCommand implements Command {
     }
 
     public void execute() {
-        if (player.collide(bulletSpawningController.getEnemyAmmoList().listIterator())) {
-            bulletSpawningController.clearEnemyAmmoList();
+        if (!player.isGod()) {
+            if (player.collide(bulletSpawningController.getEnemyAmmoList().listIterator())) {
+                bulletSpawningController.clearEnemyAmmoList();
+            }
         }
         if (player.collideWithPowerUp(powerUpController.getPowerUpList().listIterator())) {
         }

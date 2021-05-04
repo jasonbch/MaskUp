@@ -26,6 +26,7 @@ public class Player extends Entity {
     private int defaultKeySet[] = {Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.DOWN};
     private int arrowKeySet[] = {Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.DOWN};
     private int wasdKeySet[] = {Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S};
+    private boolean isGod;
 
     /**
      * Constructor for player
@@ -85,7 +86,14 @@ public class Player extends Entity {
 
     public void setInvulnerabilityStartTime(long time) {
         this.startInvulnerabilityTime = time;
+    }
 
+    public boolean isGod() {
+        return this.isGod;
+    }
+
+    public void setGodMode(boolean mode) {
+        this.isGod = mode;
     }
 
     /**

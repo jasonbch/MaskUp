@@ -118,7 +118,7 @@ public class GameController implements GameObserver, GameSubject {
 
     public void startGodMode() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
-            player.setInvulnerable(!player.isInvulnerable());
+            player.setGodMode(!player.isGod());
             if (player.isInvulnerable()) {
                 System.out.println("God Mode: Activated");
                 godMode = true;
