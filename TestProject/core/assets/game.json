@@ -10,7 +10,7 @@
     {
         "Player":
         {
-            "maxHealth": 20,
+            "maxHealth": 5,
             "speed": 330,
             "bullet": "Bullet",
             "texture": "Player.png",
