@@ -41,7 +41,8 @@
         }
     },
     "behaviors":
-    {   "4-1":
+    {
+        "4-1":
         {
             "enemyName": "Covid",
             "startTimeFromStage": 9,
@@ -129,7 +130,7 @@
             "speed": 150,
             "timeBetweenShot": 0.9,
             "enemyMovementPattern": "PatternStatic",
-            "bulletFormation": "CircularBulletFormation"
+            "bulletFormation":  "CircularBulletFormation"
         },
         "4-8":
         {

@@ -51,9 +51,6 @@ public class EnemyMovementPatternDiamond extends EnemyMovementPattern {
 
                 enemy.setXPosition((float) (enemy.getXPosition() + (-1.4 * enemy.getXMultiplier() * enemy.getSpeed() * deltaTime)));
                 enemy.setYPosition((float) (enemy.getYPosition() + (1.6 * enemy.getSpeed() * enemy.getYMultiplier() * deltaTime)));
-            } else {
-                //System.out.println("idk where im at");
-                //System.out.println(enemy.getXPosition() + ", " + enemy.getYPosition());
             }
         }
     }

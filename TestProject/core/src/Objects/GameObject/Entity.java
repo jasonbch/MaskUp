@@ -49,8 +49,6 @@ public abstract class Entity extends GameObject {
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.internal(gameResources.getGameJSON()));
 
-        System.out.println("Entity: " + gameResources.getDifficulty());
-
         // Initialize all the waves
         JsonValue element = base.get("entities").get(getClass().getSimpleName());
         if (element != null) {
