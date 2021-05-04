@@ -15,6 +15,7 @@ public class PowerUp extends GameObject implements GameSubject {
     public PowerUp(float xPosition, float yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+
     }
 
     public Rectangle getBoundingBox() {

@@ -20,8 +20,8 @@ public class PowerUpController implements GameObserver {
     }
 
     public void add(Enemy enemy) {
-        float xPos = enemy.getXPosition();
-        float yPos = enemy.getYAxis();
+        float xPos = enemy.getXPosition() + enemy.getImageWidth()/2;
+        float yPos = enemy.getYPosition() + enemy.getImageHeight()/2;
         PowerUp powerUp = powerUpFactory.create(xPos, yPos);
         powerUp.attachGameObserver(this);
         powerUpList.add(powerUp);
